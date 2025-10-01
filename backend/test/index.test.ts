@@ -4,6 +4,8 @@ import { handler } from '../src/index'
 describe('backend handler', () => {
   it('returns a 200 status', async () => {
     const res = await handler(null)
-    expect(res.status).toBe(200)
+    expect(res.statusCode).toBe(200)
+    const body = JSON.parse(res.body)
+    expect(body.message).toBe('Hello from Effect-TS')
   })
 })

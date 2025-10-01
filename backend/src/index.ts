@@ -1,6 +1,14 @@
+import { run } from './service'
+
+/**
+ * AWS Lambda (HTTP API / API Gateway) compatible handler
+ * Returns an object with statusCode and body (string).
+ */
 export const handler = async (event: unknown) => {
+  const body = await run()
   return {
-    status: 200,
-    body: 'Hello from Effect-TS backend (placeholder)'
+    statusCode: 200,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: body })
   }
 }

@@ -4,10 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/src/index.js",
+    "dev": "tsc -w",
     "test": "vitest"
   },
   "dependencies": {
-    "@effect/io": "^0.35.0"
+    "@effect/io": "^0.35.0",
+    "@effect/data": "^0.10.0"
   },
   "devDependencies": {
     "vitest": "^1.0.0",

@@ -8,8 +8,10 @@
     "start": "node dist/server.js",
     "dev": "ts-node-esm src/server.ts",
     "test": "vitest",
-  "migration:generate": "npm run build && drizzle-kit generate --config=./db/configs/drizzle.config.ts --name=all-tables --custom",
-  "migration:check": "node ./scripts/check-drizzle-schema.mjs"
+    "migration:generate": "npm run build && drizzle-kit generate --config=./db/configs/drizzle.config.ts --name=all-tables --custom",
+    "migration:check": "node ./scripts/check-drizzle-schema.mjs",
+    "migration:push": "node -r esbuild-register ./db/migrate.ts",
+    "db:check": "node ./scripts/check-db-connection.mjs"
   },
   "dependencies": {
     "@effect/data": "^0.10.0",
@@ -23,6 +25,7 @@
     "@types/pg": "^8.15.5",
     "dotenv": "^17.2.3",
     "drizzle-kit": "^0.31.5",
+    "esbuild-register": "^3.6.0",
     "typescript": "^5.0.0",
     "vitest": "^1.0.0"
   }

@@ -4,14 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "start": "node dist/src/index.js",
-    "dev": "tsc -w",
+  "build": "tsc -p tsconfig.json",
+  "start": "node dist/server.js",
+  "dev": "ts-node-esm src/server.ts",
     "test": "vitest"
   },
   "dependencies": {
     "@effect/io": "^0.35.0",
-    "@effect/data": "^0.10.0"
+    "@effect/data": "^0.10.0",
+    "fastify": "^4.22.0",
+    "@fastify/aws-lambda": "^3.0.0"
   },
   "devDependencies": {
     "vitest": "^1.0.0",

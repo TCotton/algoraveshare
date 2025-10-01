@@ -1,4 +1,4 @@
-import { run } from './service'
+import { run } from './service.js'
 
 /**
  * AWS Lambda (HTTP API / API Gateway) compatible handler

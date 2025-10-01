@@ -1,4 +1,3 @@
-import { pipe } from '@effect/data/Function'
 import * as T from '@effect/io/Effect'
 
 export const helloEffect = T.succeed('Hello from Effect-TS')

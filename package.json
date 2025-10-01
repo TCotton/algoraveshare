@@ -7,7 +7,10 @@
   "scripts": {
     "test": "vitest",
     "test:unit": "vitest",
-    "install:all": "npm install && cd backend && npm install"
+    "install:all": "frontend && backend",
+    "frontend": "cd backend && npm ci && npm test",
+    "backend": "cd backend && npm ci && npm test",
+    "infrastructure": "cd infrastructure && terraform init -backend=false && terraform validate"
   },
   "author": "",
   "license": "ISC",

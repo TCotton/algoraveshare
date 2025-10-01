@@ -37,15 +37,21 @@
 - Include exact file paths in descriptions
 
 ## Path Conventions
+- **Monorepo (this repository)**: `frontend/` (Next.js), `backend/` (Effect-TS), `infrastructure/` (Terraform)
 - **Single project**: `src/`, `tests/` at repository root
 - **Web app**: `backend/src/`, `frontend/src/`
 - **Mobile**: `api/src/`, `ios/src/` or `android/src/`
-- Paths shown below assume single project - adjust based on plan.md structure
+ - Paths shown below assume single project - adjust based on plan.md structure
 
 ## Phase 3.1: Setup
 - [ ] T001 Create project structure per implementation plan
 - [ ] T002 Initialize [language] project with [framework] dependencies
 - [ ] T003 [P] Configure linting and formatting tools
+  
+### Example Stack Guidance
+- `frontend/` (Next.js): Node.js >=22, ESM, React + Next.js conventions, unit tests with Vitest
+- `backend/` (Effect-TS): TypeScript runtime patterns, Node.js >=22, ESM modules, unit tests with Vitest
+- `infrastructure/` (Terraform): Validate `.tf` syntax and run `terraform fmt` and `terraform validate` in CI
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**

@@ -1,50 +1,127 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+
+Version change: 1.1.0 -> 1.2.0
+
+Modified principles:
+ - Project structure and technology stacks explicitly recorded (frontend/backend/infrastructure)
+
+Added guidance:
+ - Frontend: Next.js required for `frontend/` folder
+ - Backend: Effect-TS required for `backend/` folder
+ - Infrastructure: Terraform required for `infrastructure/` folder
+
+Added sections:
+ - Project Structure: three top-level folders and their primary technologies
+
+Templates requiring updates:
+ - .specify/templates/plan-template.md ✅ updated
+ - .specify/templates/spec-template.md ✅ updated
+ - .specify/templates/tasks-template.md ✅ updated
+ - .specify/templates/agent-file-template.md ⚠ pending
+
+Follow-up TODOs:
+ - Ensure CI pipelines for `frontend/` and `backend/` use Node 22 and appropriate build steps for Next.js and Effect-TS
+ - Add Terraform validation steps in the `infrastructure/` CI pipeline
+
+
+# AlgoraveShare Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Library-First
+Every feature or capability should be modelled as a well-scoped, independently
+testable library or package. Libraries MUST have a clear public contract,
+automated tests, and documentation that allows reuse without heavy cross-team
+coordination. Rationale: modular design improves testability, reviewability,
+and reuse.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. CLI-First Interfaces
+Where applicable, libraries and services MUST expose a CLI or programmatic
+interface that supports stdin/args → stdout and structured output (JSON) for
+automation. Rationale: text protocols simplify automation, CI integration, and
+debugging across environments.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Test-First (NON-NEGOTIABLE)
+Tests MUST be written before implementation (TDD). Every new capability MUST
+have failing tests committed first, followed by implementation that makes the
+tests pass. Rationale: ensures design is verifiable and prevents regressions.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Integration Testing
+Integration tests are RECOMMENDED for cross-boundary changes (API contracts,
+shared schemas, and inter-service communication). Integration tests MUST be
+added when changes affect multiple services or external systems. For
+single-library or single-package changes, comprehensive unit tests using
+Vitest MAY be sufficient. Rationale: maintain fast, reliable unit-test-driven
+development while still requiring integration coverage when multiple systems
+interact.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Observability & Versioning
+Structured logging, error traces, and actionable metrics MUST be part of any
+service or long-running process. Releases MUST follow semantic versioning for
+public packages; breaking changes MUST increment MAJOR and be documented with a
+migration guide. Rationale: observability reduces incident time-to-resolution
+and clear versioning communicates compatibility guarantees.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Technology Constraints
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+The project sets minimal runtime constraints to ensure reproducible builds and
+predictable CI behavior:
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+- Minimum LTS Node.js version: 22 (Node.js 22.x, LTS). Tooling, CI, and
+	developer environments MUST target Node.js >= 22 where Node is used.
+- JavaScript modules: All JavaScript/Node projects and packages in this
+	repository MUST use ECMAScript Modules (ESM). Package manifests MUST set
+	`"type": "module"` when using .js entry points, or use `.mjs` extensions
+	for ESM files. CI and tooling configurations MUST be compatible with ESM.
+- When Node.js is used, package manifests SHOULD include an `engines` entry to
+	declare the minimum Node version. CI pipelines MUST enforce the declared
+	engines version during builds.
+- Unit testing: Vitest is the mandated unit testing framework for this
+	repository. Unit tests MUST be written using Vitest and included in CI.
+	Integration and E2E tests are optional and required only when changes
+	cross system boundaries (see Integration Testing above). Rationale: keep
+	unit testing fast and consistent across the codebase while ensuring
+	integration coverage where it matters.
+- Other technology constraints (databases, language runtimes) SHOULD be listed
+	in feature-level `plan.md` files when relevant. If unspecified, mark as
+	NEEDS CLARIFICATION in the spec.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Development Workflow
+
+- Pull Requests: All changes MUST be proposed via PRs and reviewed by at least
+	one other maintainer. PRs that affect principles in this constitution MUST
+	include a short justification and a passing Constitution Check (see below).
+- CI Gates: Every PR MUST run unit tests, integration tests (when affected),
+	linting, and the Constitution Check step that verifies compliance with the
+	Technology Constraints and Core Principles.
+- Code Review: Changes that increase system complexity or add runtime
+	dependencies MUST be accompanied by a migration plan and cost/benefit
+	analysis.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+Amendments:
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+- Amendments to this constitution MUST be proposed as a PR against
+	`.specify/memory/constitution.md` and include a migration or compliance
+	verification plan. For non-trivial changes the proposal MUST include a
+	compatibility impact assessment.
+- Approval: A simple majority of active maintainers (as defined in
+	`MAINTAINERS.md` or repository settings) is required for MINOR/PATCH changes.
+	MAJOR governance changes (removing or redefining an existing core principle)
+	require a 2/3 majority and a 2-week notice period.
+
+Versioning policy:
+
+- MAJOR: Backwards-incompatible governance or principle removals/redefinitions.
+- MINOR: New principles or materially expanded guidance.
+- PATCH: Clarifications, wording, typo fixes, or non-semantic refinements.
+
+Compliance review expectations:
+
+- The Constitution Check is enforced in `/plan` and `/tasks` generation and CI
+	where applicable. Non-compliant changes MUST be documented with an
+	accepted Complexity Tracking entry that justifies deviations.
+
+**Version**: 1.2.0 | **Ratified**: 2025-10-01 | **Last Amended**: 2025-10-01

@@ -38,6 +38,12 @@ contract or clearly mark where the contract will be stored (e.g., `backend/opena
 The spec MUST list required endpoints, schemas, and any security schemes. API
 changes must be represented in the OpenAPI contract before implementation.
 
+Storage & Auth note: The constitution requires Supabase as the default BaaS
+for PostgreSQL and authentication. If the feature stores data in Postgres or
+relies on user authentication, specify how Supabase will be used (tables,
+RLS policies, auth flows, and secrets handling). If Supabase is not suitable,
+mark the spec with a Constitution Check justification.
+
 ### Section Requirements
 - **Mandatory sections**: Must be completed for every feature
 - **Optional sections**: Include only when relevant to the feature

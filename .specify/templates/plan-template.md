@@ -37,7 +37,7 @@
 **Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75, Node.js 22 (LTS) or NEEDS CLARIFICATION]  
 **Module Format**: [e.g., ESM (type: module) when using Node.js, or NEEDS CLARIFICATION]
 **Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
+**Storage**: [if applicable, e.g., PostgreSQL (Supabase), CoreData, files or N/A]  
 **Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
 **Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
 **Project Type**: [single/web/mobile - determines source structure]  
@@ -49,6 +49,11 @@
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
 [Gates determined based on constitution file]
+
+Notes: The project's constitution mandates the use of Supabase as the default
+Backend-as-a-Service for PostgreSQL and user authentication. Plans that require
+an alternative to Supabase MUST include a Constitution Check justification and
+an explicit approval record (see Governance section of the constitution).
 
 ## Project Structure
 

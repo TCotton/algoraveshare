@@ -48,6 +48,10 @@
 ### Example Stack Guidance
  - [ ] T004 [P] API-first: create `backend/openapi/` (or per-service folder) and add OpenAPI stub(s)
  - [ ] T005 Add OpenAPI lint/validation as a CI job (e.g., using openapi-cli or Spectral)
+ - [ ] T006 Add Supabase integration tasks:
+    - Provision Supabase project (or document existing project)
+    - Create initial database schema migration mapped to Supabase
+    - Add CI steps to populate SUPABASE_* secrets from GitHub Actions secrets or Docker secrets
 - `frontend/` (Next.js): Node.js >=22, ESM, React + Next.js conventions, unit tests with Vitest
 - `backend/` (Effect-TS): TypeScript runtime patterns, Node.js >=22, ESM modules, unit tests with Vitest
 - `infrastructure/` (Terraform): Validate `.tf` syntax and run `terraform fmt` and `terraform validate` in CI

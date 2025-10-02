@@ -1,18 +1,17 @@
 <!--
 Sync Impact Report
 
-Version change: 1.1.0 -> 1.2.0
+Version change: 1.4.0 -> 1.5.0
 
 Modified principles:
- - Project structure and technology stacks explicitly recorded (frontend/backend/infrastructure)
+ - Technology Constraints: require OpenAPI/Swagger for API-first development
 
 Added guidance:
- - Frontend: Next.js required for `frontend/` folder
- - Backend: Effect-TS required for `backend/` folder
- - Infrastructure: Terraform required for `infrastructure/` folder
+ - API-first: HTTP APIs MUST be designed with an OpenAPI (Swagger) spec before implementation
+ - CI: API contract validation (OpenAPI lint/validator) MUST be part of CI for services exposing HTTP endpoints
 
 Added sections:
- - Project Structure: three top-level folders and their primary technologies
+ - API Design: OpenAPI/Swagger requirement and contract-first guidance
 
 Templates requiring updates:
  - .specify/templates/plan-template.md ✅ updated
@@ -21,8 +20,8 @@ Templates requiring updates:
  - .specify/templates/agent-file-template.md ⚠ pending
 
 Follow-up TODOs:
- - Ensure CI pipelines for `frontend/` and `backend/` use Node 22 and appropriate build steps for Next.js and Effect-TS
- - Add Terraform validation steps in the `infrastructure/` CI pipeline
+ - Add OpenAPI lint/validator steps to CI for backend services
+ - Add guidance on where to store OpenAPI files (e.g., `backend/openapi/`)
 
 
 # AlgoraveShare Constitution
@@ -133,4 +132,4 @@ Compliance review expectations:
 	where applicable. Non-compliant changes MUST be documented with an
 	accepted Complexity Tracking entry that justifies deviations.
 
-**Version**: 1.3.0 | **Ratified**: 2025-10-01 | **Last Amended**: 2025-10-02
+**Version**: 1.5.0 | **Ratified**: 2025-10-01 | **Last Amended**: 2025-10-02

@@ -12,7 +12,9 @@
     "migration:check": "node ./scripts/check-drizzle-schema.mjs",
     "migration:push": "node -r esbuild-register ./db/migrate.ts",
     "db:check": "node ./scripts/check-db-connection.mjs",
-    "check:tests": "node -e \"const {execSync}=require('child_process');let f='';try{f=execSync('git diff --name-only --cached').toString().trim();}catch(e){} if(!f)f=execSync('git --no-pager diff --name-only HEAD~1 HEAD').toString().trim(); if(!f)console.log('No changed files found'); process.env.CHANGED_FILES=f; require('../.github/actions/check-tests/index.js');\""
+    "check:tests": "node -e \"const {execSync}=require('child_process');let f='';try{f=execSync('git diff --name-only --cached').toString().trim();}catch(e){} if(!f)f=execSync('git --no-pager diff --name-only HEAD~1 HEAD').toString().trim(); if(!f)console.log('No changed files found'); process.env.CHANGED_FILES=f; require('../.github/actions/check-tests/index.js');\"",
+    "lint": "eslint --ext .js,.mjs,.cjs,.ts,.mts,.cts src/ scripts/ || true",
+    "lint:openapi": "spectral lint openapi/openapi.yaml --ruleset .spectral.yml || true"
   },
   "dependencies": {
     "@effect/data": "^0.10.0",
@@ -22,12 +24,18 @@
     "fastify": "^4.22.0",
     "pg": "^8.16.3"
   },
+  
   "devDependencies": {
+    "@typescript-eslint/parser": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@types/pg": "^8.15.5",
     "dotenv": "^17.2.3",
     "drizzle-kit": "^0.31.5",
     "esbuild-register": "^3.6.0",
     "typescript": "^5.0.0",
-    "vitest": "^1.0.0"
+    "vitest": "^1.0.0",
+    "@stoplight/spectral-cli": "^6.8.0"
   }
 }
+
+

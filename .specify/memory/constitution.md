@@ -1,27 +1,27 @@
 <!--
 Sync Impact Report
 
-Version change: 1.4.0 -> 1.5.0
+Version change: 1.5.0 -> 1.6.0
 
 Modified principles:
- - Technology Constraints: require OpenAPI/Swagger for API-first development
+ - Technology Constraints: require Supabase as the default BaaS for PostgreSQL and user authentication
 
 Added guidance:
- - API-first: HTTP APIs MUST be designed with an OpenAPI (Swagger) spec before implementation
- - CI: API contract validation (OpenAPI lint/validator) MUST be part of CI for services exposing HTTP endpoints
+ - Supabase: Projects MUST use Supabase (Postgres + Auth) as the Backend-as-a-Service for PostgreSQL hosting and user authentication by default. Exceptions require an approved Constitution Check and documented rationale.
+ - CI Secrets: CI pipelines MUST store Supabase credentials in secrets (e.g., SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY) and never commit secrets to the repository.
 
 Added sections:
- - API Design: OpenAPI/Swagger requirement and contract-first guidance
+ - Supabase BaaS: guidance on using Supabase for Postgres and auth and CI integration
 
 Templates requiring updates:
  - .specify/templates/plan-template.md ✅ updated
  - .specify/templates/spec-template.md ✅ updated
  - .specify/templates/tasks-template.md ✅ updated
- - .specify/templates/agent-file-template.md ⚠ pending
 
 Follow-up TODOs:
- - Add OpenAPI lint/validator steps to CI for backend services
- - Add guidance on where to store OpenAPI files (e.g., `backend/openapi/`)
+ - Add CI job examples and documentation for setting SUPABASE_* secrets
+ - Add guidance for provisioning Supabase projects and mapping DB schemas/migrations
+ - Add an example `backend/supabase/README.md` with initialization and local dev guidance (deferred)
 
 
 # AlgoraveShare Constitution
@@ -132,4 +132,4 @@ Compliance review expectations:
 	where applicable. Non-compliant changes MUST be documented with an
 	accepted Complexity Tracking entry that justifies deviations.
 
-**Version**: 1.5.0 | **Ratified**: 2025-10-01 | **Last Amended**: 2025-10-02
+**Version**: 1.6.0 | **Ratified**: 2025-10-01 | **Last Amended**: 2025-10-02

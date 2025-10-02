@@ -4,19 +4,29 @@
   "private": true,
   "type": "module",
   "scripts": {
-  "build": "tsc -p tsconfig.json",
-  "start": "node dist/server.js",
-  "dev": "ts-node-esm src/server.ts",
-    "test": "vitest"
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "dev": "ts-node-esm src/server.ts",
+    "test": "vitest",
+    "migration:generate": "npm run build && drizzle-kit generate --config=./db/configs/drizzle.config.ts --name=all-tables --custom",
+    "migration:check": "node ./scripts/check-drizzle-schema.mjs",
+    "migration:push": "node -r esbuild-register ./db/migrate.ts",
+    "db:check": "node ./scripts/check-db-connection.mjs"
   },
   "dependencies": {
-    "@effect/io": "^0.35.0",
     "@effect/data": "^0.10.0",
+    "@effect/io": "^0.35.0",
+    "@fastify/aws-lambda": "^3.0.0",
+    "drizzle-orm": "^0.44.5",
     "fastify": "^4.22.0",
-    "@fastify/aws-lambda": "^3.0.0"
+    "pg": "^8.16.3"
   },
   "devDependencies": {
-    "vitest": "^1.0.0",
-    "typescript": "^5.0.0"
+    "@types/pg": "^8.15.5",
+    "dotenv": "^17.2.3",
+    "drizzle-kit": "^0.31.5",
+    "esbuild-register": "^3.6.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
   }
 }

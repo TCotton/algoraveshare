@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16
+    container_name: algoraveshare-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: testDB
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    container_name: algoraveshare-adminer
+    ports:
+      - "8080:8080"
+
+volumes:
+  db_data:
+
+secrets:
+  postgres_user:
+    file: docker/secrets/postgres_user.txt
+  postgres_password:
+    file: docker/secrets/postgres_password.txt
+  postgres_db:
+    file: docker/secrets/postgres_db.txt

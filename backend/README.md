@@ -18,3 +18,39 @@ Local Fastify server:
 AWS Lambda handler:
 - The Fastify server is exposed via `src/aws.ts` using `@fastify/aws-lambda`.
 - After building (`npm run build`), deploy `dist/src/aws.handler` as the Lambda handler.
+
+Local development (database & migrations)
+--------------------------------------
+
+This repo includes a docker-compose.yml that starts a Postgres database and Adminer (a web DB UI).
+
+1. Start the database service:
+
+```bash
+docker-compose up -d db
+```
+
+2. Credentials: Docker secrets vs .env
+
+By default the repository's `docker-compose.yml` uses Docker secrets for the Postgres credentials. The secret files live under `docker/secrets/` and contain the default values (postgres/postgres/testDB).
+
+If you prefer a simple local flow, create `backend/.env` from the example:
+
+```bash
+cp backend/.env.example backend/.env
+# Edit backend/.env if you need different credentials or host
+```
+
+3. Install backend dependencies and run migrations:
+
+```bash
+cd backend
+npm ci
+npm run migration:push
+```
+
+4. Troubleshooting
+
+- If you get ECONNREFUSED, ensure Docker Desktop is running and that port 5432 is not blocked.
+- Use `docker-compose logs db --tail=200` to inspect DB startup logs.
+- Adminer will be available at http://localhost:8080 (user/postgres, password/postgres, database/testDB).

@@ -54,3 +54,8 @@ npm run migration:push
 - If you get ECONNREFUSED, ensure Docker Desktop is running and that port 5432 is not blocked.
 - Use `docker-compose logs db --tail=200` to inspect DB startup logs.
 - Adminer will be available at http://localhost:8080 (user/postgres, password/postgres, database/testDB).
+
+Testing
+-------
+
+All backend code must include unit tests written with Vitest. Tests should be colocated with source files or in a `test/` folder. The repository CI enforces that new source files have corresponding tests.

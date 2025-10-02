@@ -11,7 +11,8 @@
     "migration:generate": "npm run build && drizzle-kit generate --config=./db/configs/drizzle.config.ts --name=all-tables --custom",
     "migration:check": "node ./scripts/check-drizzle-schema.mjs",
     "migration:push": "node -r esbuild-register ./db/migrate.ts",
-    "db:check": "node ./scripts/check-db-connection.mjs"
+    "db:check": "node ./scripts/check-db-connection.mjs",
+    "check:tests": "node -e \"const {execSync}=require('child_process');let f='';try{f=execSync('git diff --name-only --cached').toString().trim();}catch(e){} if(!f)f=execSync('git --no-pager diff --name-only HEAD~1 HEAD').toString().trim(); if(!f)console.log('No changed files found'); process.env.CHANGED_FILES=f; require('../.github/actions/check-tests/index.js');\""
   },
   "dependencies": {
     "@effect/data": "^0.10.0",

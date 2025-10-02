@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "vitest"
+    "test": "vitest",
+    "check:tests": "node -e \"const {execSync}=require('child_process');let f='';try{f=execSync('git diff --name-only --cached').toString().trim();}catch(e){} if(!f)f=execSync('git --no-pager diff --name-only HEAD~1 HEAD').toString().trim(); if(!f)console.log('No changed files found'); process.env.CHANGED_FILES=f; require('../.github/actions/check-tests/index.js');\""
   },
   "dependencies": {
     "next": "^14.0.0",

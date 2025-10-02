@@ -149,4 +149,5 @@ vite.config.ts.timestamp-*
 .idea
 .specify/
 .history/
+secret.json
 docker

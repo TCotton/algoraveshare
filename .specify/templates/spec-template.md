@@ -49,6 +49,7 @@ Styling note: If the feature includes frontend work, the frontend MUST use the
 will be imported and applied (package name, import path, and any build steps).
 
 ### Section Requirements
+**Linting**: If the feature touches JavaScript/TypeScript code, the spec MUST note any ESLint v9 rules that are required or relaxed for the feature.
 - **Mandatory sections**: Must be completed for every feature
 - **Optional sections**: Include only when relevant to the feature
 - When a section doesn't apply, remove it entirely (don't leave as "N/A")

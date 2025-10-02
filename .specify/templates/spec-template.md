@@ -44,6 +44,10 @@ relies on user authentication, specify how Supabase will be used (tables,
 RLS policies, auth flows, and secrets handling). If Supabase is not suitable,
 mark the spec with a Constitution Check justification.
 
+Styling note: If the feature includes frontend work, the frontend MUST use the
+`theme-catppuccin` theme from `@webtui`. The spec must document how the theme
+will be imported and applied (package name, import path, and any build steps).
+
 ### Section Requirements
 - **Mandatory sections**: Must be completed for every feature
 - **Optional sections**: Include only when relevant to the feature

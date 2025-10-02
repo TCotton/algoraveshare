@@ -1,17 +1,20 @@
 <!--
 Sync Impact Report
 
-Version change: 1.5.0 -> 1.6.0
+Version change: 1.6.0 -> 1.7.0
 
 Modified principles:
  - Technology Constraints: require Supabase as the default BaaS for PostgreSQL and user authentication
+ - Technology Constraints: require frontend styling to use the `theme-catppuccin` theme from `@webtui`
 
 Added guidance:
  - Supabase: Projects MUST use Supabase (Postgres + Auth) as the Backend-as-a-Service for PostgreSQL hosting and user authentication by default. Exceptions require an approved Constitution Check and documented rationale.
  - CI Secrets: CI pipelines MUST store Supabase credentials in secrets (e.g., SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY) and never commit secrets to the repository.
+ - Frontend styling: Frontend projects MUST include and use the `theme-catppuccin` theme from the `@webtui` package for UI styling; deviations require a Constitution Check justification.
 
 Added sections:
  - Supabase BaaS: guidance on using Supabase for Postgres and auth and CI integration
+ - Frontend Styling: guidance on required theme and where to place theme integration
 
 Templates requiring updates:
  - .specify/templates/plan-template.md ✅ updated
@@ -21,7 +24,7 @@ Templates requiring updates:
 Follow-up TODOs:
  - Add CI job examples and documentation for setting SUPABASE_* secrets
  - Add guidance for provisioning Supabase projects and mapping DB schemas/migrations
- - Add an example `backend/supabase/README.md` with initialization and local dev guidance (deferred)
+ - Add example frontend snippets showing how to import and apply `@webtui/theme-catppuccin`
 
 
 # AlgoraveShare Constitution
@@ -90,6 +93,11 @@ Integration and E2E tests are optional and required only when changes
 	unit testing fast and consistent across the codebase while ensuring
 	integration coverage where it matters.
 
+- Frontend styling: Frontend projects MUST include and use the `theme-catppuccin`
+  theme from the `@webtui` NPM package for UI styling. The theme must be
+  installed and integrated into the frontend build/runtime. Exceptions require
+  an approved Constitution Check and documented rationale.
+
 This constitution change increments the version and records the amendment date below.
 - Other technology constraints (databases, language runtimes) SHOULD be listed
 	in feature-level `plan.md` files when relevant. If unspecified, mark as
@@ -132,4 +140,4 @@ Compliance review expectations:
 	where applicable. Non-compliant changes MUST be documented with an
 	accepted Complexity Tracking entry that justifies deviations.
 
-**Version**: 1.6.0 | **Ratified**: 2025-10-01 | **Last Amended**: 2025-10-02
+**Version**: 1.7.0 | **Ratified**: 2025-10-01 | **Last Amended**: 2025-10-02

@@ -52,6 +52,12 @@
     - Provision Supabase project (or document existing project)
     - Create initial database schema migration mapped to Supabase
     - Add CI steps to populate SUPABASE_* secrets from GitHub Actions secrets or Docker secrets
+ - [ ] T007 Frontend styling: install and integrate `@webtui/theme-catppuccin`
+    - Add dependency to `frontend/package.json`
+    - Import theme in the frontend entry (e.g., `frontend/src/theme.ts`) and
+       apply globally
+    - Add CI step to verify the frontend build includes the theme (simple
+       smoke test or asset check)
 - `frontend/` (Next.js): Node.js >=22, ESM, React + Next.js conventions, unit tests with Vitest
 - `backend/` (Effect-TS): TypeScript runtime patterns, Node.js >=22, ESM modules, unit tests with Vitest
 - `infrastructure/` (Terraform): Validate `.tf` syntax and run `terraform fmt` and `terraform validate` in CI

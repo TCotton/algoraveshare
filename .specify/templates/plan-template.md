@@ -44,6 +44,7 @@
 **Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
 **Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
 **Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Styling**: [e.g., `@webtui/theme-catppuccin` when the frontend is present]
 
 ## Constitution Check
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
@@ -54,6 +55,12 @@ Notes: The project's constitution mandates the use of Supabase as the default
 Backend-as-a-Service for PostgreSQL and user authentication. Plans that require
 an alternative to Supabase MUST include a Constitution Check justification and
 an explicit approval record (see Governance section of the constitution).
+
+Also: The constitution mandates the `theme-catppuccin` theme from `@webtui`
+for frontend styling. If the feature includes a frontend, the plan MUST list
+how the theme will be installed and integrated (package name, import path,
+and any build/tooling steps). Deviations require a Constitution Check
+justification.
 
 ## Project Structure
 

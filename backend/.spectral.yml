@@ -1,0 +1,17 @@
+extends: ["spectral:oas"]
+
+rules:
+  info-contact:
+    description: 'Info object should contain contact information'
+    message: 'Add contact information to the OpenAPI info block.'
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+
+  operation-operationId:
+    description: 'Operations should have operationId present and unique.'
+    message: 'operationId is required for every operation.'
+    given: $..operationId
+    then:
+      function: truthy

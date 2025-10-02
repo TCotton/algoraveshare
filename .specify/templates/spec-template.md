@@ -32,6 +32,12 @@
 - ❌ Avoid HOW to implement (no tech stack, APIs, code structure)
 - 👥 Written for business stakeholders, not developers
 
+### API-First (OpenAPI)
+If the feature includes HTTP APIs, the spec MUST include an OpenAPI (Swagger)
+contract or clearly mark where the contract will be stored (e.g., `backend/openapi/`).
+The spec MUST list required endpoints, schemas, and any security schemes. API
+changes must be represented in the OpenAPI contract before implementation.
+
 ### Section Requirements
 - **Mandatory sections**: Must be completed for every feature
 - **Optional sections**: Include only when relevant to the feature

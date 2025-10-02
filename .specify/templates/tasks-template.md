@@ -44,11 +44,10 @@
  - Paths shown below assume single project - adjust based on plan.md structure
 
 ## Phase 3.1: Setup
-- [ ] T001 Create project structure per implementation plan
-- [ ] T002 Initialize [language] project with [framework] dependencies
-- [ ] T003 [P] Configure linting and formatting tools
   
 ### Example Stack Guidance
+ - [ ] T004 [P] API-first: create `backend/openapi/` (or per-service folder) and add OpenAPI stub(s)
+ - [ ] T005 Add OpenAPI lint/validation as a CI job (e.g., using openapi-cli or Spectral)
 - `frontend/` (Next.js): Node.js >=22, ESM, React + Next.js conventions, unit tests with Vitest
 - `backend/` (Effect-TS): TypeScript runtime patterns, Node.js >=22, ESM modules, unit tests with Vitest
 - `infrastructure/` (Terraform): Validate `.tf` syntax and run `terraform fmt` and `terraform validate` in CI

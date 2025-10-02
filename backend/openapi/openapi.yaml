@@ -1,0 +1,32 @@
+openapi: 3.0.3
+info:
+  title: AlgoraveShare Backend API (stub)
+  version: 0.1.0
+  description: |
+    Minimal OpenAPI stub for AlgoraveShare. Use this as the starting point for
+    API-first development; extend paths and schemas as needed.
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+paths:
+  /hello:
+    get:
+      summary: Returns a greeting message
+      operationId: getHello
+      responses:
+        '200':
+          description: Successful greeting
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hello'
+components:
+  schemas:
+    Hello:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Hello from Effect-TS
+      required:
+        - message

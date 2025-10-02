@@ -30,7 +30,11 @@ This repo includes a docker-compose.yml that starts a Postgres database and Admi
 docker-compose up -d db
 ```
 
-2. Create a `.env` in the `backend/` folder (or copy `.env.example`):
+2. Credentials: Docker secrets vs .env
+
+By default the repository's `docker-compose.yml` uses Docker secrets for the Postgres credentials. The secret files live under `docker/secrets/` and contain the default values (postgres/postgres/testDB).
+
+If you prefer a simple local flow, create `backend/.env` from the example:
 
 ```bash
 cp backend/.env.example backend/.env

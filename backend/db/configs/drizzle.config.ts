@@ -1,10 +1,11 @@
 import { defineConfig } from "drizzle-kit";
 import path from 'path';
+import 'dotenv/config';
 
 export default defineConfig({
     dialect: "postgresql",
     dbCredentials: {
-        url: "postgresql://user:postgres@host:5432/testDB",
+        url: process.env.DB_URL as string,
     },
     schema: path.resolve(__dirname, 'schema.ts'),
     out: "./migrations",

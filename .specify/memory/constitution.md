@@ -47,6 +47,13 @@ Tests MUST be written before implementation (TDD). Every new capability MUST
 have failing tests committed first, followed by implementation that makes the
 tests pass. Rationale: ensures design is verifiable and prevents regressions.
 
+### III.b All code must have unit tests (NEW RULE)
+All production code added to the repository MUST be accompanied by unit tests.
+No code should be merged to the mainline without at least one unit test covering
+its primary behaviour. This is in addition to the TDD requirement above and
+applies to libraries, API handlers, UI components, and scripts. Rationale:
+guarantees baseline test coverage and enforces testable design.
+
 ### IV. Integration Testing
 Integration tests are RECOMMENDED for cross-boundary changes (API contracts,
 shared schemas, and inter-service communication). Integration tests MUST be
@@ -79,10 +86,12 @@ predictable CI behavior:
 	engines version during builds.
 - Unit testing: Vitest is the mandated unit testing framework for this
 	repository. Unit tests MUST be written using Vitest and included in CI.
-	Integration and E2E tests are optional and required only when changes
+Integration and E2E tests are optional and required only when changes
 	cross system boundaries (see Integration Testing above). Rationale: keep
 	unit testing fast and consistent across the codebase while ensuring
 	integration coverage where it matters.
+
+This constitution change increments the version and records the amendment date below.
 - Other technology constraints (databases, language runtimes) SHOULD be listed
 	in feature-level `plan.md` files when relevant. If unspecified, mark as
 	NEEDS CLARIFICATION in the spec.
@@ -124,4 +133,4 @@ Compliance review expectations:
 	where applicable. Non-compliant changes MUST be documented with an
 	accepted Complexity Tracking entry that justifies deviations.
 
-**Version**: 1.2.0 | **Ratified**: 2025-10-01 | **Last Amended**: 2025-10-01
+**Version**: 1.3.0 | **Ratified**: 2025-10-01 | **Last Amended**: 2025-10-02

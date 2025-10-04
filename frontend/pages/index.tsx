@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { projects, snippets, users, tags, projectTags, snippetTags, events } from '../data/dummy'
 
 export default function Home() {
@@ -21,6 +22,11 @@ export default function Home() {
                     return t ? <span key={t.tagId} className="tag">{t.name}</span> : null
                   })}
                 </div>
+                  <div>
+                      <h1>
+                          Read <Link href="/bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb">to the snippet</Link>
+                      </h1>
+                  </div>
               </article>
             ))}
 

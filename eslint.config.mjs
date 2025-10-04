@@ -14,7 +14,7 @@ const compat = new FlatCompat({
 });
 
 export default defineConfig([{
-    extends: compat.extends("../.eslintrc.json"),
+    extends: compat.extends(".eslintrc.json"),
 
     languageOptions: {
         globals: {

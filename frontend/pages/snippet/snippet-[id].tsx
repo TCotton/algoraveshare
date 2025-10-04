@@ -10,6 +10,7 @@ export default function SnippetPage({params}: { params: { id: string } }) {
         <main>
             <h1>Snippet by {owner?.name}</h1>
             <pre>{snippet.codeSample}</pre>
+
             <p>{snippet.description}</p>
         </main>
     )

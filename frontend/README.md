@@ -1,89 +1,202 @@
-# Frontend README
+## Frontend README
 
-Styling requirement (Constitution):
+This directory contains the Next.js frontend. It MUST (per the project constitution) include and use the Catppuccin theme from `@webtui/theme-catppuccin`, and styling is composed with Tailwind CSS (v4) + the theme layer.
 
-The frontend MUST include and use the `theme-catppuccin` theme from the
-`@webtui` NPM package for UI styling. This requirement is enforced by the
-project constitution; deviations require a documented Constitution Check with
-maintainer approval.
+---
+## 1. Tailwind + Next.js: Quick Start
 
-Quick start — install the theme
-
-1. From the `frontend` folder, install the package:
+From within `frontend/`:
 
 ```bash
-npm install @webtui/theme-catppuccin
-```
-
-2. Example integration (vanilla JS/TS entry)
-
-Create `frontend/src/theme.ts` (or import into your layout/root component):
-
-```ts
-// frontend/src/theme.ts
-import 'virtual:css-reset'; // if your build supports virtual css imports
-import '@webtui/theme-catppuccin/dist/catppuccin.css';
-
-// If the package exposes JS utilities, import and initialize them here
-// import { applyTheme } from '@webtui/theme-catppuccin'
-// applyTheme()
-
-export default {};
-```
-
-3. Ensure the theme is bundled by your build (Vite/webpack/Next.js)
-
-- For Vite: confirm the CSS import is reachable from your app entry (e.g.
-  `main.tsx` or `client.ts`) so the CSS is included in the compiled assets.
-- For Next.js: import the theme CSS in `pages/_app.tsx` or `app/layout.tsx`.
-
-CI / Verification
-
-- Add a simple smoke test in CI to assert the built CSS contains `catppuccin`
-  or a known class name produced by the theme. For example, after running a
-  production build, use `grep` or a tiny node script to confirm the theme
-  stylesheet exists in the output directory.
-
-Example (bash snippet for CI):
-
-```bash
-# build
-npm ci --prefix frontend
-npm run build --prefix frontend
-
-# verify
-if ! grep -q "catppuccin" dist/assets/*.css; then
-  echo "ERROR: theme-catppuccin not present in build" >&2
-  exit 1
-fi
-```
-
-Local development notes
-
-- Keep the package listed in `frontend/package.json` dependencies so new
-  contributors install it automatically.
-- If the theme exposes configuration or tokens (colors/variables), place
-  theme overrides in `frontend/src/theme.ts` or in CSS variables loaded after
-  the theme import.
-
-Accessibility & theming
-
-- Ensure any color overrides maintain sufficient contrast.
-- Document any theme token overrides in `frontend/README.md` or the main
-  project docs so designers and developers can coordinate.
-
-Need me to add these files?
-
-- I can add `frontend/src/theme.ts` and patch `frontend/package.json` to add
-  `@webtui/theme-catppuccin` now. I can also add a small CI job snippet in
-  `.github/workflows/` that runs the build and checks for the theme. Tell me
-  which you'd like and I'll implement it.
-This is a minimal Next.js placeholder for the frontend. Run:
-
 npm install
 npm run dev
+```
 
-Testing
--------
+Tailwind 4 introduces the `@tailwindcss/postcss` plugin (already configured in `postcss.config.mjs`). You do NOT need a classic `tailwind.config.js` for basic usage (it can be added later for customization).
 
-All frontend code must include unit tests written with Vitest. Place tests next to the source files (e.g. `Component.test.jsx` or in `__tests__/`). CI will block PRs that add source files without tests.
+Key files:
+- `postcss.config.mjs` – enables Tailwind via `@tailwindcss/postcss`.
+- `styles/globals.css` – global layer (inject Tailwind directives & theme CSS here or via a theme entry file).
+- `src/theme.ts` – imports theme & Tailwind runtime CSS (currently just side‑effect imports).
+
+---
+## 2. Installing / Ensuring Dependencies
+
+You should have (already present):
+```jsonc
+"dependencies": {
+  "tailwindcss": "^4.x",
+  "@tailwindcss/postcss": "^4.x",
+  "@webtui/theme-catppuccin": "^0.0.3"
+}
+```
+If any are missing:
+```bash
+npm install tailwindcss @tailwindcss/postcss @webtui/theme-catppuccin
+```
+
+---
+## 3. Minimal Integration Pattern
+
+Add the Tailwind layer + theme import in ONE of two ways:
+
+Option A (recommended): import all CSS in `pages/_app.tsx` once.
+```tsx
+// pages/_app.tsx
+import type { AppProps } from 'next/app';
+import '@webtui/theme-catppuccin/dist/catppuccin.css';
+import 'tailwindcss'; // Tailwind v4 runtime (postcss plugin processes it)
+import '../styles/globals.css';
+
+export default function App({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
+}
+```
+
+Option B: keep a dedicated theme entry (`src/theme.ts`) and just import that in `_app.tsx`:
+```tsx
+// src/theme.ts
+import '@webtui/theme-catppuccin/dist/catppuccin.css';
+import 'tailwindcss';
+// custom overrides can follow
+
+// pages/_app.tsx
+import type { AppProps } from 'next/app';
+import '../src/theme';
+import '../styles/globals.css';
+export default function App({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
+}
+```
+
+Remove any unused placeholder like `import 'virtual:css-reset';` unless you intentionally add a plugin providing that virtual module.
+
+---
+## 4. Authoring Styles
+
+Use Tailwind utility classes directly in your components:
+```tsx
+<button className="px-4 py-2 rounded-md bg-mauve text-base hover:bg-mauve/80 transition">Click</button>
+```
+Catppuccin exports CSS variables you can map to Tailwind via arbitrary values if needed:
+```tsx
+<div className="bg-[var(--ctp-base)] text-[var(--ctp-text)] p-4 rounded-lg" />
+```
+
+### Adding a Custom Layer
+In `globals.css` you can still author traditional CSS:
+```css
+/* globals.css */
+@layer base {
+  :root { --app-nav-height: 56px; }
+}
+@layer components {
+  .card { @apply rounded-lg p-4 bg-[var(--ctp-surface0)] shadow; }
+}
+```
+
+---
+## 5. Customization (Extending Tailwind)
+
+Tailwind v4 can infer most usage on-the-fly. If you need to define theme extensions (custom colors, safelist, etc.) you can add a `tailwind.config.js`:
+```js
+// tailwind.config.js (optional)
+export default {
+  content: [
+    './pages/**/*.{ts,tsx,js,jsx}',
+    './components/**/*.{ts,tsx,js,jsx}',
+    './src/**/*.{ts,tsx,js,jsx}'
+  ],
+  theme: {
+    extend: {
+      colors: {
+        catppuccinAccent: 'var(--ctp-lavender)'
+      }
+    }
+  }
+};
+```
+If added, restart the dev server so Tailwind picks it up.
+
+---
+## 6. Dark / Variant Themes
+
+Catppuccin supplies multiple flavor palettes (latte, frappe, macchiato, mocha). If the package exposes variants (e.g. classes like `theme-mocha`), wrap your app root:
+```tsx
+<html className="theme-mocha">
+```
+and toggle class names for user preference (persist in `localStorage`).
+
+---
+## 7. Production Build & Purging
+
+Tailwind v4 automatically tree-shakes unused utilities based on scanned content. Ensure all template paths are covered either implicitly (on‑demand engine) or via `content` array (if you add a config). Avoid constructing class names purely at runtime without safelisting.
+
+Smoke test suggestion (CI):
+```bash
+npm run build
+grep -q "catppuccin" .next/static/css/*.css || { echo "Theme not present" >&2; exit 1; }
+```
+
+---
+## 8. Overriding Theme Tokens
+
+After importing Catppuccin you can override CSS variables:
+```css
+/* globals.css (after theme import) */
+:root {
+  --ctp-accent: #ff79c6; /* example override */
+}
+```
+You can then reference them with Tailwind arbitrary values: `text-[var(--ctp-accent)]`.
+
+---
+## 9. Linting & Conventions
+
+Use consistent utility ordering (consider adding `eslint-plugin-tailwindcss` later). Avoid duplicating long utility sequences—extract a component class in `@layer components` when reuse appears ≥3 times.
+
+---
+## 10. Testing UI With Tailwind
+
+Tests (Vitest + Testing Library) should assert semantic output, not specific utility class strings (those are implementation details). Prefer role / text queries. Only snapshot critical layout wrappers if necessary.
+
+---
+## 11. Troubleshooting
+
+| Problem | Likely Cause | Fix |
+|---------|--------------|-----|
+| Utilities not applying | CSS import order wrong | Ensure theme + `tailwindcss` imported before component overrides |
+| Class works in dev, missing in prod | Dynamically built class name | Use a deterministic class or safelist in config |
+| FOUC (flash of unstyled content) | Late CSS import | Move imports into `_app.tsx` earliest possible |
+| Catppuccin vars undefined | Theme CSS not imported | Check `@webtui/theme-catppuccin/dist/catppuccin.css` path |
+
+---
+## 12. Future Enhancements
+
+Planned (optional):
+- Add `tailwind.config.js` with explicit palette mapping to Catppuccin tokens.
+- Introduce `eslint-plugin-tailwindcss` for class validation.
+- Provide a `ThemeSwitcher` component toggling Catppuccin flavors.
+
+---
+## 13. Constitution Reminder
+
+All UI changes must retain usage of `@webtui/theme-catppuccin`. Removing it or substituting another base theme requires a Constitution Check & version bump.
+
+---
+## 14. Testing & Scripts
+
+Run tests:
+```bash
+npm run test
+```
+Run lint (ensure ESLint is installed locally):
+```bash
+npm run lint
+```
+
+---
+## 15. Summary
+
+Tailwind (utility layer) + Catppuccin (design tokens) + Next.js (framework) form the styling stack. Keep imports deterministic, keep overrides minimal, and prefer semantic HTML with utility classes for rapid iteration.
+

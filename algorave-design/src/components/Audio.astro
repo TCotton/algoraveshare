@@ -1,14 +1,19 @@
 ---
-import WaveSurfer from 'wavesurfer.js'
-const { fileRoute } = Astro.props;
+<div id="audio-player">
+<div id="waveform"></div>
+    <button id="play-button">Play/Pause</button>
+    </div>
+    <script type="module">
+// Dynamically import WaveSurfer
+import WaveSurfer from 'wavesurfer.js';
+const fileRoute = {JSON.stringify(fileRoute)};
 const wavesurfer = WaveSurfer.create({
     container: '#waveform',
     waveColor: '#4F4A85',
     progressColor: '#383351',
     url: fileRoute,
-})
----
-<div id="audio-player">
-    <div id="waveform"></div>
-    <button id="play-button" on:click={() => wavesurfer.playPause()}>Play/Pause</button>
-</div>
+});
+document.getElementById('play-button').addEventListener('click', () => {
+    wavesurfer.playPause();
+});
+</script>

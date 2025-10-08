@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Codeblock from '../components/Codeblock.astro';
 import Audio from '../components/Audio.astro';
+import Music from '../../src/assets/music/sample-pentangle.wav'
 const codeExample = `<pre><code class="language-js">
 const menu = document.querySelector('.menu');
 
@@ -30,7 +31,7 @@ menu?.addEventListener('click', () => {
         <p>This is a description of the project. It provides an overview of what the project is about, its goals, and any relevant details that might interest potential collaborators or users.</p>
     </div>
     <div class="audio-section">
-        <Audio src="/audio/sample-audio.mp3" />
+        <Audio src={Music} />
     </div>
 </Layout>
 

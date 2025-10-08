@@ -1,5 +1,5 @@
 ---
-const { code, language = 'js', className } = Astro.props;
+const { code, language = 'js' } = Astro.props;
 ---
 <pre class={`language-${language}`}>
   <code class={`language-${language}`} set:html={code}></code>

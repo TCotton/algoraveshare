@@ -5,7 +5,7 @@ const { fileRoute } = Astro.props;
 <div id="waveform"></div>
     <button id="play-button">Play/Pause</button>
     </div>
-    <script type="module">
+    <script is:inline type="module">
 // Dynamically import WaveSurfer
 import WaveSurfer from 'wavesurfer.js';
 const fileRoute = {JSON.stringify(fileRoute)};

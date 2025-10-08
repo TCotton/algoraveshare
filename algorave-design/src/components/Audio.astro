@@ -1,5 +1,7 @@
 ---
 const { fileRoute } = Astro.props;
+console.log(fileRoute)
+console.log(fileRoute.src)
 ---
 <div id="audio-player">
 <div id="waveform"></div>
@@ -12,7 +14,7 @@ const wavesurfer = WaveSurfer.create({
     container: '#waveform',
     waveColor: '#4F4A85',
     progressColor: '#383351',
-    url: fileRoute,
+    url: fileRoute.src
 });
 document.getElementById('play-button').addEventListener('click', () => {
     wavesurfer.playPause();

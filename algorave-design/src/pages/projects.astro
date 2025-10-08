@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Codeblock from '../components/Codeblock.astro';
 import Audio from '../components/Audio.astro';
 import Music from '../../src/assets/music/sample-pentangle.wav'
-const fullCode = true;
+const fullCode = false;
 const codeExample = `<pre><code class="language-js">
 const menu = document.querySelector('.menu');
 
@@ -18,8 +18,9 @@ menu?.addEventListener('click', () => {
 
 <Layout>
     <h1>Projects</h1>
-    <h2>project_name</h2>
-    <h3>user_id</h3>
+    <h2>user_id</h2>
+    <h3>project_name</h3>
+    <div class="content">
     {!fullCode && <div class="grid-content-two-columns">
         <div class="left-column">
             <Codeblock language="js" code={codeExample} />
@@ -31,6 +32,7 @@ menu?.addEventListener('click', () => {
     {fullCode && <div class="grid-content-one-columns">
         <Codeblock language="js" code={codeExample} />
     </div>}
+    </div>
     <div class="description">
         <p>This is a description of the project. It provides an overview of what the project is about, its goals, and any relevant details that might interest potential collaborators or users.</p>
     </div>
@@ -48,12 +50,21 @@ menu?.addEventListener('click', () => {
 
     .grid-content-one-columns {
         display: grid;
+        justify-content: center;
         grid-template-columns: 1fr; /* Single column */
+        width: 66.6667%; /* two-thirds width */
+    }
+
+    .content, .description, .audio-section {
+        margin-bottom: 2lh; /* Space between sections */
     }
 
     @media (max-width: 768px) {
         .grid-content-two-columns  {
             grid-template-columns: 1fr; /* Stack columns on small screens */
+        }
+        .grid-content-one-columns {
+            width: 100%; /* full width on small screens */
         }
     }
 </style>

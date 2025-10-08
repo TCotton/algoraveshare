@@ -8,7 +8,6 @@ const { fileRoute } = Astro.props;
     <script is:inline type="module">
 // Dynamically import WaveSurfer
 import WaveSurfer from 'wavesurfer.js';
-const fileRoute = {JSON.stringify(fileRoute)};
 const wavesurfer = WaveSurfer.create({
     container: '#waveform',
     waveColor: '#4F4A85',

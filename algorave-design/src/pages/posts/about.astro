@@ -48,11 +48,6 @@ const skillColor = "crimson";
     {finished && <p>I finished this tutorial!</p>}
 
     {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
-
-    <p>My skills are:</p>
-    <ul>
-        {skills.map((skill) => <li class="skill">{skill}</li>)}
-    </ul>
 </Layout>
 <style define:vars={{skillColor}}>
     h1 {

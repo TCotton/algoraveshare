@@ -1,0 +1,31 @@
+---
+import Prism from 'prismjs';
+import 'prismjs/themes/prism-tomorrow.css';
+
+// Optional: import additional language grammars
+import 'prismjs/components/prism-javascript.js';
+import 'prismjs/components/prism-css.js';
+import 'prismjs/components/prism-html.js';
+
+const { code, language = 'js' } = Astro.props;
+
+// Highlight the code using Prism
+const highlighted = Prism.highlight(code, Prism.languages[language], language);
+---
+
+<pre class={`language-${language}`}>
+  <code class={`language-${language}`} set:html={highlighted}></code>
+</pre>
+
+<style>
+pre {
+  padding: 1em;
+  border-radius: 8px;
+  overflow-x: auto;
+  background: #1e1e1e;
+  color: #dcdcdc;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+</style>

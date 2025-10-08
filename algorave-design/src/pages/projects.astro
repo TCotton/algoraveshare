@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Codeblock from '../components/Codeblock.astro';
+const codeExample = `<pre><code class="language-js">
+const menu = document.querySelector('.menu');
+
+menu?.addEventListener('click', () => {
+  const isExpanded = menu.getAttribute('aria-expanded') === 'true';
+  menu.setAttribute('aria-expanded', String(!isExpanded));
+});
+</code></pre>`
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<Layout>
+    <h1>Projects</h1>
+    <h2>project_name</h2>
+    <h3>user_id</h3>
+    <div class="grid-content-two-columns">
+        <div class="left-column">
+            <Codeblock language="js" code={codeExample} />
+        </div>
+        <div class="right-column">
+            <Codeblock language="js" code={codeExample} />
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .grid-content-two-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Two equal columns */
+        gap: 5ch; /* Space between columns */
+    }
+
+    @media (max-width: 768px) {
+        .grid-content-two-columns  {
+            grid-template-columns: 1fr; /* Stack columns on small screens */
+        }
+    }
+</style>
+
+<script>
+</script>

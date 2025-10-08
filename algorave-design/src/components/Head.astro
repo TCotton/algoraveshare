@@ -1,8 +1,10 @@
 ---
+import GlobalStyles from '../components/GlobalStyles.astro'
 const { title = "My Astro Website", ...props } = Astro.props;
 ---
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
+<GlobalStyles />
 <title>{title}</title>

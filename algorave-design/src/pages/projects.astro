@@ -1,7 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Codeblock from '../components/Codeblock.astro';
 console.log('Hi! I’m the server. This is logged in the terminal where Astro is running.');
+const codeExample = `<pre><code class="language-js">
+const menu = document.querySelector('.menu');
 
+menu?.addEventListener('click', () => {
+  const isExpanded = menu.getAttribute('aria-expanded') === 'true';
+  menu.setAttribute('aria-expanded', String(!isExpanded));
+});
+</code></pre>`
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
@@ -11,7 +19,9 @@ console.log('Hi! I’m the server. This is logged in the terminal where Astro is
     <h2>project_name</h2>
     <h3>user_id</h3>
     <div class="grid-content-two-columns">
-        <div class="left-column">Code here</div>
+        <div class="left-column">
+            <Codeblock language="js" code={codeExample} />
+        </div>
         <div class="right-column">Code here</div>
     </div>
 </Layout>

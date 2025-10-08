@@ -26,6 +26,7 @@
     "@webtui/theme-vitesse": "^0.0.1",
     "modern-normalize": "^3.0.1",
     "preact": "^10.27.2",
+    "prismjs": "^1.30.0",
     "typescript": "^5.9.3"
   }
 }

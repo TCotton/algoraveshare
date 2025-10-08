@@ -4,14 +4,18 @@ import BaseLayout from '../../layouts/layout.astro';
 export async function getStaticPaths() {
     const allPosts = Object.values(import.meta.glob('../posts/*.md', { eager: true }));
 
-    return [
-        {params: {tag: "astro"}, props: {posts: allPosts}},
-        {params: {tag: "successes"}, props: {posts: allPosts}},
-        {params: {tag: "community"}, props: {posts: allPosts}},
-        {params: {tag: "blogging"}, props: {posts: allPosts}},
-        {params: {tag: "setbacks"}, props: {posts: allPosts}},
-        {params: {tag: "learning in public"}, props: {posts: allPosts}}
-    ];
+    // Collect all tags from posts' frontmatter
+    const allTags = Array.from(
+        new Set(
+            allPosts
+                .flatMap((post: any) => post.frontmatter.tags ?? [])
+                .filter((tag: any) => typeof tag === "string" && tag.length > 0)
+        )
+    );
+    return allTags.map((tag) => ({
+        params: { tag },
+        props: { posts: allPosts }
+    }));
 }
 
 const { tag } = Astro.params;

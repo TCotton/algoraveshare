@@ -35,6 +35,7 @@ CREATE TABLE projects (
     user_id          UUID NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
     code_start       TEXT NOT NULL,
     code_end         TEXT NOT NULL,
+    code_full        TEXT NOT NULL,
     description      TEXT,
     audio_file_path  TEXT,
     audio_file_type  TEXT CHECK (audio_file_type IN ('wav','mp3','mp4')),

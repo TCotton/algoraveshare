@@ -1,7 +1,6 @@
 ---
 import Welcome from '../components/welcome.astro';
 import Layout from '../layouts/Layout.astro';
-import Greeting from '../components/Greeting';
 console.log('Hi! I’m the server. This is logged in the terminal where Astro is running.');
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
@@ -10,8 +9,6 @@ console.log('Hi! I’m the server. This is logged in the terminal where Astro is
 
 <Layout>
     <Welcome />
-    <Greeting messages={["Hi", "Hello", "Howdy", "Hey there"]} />
-    <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} />
 </Layout>
 
 <script>

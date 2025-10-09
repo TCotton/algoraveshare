@@ -10,9 +10,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "test:playwright": "npx playwright test --project=chromium",
-    "test:plauywright:debug": "npx playwright test --debug",
-    "test:playwright:ui": "npx playwright test --ui",
-    "test:playwright:chrome": "npx playwright test --project=chromium"
+    "test:playwright:debug": "npx playwright test --debug",
+    "test:playwright:ui": "npx playwright test --ui"
   },
   "keywords": [],
   "author": "",

@@ -3,8 +3,8 @@ import * as Ariakit from "@ariakit/react";
 export default function DropDownMenu() {
     return (
         <Ariakit.MenuProvider>
-            <Ariakit.MenuButton className="button">
-                Actions
+            <Ariakit.MenuButton className="button" onClick={() => alert("It works")}>
+                Menu
                 <Ariakit.MenuButtonArrow />
             </Ariakit.MenuButton>
             <Ariakit.Menu gutter={8} className="menu">

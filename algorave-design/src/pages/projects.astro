@@ -90,7 +90,6 @@ d6 silence
 `;
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
-
 ---
 <Layout>
     <div class="project-header">
@@ -104,15 +103,15 @@ d6 silence
         {!fullCode &&
                 <div class="grid-content-two-columns">
                     <div class="left-column">
-                        <Codeblock language="hs" code={codeExample}/>
+                        <Codeblock language="hs" code={codeExample} />
                     </div>
                     <div class="right-column">
-                        <Codeblock language="hs" code={codeExample}/>
+                        <Codeblock language="hs" code={codeExample} />
                     </div>
                 </div>}
         {fullCode &&
                 <div class="grid-content-one-columns">
-                    <Codeblock language="hs" code={codeExample}/>
+                    <Codeblock language="hs" code={codeExample} />
                 </div>}
     </div>
     <div class="description">
@@ -126,7 +125,7 @@ d6 silence
         <p>Tags: <a href="/tags/tag1">tag1</a>, <a href="/tags/tag2">tag2</a>, <a href="/tags/tag3">tag3</a></p>
     </div>
     <div class="social-media">
-        <SocialMedia />
+        <SocialMedia/>
     </div>
 </Layout>
 

@@ -4,59 +4,138 @@ import Codeblock from '../components/Codeblock.astro';
 import Audio from '../components/Audio.astro';
 import SocialMedia from '../components/Share.astro';
 import Menu from '../components/Menu.astro';
-import Music from '../../src/assets/music/sample-pentangle.wav'
+import Music from '../../src/assets/music/sample-pentangle.wav';
 const fullCode = false;
-const codeExample = `<pre><code class="language-js">
-const menu = document.querySelector('.menu');
+const codeExample = `
+cps(130/60/4)
 
-menu?.addEventListener('click', () => {
-  const isExpanded = menu.getAttribute('aria-expanded') === 'true';
-  menu.setAttribute('aria-expanded', String(!isExpanded));
-});
-</code></pre>`
+d1
+ $ qtrigger
+ $ loopAt "8"
+ $ sound "[<jw_drums:5>]"
+ # gain "0.8"
+ # orbit 0
+--  # sustain 4
+
+hush
+
+d1 silence
+
+do
+  let drumz1 = sound "[<jw_drum_one_hit:4><808:4>]*4"
+             # orbit 1
+             # gain 0.8
+  let drumz2 = sound "[<jw_drum_one_hit:4><808:4>]*4"
+             # orbit 1
+  let sounds1 = sound "<techno:5>*4"
+             # orbit 2
+  let sounds2 = sound "<stomp:0>*16"
+       # orbit 3
+  d2 $ stack [ drumz1 ]
+
+d1 silence
+
+d2 silence
+
+d3 silence
+
+solo 3
+
+unsolo 3
+
+d3 $ qtrigger
+  $ seqP
+      [ (0, 40, chop 16 $ sound "<jw_long_vocals:0>/2" # sustain 13 # cut 1) ]
+  # orbit 4
+  # gain 0.6
+  # room 1.2
+  # size 0.9
+  # dry 1.5
+  # delay "0.2"
+
+hush
+
+d4 $ qtrigger
+  $ note "f'minor7 [49, 53, 56, 60] [51, 54, 58, 61] f'minor7"
+  # sound "<bass:0>"
+  # legato 1.2
+  # cutoff 2000
+  # resonance 0.3
+  # gain 0.7
+  # sustain 0.8
+  # room 0.4
+  # size 0.6
+  # orbit 5
+
+d5 $ n "f2 f2 f2 f2" # sound "bass:0"
+    # gain 0.6
+    # sustain 0.3
+    # cutoff 1000
+    # lpf 1200
+    # orbit 6
+
+d6
+ $ qtrigger
+ $ chop 4
+ $ sound "<jw_short_vocals:0>/2"
+ # orbit 5
+ # gain 0.55
+ # distort 0.5
+ # room 0.9
+ # size 0.7
+ # sustain 4
+ # pan "-0.5 0.5"
+
+d6 silence
+`;
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+
 ---
 <Layout>
     <div class="project-header">
         <div class="project-header-left-column">
-            <h1>Projects</h1>
-            <h2>user_id</h2>
-            <h3>project_name</h3>
-        </div>
-        <div class="project-header-right-column">
-            <Menu />
+            <h1>Projects:</h1>
+            <h2>user_id / <span>project_name</span></h2>
         </div>
     </div>
 
     <div class="content">
-    {!fullCode && <div class="grid-content-two-columns">
-        <div class="left-column">
-            <Codeblock language="js" code={codeExample} />
-        </div>
-        <div class="right-column">
-            <Codeblock language="js" code={codeExample} />
-        </div>
-    </div>}
-    {fullCode && <div class="grid-content-one-columns">
-        <Codeblock language="js" code={codeExample} />
-    </div>}
+        {!fullCode &&
+                <div class="grid-content-two-columns">
+                    <div class="left-column">
+                        <Codeblock language="hs" code={codeExample}/>
+                    </div>
+                    <div class="right-column">
+                        <Codeblock language="hs" code={codeExample}/>
+                    </div>
+                </div>}
+        {fullCode &&
+                <div class="grid-content-one-columns">
+                    <Codeblock language="hs" code={codeExample}/>
+                </div>}
     </div>
     <div class="description">
-        <p>This is a description of the project. It provides an overview of what the project is about, its goals, and any relevant details that might interest potential collaborators or users.</p>
+        <p>This is a description of the project. It provides an overview of what the project is about, its goals, and
+            any relevant details that might interest potential collaborators or users.</p>
     </div>
     <div class="audio-section">
-        <Audio fileRoute={Music} />
+        <Audio fileRoute={Music}/>
     </div>
     <div class="tags">
         <p>Tags: <a href="/tags/tag1">tag1</a>, <a href="/tags/tag2">tag2</a>, <a href="/tags/tag3">tag3</a></p>
     </div>
-    <div class="social-media" client:only>
+    <div class="social-media">
         <SocialMedia />
     </div>
 </Layout>
 
 <style>
+
+    h2 > span {
+        color: var(--yellow);
+    }
+
     .grid-content-two-columns {
         display: grid;
         grid-template-columns: 1fr 1fr; /* Two equal columns */
@@ -75,9 +154,10 @@ menu?.addEventListener('click', () => {
     }
 
     @media (max-width: 768px) {
-        .grid-content-two-columns  {
+        .grid-content-two-columns {
             grid-template-columns: 1fr; /* Stack columns on small screens */
         }
+
         .grid-content-one-columns {
             width: 100%; /* full width on small screens */
         }

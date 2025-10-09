@@ -1,7 +1,6 @@
 ---
-const { code, language = 'js' } = Astro.props;
+import { Code } from 'astro:components'
+const { code, language = 'hs' } = Astro.props;
 ---
-<pre class={`language-${language}`}>
-  <code class={`language-${language}`} set:html={code}></code>
-</pre>
+<Code lang={language} class={`language-${language}`} code={code} />
 

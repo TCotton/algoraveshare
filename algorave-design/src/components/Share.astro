@@ -10,11 +10,32 @@
     <a href="#" data-id="mail">Email</a>
 </div>
 <style>
-    .share-btn > a {
-        border: 0.2ch solid var(--rosewater);
-        padding: 1ch;
+    .share-btn {
+        a {
+            border: 0.2ch solid var(--rosewater);
+            padding: 1ch;
+            text-decoration: none;
+            color: rgb(from var(--text) r g b / 0.9);
+        }
+        a:link {
+            border: 0.2ch solid var(--rosewater);
+            padding: 1ch;
+            text-decoration: none;
+            color: rgb(from var(--text) r g b / 0.9);
+        }
+        a:visited {
+            color: rgb(from var(--text) r g b / 0.8);
+        }
+        a:focus {
+            color: rgb(from var(--subtext0) r g b / 1);
+        }
+        a:hover {
+            color: rgb(from var(--subtext0) r g b / 1);
+        }
+        a:active {
+            color: rgb(from var(--subtext0) r g b / 1);
+        }
     }
-
     .share-btn > a:hover {
         cursor: pointer;
     }

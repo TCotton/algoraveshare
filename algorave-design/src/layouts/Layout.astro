@@ -2,6 +2,7 @@
 import Head from "../components/Head.astro";
 import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
+import Menu from '../components/Menu.astro';
 const { ...props } = Astro.props;
 ---
 <!doctype html>
@@ -11,7 +12,16 @@ const { ...props } = Astro.props;
 </head>
 <body>
 <div class="container">
-    <Icon />
+    <header>
+        <div class="icon-wrapper">
+            <Icon />
+        </div>
+        <div client:visible class="menu-wrapper">
+            <Menu />
+        </div>
+    </header>
+
+
     <slot />
 </div>
 <Footer />

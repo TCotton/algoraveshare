@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 import node from '@astrojs/node';     // ✅ import the adapter function
-import preact from '@astrojs/preact'; // assuming you're using Preact
+import react from '@astrojs/react';
 
 export default defineConfig({
     output: 'server', // enables SSR
@@ -10,5 +10,5 @@ export default defineConfig({
             noExternal: ['modern-normalize', '@webtui/css', '@webtui/theme-vitesse'],
         },
     },
-    integrations: [preact()],
+    integrations: [react()],
 });

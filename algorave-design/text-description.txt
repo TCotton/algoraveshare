@@ -1,0 +1,25 @@
+<textarea
+  name="description"
+  placeholder={`🎛️ Creative Intent
+What inspired this pattern? What kind of sound or mood were you aiming for?
+
+🧠 Musical Structure
+How is the rhythm or timing organized? Mention cycles, repetitions, or polyrhythms.
+
+🧩 Code & Techniques
+Which TidalCycles functions or tricks are central to your idea? (e.g. every, when, superimpose)
+
+🎚️ Sound Design & Effects
+What effects or parameters shape your sound? (e.g. reverb, hpf, crush)
+
+🎹 Performance & Interactivity
+How would you perform or live-code this? Which parts do you tweak live?
+
+💡 Reflection & Sharing
+What did you learn, discover, or experiment with? Any advice for others?
+
+🎧 Listening Notes (optional)
+What should listeners pay attention to when hearing your pattern?`}
+  rows="14"
+  className="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500"
+></textarea>

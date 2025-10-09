@@ -10,6 +10,6 @@
   "compilerOptions": {
     "allowJs": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "preact"
+    "jsxImportSource": "react"
   }
 }

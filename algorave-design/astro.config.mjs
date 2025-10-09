@@ -1,14 +1,19 @@
 import { defineConfig } from 'astro/config';
-import node from '@astrojs/node';     // ✅ import the adapter function
+import node from '@astrojs/node';
 import react from '@astrojs/react';
 
 export default defineConfig({
-    output: 'server', // enables SSR
-    adapter: node({ mode: 'standalone' }), // ✅ call the adapter function
+    output: 'server',
+    adapter: node({ mode: 'standalone' }),
+    integrations: [react()],
     vite: {
         ssr: {
-            noExternal: ['modern-normalize', '@webtui/css', '@webtui/theme-vitesse'],
-        },
-    },
-    integrations: [react()],
+            noExternal: [
+                'modern-normalize',
+                '@webtui/css',
+                '@webtui/theme-vitesse',
+                '@webtui/theme-catppuccin'
+            ]
+        }
+    }
 });

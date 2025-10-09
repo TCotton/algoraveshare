@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "astro dev",
@@ -23,6 +24,7 @@
     "@ariakit/react": "^0.4.19",
     "@astrojs/check": "^0.9.4",
     "@astrojs/preact": "^4.1.1",
+    "@astrojs/prism": "^3.3.0",
     "@astrojs/react": "^4.4.0",
     "@webtui/css": "^0.1.5",
     "@webtui/theme-catppuccin": "^0.0.3",

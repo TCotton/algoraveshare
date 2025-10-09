@@ -5,6 +5,10 @@ import Audio from '../components/Audio.astro';
 import SocialMedia from '../components/Share.astro';
 import Menu from '../components/Menu.astro';
 import Music from '../../src/assets/music/sample-pentangle.wav';
+import DJIcon from '../assets/images/dj.svg'
+import MusicIcon from '../assets/images/icons8-music.svg'
+import MusicNote from '../assets/images/icons8-musical-note.svg'
+import SpeakerIcon from '../assets/images/icons8-portable-speaker.svg'
 const fullCode = false;
 const codeExample = `
 cps(130/60/4)
@@ -104,9 +108,13 @@ d6 silence
         {!fullCode &&
                 <div class="grid-content-two-columns">
                     <div class="left-column">
+                        <h1>Start</h1>
+                        <MusicIcon width="148" height="148" />
                         <Codeblock language="hs" code={codeExample}/>
                     </div>
                     <div class="right-column">
+                        <h1>Finish</h1>
+                        <MusicNote width="148" height="148" />
                         <Codeblock language="hs" code={codeExample}/>
                     </div>
                 </div>}
@@ -116,10 +124,14 @@ d6 silence
                 </div>}
     </div>
     <div class="description">
+        <h1>Description</h1>
+        <DJIcon width="148" height="148" />
         <p>This is a description of the project. It provides an overview of what the project is about, its goals, and
             any relevant details that might interest potential collaborators or users.</p>
     </div>
     <div class="audio-section">
+        <h1>Play the audio file</h1>
+        <SpeakerIcon width="148" height="148" />
         <Audio fileRoute={Music}/>
     </div>
     <div class="tags">

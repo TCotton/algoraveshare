@@ -5,9 +5,6 @@ import Audio from '../components/Audio.astro';
 import SocialMedia from '../components/Share.astro';
 import Menu from '../components/Menu.astro';
 import Music from '../../src/assets/music/sample-pentangle.wav';
-import DJ from '../assets/svg/dj.svg';
-import MusicIcon from '../assets/svg/icons8-music.svg';
-import MusicalNotes from '../assets/svg/icons8-musical-note.svg';
 const fullCode = false;
 const codeExample = `
 cps(130/60/4)
@@ -106,11 +103,9 @@ d6 silence
         {!fullCode &
                 <div class="grid-content-two-columns">
                     <div class="left-column">
-                        <MusicIcon width="148" height="148"/>
                         <Codeblock language="" code={codeExample} />
                     </div>
                     <div class="right-column">
-                        <MusicalNotes width="148" height="148"/>
                         <Codeblock language="hs" code={codeExample} />
                     </div>
                 </div>}
@@ -120,7 +115,6 @@ d6 silence
                 </div>}
     </div>
     <div class="description">
-        <DJ width={144} height={144} fill="white"/>
         <p>This is a description of the project. It provides an overview of what the project is about, its goals, and
             any relevant details that might interest potential collaborators or users.</p>
     </div>

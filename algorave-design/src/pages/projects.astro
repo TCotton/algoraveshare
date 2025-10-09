@@ -5,6 +5,10 @@ import Audio from '../components/Audio.astro';
 import SocialMedia from '../components/Share.astro';
 import Menu from '../components/Menu.astro';
 import Music from '../../src/assets/music/sample-pentangle.wav';
+import DJIcon from '../assets/images/dj.svg';
+import MusicIcon from '../assets/images/icons8-music.svg';
+import MusicNote from '../assets/images/icons8-musical-note.svg';
+import SpeakerIcon from '../assets/images/icons8-portable-speaker.svg';
 const fullCode = false;
 const codeExample = `
 cps(130/60/4)
@@ -90,6 +94,7 @@ d6 silence
 `;
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+
 ---
 <Layout>
     <div class="project-header">
@@ -103,33 +108,60 @@ d6 silence
         {!fullCode &&
                 <div class="grid-content-two-columns">
                     <div class="left-column">
-                        <Codeblock language="hs" code={codeExample} />
+                        <h1>Start</h1>
+                        <MusicIcon width="148" height="148" />
+                        <Codeblock language="hs" code={codeExample}/>
                     </div>
                     <div class="right-column">
-                        <Codeblock language="hs" code={codeExample} />
+                        <h1>Finish</h1>
+                        <MusicNote width="148" height="148" />
+                        <Codeblock language="hs" code={codeExample}/>
                     </div>
                 </div>}
         {fullCode &&
                 <div class="grid-content-one-columns">
-                    <Codeblock language="hs" code={codeExample} />
+                    <Codeblock language="hs" code={codeExample}/>
                 </div>}
     </div>
-    <div class="description">
+    <div is-="separator" direction-="horizontal"></div>
+    <div class="description" is-="typography-block" box-="round" shear-="top">
+        <div class="header">
+            <span is-="badge" variant-="background0"><h1>Description</h1></span>
+            <span class="icon"><DJIcon width="74" height="74" /></span>
+        </div>
         <p>This is a description of the project. It provides an overview of what the project is about, its goals, and
             any relevant details that might interest potential collaborators or users.</p>
     </div>
     <div class="audio-section">
+        <h1>Play the audio file</h1>
+        <SpeakerIcon width="148" height="148" />
         <Audio fileRoute={Music}/>
     </div>
     <div class="tags">
         <p>Tags: <a href="/tags/tag1">tag1</a>, <a href="/tags/tag2">tag2</a>, <a href="/tags/tag3">tag3</a></p>
     </div>
     <div class="social-media">
-        <SocialMedia/>
+        <SocialMedia />
     </div>
 </Layout>
 
 <style>
+
+    .description {
+        padding: 0 2ch 4ch 2ch;
+        position: relative;
+        span {
+            margin-bottom: 1lh;
+        }
+        h1 {
+            text-box: trim-end cap alphabetic;
+        }
+        .icon {
+            position: absolute;
+            top : -30px;
+            right: -15px;
+        }
+    }
 
     h2 > span {
         color: var(--yellow);

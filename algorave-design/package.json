@@ -18,7 +18,8 @@
     "@astrojs/node": "^9.4.4",
     "@sentry/astro": "^10.17.0",
     "@spotlightjs/astro": "^3.2.6",
-    "astro": "5.13.0"
+    "astro": "5.13.0",
+    "vitest": "^3.2.4"
   },
   "dependencies": {
     "@ariakit/react": "^0.4.19",

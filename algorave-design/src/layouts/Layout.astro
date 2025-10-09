@@ -3,27 +3,42 @@ import Head from "../components/Head.astro";
 import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
 import Menu from '../components/Menu.astro';
-const { ...props } = Astro.props;
+const {...props} = Astro.props;
 ---
 <!doctype html>
 <html lang="en-GB" data-webtui-theme="catppuccin-mocha">
 <head>
-    <Head />
+    <Head/>
 </head>
 <body>
 <div class="container">
     <header>
         <div class="icon-wrapper">
-            <Icon />
+            <Icon/>
         </div>
-        <div client:visible class="menu-wrapper">
-            <Menu />
+        <div class="menu-wrapper">
+            <Menu/>
         </div>
     </header>
-
-
-    <slot />
+    <slot/>
 </div>
-<Footer />
+<Footer/>
 </body>
 </html>
+<style>
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    @media (max-width: 768px) {
+        header {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .icon-wrapper {
+            margin-bottom: 1lh;
+        }
+    }
+</style>

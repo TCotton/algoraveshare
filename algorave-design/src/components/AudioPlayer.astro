@@ -1,0 +1,8 @@
+---
+const { fileRoute } = Astro.props;
+console.log(fileRoute)
+console.log("can you read this")
+---
+<div class="audio-player">
+    <audio controls src={fileRoute}></audio>
+</div>

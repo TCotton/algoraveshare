@@ -1,5 +1,46 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Codeblock from '../components/Codeblock.astro';
+import SocialMedia from '../components/Share.astro';
+import HeaderLayout from '../layouts/HeaderLayout.astro';
+import DescriptionLayout from '../layouts/DescriptionLayout.astro';
+import MusicNote from "../assets/images/icons8-musical-note.svg";
+import AudioLayout from "../layouts/AudioLayout.astro";
+import TagsLayout from "../layouts/TagsLayout.astro";
+const codeExample = `d1
+ $ every 2 (fast 2)
+ $ loopAt 3
+ $ slice 1 (slow "1" "[1-2]")
+ $ sound "<p_drums:0> * 1"
+ # gain 0.4
+ # legato 5
+ # room 0.7
+ # size 0.7
+ # shape 0.5 
+ # orbit 0`;
 ---
 <Layout>
+    <HeaderLayout sectionName="Snippets"/>
+    <div is-="separator" direction-="horizontal"></div>
+    <div class="content" is-="typography-block" box-="round" shear-="top">
+        <div class="header">
+            <div is-="badge" variant-="background0"><h1>Code snippet</h1></div>
+            <span class="icon"><MusicNote width="100" height="100"/></span>
+        </div>
+        <Codeblock language="hs" code={codeExample}/>
+    </div>
+    <div is-="separator" direction-="horizontal"></div>
+    <DescriptionLayout/>
+    <AudioLayout/>
+    <div is-="separator" direction-="horizontal"></div>
+    <TagsLayout/>
+    <SocialMedia/>
+    <div is-="separator" direction-="horizontal"></div>
 </Layout>
+<style>
+    pre {
+        display: flex;
+        flex-direction: column;
+        vertical-align: middle;
+    }
+</style>

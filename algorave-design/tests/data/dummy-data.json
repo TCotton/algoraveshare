@@ -1,0 +1,114 @@
+{
+  "users": [
+    {
+      "user_id": "a1b2c3d4-e5f6-7890-abcd-1234567890ab",
+      "name": "alice",
+      "email": "alice@example.com",
+      "password_hash": "$2b$10$abcdefghijklmnopqrstuv",
+      "location": "London, UK",
+      "created_at": "2025-10-01T12:00:00Z",
+      "portfolio": null,
+      "youtube_url": "https://youtube.com/alicechannel",
+      "mastodon_url": "https://mastodon.social/@alice",
+      "bluesky_url": null,
+      "linkedin_url": "https://linkedin.com/in/alice"
+    },
+    {
+      "user_id": "b2c3d4e5-f6a7-8901-bcde-2345678901bc",
+      "name": "bob",
+      "email": "bob@example.com",
+      "password_hash": "$2b$10$qrstuvwxyzabcdefghijklm",
+      "location": "Berlin, DE",
+      "created_at": "2025-10-02T09:30:00Z",
+      "portfolio": null,
+      "youtube_url": null,
+      "mastodon_url": null,
+      "bluesky_url": "https://bsky.app/profile/bob",
+      "linkedin_url": null
+    }
+  ],
+  "projects": [
+    {
+      "project_id": "p1a2b3c4-d5e6-7890-abcd-1234567890ab",
+      "project_name": "Strudel Live Coding Demo",
+      "user_id": "a1b2c3d4-e5f6-7890-abcd-1234567890ab",
+      "code_start": "strudel('bd sd bd sd')",
+      "code_end": "strudel('bd sd bd sd').speed(2)",
+      "code_full": "strudel('bd sd bd sd').speed(2).gain(0.8)",
+      "description": "A basic Strudel drum pattern.",
+      "audio_file_path": "audio/strudel-demo.wav",
+      "audio_file_type": "wav",
+      "youtube_url_id": "dQw4w9WgXcQ",
+      "software_type": "strudel",
+      "created_at": "2025-10-03T14:00:00Z"
+    },
+    {
+      "project_id": "p2b3c4d5-e6f7-8901-bcde-2345678901bc",
+      "project_name": "TidalCycles Bassline",
+      "user_id": "b2c3d4e5-f6a7-8901-bcde-2345678901bc",
+      "code_start": "d1 $ sound 'bd sn'",
+      "code_end": "d1 $ sound 'bd sn' # speed '2'",
+      "code_full": "d1 $ sound 'bd sn' # speed '2' # gain '0.7'",
+      "description": "A TidalCycles bassline example.",
+      "audio_file_path": "audio/tidal-bass.mp3",
+      "audio_file_type": "mp3",
+      "youtube_url_id": null,
+      "software_type": "tidalcycles",
+      "created_at": "2025-10-04T10:15:00Z"
+    }
+  ],
+  "snippets": [
+    {
+      "snippet_id": "s1a2b3c4-d5e6-7890-abcd-1234567890ab",
+      "user_id": "a1b2c3d4-e5f6-7890-abcd-1234567890ab",
+      "code_sample": "strudel('hh*4')",
+      "description": "Strudel hi-hat loop.",
+      "audio_file_path": "audio/hihat-loop.wav",
+      "audio_file_type": "wav",
+      "software_type": "strudel",
+      "created_at": "2025-10-05T08:00:00Z"
+    },
+    {
+      "snippet_id": "s2b3c4d5-e6f7-8901-bcde-2345678901bc",
+      "user_id": "b2c3d4e5-f6a7-8901-bcde-2345678901bc",
+      "code_sample": "d1 $ sound 'cp*8'",
+      "description": "TidalCycles clap pattern.",
+      "audio_file_path": "audio/clap-pattern.mp3",
+      "audio_file_type": "mp3",
+      "software_type": "tidalcycles",
+      "created_at": "2025-10-06T11:20:00Z"
+    }
+  ],
+  "tags": [
+    { "tag_id": 1, "name": "drums" },
+    { "tag_id": 2, "name": "bass" },
+    { "tag_id": 3, "name": "strudel" },
+    { "tag_id": 4, "name": "tidalcycles" }
+  ],
+  "tag_assignments": [
+    {
+      "tag_id": 1,
+      "entity_type": "project",
+      "entity_id": "p1a2b3c4-d5e6-7890-abcd-1234567890ab",
+      "created_at": "2025-10-03T14:01:00Z"
+    },
+    {
+      "tag_id": 2,
+      "entity_type": "project",
+      "entity_id": "p2b3c4d5-e6f7-8901-bcde-2345678901bc",
+      "created_at": "2025-10-04T10:16:00Z"
+    },
+    {
+      "tag_id": 3,
+      "entity_type": "snippet",
+      "entity_id": "s1a2b3c4-d5e6-7890-abcd-1234567890ab",
+      "created_at": "2025-10-05T08:01:00Z"
+    },
+    {
+      "tag_id": 4,
+      "entity_type": "snippet",
+      "entity_id": "s2b3c4d5-e6f7-8901-bcde-2345678901bc",
+      "created_at": "2025-10-06T11:21:00Z"
+    }
+  ]
+}

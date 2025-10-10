@@ -1,6 +1,6 @@
 ---
 const {musicFile} = Astro.props;
-console.log(musicFile.toString())
+console.log(musicFile);
 ---
 
 <div class="waveform">
@@ -75,7 +75,7 @@ console.log(musicFile.toString())
         const host = document.querySelector('.waveform > div');
         console.log(host);
         const sheet = new CSSStyleSheet;
-        sheet.replaceSync( `.scroll { margin-bottom: 2lh } :host(audio) { display: none }`);
+        sheet.replaceSync( `.scroll { margin-bottom: 2lh }`);
         host.shadowRoot.adoptedStyleSheets.push(sheet);
     })
 

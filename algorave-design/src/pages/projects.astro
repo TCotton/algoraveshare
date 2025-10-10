@@ -94,8 +94,8 @@ d6 silence
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
-<Layout>
-    <HeaderLayout/>
+<Layout sectionName="Projects">
+    <HeaderLayout sectionName="Projects" />
     <div is-="separator" direction-="horizontal"></div>
     <div class="content">
         {!fullCode &&
@@ -117,7 +117,7 @@ d6 silence
                 </div>}
         {fullCode &&
                 <div class="grid-content-one-columns">
-                    <Codeblock client:visible language="hs" code={codeExample}/>
+                    <Codeblock language="hs" code={codeExample}/>
                 </div>}
     </div>
     <div is-="separator" direction-="horizontal"></div>

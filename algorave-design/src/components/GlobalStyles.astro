@@ -58,6 +58,42 @@ import 'modern-normalize/modern-normalize.css';
         font-style: italic;
     }
 
+    .description, .left-column, .right-column, .social-media, .audio-section {
+        padding: 0 2ch 4ch 2ch;
+        position: relative;
+
+        span {
+            margin-bottom: 1lh;
+        }
+
+        h1 {
+            text-box: trim-end cap alphabetic;
+        }
+
+        .icon {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+        }
+    }
+
+    .content, .description, .audio-section, .tags {
+        margin-bottom: 2lh; /* Space between sections */
+    }
+
+    .social-media {
+        padding: 0 2ch 4ch 2ch;
+    }
+
+    .description {
+        padding: 0 4ch 5ch 4ch;
+    }
+
+    h2 > span {
+        color: var(--yellow);
+    }
+
+
     @layer base {
         :root {
             --font-family: "Roboto Mono", monospace;

@@ -2,10 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import Codeblock from '../components/Codeblock.astro';
 import SocialMedia from '../components/Share.astro';
-import AudioVisual from '../components/AudioVisual.astro';
-import Music from '../assets/music/sample-pentangle.wav';
+import HeaderLayout from '../layouts/HeaderLayout.astro';
+import DescriptionLayout from '../layouts/DescriptionLayout.astro';
 import MusicIcon from '../assets/images/icons8-music.svg';
 import MusicNote from '../assets/images/icons8-musical-note.svg';
+import AudioLayout from "../layouts/AudioLayout.astro";
+import TagsLayout from "../layouts/TagsLayout.astro";
 const fullCode = false;
 const codeExample = `
 cps(130/60/4)
@@ -93,13 +95,7 @@ d6 silence
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 <Layout>
-    <div class="project-header">
-        <div class="project-header-left-column">
-            <h1>Projects:</h1>
-            <h2>user_id / <span>project_name</span></h2>
-            <h3>created_at</h3>
-        </div>
-    </div>
+    <HeaderLayout/>
     <div is-="separator" direction-="horizontal"></div>
     <div class="content">
         {!fullCode &&
@@ -125,65 +121,15 @@ d6 silence
                 </div>}
     </div>
     <div is-="separator" direction-="horizontal"></div>
-    <div class="description" is-="typography-block" box-="round" shear-="top">
-        <div class="header">
-            <div is-="badge" variant-="background0"><h1>Description</h1></div>
-        </div>
-        <div is-="separator" direction-="horizontal"></div>
-        <p>This is a description of the project. It provides an overview of what the project is about, its goals, and
-            any relevant details that might interest potential collaborators or users.</p>
-    </div>
-    <section class="audio-wrapper">
-        <div class="audio-visual">
-            <AudioVisual musicFile={Music}/>
-        </div>
-    </section>
+    <DescriptionLayout/>
+    <AudioLayout/>
     <div is-="separator" direction-="horizontal"></div>
-    <div class="tags">
-        <p>Tags: <a href="/tags/tag1">tag1</a>, <a href="/tags/tag2">tag2</a>, <a href="/tags/tag3">tag3</a></p>
-    </div>
-    <div class="social-media" is-="typography-block" box-="round" shear-="top">
-        <div class="header">
-            <div is-="badge" variant-="background0"><h1>Share</h1></div>
-        </div>
-        <SocialMedia />
-    </div>
+    <TagsLayout/>
+    <SocialMedia/>
     <div is-="separator" direction-="horizontal"></div>
 </Layout>
 
 <style>
-
-    .description, .left-column, .right-column, .social-media, .audio-section {
-        padding: 0 2ch 4ch 2ch;
-        position: relative;
-
-        span {
-            margin-bottom: 1lh;
-        }
-
-        h1 {
-            text-box: trim-end cap alphabetic;
-        }
-
-        .icon {
-            position: absolute;
-            top: -20px;
-            right: -20px;
-        }
-    }
-
-    .social-media {
-        padding: 0 2ch 4ch 2ch;
-    }
-
-    .description {
-        padding: 0 4ch 5ch 4ch;
-    }
-
-    h2 > span {
-        color: var(--yellow);
-    }
-
     .grid-content-two-columns {
         display: grid;
         grid-template-columns: 1fr 1fr; /* Two equal columns */
@@ -195,10 +141,6 @@ d6 silence
         justify-content: center;
         grid-template-columns: 1fr; /* Single column */
         width: 66.6667%; /* two-thirds width */
-    }
-
-    .content, .description, .audio-section, .tags {
-        margin-bottom: 2lh; /* Space between sections */
     }
 
     @media (max-width: 768px) {

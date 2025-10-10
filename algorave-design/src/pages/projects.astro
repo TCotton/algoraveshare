@@ -1,12 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Codeblock from '../components/Codeblock.astro';
-import Audio from '../components/Audio.astro';
 import SocialMedia from '../components/Share.astro';
-import Menu from '../components/Menu.astro';
-//import AudioPlayer from '../components/AudioPlayer.astro';
 import AudioPlayer from '../components/AudioPlayer.jsx';
+import AudioVisual from '../components/AudioVisual.astro';
 import Music from '../assets/music/sample-pentangle.wav';
+console.dir(Music);
 import DJIcon from '../assets/images/icons8-dj.svg';
 import MusicIcon from '../assets/images/icons8-music.svg';
 import MusicNote from '../assets/images/icons8-musical-note.svg';
@@ -140,13 +139,9 @@ d6 silence
             any relevant details that might interest potential collaborators or users.</p>
     </div>
     <section class="audio-wrapper">
-    <div class="audio-section" is-="typography-block" box-="round" shear-="top">
-        <div class="header">
-            <div is-="badge" variant-="background0"><h1>Play the audio file</h1></div>
-            <span class="icon"><SpeakerIcon width="74" height="74"/></span>
+        <div class="audio-visual">
+            <AudioVisual musicFile={Music}/>
         </div>
-        <AudioPlayer musicFile={Music} client:load/>
-    </div>
     </section>
     <div is-="separator" direction-="horizontal"></div>
     <div class="tags">

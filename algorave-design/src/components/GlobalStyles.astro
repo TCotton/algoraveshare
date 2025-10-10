@@ -12,7 +12,6 @@ import 'modern-normalize/modern-normalize.css';
         padding: 3ch;
     }
 
-
     @media (max-width: 768px) {
         .container {
             padding: 1ch;
@@ -69,6 +68,30 @@ import 'modern-normalize/modern-normalize.css';
 
     p {
         line-height: var(--line-height-paragraph);
+    }
+
+    @layer utils {
+        [box-~='square'],
+        [box-~='round'],
+        [box-~='double'] {
+            --box-border-color: var(--maroon);
+        }
+
+        div.site-icon[box-~='round'] {
+            --box-border-color: var(--surface0);
+        }
+
+        div.audio-wrapper[box-~='round'] {
+            --box-border-color: var(--surface0);
+        }
+
+        div.grid-content-two-columns {
+            [box-~='square'],
+            [box-~='round'],
+            [box-~='double'] {
+                --box-border-color: var(--surface0);
+            }
+        }
     }
 
     code[class*="language-"],

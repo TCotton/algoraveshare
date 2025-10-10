@@ -26,19 +26,20 @@ const {...props} = Astro.props;
 </body>
 </html>
 <style>
-    header {
+    .container > header {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
+        margin-bottom: 1lh;
     }
     @media (max-width: 768px) {
-        header {
+        .container > header {
             flex-direction: column;
             align-items: center;
             text-align: center;
         }
         .icon-wrapper {
-            margin-bottom: 1em;
+            margin-bottom: 0;
         }
     }
 </style>

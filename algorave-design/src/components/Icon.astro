@@ -1,7 +1,7 @@
 ---
 import MusicNote from '../assets/images/icons8-music-small.apng';
 ---
-<div class="site-icon" is-="typography-block" box-="round" shear-="top">
+<div tabindex='0' class="site-icon" is-="typography-block" box-="round" shear-="top">
     <header>
         <h1 class="space-mono-regular-italic">algorave share</h1>
         <img src={MusicNote} alt="algorave share icon" width="48" height="48"/>
@@ -41,7 +41,9 @@ import MusicNote from '../assets/images/icons8-music-small.apng';
 </style>
 <script type="module">
     const icon = document.querySelector('.site-icon');
-    icon.addEventListener('click', () => {
-        window.location = '/';
-    })
+    if (icon) {
+        icon.addEventListener('click', () => {
+            window.location = '/';
+        })
+    }
 </script>

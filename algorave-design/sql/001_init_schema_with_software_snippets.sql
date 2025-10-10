@@ -6,7 +6,7 @@
 -- CREATE ROLE algorave_app LOGIN PASSWORD 'secure_password' NOSUPERUSER NOCREATEDB NOCREATEROLE;
 -- GRANT CONNECT ON DATABASE algorave_share TO algorave_app;
 
--- Extensions
+-- Extensions```````
 CREATE
 EXTENSION IF NOT EXISTS citext;
 CREATE

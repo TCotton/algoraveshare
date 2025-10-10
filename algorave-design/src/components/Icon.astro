@@ -1,20 +1,41 @@
 ---
 import MusicNote from '../assets/images/icons8-music-small.apng';
 ---
-<div class="site-icon">
-    <h1 class="space-mono-regular-italic">algorave share</h1>
-    <img src={MusicNote} alt="algorave share icon" width="48" height="48" />
-</div>
+<a href="/" class="site-icon-homepage">
+    <div class="site-icon" is-="typography-block" box-="round" shear-="top">
+        <header>
+            <h1 class="space-mono-regular-italic">algorave share</h1>
+            <img src={MusicNote} alt="algorave share icon" width="48" height="48"/>
+        </header>
+        <footer>
+            <span class="sub-heading" is-="badge" variant-="background0">For Tidal Cycles and Strudel</span>
+        </footer>
+    </div>
+</a>
 <style>
-    .site-icon {
-        display: flex;
-        align-items: center;
-        gap: 1ch;
-        margin-bottom: 2lh;
+    a.site-icon-homepage {
+        text-decoration: none;
     }
+    .site-icon {
+        margin-bottom: 2lh;
+        padding: 2ch 4ch 0 4ch;
+
+        header {
+            display: flex;
+            align-items: flex-end;
+            gap: 1ch;
+            margin-bottom: 1lh;
+        }
+    }
+
     .site-icon h1 {
         font-size: 2rem;
         margin: 0;
         color: var(--text);
+    }
+
+    footer .sub-heading {
+        text-box: trim-end cap alphabetic;
+        color: var(--yellow);
     }
 </style>

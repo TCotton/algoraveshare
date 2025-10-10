@@ -75,7 +75,7 @@ console.log(musicFile.toString())
         const host = document.querySelector('.waveform > div');
         console.log(host);
         const sheet = new CSSStyleSheet;
-        sheet.replaceSync( `.scroll { margin-bottom: 2lh }`);
+        sheet.replaceSync( `.scroll { margin-bottom: 2lh } :host(audio) { display: none }`);
         host.shadowRoot.adoptedStyleSheets.push(sheet);
     })
 

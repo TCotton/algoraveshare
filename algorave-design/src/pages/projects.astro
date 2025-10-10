@@ -5,10 +5,11 @@ import Audio from '../components/Audio.astro';
 import SocialMedia from '../components/Share.astro';
 import Menu from '../components/Menu.astro';
 import Music from '../../src/assets/music/sample-pentangle.wav';
-import DJIcon from '../assets/images/dj.svg';
+import DJIcon from '../assets/images/icons8-dj.svg';
 import MusicIcon from '../assets/images/icons8-music.svg';
 import MusicNote from '../assets/images/icons8-musical-note.svg';
 import SpeakerIcon from '../assets/images/icons8-portable-speaker.svg';
+import ApplauseIcon from '../assets/images/icons8-applause.svg';
 const fullCode = false;
 const codeExample = `
 cps(130/60/4)
@@ -94,27 +95,31 @@ d6 silence
 `;
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
-
 ---
 <Layout>
     <div class="project-header">
         <div class="project-header-left-column">
             <h1>Projects:</h1>
             <h2>user_id / <span>project_name</span></h2>
+            <h3>created_at</h3>
         </div>
     </div>
-
+    <div is-="separator" direction-="horizontal"></div>
     <div class="content">
         {!fullCode &&
                 <div class="grid-content-two-columns">
-                    <div class="left-column">
-                        <h1>Start</h1>
-                        <MusicIcon width="148" height="148" />
+                    <div class="left-column" is-="typography-block" box-="round" shear-="top">
+                        <div class="header">
+                            <div is-="badge" variant-="background0"><h1>Start</h1></div>
+                            <span class="icon"><MusicIcon width="100" height="100"/></span>
+                        </div>
                         <Codeblock language="hs" code={codeExample}/>
                     </div>
-                    <div class="right-column">
-                        <h1>Finish</h1>
-                        <MusicNote width="148" height="148" />
+                    <div class="right-column" is-="typography-block" box-="round" shear-="top">
+                        <div class="header">
+                            <div is-="badge" variant-="background0"><h1>Finish</h1></div>
+                            <span class="icon"><MusicNote width="100" height="100"/></span>
+                        </div>
                         <Codeblock language="hs" code={codeExample}/>
                     </div>
                 </div>}
@@ -126,40 +131,50 @@ d6 silence
     <div is-="separator" direction-="horizontal"></div>
     <div class="description" is-="typography-block" box-="round" shear-="top">
         <div class="header">
-            <span is-="badge" variant-="background0"><h1>Description</h1></span>
-            <span class="icon"><DJIcon width="74" height="74" /></span>
+            <div is-="badge" variant-="background0"><h1>Description</h1></div>
+            <span class="icon"><DJIcon width="74" height="74"/></span>
         </div>
         <p>This is a description of the project. It provides an overview of what the project is about, its goals, and
             any relevant details that might interest potential collaborators or users.</p>
     </div>
     <div class="audio-section">
         <h1>Play the audio file</h1>
-        <SpeakerIcon width="148" height="148" />
+        <SpeakerIcon width="148" height="148"/>
         <Audio fileRoute={Music}/>
     </div>
+    <div is-="separator" direction-="horizontal"></div>
     <div class="tags">
         <p>Tags: <a href="/tags/tag1">tag1</a>, <a href="/tags/tag2">tag2</a>, <a href="/tags/tag3">tag3</a></p>
     </div>
-    <div class="social-media">
-        <SocialMedia />
+    <div class="social-media" is-="typography-block" box-="round" shear-="top">
+        <div class="header">
+            <div is-="badge" variant-="background0"><h1>Share</h1></div>
+            <span class="icon"><ApplauseIcon width="74" height="74"/></span>
+        </div>
+
+        <SocialMedia/>
     </div>
+    <div is-="separator" direction-="horizontal"></div>
 </Layout>
 
 <style>
 
-    .description {
+    .description, .left-column, .right-column, .social-media {
         padding: 0 2ch 4ch 2ch;
         position: relative;
+
         span {
             margin-bottom: 1lh;
         }
+
         h1 {
             text-box: trim-end cap alphabetic;
         }
+
         .icon {
             position: absolute;
-            top : -30px;
-            right: -15px;
+            top: -20px;
+            right: -20px;
         }
     }
 
@@ -191,6 +206,22 @@ d6 silence
 
         .grid-content-one-columns {
             width: 100%; /* full width on small screens */
+        }
+    }
+
+    @layer utils {
+        [box-~='square'],
+        [box-~='round'],
+        [box-~='double'] {
+            --box-border-color: var(--maroon);
+        }
+
+        .grid-content-two-columns {
+            [box-~='square'],
+            [box-~='round'],
+            [box-~='double'] {
+                --box-border-color: var(--surface0);
+            }
         }
     }
 </style>

@@ -1,9 +1,8 @@
 ---
 import DropDownMenu from './DropDownMenu.jsx';
 ---
-<menu>
-    <DropDownMenu client:visible />
-</menu>
+<DropDownMenu client:visible />
+
 <style>
     @layer components {
         :root {
@@ -62,7 +61,7 @@ import DropDownMenu from './DropDownMenu.jsx';
                 border-radius: 0.25rem;
                 padding: 0.5rem;
                 outline: none !important;
-                background-color: var(--mapped-primary);
+                background-color: var(--flamingo);
                 &:hover {
                     cursor: pointer;
                 }

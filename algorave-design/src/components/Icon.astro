@@ -1,17 +1,16 @@
 ---
 import MusicNote from '../assets/images/icons8-music-small.apng';
 ---
-<a href="/" class="site-icon-homepage">
-    <div class="site-icon" is-="typography-block" box-="round" shear-="top">
-        <header>
-            <h1 class="space-mono-regular-italic">algorave share</h1>
-            <img src={MusicNote} alt="algorave share icon" width="48" height="48"/>
-        </header>
-        <footer>
-            <span class="sub-heading" is-="badge" variant-="background0">For Tidal Cycles and Strudel</span>
-        </footer>
-    </div>
-</a>
+<div tabindex='0' class="site-icon" is-="typography-block" box-="round" shear-="top">
+    <header>
+        <h1 class="space-mono-regular-italic">algorave share</h1>
+        <img src={MusicNote} alt="algorave share icon" width="48" height="48"/>
+    </header>
+    <footer>
+        <span class="sub-heading" is-="badge" variant-="background0">For Tidal Cycles and Strudel</span>
+    </footer>
+</div>
+
 <style>
     a.site-icon-homepage {
         text-decoration: none;
@@ -19,6 +18,7 @@ import MusicNote from '../assets/images/icons8-music-small.apng';
     .site-icon {
         margin-bottom: 2lh;
         padding: 2ch 4ch 0 4ch;
+        cursor: pointer;
 
         header {
             display: flex;
@@ -39,3 +39,11 @@ import MusicNote from '../assets/images/icons8-music-small.apng';
         color: var(--yellow);
     }
 </style>
+<script type="module">
+    const icon = document.querySelector('.site-icon');
+    if (icon) {
+        icon.addEventListener('click', () => {
+            window.location = '/';
+        })
+    }
+</script>

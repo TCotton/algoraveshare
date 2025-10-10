@@ -23,7 +23,7 @@ CREATE TABLE users
     password_hash TEXT        NOT NULL,
     location      TEXT CHECK (char_length(location) <= 200) NULL,
     created_at    TIMESTAMPTZ NOT NULL DEFAULT now(),
-    portfolio     TEXT CHECK (youtube_url ~ '^https?://'
+    portfolio_url TEXT CHECK (portfolio_url ~ '^https?://'
 ) NULL,
     youtube_url      TEXT CHECK (youtube_url ~ '^https?://') NULL,
     mastodon_url     TEXT CHECK (mastodon_url ~ '^https?://') NULL,

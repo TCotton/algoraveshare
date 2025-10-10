@@ -4,7 +4,7 @@ const {sectionName, ...props} = Astro.props;
 <div class="project-header">
     <div class="project-header-left-column">
         <h1>{sectionName}:</h1>
-        <h2>user_id / <span>project_name</span></h2>
+        <h2>user_id {sectionName === 'Projects' && (<span>/ project_name</span>)}</h2>
         <h3>created_at</h3>
     </div>
 </div>

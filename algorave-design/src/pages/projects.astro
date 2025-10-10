@@ -4,7 +4,9 @@ import Codeblock from '../components/Codeblock.astro';
 import Audio from '../components/Audio.astro';
 import SocialMedia from '../components/Share.astro';
 import Menu from '../components/Menu.astro';
-import Music from '../../src/assets/music/sample-pentangle.wav';
+//import AudioPlayer from '../components/AudioPlayer.astro';
+import AudioPlayer from '../components/AudioPlayer.jsx';
+import Music from '../assets/music/sample-pentangle.wav';
 import DJIcon from '../assets/images/icons8-dj.svg';
 import MusicIcon from '../assets/images/icons8-music.svg';
 import MusicNote from '../assets/images/icons8-musical-note.svg';
@@ -137,11 +139,15 @@ d6 silence
         <p>This is a description of the project. It provides an overview of what the project is about, its goals, and
             any relevant details that might interest potential collaborators or users.</p>
     </div>
-    <div class="audio-section">
-        <h1>Play the audio file</h1>
-        <SpeakerIcon width="148" height="148"/>
-        <Audio fileRoute={Music}/>
+    <section class="audio-wrapper">
+    <div class="audio-section" is-="typography-block" box-="round" shear-="top">
+        <div class="header">
+            <div is-="badge" variant-="background0"><h1>Play the audio file</h1></div>
+            <span class="icon"><SpeakerIcon width="74" height="74"/></span>
+        </div>
+        <AudioPlayer musicFile={Music} client:load/>
     </div>
+    </section>
     <div is-="separator" direction-="horizontal"></div>
     <div class="tags">
         <p>Tags: <a href="/tags/tag1">tag1</a>, <a href="/tags/tag2">tag2</a>, <a href="/tags/tag3">tag3</a></p>
@@ -151,7 +157,6 @@ d6 silence
             <div is-="badge" variant-="background0"><h1>Share</h1></div>
             <span class="icon"><ApplauseIcon width="74" height="74"/></span>
         </div>
-
         <SocialMedia/>
     </div>
     <div is-="separator" direction-="horizontal"></div>
@@ -159,7 +164,7 @@ d6 silence
 
 <style>
 
-    .description, .left-column, .right-column, .social-media {
+    .description, .left-column, .right-column, .social-media, .audio-section {
         padding: 0 2ch 4ch 2ch;
         position: relative;
 
@@ -216,7 +221,7 @@ d6 silence
             --box-border-color: var(--maroon);
         }
 
-        .grid-content-two-columns {
+        div.grid-content-two-columns, div.audio-wrapper {
             [box-~='square'],
             [box-~='round'],
             [box-~='double'] {

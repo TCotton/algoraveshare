@@ -2,7 +2,7 @@ import * as Ariakit from "@ariakit/react";
 import SelectForm from '../forms/SelectForm';
 
 export default function NewForm() {
-    const form = Ariakit.useFormStore({defaultValues: {projectName: "", description: ""}});
+    const form = Ariakit.useFormStore({defaultValues: {projectName: "", description: "", singleProject: ""}});
 
     form.useSubmit((state) => {
         const {values} = state;
@@ -14,20 +14,24 @@ export default function NewForm() {
         let hasError = false;
         if (!String(values.projectName || "").trim()) {
             form.setError("projectName", "Name is required");
+            hasError = true;
         }
-        hasError = true;
+
         if (values.projectName.trim().length > 200) {
             form.setError("projectName", "The project name must not be longer than 200 characters");
+            hasError = true;
         }
-        hasError = true;
+
         if (!String(values.description || "").trim()) {
             form.setError("description", "Description is required");
+            hasError = true;
         }
-        hasError = true;
+
         if (!values.singleProject) {
             form.setError("singleProject", "Don't forget to add your code!");
+            hasError = true;
         }
-        hasError = true;
+
         if (hasError) {
             return;
         }
@@ -76,9 +80,9 @@ export default function NewForm() {
                     </ul>
                 </div>
                 <textarea
-                    name={String(form.names.description)}
-                    value={form.useValue("description")}
-                    onChange={e => form.setValue("description", e.target.value)}
+                    name={form.names.formTextarea}
+                    value={form.useValue(form.names.formTextarea)}
+                    onChange={(event) => form.setValue(form.names.formTextarea, event.target.value)}
                     placeholder="Describe the project..."
                     className="form-textarea"
                     autoCapitalize="none"
@@ -98,10 +102,10 @@ export default function NewForm() {
                     Description</Ariakit.FormLabel>
                 <textarea
                     name={String(form.names.singleProject)}
-                    value={form.useValue("Code")}
-                    onChange={e => form.setValue("Code", e.target.value)}
+                    value={form.useValue("singleProject")}
+                    onChange={e => form.setValue("singleProject", e.target.value)}
                     placeholder="Add code here..."
-                    className="form-texarea-single"
+                    className="form-textarea-single"
                     autoCapitalize="none"
                     autoCorrect="off"
                     rows={4}

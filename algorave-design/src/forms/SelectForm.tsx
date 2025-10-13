@@ -1,39 +1,38 @@
 import * as Ariakit from "@ariakit/react";
 import {SelectProvider} from "@ariakit/react";
 
-
-import type { SelectStore } from '@ariakit/react';
-
 type SelectFormProps = {
     label: string;
     items: { label: string; value: string }[];
-    store: SelectStore;
 };
 
 export default function SelectForm(props: SelectFormProps) {
+    console.log("SelectForm", JSON.stringify(props));
     // Ariakit expects items to have id, label, value
-    const items = props.items.map((item: { label: string; value: string }) => ({
+    const formattedItems = props.items.map((item, idx) => ({
         id: item.value,
         label: item.label,
-        value: item.value,
+        value: item.value
     }));
-    const select = props.store;
+    const select = Ariakit.useSelectStore({ items: formattedItems });
     return (
         <div className="select-container">
-            <Ariakit.SelectLabel store={select} className="select-label">
-                {props.label}
-            </Ariakit.SelectLabel>
-            <Ariakit.Select store={select} className="select-trigger">
-                <Ariakit.SelectValue />
-                <Ariakit.SelectArrow className="select-arrow" />
-            </Ariakit.Select>
-            <Ariakit.SelectPopover store={select} className="select-popover">
-                {items.map((item) => (
-                    <Ariakit.SelectItem className="select-item" value={item.value} key={item.id}>
-                        {item.label}
-                    </Ariakit.SelectItem>
-                ))}
-            </Ariakit.SelectPopover>
+            <SelectProvider store={select}>
+                <Ariakit.SelectLabel store={select} className="select-label">
+                    {props.label}
+                </Ariakit.SelectLabel>
+                <Ariakit.Select store={select} className="select-trigger">
+                    <Ariakit.SelectValue/>
+                    <Ariakit.SelectArrow className="select-arrow"/>
+                </Ariakit.Select>
+                <Ariakit.SelectPopover store={select} className="select-popover">
+                    {formattedItems.map(item => (
+                        <Ariakit.SelectItem className="select-item" value={item.value} key={item.id}>
+                            {item.value}
+                        </Ariakit.SelectItem>
+                    ))}
+                </Ariakit.SelectPopover>
+            </SelectProvider>
         </div>
     );
-}
+};

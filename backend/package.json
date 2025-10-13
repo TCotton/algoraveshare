@@ -18,28 +18,28 @@
     "lint:openapi": "spectral lint openapi/openapi.yaml --ruleset .spectral.yml || true"
   },
   "dependencies": {
-    "@effect/data": "^0.10.0",
-    "@effect/io": "^0.35.0",
-    "@fastify/aws-lambda": "^3.0.0",
-    "drizzle-orm": "^0.44.5",
-    "fastify": "^4.22.0",
+    "@effect/data": "^0.18.7",
+    "@effect/io": "^0.41.2",
+    "@fastify/aws-lambda": "^6.1.1",
+    "drizzle-orm": "^0.44.6",
+    "fastify": "^5.6.1",
     "pg": "^8.16.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.36.0",
+    "@eslint/js": "^9.37.0",
     "@stoplight/spectral-cli": "^6.8.0",
     "@types/pg": "^8.15.5",
-    "@typescript-eslint/eslint-plugin": "^8.45.0",
-    "@typescript-eslint/parser": "^8.45.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.1",
+    "@typescript-eslint/parser": "^8.46.1",
     "dotenv": "^17.2.3",
     "drizzle-kit": "^0.31.5",
     "esbuild-register": "^3.6.0",
-    "eslint": "^9.36.0",
+    "eslint": "^9.37.0",
     "globals": "^16.4.0",
     "openapi-typescript": "^7.9.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.0.0",
-    "vitest": "^1.0.0"
+    "vitest": "^3.2.4"
   }
 }

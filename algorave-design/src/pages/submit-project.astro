@@ -1,12 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import SelectFormAstro from '../forms/SelectFormAstro.astro';
+import FormAstro from '../forms/FormAstro.astro';
 ---
 <Layout>
     <h1>Submit Project</h1>
-    <p>This is the page to submit projects. You have a choice of submitting a finished project or a before and after coding project. Some users of Tidal Cycles or Strudel like to start a live performance with a framework or skeleton code which is added or manipulated as the live performance progresses.</p>
+    <p>This is the page to submit projects. You have a choice of submitting a finished project or a before and after
+        coding project. Some users of Tidal Cycles or Strudel like to start a live performance with a framework or
+        skeleton code which is added or manipulated as the live performance progresses.</p>
+    <FormAstro/>
     <form action="/" method="POST">
-    <SelectFormAstro label="Choose a project type" items={[{ value: 'Finished Project', label: 'finished' }, { value: 'Before and After Live Coding Project', label: 'before-after' }]} />
+        <SelectFormAstro label="Choose a project type" items={[{
+            value: 'Finished Project',
+            label: 'finished'
+        }, {value: 'Before and After Live Coding Project', label: 'before-after'}]}/>
         <div is-="separator" direction-="horizontal"></div>
 
         <div is-="separator" direction-="horizontal"></div>
@@ -19,3 +26,23 @@ import SelectFormAstro from '../forms/SelectFormAstro.astro';
         <input type="submit" value="Submit">
     </form>
 </Layout>
+<style>
+    @layer components {
+        textarea,
+        [is-~='textarea'] {
+            &[size-='thicc'] {
+                min-height: 6lh;
+                padding: 2lh 4ch;
+            }
+        }
+    }
+
+    @layer base {
+        :root {
+
+            --font-family: "Roboto Mono", monospace;
+            --line-height-paragraph: 1.8;
+            --line-height-code: 1.8;
+        }
+    }
+</style>

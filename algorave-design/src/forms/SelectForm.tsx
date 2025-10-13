@@ -1,10 +1,6 @@
 import * as Ariakit from "@ariakit/react";
 import {SelectProvider} from "@ariakit/react";
-
-type SelectFormProps = {
-    label: string;
-    items: { label: string; value: string }[];
-};
+import type {selectFormProps} from "./formtypes.ts";
 
 export default function SelectForm(props: SelectFormProps) {
     // Ariakit expects items to have id, label, value

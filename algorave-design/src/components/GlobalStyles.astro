@@ -93,12 +93,53 @@ import 'modern-normalize/modern-normalize.css';
         color: var(--yellow);
     }
 
+    :root {
+        @layer components {
+            input,
+            [is-~='input'],
+            &[size-='thicc'] {
+                height: 3lh;
+                width: 100%;
+                padding: 1lh 8ch;
+            }
+        }
+    }
+
+    :root {
+        @layer components {
+            textarea,
+            [is-~='textarea'],
+            &[size-='thicc'] {
+                min-height: 15lh;
+                padding: 2ch 2ch;
+                width: 100%;
+            }
+        }
+    }
+
+    .form-wrapper  {
+        .error {
+            color: var(--red);
+        }
+        .field {
+            margin-bottom: 2lh;
+        }
+        ul li {
+            line-height: var(--line-height-list);
+        }
+        .form-textarea {
+            line-height: var(--line-height-input)
+        }
+
+    }
 
     @layer base {
         :root {
             --font-family: "Roboto Mono", monospace;
             --line-height-paragraph: 1.8;
             --line-height-code: 1.8;
+            --line-height-list: 1.6;
+            --line-height-input: 1.8;
         }
     }
 
@@ -254,4 +295,6 @@ import 'modern-normalize/modern-normalize.css';
             width: 100%;
         }
     }
+
+
 </style>

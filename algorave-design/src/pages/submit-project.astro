@@ -1,13 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import SelectFormAstro from '../forms/SelectFormAstro.astro';
-import FormAstro from '../forms/FormAstro.astro';
 import NewForm from "../forms/NewForm.tsx";
 ---
-<Layout>
-    <h1>Submit Project</h1>
-    <p>This is the page to submit projects. You have a choice of submitting a finished project or a before and after
-        coding project. Some users of Tidal Cycles or Strudel like to start a live performance with a framework or
-        skeleton code which is added or manipulated as the live performance progresses.</p>
-    <NewForm client:visible />
+<Layout sectionName="addProjects">
+    <header class="add-projects-header">
+        <h1>Submit Project</h1>
+        <p>This is the page to submit projects. You have a choice of submitting a finished project or a before and after
+            coding project. Some users of Tidal Cycles or Strudel like to start a live performance with a framework or
+            skeleton code which is added or manipulated as the live performance progresses.</p>
+        <div is-="separator" direction-="horizontal"></div>
+        <NewForm client:visible/>
+    </header>
 </Layout>

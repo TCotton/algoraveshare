@@ -16,7 +16,8 @@
     "test:playwright:debug": "npx playwright test --debug",
     "test:playwright:ui": "npx playwright test --ui",
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
-    "lint:fix": "eslint . --ext .js,.ts,.jsx,.tsx --fix"
+    "lint:fix": "eslint . --ext .js,.ts,.jsx,.tsx --fix",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",

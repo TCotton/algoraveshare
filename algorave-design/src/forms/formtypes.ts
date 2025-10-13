@@ -3,7 +3,7 @@ export type SelectFormProps = {
   items: { label: string, value: string }[]
 }
 
-export interface FormProps extends selectFormProps {
+export interface FormProps extends SelectFormProps {
   forms: {
     names: {
       formInput: string

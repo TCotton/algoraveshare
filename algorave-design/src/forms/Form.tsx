@@ -53,7 +53,7 @@ export default function Form() {
         </ul>
         <Ariakit.FormLabel name={form.names.formTextarea}>Description</Ariakit.FormLabel>
         <textarea
-          name={String(form.names.description)}
+          name={String(form.names.formTextarea)}
           value={form.useValue(form.names.formTextarea)}
           onChange={event => form.setValue('description', event.target.value)}
           placeholder="Write your description here..."

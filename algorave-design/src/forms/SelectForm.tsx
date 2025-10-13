@@ -1,10 +1,11 @@
 import * as Ariakit from "@ariakit/react";
 import {SelectProvider} from "@ariakit/react";
-import type {selectFormProps} from "./formtypes.ts";
+import type {SelectFormProps} from "./formtypes.ts";
 
 export default function SelectForm(props: SelectFormProps) {
     // Ariakit expects items to have id, label, value
-    const formattedItems = props.items.map((item, idx) => ({
+    console.log("SelectForm props:", props.items);
+    const formattedItems = props?.items?.map((item, idx) => ({
         id: item.value,
         label: item.label,
         value: item.value
@@ -23,7 +24,7 @@ export default function SelectForm(props: SelectFormProps) {
                 <Ariakit.SelectPopover store={select} className="select-popover">
                     {formattedItems.map(item => (
                         <Ariakit.SelectItem className="select-item" value={item.value} key={item.id}>
-                            {item.value}
+                            {item.label}
                         </Ariakit.SelectItem>
                     ))}
                 </Ariakit.SelectPopover>

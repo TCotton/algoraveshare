@@ -1,9 +1,8 @@
 ---
 import SelectForm from '../forms/SelectForm.tsx';
-import type { FormProps } from '../forms/formtypes.ts';
-const { label, items, forms } = Astro.props as FormProps;
+const { label, items } = Astro.props as { label: string; items: { label: string; value: string }[] };
 ---
-<SelectForm client:visible label={label} items={items} forms={forms} />
+<SelectForm client:visible label={label} items={items} />
 <style>
     :root {
         select, .select-item {

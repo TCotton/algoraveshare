@@ -9,13 +9,13 @@ export default function DropDownMenu() {
             </Ariakit.MenuButton>
             <Ariakit.Menu gutter={8} className="menu">
                 <Ariakit.MenuItem className="menu-item">
-                    Home
+                    <a href="/">Home</a>
                 </Ariakit.MenuItem>
                 <Ariakit.MenuItem className="menu-item">
-                    Projects
+                    <a href="/projects">Projects</a>
                 </Ariakit.MenuItem>
                 <Ariakit.MenuItem className="menu-item">
-                    Snippets
+                    <a href="/snippets">Snippets</a>
                 </Ariakit.MenuItem>
                 <Ariakit.MenuSeparator className="separator" />
             </Ariakit.Menu>

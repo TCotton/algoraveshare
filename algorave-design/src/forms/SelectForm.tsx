@@ -15,7 +15,7 @@ export default function SelectForm(props: SelectFormProps) {
         <div className="select-container">
             <SelectProvider store={select}>
                 <Ariakit.SelectLabel store={select} className="select-label">
-                    {props.value}
+                    {props.label}
                 </Ariakit.SelectLabel>
                 <Ariakit.Select store={select} className="select-trigger">
                     <Ariakit.SelectValue/>

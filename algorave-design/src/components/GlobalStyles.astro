@@ -111,7 +111,7 @@ import 'modern-normalize/modern-normalize.css';
             [is-~='textarea'],
             &[size-='thicc'] {
                 min-height: 15lh;
-                padding: 2ch 2ch;
+                padding: 1lh 2ch;
                 width: 100%;
             }
         }
@@ -122,10 +122,10 @@ import 'modern-normalize/modern-normalize.css';
             color: var(--red);
         }
         .field {
-            margin-bottom: 2lh;
+            margin-bottom: 1lh;
             label {
                 display: block;
-                margin-bottom: 0.5lh;
+                margin-bottom: 1lh;
                 color: var(--yellow);
             }
         }
@@ -135,7 +135,9 @@ import 'modern-normalize/modern-normalize.css';
         .form-textarea {
             line-height: var(--line-height-input)
         }
-
+        .description-text {
+            margin-bottom: 1lh
+        }
     }
 
     @layer base {

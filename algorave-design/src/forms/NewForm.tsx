@@ -3,7 +3,8 @@ import * as Ariakit from '@ariakit/react'
 import SelectForm from '../forms/SelectForm'
 
 export default function NewForm() {
-  const form = Ariakit.useFormStore({ defaultValues: { projectName: '', description: '', singleProject: '' } })
+
+  const form = Ariakit.useFormStore({ defaultValues: { projectName: '', description: '', singleProject: '' , formTextarea: ''} })
 
   form.useSubmit((state) => {
     const { values } = state
@@ -83,7 +84,7 @@ export default function NewForm() {
           </ul>
         </div>
         <textarea
-          name={form.names.formTextarea}
+          name={String(form.names.formTextarea)}
           value={form.useValue(form.names.formTextarea)}
           onChange={event => form.setValue(form.names.formTextarea, event.target.value)}
           placeholder="Describe the project..."

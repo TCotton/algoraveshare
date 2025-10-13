@@ -1,11 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import SelectFormAstro from '../forms/SelectFormAstro.astro';
-import DropDownMenu from "../components/DropDownMenu";
 ---
 <Layout>
     <h1>Submit Project</h1>
-    <p>This is the page to submit projects. You have a choice of submitting finished or project or a before and after coding project. Some users or Tidal Cycles or Strudel like to start a live a live performance with a framework or skeleton code which is added or manipulated as the live performance progresses</p>
+    <p>This is the page to submit projects. You have a choice of submitting a finished project or a before and after coding project. Some users of Tidal Cycles or Strudel like to start a live performance with a framework or skeleton code which is added or manipulated as the live performance progresses.</p>
     <form action="/" method="POST">
     <SelectFormAstro label="Choose a project type" items={[{ value: 'Finished Project', label: 'finished' }, { value: 'Before and After Live Coding Project', label: 'before-after' }]} />
         <div is-="separator" direction-="horizontal"></div>

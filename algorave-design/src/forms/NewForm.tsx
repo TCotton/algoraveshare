@@ -89,6 +89,21 @@ export default function NewForm() {
                     {value: 'before-after', label: 'Before and After Live Coding Project'},
                 ]}/>
             </div>
+            <div className="form-textarea-single">
+                <Ariakit.FormLabel name={form.names.singleProject}>
+                    Description</Ariakit.FormLabel>
+                <textarea
+                    name={String(form.names.description)}
+                    value={form.useValue("Code")}
+                    onChange={e => form.setValue("Code", e.target.value)}
+                    placeholder="Add code here..."
+                    className="form-texarea-single"
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    rows={4}
+                />
+                <Ariakit.FormError name={form.names.description} className="error"/>
+            </div>
             <div className="buttons">
                 <Ariakit.FormSubmit className="button">Submit</Ariakit.FormSubmit>
             </div>

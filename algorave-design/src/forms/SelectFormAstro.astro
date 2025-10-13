@@ -1,0 +1,39 @@
+---
+import SelectForm from '../forms/SelectForm.tsx';
+const { label, items } = Astro.props as { label: string; items: { label: string; value: string }[] };
+---
+<SelectForm client:visible label={label} items={items} />
+<style>
+    :root {
+        select, .select-item {
+            margin: 1ch 2ch !important;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            border: 1px solid hsl(204 20% 88%);
+            background-color: var(--rosewater);
+            color: var(--base);
+            font-size: 1rem;
+            outline: none !important;
+        }
+        select:where(.dark, .dark *) {
+            border-color: hsl(204 4% 24%);
+            background-color: hsl(204 4% 16%);
+            color: white;
+        }
+        select:hover, .select-item:hover  {
+            cursor: pointer;
+            border-color: hsl(204 20% 70%);
+        }
+        select:where(.dark, .dark *):hover {
+            border-color: hsl(204 4% 40%);
+        }
+        label {
+            margin: 1ch 2ch !important;
+            font-size: 1rem;
+            color: var(--base);
+        }
+        :where(.dark, .dark *) label {
+            color: white;
+        }
+    }
+</style>

@@ -9,24 +9,28 @@ export default function NewForm() {
         // clear previous errors
         form.setError("projectName", "");
         form.setError("description", "");
+        form.setError("singleProject", "");
 
         let hasError = false;
         if (!String(values.projectName || "").trim()) {
             form.setError("projectName", "Name is required");
-            hasError = true;
         }
+        hasError = true;
         if (values.projectName.trim().length > 200) {
             form.setError("projectName", "The project name must not be longer than 200 characters");
-            hasError = true;
         }
+        hasError = true;
         if (!String(values.description || "").trim()) {
             form.setError("description", "Description is required");
-            hasError = true;
         }
+        hasError = true;
+        if (!values.singleProject) {
+            form.setError("singleProject", "Don't forget to add your code!");
+        }
+        hasError = true;
         if (hasError) {
             return;
-        } // prevent submit when validation fails
-
+        }
         alert(JSON.stringify(values));
     });
 
@@ -93,7 +97,7 @@ export default function NewForm() {
                 <Ariakit.FormLabel name={form.names.singleProject}>
                     Description</Ariakit.FormLabel>
                 <textarea
-                    name={String(form.names.description)}
+                    name={String(form.names.singleProject)}
                     value={form.useValue("Code")}
                     onChange={e => form.setValue("Code", e.target.value)}
                     placeholder="Add code here..."
@@ -102,11 +106,12 @@ export default function NewForm() {
                     autoCorrect="off"
                     rows={4}
                 />
-                <Ariakit.FormError name={form.names.description} className="error"/>
+                <Ariakit.FormError name={form.names.singleProject} className="error"/>
             </div>
             <div className="buttons">
                 <Ariakit.FormSubmit className="button">Submit</Ariakit.FormSubmit>
             </div>
         </Ariakit.Form>
     );
-};
+}
+;

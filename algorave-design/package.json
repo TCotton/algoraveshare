@@ -10,6 +10,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "test:unit": "vitest",
+    "test:unit:snapshot": "vitest -u",
     "test:unit:ui": "vitest --ui",
     "test:playwright": "npx playwright test --project=chromium",
     "test:playwright:debug": "npx playwright test --debug",

@@ -1,7 +1,6 @@
 import React from "react";
 import {describe, it, expect, beforeEach, vi} from "vitest";
 import {render, screen} from "@testing-library/react";
-import renderer from 'react-test-renderer';
 import SelectForm from "../../../../src/forms/SelectForm";
 
 vi.mock("@ariakit/react", () => ({
@@ -38,7 +37,7 @@ describe("SelectForm", () => {
         ).toBeInTheDocument();
     });
     it('matches snapshot', () => {
-        const tree = renderer.create(<SelectForm label={items.label} items={items.items} />).toJSON();
-        expect(tree).toMatchSnapshot();
-    })
+        const result = <SelectForm label={items.label} items={items.items}/>
+        expect(result).toMatchSnapshot()
+    });
 });

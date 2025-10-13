@@ -1,3 +1,19 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SelectForm > matches snapshot 1`] = `null`;
+exports[`SelectForm > matches snapshot 1`] = `
+<SelectForm
+  items={
+    [
+      {
+        "label": "finished",
+        "value": "Finished Project",
+      },
+      {
+        "label": "before-after",
+        "value": "Before and After Live Coding Project",
+      },
+    ]
+  }
+  label="Choose a project type"
+/>
+`;

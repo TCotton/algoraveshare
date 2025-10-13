@@ -7,7 +7,6 @@ type SelectFormProps = {
 };
 
 export default function SelectForm(props: SelectFormProps) {
-    console.log("SelectForm", JSON.stringify(props));
     // Ariakit expects items to have id, label, value
     const formattedItems = props.items.map((item, idx) => ({
         id: item.value,

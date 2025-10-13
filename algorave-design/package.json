@@ -14,20 +14,29 @@
     "test:unit:ui": "vitest --ui",
     "test:playwright": "npx playwright test --project=chromium",
     "test:playwright:debug": "npx playwright test --debug",
-    "test:playwright:ui": "npx playwright test --ui"
+    "test:playwright:ui": "npx playwright test --ui",
+    "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
+    "lint:fix": "eslint . --ext .js,.ts,.jsx,.tsx --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@astrojs/node": "^9.4.4",
+    "@eslint/js": "^9.37.0",
     "@playwright/test": "^1.56.0",
     "@sentry/astro": "^10.17.0",
     "@spotlightjs/astro": "^3.2.6",
+    "@stylistic/eslint-plugin": "^5.4.0",
     "@types/node": "^24.7.1",
     "@vitest/ui": "^3.2.4",
     "astro": "5.13.0",
+    "eslint": "^9.37.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.4.0",
+    "jiti": "^2.6.1",
     "react-test-renderer": "^19.2.0",
+    "typescript-eslint": "^8.46.1",
     "vitest": "^3.2.4"
   },
   "dependencies": {

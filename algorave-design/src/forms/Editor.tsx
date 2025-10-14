@@ -10,7 +10,19 @@ export default function Editor() {
     return null
   }
   // Creates a new editor instance.
-  const editor = useCreateBlockNote()
+  const editor = useCreateBlockNote({
+    initialContent: [
+      {
+        type: 'paragraph',
+        content: '🪶 Welcome to BlockNote + Ariakit!',
+      },
+    ],
+  })
   // Renders the editor instance using a React component.
-  return <BlockNoteView editor={editor} />
+  return (
+    <BlockNoteView
+      editor={editor}
+      formattingToolbar={false}
+    />
+  )
 }

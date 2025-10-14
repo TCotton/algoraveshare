@@ -1,6 +1,6 @@
 import React from 'react'
 import '@blocknote/core/fonts/inter.css'
-import { BlockNoteSchema, createCodeBlockSpec } from '@blocknote/core'
+import { BlockNoteSchema, createCodeBlockSpec, createHighlighter } from '@blocknote/core'
 import { useCreateBlockNote } from '@blocknote/react'
 import { BlockNoteView } from '@blocknote/ariakit'
 import { FormStore } from '@ariakit/react'

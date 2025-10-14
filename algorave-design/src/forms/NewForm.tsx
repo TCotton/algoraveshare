@@ -6,6 +6,9 @@ import { html } from './description-text.ts'
 export default function NewForm() {
   const form = Ariakit.useFormStore({ defaultValues: { projectName: '', description: '', singleProject: '', projectSoftware: '', projectType: '' } })
 
+  const projectSoftwareDefault = 'Project software'
+  const projectTypeDefault = 'Project type'
+
   form.useSubmit((state) => {
     const { values } = state
     console.dir(values)
@@ -18,12 +21,12 @@ export default function NewForm() {
 
     let hasError = false
 
-    if (values.projectSoftware === '' || values.projectSoftware === 'Project software') {
+    if (values.projectSoftware === '' || values.projectSoftware === projectSoftwareDefault) {
       form.setError('projectSoftware', 'Please select a project software')
       hasError = true
     }
 
-    if (values.projectType === '' || values.projectType === 'Project type') {
+    if (values.projectType === '' || values.projectType === projectTypeDefault) {
       form.setError('projectType', 'Please select a project type')
       hasError = true
     }
@@ -66,7 +69,7 @@ export default function NewForm() {
           name="projectSoftware"
           form={form}
           items={[
-            { value: 'Project software', label: 'project-software' },
+            { value: projectSoftwareDefault, label: 'project-software' },
             { value: 'Tidal Cycles', label: 'tidal-cycles' },
             { value: 'Strudel', label: 'strudel' },
           ]}
@@ -91,7 +94,7 @@ export default function NewForm() {
           name="projectType"
           form={form}
           items={[
-            { value: 'Project type', label: 'project-type' },
+            { value: projectTypeDefault, label: 'project-type' },
             { value: 'Finished Project', label: 'finished' },
             { value: 'Before and After Live Coding Project', label: 'before-after' },
           ]}

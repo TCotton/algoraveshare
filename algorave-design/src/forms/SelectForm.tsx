@@ -4,9 +4,14 @@ import * as Ariakit from '@ariakit/react'
 import { SelectProvider } from '@ariakit/react'
 import type { SelectFormProps } from './formtypes.ts'
 
+interface FormObject {
+  useValue: (name: string) => string
+  setValue: (name: string, value: string) => void
+}
+
 interface ExtendedSelectFormProps extends SelectFormProps {
   name: string
-  form?: any
+  form?: FormObject
 }
 
 export default function SelectForm(props: ExtendedSelectFormProps) {
@@ -17,7 +22,7 @@ export default function SelectForm(props: ExtendedSelectFormProps) {
     value: item.value,
   }))
   const select = Ariakit.useSelectStore({
-    defaultValue: items[0].value,
+    defaultValue: items.length > 0 ? items[0].value : undefined,
     items: formattedItems,
     value: form ? form.useValue(name) : undefined,
     setValue: form ? (val: string) => form.setValue(name, val) : undefined,
@@ -29,7 +34,7 @@ export default function SelectForm(props: ExtendedSelectFormProps) {
           <div is-="badge" variant-="background0">{label}</div>
         </Ariakit.SelectLabel>
         <Ariakit.Select store={select} className="select-trigger">
-          <Ariakit.SelectValue fallback={items[0].value} />
+          <Ariakit.SelectValue fallback={items.length > 0 ? items[0].value : undefined} />
           <Ariakit.SelectArrow className="select-arrow" />
         </Ariakit.Select>
         <Ariakit.SelectPopover store={select} className="menu-wrapper" id="menu-form" gutter={4}>

@@ -4,56 +4,79 @@ import SelectForm from '../forms/SelectForm'
 import { html } from './description-text.ts'
 
 export default function NewForm() {
-  const form = Ariakit.useFormStore({ defaultValues: { projectName: '', description: '', singleProject: '', projectSoftware: '', projectType: '' } })
+  const form = Ariakit.useFormStore({
+    defaultValues: {
+      projectName: '',
+      description: '',
+      singleProject: '',
+      projectSoftware: '',
+      projectType: '',
+    },
+  })
 
   const projectSoftwareDefault = 'Project software'
   const projectTypeDefault = 'Project type'
 
   form.useSubmit((state) => {
+    console.log(state)
     const { values } = state
     console.dir(values)
-    // clear previous errors
-    form.setError('projectName', '')
-    form.setError('description', '')
-    form.setError('singleProject', '')
-    form.setError('projectSoftware', '')
-    form.setError('projectType', '')
 
     let hasError = false
 
+    // Validate projectSoftware
     if (values.projectSoftware === '' || values.projectSoftware === projectSoftwareDefault) {
       form.setError('projectSoftware', 'Please select a project software')
       hasError = true
     }
+    else {
+      form.setError('projectSoftware', '')
+    }
 
+    // Validate projectType
     if (values.projectType === '' || values.projectType === projectTypeDefault) {
       form.setError('projectType', 'Please select a project type')
       hasError = true
     }
+    else {
+      form.setError('projectType', '')
+    }
 
+    // Validate projectName
     if (!String(values.projectName || '').trim()) {
       form.setError('projectName', 'Name is required')
       hasError = true
     }
-
-    if (values.projectName.trim().length > 200) {
+    else if (values.projectName.trim().length > 200) {
       form.setError('projectName', 'The project name must not be longer than 200 characters')
       hasError = true
     }
+    else {
+      form.setError('projectName', '')
+    }
 
+    // Validate description
     if (!String(values.description || '').trim()) {
       form.setError('description', 'Description is required')
       hasError = true
     }
+    else {
+      form.setError('description', '')
+    }
 
+    // Validate singleProject
     if (!values.singleProject) {
       form.setError('singleProject', 'Don\'t forget to add your code!')
       hasError = true
+    }
+    else {
+      form.setError('singleProject', '')
     }
 
     if (hasError) {
       return
     }
+
     alert(JSON.stringify(values))
   })
 
@@ -62,6 +85,7 @@ export default function NewForm() {
       store={form}
       aria-labelledby="add-new-participant"
       className="form-wrapper"
+      method="post"
     >
       <div className="field">
         <SelectForm

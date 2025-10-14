@@ -25,7 +25,7 @@ const items = {
 };
 
 beforeEach(() => {
-    render(<SelectForm label={items.label} items={items.items} />);
+    render(<SelectForm label={items.label} items={items.items} name="projectType" />);
 })
 
 describe("SelectForm", () => {
@@ -37,7 +37,7 @@ describe("SelectForm", () => {
         ).toBeInTheDocument();
     });
     it('matches snapshot', () => {
-        const result = <SelectForm label={items.label} items={items.items}/>
+        const result = <SelectForm label={items.label} items={items.items} name="projectType" />
         expect(result).toMatchSnapshot()
     });
 });

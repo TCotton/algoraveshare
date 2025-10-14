@@ -1,10 +1,10 @@
 import React from 'react'
 import * as Ariakit from '@ariakit/react'
 
-export default function SelectForm() {
+export default function Textarea({ form }: { form: Ariakit.FormStore }) {
   return (
     <div className="form-textarea">
-      <Ariakit.FormLabel name={form.names.description}>
+  <Ariakit.FormLabel name="description">
         Description
       </Ariakit.FormLabel>
       <textarea
@@ -17,7 +17,7 @@ export default function SelectForm() {
         autoCorrect="off"
         rows={4}
       />
-      <Ariakit.FormError name={form.names.description} className="error" />
+  <Ariakit.FormError name="description" className="error" />
     </div>
   )
 }

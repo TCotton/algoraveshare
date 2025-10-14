@@ -113,7 +113,6 @@ export default function ProjectForm() {
           className="w-full border rounded p-2"
           placeholder="Describe your project"
           value={form.useValue('description')}
-          onChange={e => form.setValue('description', e.target.value)}
         />
         <Ariakit.FormError name="description" className="text-red-600 text-sm mt-1" />
       </div>
@@ -126,7 +125,6 @@ export default function ProjectForm() {
           onBlur={() => handleBlur('projectSoftware')}
           className="w-full border rounded p-2"
           value={form.useValue('projectSoftware')}
-          onChange={e => form.setValue('projectSoftware', e.target.value)}
         >
           <option>{projectSoftwareDefault}</option>
           <option>TidalCycles</option>
@@ -143,7 +141,6 @@ export default function ProjectForm() {
           onBlur={() => handleBlur('projectType')}
           className="w-full border rounded p-2"
           value={form.useValue('projectType')}
-          onChange={e => form.setValue('projectType', e.target.value)}
         >
           <option>{projectTypeDefault}</option>
           <option>Snippet</option>

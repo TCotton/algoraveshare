@@ -1,11 +1,37 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import * as Ariakit from '@ariakit/react'
 import SelectForm from '../forms/SelectForm'
 import { html } from './description-text.ts'
-import Editor from './Testing.tsx'
+import { useCreateBlockNote } from '@blocknote/react'
+import { BlockNoteView } from '@blocknote/ariakit'
+import '@blocknote/ariakit/style.css'
 
 export default function NewForm() {
-  const form = Ariakit.useFormStore({ defaultValues: { projectName: '', description: '', singleProject: '', formTextarea: '' } })
+  const form = Ariakit.useFormStore({
+    defaultValues: {
+      projectName: '',
+      description: '',
+      singleProject: '',
+      formTextarea: '',
+    },
+  })
+
+  const editor = useCreateBlockNote({
+    blockTypes: [
+      'paragraph',
+      'heading',
+      'bulletListItem',
+      'numberedListItem',
+      'codeBlock',
+      'codeExample',
+    ],
+    initialContent: [
+      {
+        type: 'paragraph',
+        content: '🪶 Welcome to BlockNote + Ariakit!',
+      },
+    ],
+  })
 
   form.useSubmit((state) => {
     const { values } = state
@@ -60,7 +86,6 @@ export default function NewForm() {
         <Ariakit.FormError name={form.names.projectName} className="error" />
       </div>
       <div className="field">
-        <Editor client:only />
       </div>
       <div className="field">
         <Ariakit.FormLabel name={form.names.description}>
@@ -115,4 +140,3 @@ export default function NewForm() {
     </Ariakit.Form>
   )
 }
-;

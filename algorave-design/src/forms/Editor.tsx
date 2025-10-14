@@ -12,7 +12,7 @@ export default function Editor(props: { form: FormStore }) {
     return null
   }
   const { form } = props
-    console.log(form)
+  console.log(form)
   // Creates a new editor instance.
   const editor = useCreateBlockNote({
     schema: BlockNoteSchema.create().extend({

@@ -12,6 +12,10 @@ import 'modern-normalize/modern-normalize.css';
         padding: 3ch;
     }
 
+    button {
+        cursor: pointer;
+    }
+
     @media (max-width: 768px) {
         .container {
             padding: 1ch;
@@ -89,6 +93,25 @@ import 'modern-normalize/modern-normalize.css';
         padding: 0 4ch 5ch 4ch;
     }
 
+    .select-container {
+        padding: 0 2ch 2ch 2ch;
+        margin-bottom: 1lh;
+        a {
+            color: rgb(85, 26, 139);
+        }
+        .menu-item:first-of-type a {
+            text-decoration: none;
+        }
+
+        .menu-item {
+            margin-bottom: 0.2lh;
+
+        }
+        .menu-wrapper {
+            //background-color: rgb(from var(--flamingo) r g b / 0.3);
+        }
+    }
+
     h2 > span {
         color: var(--yellow);
     }
@@ -132,6 +155,10 @@ import 'modern-normalize/modern-normalize.css';
             }
         }
 
+        .field.field-project-name input {
+            margin-bottom: 1lh;
+        }
+
         ul li {
             line-height: var(--line-height-list);
             margin-bottom: 0.5lh;
@@ -172,6 +199,10 @@ import 'modern-normalize/modern-normalize.css';
         }
 
         div.site-icon[box-~='round'] {
+            --box-border-color: var(--surface0);
+        }
+
+        div.select-container[box-~='round'] {
             --box-border-color: var(--surface0);
         }
 

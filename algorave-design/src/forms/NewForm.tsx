@@ -4,16 +4,30 @@ import SelectForm from '../forms/SelectForm'
 import { html } from './description-text.ts'
 
 export default function NewForm() {
-  const form = Ariakit.useFormStore({ defaultValues: { projectName: '', description: '', singleProject: '', formTextarea: '' } })
+  const form = Ariakit.useFormStore({ defaultValues: { projectName: '', description: '', singleProject: '', projectSoftware: '', projectType: '' } })
 
   form.useSubmit((state) => {
     const { values } = state
+    console.dir(values)
     // clear previous errors
     form.setError('projectName', '')
     form.setError('description', '')
     form.setError('singleProject', '')
+    form.setError('projectSoftware', '')
+    form.setError('projectType', '')
 
     let hasError = false
+
+    if (values.projectSoftware === '' || values.projectSoftware === 'Project software') {
+      form.setError('projectSoftware', 'Please select a project software')
+      hasError = true
+    }
+
+    if (values.projectType === '' || values.projectType === 'Project type') {
+      form.setError('projectType', 'Please select a project type')
+      hasError = true
+    }
+
     if (!String(values.projectName || '').trim()) {
       form.setError('projectName', 'Name is required')
       hasError = true
@@ -47,6 +61,19 @@ export default function NewForm() {
       className="form-wrapper"
     >
       <div className="field">
+        <SelectForm
+          label="Choose the project software"
+          name="projectSoftware"
+          form={form}
+          items={[
+            { value: 'Project software', label: 'project-software' },
+            { value: 'Tidal Cycles', label: 'tidal-cycles' },
+            { value: 'Strudel', label: 'strudel' },
+          ]}
+        />
+        <Ariakit.FormError name={form.names.projectSoftware} className="error" />
+      </div>
+      <div className="field field-project-name">
         <Ariakit.FormLabel name={form.names.projectName}>Name</Ariakit.FormLabel>
         <Ariakit.FormInput
           name={form.names.projectName}
@@ -59,6 +86,19 @@ export default function NewForm() {
         <Ariakit.FormError name={form.names.projectName} className="error" />
       </div>
       <div className="field">
+        <SelectForm
+          label="Choose a project type"
+          name="projectType"
+          form={form}
+          items={[
+            { value: 'Project type', label: 'project-type' },
+            { value: 'Finished Project', label: 'finished' },
+            { value: 'Before and After Live Coding Project', label: 'before-after' },
+          ]}
+        />
+        <Ariakit.FormError name={form.names.projectType} className="error" />
+      </div>
+      <div className="field">
         <Ariakit.FormLabel name={form.names.description}>
           Description
         </Ariakit.FormLabel>
@@ -69,9 +109,9 @@ export default function NewForm() {
           />
         </div>
         <textarea
-          name={String(form.names.formTextarea)}
-          value={form.useValue(form.names.formTextarea)}
-          onChange={event => form.setValue(form.names.formTextarea, event.target.value)}
+          name="description"
+          value={form.useValue('description')}
+          onChange={event => form.setValue('description', event.target.value)}
           placeholder="Describe the project..."
           className="form-textarea"
           autoCapitalize="none"
@@ -80,15 +120,7 @@ export default function NewForm() {
         />
         <Ariakit.FormError name={form.names.description} className="error" />
       </div>
-      <div className="field">
-        <SelectForm
-          label="Choose a project type"
-          items={[
-            { value: 'finished', label: 'Finished Project' },
-            { value: 'before-after', label: 'Before and After Live Coding Project' },
-          ]}
-        />
-      </div>
+      {/* Removed duplicate SelectForm for project type. If needed, add name and form props. */}
       <div className="form-textarea-single">
         <Ariakit.FormLabel name={form.names.singleProject}>
           Description

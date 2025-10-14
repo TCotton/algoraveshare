@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useCreateBlockNote, createReactBlockSpec } from '@blocknote/react'
-import { BlockNoteView } from "@blocknote/ariakit"
-import { Menu, MenuButton, MenuItem } from "@ariakit/react";
+import { BlockNoteView } from '@blocknote/ariakit'
+import { Menu, MenuButton, MenuItem } from '@ariakit/react'
 import '@blocknote/core/style.css'
 
 /**
@@ -79,7 +79,6 @@ export default function Editor() {
   return (
     <div style={{ maxWidth: 720, margin: '2rem auto', padding: '1rem' }}>
 
-      {/* 👇 Updated component name */}
       <BlockNoteView editor={editor} theme="light" />
 
       {html && (

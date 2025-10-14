@@ -60,7 +60,7 @@ export default function NewForm() {
         <Ariakit.FormError name={form.names.projectName} className="error" />
       </div>
       <div className="field">
-        <Editor client:only/>
+        <Editor client:only />
       </div>
       <div className="field">
         <Ariakit.FormLabel name={form.names.description}>

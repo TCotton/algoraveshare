@@ -1,10 +1,10 @@
 import React from 'react'
 import * as Ariakit from '@ariakit/react'
 import SelectForm from '../forms/SelectForm'
+import { html } from './description-text.ts';
 
 export default function NewForm() {
-
-  const form = Ariakit.useFormStore({ defaultValues: { projectName: '', description: '', singleProject: '' , formTextarea: ''} })
+  const form = Ariakit.useFormStore({ defaultValues: { projectName: '', description: '', singleProject: '', formTextarea: '' } })
 
   form.useSubmit((state) => {
     const { values } = state
@@ -64,24 +64,9 @@ export default function NewForm() {
         </Ariakit.FormLabel>
         <div className="description-text">
           <p>When writing your description, consider addressing some of the following questions:</p>
-          <ul>
-            <li>What inspired this pattern or composition?</li>
-            <li>What kind of mood, texture, or feeling were you aiming for?</li>
-            <li>How is the rhythm or structure of the pattern organized?</li>
-            <li>Are there repeating cycles, polyrhythms, or evolving sequences?</li>
-            <li>What role does silence or space play in the pattern?</li>
-            <li>Which functions or techniques are key to this pattern?</li>
-            <li>
-              How do you control variation — randomness (rand, choose), patterning (every, when), or
-              layering?
-            </li>
-            <li>What was the trickiest part to get working?</li>
-            <li>Are there any interesting contrasts (e.g. between high/low, dry/wet, dense/sparse)?</li>
-            <li>How might someone remix or extend your idea?</li>
-            <li>What did you learn while making this pattern?</li>
-            <li>Is there something others could learn from your code?</li>
-            <li>Are there parts of the code that are experimental or exploratory?</li>
-          </ul>
+            <div
+                dangerouslySetInnerHTML={{ __html: html }}
+            />
         </div>
         <textarea
           name={String(form.names.formTextarea)}

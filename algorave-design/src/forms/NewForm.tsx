@@ -2,7 +2,6 @@ import React from 'react'
 import * as Ariakit from '@ariakit/react'
 import SelectForm from '../forms/SelectForm'
 import { html } from './description-text.ts'
-import Editor from './Editor.tsx'
 
 export default function NewForm() {
   const form = Ariakit.useFormStore({ defaultValues: { projectName: '', description: '', singleProject: '', formTextarea: '' } })
@@ -58,9 +57,6 @@ export default function NewForm() {
           size-="large"
         />
         <Ariakit.FormError name={form.names.projectName} className="error" />
-      </div>
-      <div className="field">
-        <Editor />
       </div>
       <div className="field">
         <Ariakit.FormLabel name={form.names.description}>

@@ -1,7 +1,7 @@
 import React from 'react'
 import * as Ariakit from '@ariakit/react'
 import SelectForm from '../forms/SelectForm'
-import { html } from './description-text.ts';
+import { html } from './description-text.ts'
 
 export default function NewForm() {
   const form = Ariakit.useFormStore({ defaultValues: { projectName: '', description: '', singleProject: '', formTextarea: '' } })
@@ -64,9 +64,9 @@ export default function NewForm() {
         </Ariakit.FormLabel>
         <div className="description-text">
           <p>When writing your description, consider addressing some of the following questions:</p>
-            <div
-                dangerouslySetInnerHTML={{ __html: html }}
-            />
+          <div
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
         </div>
         <textarea
           name={String(form.names.formTextarea)}

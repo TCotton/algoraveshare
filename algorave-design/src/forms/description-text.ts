@@ -36,4 +36,4 @@ export const html = `<ul>
                     <li> 🎧 Listening Notes (optional)<br />
                         What should listeners pay attention to?<br />
                         > Example: The hats slowly shift phase against the kick, creating tension.
-                    </li>`;
+                    </li>`

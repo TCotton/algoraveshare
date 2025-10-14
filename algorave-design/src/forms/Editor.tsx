@@ -1,9 +1,9 @@
 import React from 'react'
 import '@blocknote/core/fonts/inter.css'
-import { BlockNoteSchema, createCodeBlockSpec, createHighlighter } from '@blocknote/core'
+import { BlockNoteSchema, createCodeBlockSpec } from '@blocknote/core'
 import { useCreateBlockNote } from '@blocknote/react'
 import { BlockNoteView } from '@blocknote/ariakit'
-import { FormStore } from '@ariakit/react'
+import type { FormStore } from '@ariakit/react'
 import '@blocknote/ariakit/style.css'
 
 export default function Editor(props: { form: FormStore }) {
@@ -34,11 +34,7 @@ export default function Editor(props: { form: FormStore }) {
               aliases: ['hs'],
             },
           },
-          createHighlighter: () =>
-            createHighlighter({
-              themes: ['light-plus', 'dark-plus'],
-              langs: [],
-            }),
+          // createHighlighter removed, not available in @blocknote/core
         }),
       },
     }),

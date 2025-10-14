@@ -16,7 +16,7 @@ export default function ProjectForm() {
   })
 
   // 🔍 Validation logic per field
-  const validateField = (field, values) => {
+  const validateField = (field: string, values: Record<string, any>) => {
     const value = values[field]
     let error = ''
 
@@ -60,7 +60,7 @@ export default function ProjectForm() {
   }
 
   // 🧩 On submit, validate all fields
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const values = form.getState().values
     const fields = [
@@ -82,7 +82,7 @@ export default function ProjectForm() {
   }
 
   // 🧠 Validate on blur (field-level persistence)
-  const handleBlur = (field) => {
+  const handleBlur = (field: string) => {
     const values = form.getState().values
     validateField(field, values)
   }
@@ -106,13 +106,13 @@ export default function ProjectForm() {
       {/* Description */}
       <div>
         <label className="block font-medium">Description</label>
-        <Ariakit.FormInput
+        <textarea
           name="description"
-          as="textarea"
           rows={3}
           onBlur={() => handleBlur('description')}
           className="w-full border rounded p-2"
           placeholder="Describe your project"
+          value={form.useValue('description')}
         />
         <Ariakit.FormError name="description" className="text-red-600 text-sm mt-1" />
       </div>
@@ -120,30 +120,32 @@ export default function ProjectForm() {
       {/* Project Software */}
       <div>
         <label className="block font-medium">Software</label>
-        <Ariakit.FormSelect
+        <select
           name="projectSoftware"
           onBlur={() => handleBlur('projectSoftware')}
           className="w-full border rounded p-2"
+          value={form.useValue('projectSoftware')}
         >
           <option>{projectSoftwareDefault}</option>
           <option>TidalCycles</option>
           <option>Strudel</option>
-        </Ariakit.FormSelect>
+        </select>
         <Ariakit.FormError name="projectSoftware" className="text-red-600 text-sm mt-1" />
       </div>
 
       {/* Project Type */}
       <div>
         <label className="block font-medium">Project Type</label>
-        <Ariakit.FormSelect
+        <select
           name="projectType"
           onBlur={() => handleBlur('projectType')}
           className="w-full border rounded p-2"
+          value={form.useValue('projectType')}
         >
           <option>{projectTypeDefault}</option>
           <option>Snippet</option>
           <option>Full Project</option>
-        </Ariakit.FormSelect>
+        </select>
         <Ariakit.FormError name="projectType" className="text-red-600 text-sm mt-1" />
       </div>
 

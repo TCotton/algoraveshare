@@ -60,7 +60,7 @@ export default function ProjectForm() {
   }
 
   // 🧩 On submit, validate all fields
-  onSubmit = { handleSubmit } = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault()
     const values = form.getState().values
     const fields = [

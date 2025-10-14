@@ -16,21 +16,21 @@ interface ExtendedSelectFormProps extends SelectFormProps {
 }
 
 export default function SelectForm(props: ExtendedSelectFormProps) {
-  const { items, label, name, form, onChange } = props;
-  const formattedItems = items?.map((item: { value: string; label: string }) => ({
+  const { items, label, name, form, onChange } = props
+  const formattedItems = items?.map((item: { value: string, label: string }) => ({
     id: item.value,
     label: item.label,
     value: item.value,
-  }));
+  }))
   const select = Ariakit.useSelectStore({
     defaultValue: items.length > 0 ? items[0].value : undefined,
     items: formattedItems,
     value: form ? form.useValue(name) : undefined,
     setValue: (val: string) => {
-      if (form) form.setValue(name, val);
-      if (onChange) onChange(name, val);
+      if (form) form.setValue(name, val)
+      if (onChange) onChange(name, val)
     },
-  });
+  })
   return (
     <div className="select-container" is-="typography-block" box-="round" shear-="top">
       <SelectProvider store={select}>
@@ -42,7 +42,7 @@ export default function SelectForm(props: ExtendedSelectFormProps) {
           <Ariakit.SelectArrow className="select-arrow" />
         </Ariakit.Select>
         <Ariakit.SelectPopover store={select} className="menu-wrapper" id="menu-form" gutter={4}>
-          {formattedItems.map((item: { value: string; label: string; id: string }) => (
+          {formattedItems.map((item: { value: string, label: string, id: string }) => (
             <Ariakit.SelectItem className="menu-item" value={item.value} key={item.id}>
               <a href="#menu-form">{item.value}</a>
             </Ariakit.SelectItem>
@@ -50,5 +50,5 @@ export default function SelectForm(props: ExtendedSelectFormProps) {
         </Ariakit.SelectPopover>
       </SelectProvider>
     </div>
-  );
+  )
 }

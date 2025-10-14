@@ -97,6 +97,10 @@ export default function NewForm() {
             { value: 'Tidal Cycles', label: 'tidal-cycles' },
             { value: 'Strudel', label: 'strudel' },
           ]}
+          onChange={(name, value) => {
+            // Example: log or handle change
+            console.log(`Select changed: ${name} = ${value}`)
+          }}
         />
         <Ariakit.FormError name={form.names.projectSoftware} className="error" />
       </div>
@@ -122,6 +126,10 @@ export default function NewForm() {
             { value: 'Finished Project', label: 'finished' },
             { value: 'Before and After Live Coding Project', label: 'before-after' },
           ]}
+          onChange={(name, value) => {
+            // Example: log or handle change
+            console.log(`Select changed: ${name} = ${value}`)
+          }}
         />
         <Ariakit.FormError name={form.names.projectType} className="error" />
       </div>

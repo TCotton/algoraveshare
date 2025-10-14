@@ -79,6 +79,9 @@ export default function NewForm() {
 
     alert(JSON.stringify(values))
   })
+  const projectSoftwareFn = (name: string, value: string): void => {
+    console.log(`Select changed: ${name} = ${value}`)
+  }
 
   return (
     <Ariakit.Form
@@ -97,10 +100,7 @@ export default function NewForm() {
             { value: 'Tidal Cycles', label: 'tidal-cycles' },
             { value: 'Strudel', label: 'strudel' },
           ]}
-          onChange={(name, value) => {
-            // Example: log or handle change
-            console.log(`Select changed: ${name} = ${value}`)
-          }}
+          onChange={projectSoftwareFn}
         />
         <Ariakit.FormError name={form.names.projectSoftware} className="error" />
       </div>
@@ -131,7 +131,6 @@ export default function NewForm() {
             // Example: log or handle change
             console.log(`Select changed: ${name} = ${value}`)
           }}
-          required
         />
         <Ariakit.FormError name={form.names.projectType} className="error" />
       </div>

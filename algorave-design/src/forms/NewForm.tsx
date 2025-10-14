@@ -113,6 +113,7 @@ export default function NewForm() {
           autoCapitalize="none"
           autoComplete="off"
           size-="large"
+          required
         />
         <Ariakit.FormError name={form.names.projectName} className="error" />
       </div>
@@ -130,6 +131,7 @@ export default function NewForm() {
             // Example: log or handle change
             console.log(`Select changed: ${name} = ${value}`)
           }}
+          required
         />
         <Ariakit.FormError name={form.names.projectType} className="error" />
       </div>
@@ -152,6 +154,7 @@ export default function NewForm() {
           autoCapitalize="none"
           autoCorrect="off"
           rows={4}
+          required
         />
         <Ariakit.FormError name={form.names.description} className="error" />
       </div>
@@ -169,6 +172,7 @@ export default function NewForm() {
           autoCapitalize="none"
           autoCorrect="off"
           rows={4}
+          required
         />
         <Ariakit.FormError name={form.names.singleProject} className="error" />
       </div>

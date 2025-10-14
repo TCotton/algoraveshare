@@ -117,26 +117,36 @@ import 'modern-normalize/modern-normalize.css';
         }
     }
 
-    .form-wrapper  {
+    .form-wrapper {
         .error {
             color: var(--red);
         }
+
         .field {
             margin-bottom: 1lh;
+
             label {
                 display: block;
                 margin-bottom: 1lh;
                 color: var(--yellow);
             }
         }
+
         ul li {
             line-height: var(--line-height-list);
+            margin-bottom: 0.5lh;
         }
+
         .form-textarea {
             line-height: var(--line-height-input)
         }
+
         .description-text {
-            margin-bottom: 1lh
+            margin-bottom: 1lh;
+
+            > p {
+                margin-bottom: 0.5lh;
+            }
         }
     }
 

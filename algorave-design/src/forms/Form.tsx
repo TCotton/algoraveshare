@@ -8,6 +8,46 @@ export default function Form() {
     alert(JSON.stringify(state.values))
   })
 
+  const html = `<ul>
+                    <li>🎛️ Creative Intent
+                        What inspired this pattern or composition? What kind of vibe, rhythm, or sonic texture were you
+                        aiming for?<br />
+                        > Example: I wanted a rolling minimal groove that morphs into more chaotic textures over time.
+                    </li>
+
+                    <li>🧠 Musical Structure
+                        How is the timing or pattern organized? Mention cycles, phrases, or evolving layers.<br />
+                        > Example: It loops every 8 bars, with each repeat introducing a new melodic variation.
+                    </li>
+
+                    <li>🧩 Code & Techniques
+                        Which functions or operators are central to this idea?
+                        (TidalCycles: \`every\`, \`when\`, \`superimpose\`, \`hurry\`, etc.)
+                        (Strudel: \`map\`, \`withEffects\`, \`fast\`, \`stack\`, etc.)<br />
+                        > Example: I used \`superimpose\` in Tidal / \`stack\` in Strudel to layer two rhythms.
+                    </li>
+
+                    <li>🎚️ Sound Design & Effects
+                        How do you shape the sound or texture?
+                        (Tidal: \`reverb\`, \`hpf\`, \`crush\`, \`shape\` | Strudel: \`withFx\`, \`filter\`, \`reverb\`, \`delay\`.)<br />
+                        > Example: I added delay and filter sweeps to make the high-end shimmer.
+                    </li>
+
+                    <li>🎹 Performance & Interactivity
+                        How would you perform or tweak this live?<br />
+                        > Example: I like to slowly fade density or switch samples live to evolve the groove.
+                    </li>
+
+                    <li>💡 Reflection & Sharing
+                        What did you learn, discover, or experiment with? Any advice for others?<br />
+                        > Example: I learned how changing \`speed\` subtly changes the groove feel.
+                    </li>
+
+                    <li> 🎧 Listening Notes (optional)
+                        What should listeners pay attention to?<br />
+                        > Example: The hats slowly shift phase against the kick, creating tension.
+                    </li>`
+
   return (
     <Ariakit.Form
       store={form}
@@ -33,24 +73,10 @@ export default function Form() {
       <div className="field">
         <h3>Description</h3>
         <p>When writing your description, consider addressing some of the following questions:</p>
-        <ul>
-          <li>What inspired this pattern or composition?</li>
-          <li>What kind of mood, texture, or feeling were you aiming for?</li>
-          <li>How is the rhythm or structure of the pattern organized?</li>
-          <li>Are there repeating cycles, polyrhythms, or evolving sequences?</li>
-          <li>What role does silence or space play in the pattern?</li>
-          <li>Which functions or techniques are key to this pattern?</li>
-          <li>
-            How do you control variation — randomness (rand, choose), patterning (every, when), or
-            layering?
-          </li>
-          <li>What was the trickiest part to get working?</li>
-          <li>Are there any interesting contrasts (e.g. between high/low, dry/wet, dense/sparse)?</li>
-          <li>How might someone remix or extend your idea?</li>
-          <li>What did you learn while making this pattern?</li>
-          <li>Is there something others could learn from your code?</li>
-          <li>Are there parts of the code that are experimental or exploratory?</li>
-        </ul>
+        <div
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+
         <Ariakit.FormLabel name={form.names.formTextarea}>Description</Ariakit.FormLabel>
         <textarea
           name={String(form.names.formTextarea)}

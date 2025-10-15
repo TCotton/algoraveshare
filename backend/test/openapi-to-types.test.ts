@@ -16,7 +16,7 @@ describe('openapi-to-types script', () => {
 
   it.skip('should exit with usage if no args', () => {
     vi.spyOn(process, 'exit').mockImplementation(() => { throw new Error('exit'); });
-    expect(() => runScript([])).toThrow(/Usage: ts-node openapi-to-types.ts/);
+    expect(() => runScript([])).toThrow(/Usage: node openapi-to-types.ts/);
   });
 
   it.skip('should exit if openapi-typescript is missing', () => {

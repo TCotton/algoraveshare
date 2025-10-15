@@ -22,11 +22,14 @@
     "@effect/io": "^0.41.2",
     "@fastify/aws-lambda": "^6.1.1",
     "drizzle-orm": "^0.44.6",
+    "effect": "^3.18.4",
     "fastify": "^5.6.1",
     "pg": "^8.16.3"
   },
   "devDependencies": {
+    "@effect/build-utils": "^0.8.9",
     "@effect/eslint-plugin": "^0.3.2",
+    "@effect/vitest": "^0.26.0",
     "@eslint/compat": "^1.4.0",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.37.0",
@@ -47,5 +50,17 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.0.0",
     "vitest": "^3.2.4"
+  },
+  "effect": {
+    "generateExports": {
+      "include": [
+        "**/*.ts"
+      ]
+    },
+    "generateIndex": {
+      "include": [
+        "**/*.ts"
+      ]
+    }
   }
 }

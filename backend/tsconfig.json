@@ -1,7 +1,11 @@
 {
   "extends": "./tsconfig.base.json",
+  "include": ["src/**/*", "scripts/**/*", "db/**/*"],
   "exclude": ["build/**/*", "dist/**/*", "node_modules/**/*"],
-  "references": [
-    { "path": "tsconfig.src.json" }
-  ]
+  "compilerOptions": {
+    "composite": false,
+    "outDir": "dist",
+    "rootDir": ".",
+    "types": ["node"]
+  }
 }

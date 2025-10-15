@@ -118,7 +118,7 @@ export default [
         }
       }],
 
-      "@stylistic/quotes": ["error", "single"],
+      "@stylistic/quotes": ["error", "double"],
       "@stylistic/semi": ["error", "never"]
     }
   }

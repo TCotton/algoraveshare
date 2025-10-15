@@ -14,7 +14,7 @@ async function main() {
   const client = new Client({ connectionString: process.env.DATABASE_URL })
   try {
     await client.connect()
-    const res = await client.query('SELECT version() AS v')
+    const res = await client.query("SELECT version() AS v")
     console.log("Connected to Postgres:", res.rows[0].v)
     await client.end()
     process.exit(0)

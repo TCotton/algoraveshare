@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as Ariakit from '@ariakit/react'
 import { isEmptyString } from 'ramda-adjunct'
 import { equals } from 'ramda'
@@ -18,6 +18,9 @@ export default function NewForm() {
 
   const projectSoftwareDefault = 'Project software'
   const projectTypeDefault = 'Project type'
+
+  // Use useState to track the current project software selection
+  const [currentProjectSoftware, setCurrentProjectSoftware] = useState<string | null>(null)
 
   form.useSubmit((state) => {
     console.log(state)
@@ -81,9 +84,19 @@ export default function NewForm() {
 
     alert(JSON.stringify(values))
   })
-  const projectSoftwareFn = (name: string, value: string): void => {
-    console.log(`Select changed: ${name} = ${value}`)
+
+  // Callback function that updates state when projectSoftware selection changes
+  const projectSoftwareFn = (label: string, value: string): void => {
+    setCurrentProjectSoftware(value)
+    form.setValue('projectSoftware', value)
   }
+
+  // Use useEffect to log or perform side effects when projectSoftware changes
+  useEffect(() => {
+    if (currentProjectSoftware && !equals(currentProjectSoftware, projectSoftwareDefault)) {
+      console.log('Project software changed to:', currentProjectSoftware)
+    }
+  }, [currentProjectSoftware, projectSoftwareDefault])
 
   return (
     <Ariakit.Form

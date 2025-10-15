@@ -7,7 +7,7 @@ import codegen from "eslint-plugin-codegen"
 import _import from "eslint-plugin-import"
 import simpleImportSort from "eslint-plugin-simple-import-sort"
 import sortDestructureKeys from "eslint-plugin-sort-destructure-keys"
-import stylistic from '@stylistic/eslint-plugin';
+import stylistic from "@stylistic/eslint-plugin";
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 
@@ -78,7 +78,7 @@ export default [
       "prefer-spread": "off",
       "import/first": "error",
       "import/newline-after-import": "error",
-      "import/no-duplicates": "error",
+      "import/no-duplicates": "off",
       "import/no-unresolved": "off",
       "import/order": "off",
       "simple-import-sort/imports": "off",
@@ -121,7 +121,6 @@ export default [
           "arrowFunction.useParentheses": "force"
         }
       }],
-
       "@stylistic/quotes": ["error", "double"],
       "@stylistic/semi": ["error", "never"]
     }

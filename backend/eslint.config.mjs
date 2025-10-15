@@ -78,7 +78,7 @@ export default [
       "prefer-spread": "off",
       "import/first": "error",
       "import/newline-after-import": "error",
-      "import/no-duplicates": "off",
+      "import/no-duplicates": "error",
       "import/no-unresolved": "off",
       "import/order": "off",
       "simple-import-sort/imports": "off",

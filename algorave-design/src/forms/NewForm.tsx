@@ -88,7 +88,6 @@ export default function NewForm() {
   // Callback function that updates state when projectSoftware selection changes
   const projectSoftwareFn = (label: string, value: string): void => {
     setCurrentProjectSoftware(value)
-    form.setValue('projectSoftware', value)
   }
 
   // Use useEffect to log or perform side effects when projectSoftware changes
@@ -96,7 +95,7 @@ export default function NewForm() {
     if (currentProjectSoftware && !equals(currentProjectSoftware, projectSoftwareDefault)) {
       console.log('Project software changed to:', currentProjectSoftware)
     }
-  }, [currentProjectSoftware, projectSoftwareDefault])
+  }, [currentProjectSoftware])
 
   return (
     <Ariakit.Form

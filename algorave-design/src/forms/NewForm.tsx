@@ -18,6 +18,8 @@ export default function NewForm() {
 
   const projectSoftwareDefault = 'Project software'
   const projectTypeDefault = 'Project type'
+  const strudel = 'Strudel'
+  const tidal = 'Tidal Cycles'
 
   // Use useState to track the current project software selection
   const [currentProjectSoftware, setCurrentProjectSoftware] = useState<string | null>(null)
@@ -148,29 +150,31 @@ export default function NewForm() {
         />
         <Ariakit.FormError name={form.names.projectType} className="error" />
       </div>
-      <div className="field">
-        <Ariakit.FormLabel name={form.names.description}>
-          Description
-        </Ariakit.FormLabel>
-        <div className="description-text">
-          <p>When writing your description, consider addressing some of the following questions:</p>
-          <div
-            dangerouslySetInnerHTML={{ __html: html }}
+      {(currentProjectSoftware === strudel || currentProjectSoftware === tidal) && (
+        <div className="field description-textarea">
+          <Ariakit.FormLabel name={form.names.description}>
+            Description
+          </Ariakit.FormLabel>
+          <div className="description-text">
+            <p>When writing your description, consider addressing some of the following questions:</p>
+            <div
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
+          </div>
+          <textarea
+            name="description"
+            value={form.useValue('description')}
+            onChange={event => form.setValue('description', event.target.value)}
+            placeholder="Describe the project..."
+            className="form-textarea"
+            autoCapitalize="none"
+            autoCorrect="off"
+            rows={4}
+            required
           />
+          <Ariakit.FormError name={form.names.description} className="error" />
         </div>
-        <textarea
-          name="description"
-          value={form.useValue('description')}
-          onChange={event => form.setValue('description', event.target.value)}
-          placeholder="Describe the project..."
-          className="form-textarea"
-          autoCapitalize="none"
-          autoCorrect="off"
-          rows={4}
-          required
-        />
-        <Ariakit.FormError name={form.names.description} className="error" />
-      </div>
+      )}
       {/* Removed duplicate SelectForm for project type. If needed, add name and form props. */}
       <div className="form-textarea-single">
         <Ariakit.FormLabel name={form.names.singleProject}>

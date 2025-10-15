@@ -1,6 +1,7 @@
+import { equals } from 'ramda'
 export const getDescriptionHtml = (currentProjectSoftware: string | null): string => {
-  const isTidal = currentProjectSoftware === 'Tidal Cycles'
-  const isStrudel = currentProjectSoftware === 'Strudel'
+  const isTidal = equals(currentProjectSoftware, 'Tidal Cycles')
+  const isStrudel = equals(currentProjectSoftware, 'Strudel')
 
   return `<ul>
                     <li>🎛️ Creative Intent<br />

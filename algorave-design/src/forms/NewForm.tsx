@@ -1,5 +1,7 @@
 import React from 'react'
 import * as Ariakit from '@ariakit/react'
+import { isEmptyString } from 'ramda-adjunct'
+import { equals } from 'ramda'
 import SelectForm from '../forms/SelectForm'
 import { html } from './description-text.ts'
 
@@ -25,7 +27,7 @@ export default function NewForm() {
     let hasError = false
 
     // Validate projectSoftware
-    if (values.projectSoftware === '' || values.projectSoftware === projectSoftwareDefault) {
+    if (!equals(values.projectSoftware, projectSoftwareDefault)) {
       form.setError('projectSoftware', 'Please select a project software')
       hasError = true
     }
@@ -34,7 +36,7 @@ export default function NewForm() {
     }
 
     // Validate projectType
-    if (values.projectType === '' || values.projectType === projectTypeDefault) {
+    if (!equals(values.projectType, projectTypeDefault)) {
       form.setError('projectType', 'Please select a project type')
       hasError = true
     }
@@ -56,6 +58,7 @@ export default function NewForm() {
     }
 
     // Validate description
+
     if (!String(values.description || '').trim()) {
       form.setError('description', 'Description is required')
       hasError = true

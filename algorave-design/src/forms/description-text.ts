@@ -1,4 +1,8 @@
-export const html = `<ul>
+export const getDescriptionHtml = (currentProjectSoftware: string | null): string => {
+  const isTidal = currentProjectSoftware === 'Tidal Cycles'
+  const isStrudel = currentProjectSoftware === 'Strudel'
+
+  return `<ul>
                     <li>🎛️ Creative Intent<br />
                         What inspired this pattern or composition? What kind of vibe, rhythm, or sonic texture were you
                         aiming for?<br />
@@ -11,15 +15,23 @@ export const html = `<ul>
                     </li>
 
                     <li>🧩 Code & Techniques<br />
-                        Which functions or operators are central to this idea?
-                        (TidalCycles: \`every\`, \`when\`, \`superimpose\`, \`hurry\`, etc.)
-                        (Strudel: \`map\`, \`withEffects\`, \`fast\`, \`stack\`, etc.)<br />
-                        > Example: I used \`superimpose\` in Tidal / \`stack\` in Strudel to layer two rhythms.
+                        Which functions or operators are central to this idea?<br />
+                        ${isTidal ? '<span class="tidal-cycles">(TidalCycles: `every`, `when`, `superimpose`, `hurry`, etc.)</span>' : ''}
+                        ${isStrudel ? '<span class="strudel">(Strudel: `map`, `withEffects`, `fast`, `stack`, etc.)</span>' : ''}
+                        ${isTidal || isStrudel ? '<br />' : ''}
+                        ${isTidal && isStrudel
+                          ? '> Example: I used `superimpose` in Tidal / `stack` in Strudel to layer two rhythms.'
+                          : isTidal
+                            ? '> Example: I used `superimpose` to layer two rhythms.'
+                            : isStrudel ? '> Example: I used `stack` to layer two rhythms.' : ''}
                     </li>
 
                     <li>🎚️ Sound Design & Effects<br />
-                        How do you shape the sound or texture?
-                        (Tidal: \`reverb\`, \`hpf\`, \`crush\`, \`shape\` | Strudel: \`withFx\`, \`filter\`, \`reverb\`, \`delay\`.)<br />
+                        How do you shape the sound or texture?<br />
+                        ${isTidal ? '(Tidal: `reverb`, `hpf`, `crush`, `shape`)' : ''}
+                        ${isTidal || isStrudel ? ' | ' : ''}
+                        ${isStrudel ? '(Strudel: `withFx`, `filter`, `reverb`, `delay`)' : ''}
+                        ${isTidal || isStrudel ? '<br />' : ''}
                         > Example: I added delay and filter sweeps to make the high-end shimmer.
                     </li>
 
@@ -37,3 +49,7 @@ export const html = `<ul>
                         What should listeners pay attention to?<br />
                         > Example: The hats slowly shift phase against the kick, creating tension.
                     </li>`
+}
+
+// Keep backward compatibility with the old export
+export const html = getDescriptionHtml(null)

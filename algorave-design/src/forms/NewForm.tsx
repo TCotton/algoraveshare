@@ -3,7 +3,7 @@ import * as Ariakit from '@ariakit/react'
 import { isEmptyString } from 'ramda-adjunct'
 import { equals } from 'ramda'
 import SelectForm from '../forms/SelectForm'
-import { html } from './description-text.ts'
+import { getDescriptionHtml } from './description-text.ts'
 
 export default function NewForm() {
   const form = Ariakit.useFormStore({
@@ -18,6 +18,8 @@ export default function NewForm() {
 
   const projectSoftwareDefault = 'Project software'
   const projectTypeDefault = 'Project type'
+  const strudel = 'Strudel'
+  const tidal = 'Tidal Cycles'
 
   // Use useState to track the current project software selection
   const [currentProjectSoftware, setCurrentProjectSoftware] = useState<string | null>(null)
@@ -85,6 +87,10 @@ export default function NewForm() {
     alert(JSON.stringify(values))
   })
 
+  // Call all hooks at the top level - never inside conditionals
+  const descriptionValue = form.useValue('description')
+  const singleProjectValue = form.useValue('singleProject')
+
   // Callback function that updates state when projectSoftware selection changes
   const projectSoftwareFn = (label: string, value: string): void => {
     setCurrentProjectSoftware(value)
@@ -148,29 +154,31 @@ export default function NewForm() {
         />
         <Ariakit.FormError name={form.names.projectType} className="error" />
       </div>
-      <div className="field">
-        <Ariakit.FormLabel name={form.names.description}>
-          Description
-        </Ariakit.FormLabel>
-        <div className="description-text">
-          <p>When writing your description, consider addressing some of the following questions:</p>
-          <div
-            dangerouslySetInnerHTML={{ __html: html }}
+      {(currentProjectSoftware === strudel || currentProjectSoftware === tidal) && (
+        <div className="field description-textarea">
+          <Ariakit.FormLabel name={form.names.description}>
+            Description
+          </Ariakit.FormLabel>
+          <div className="description-text">
+            <p>When writing your description, consider addressing some of the following questions:</p>
+            <div
+              dangerouslySetInnerHTML={{ __html: getDescriptionHtml(currentProjectSoftware) }}
+            />
+          </div>
+          <textarea
+            name="description"
+            value={descriptionValue}
+            onChange={event => form.setValue('description', event.target.value)}
+            placeholder="Describe the project..."
+            className="form-textarea"
+            autoCapitalize="none"
+            autoCorrect="off"
+            rows={4}
+            required
           />
+          <Ariakit.FormError name={form.names.description} className="error" />
         </div>
-        <textarea
-          name="description"
-          value={form.useValue('description')}
-          onChange={event => form.setValue('description', event.target.value)}
-          placeholder="Describe the project..."
-          className="form-textarea"
-          autoCapitalize="none"
-          autoCorrect="off"
-          rows={4}
-          required
-        />
-        <Ariakit.FormError name={form.names.description} className="error" />
-      </div>
+      )}
       {/* Removed duplicate SelectForm for project type. If needed, add name and form props. */}
       <div className="form-textarea-single">
         <Ariakit.FormLabel name={form.names.singleProject}>
@@ -178,7 +186,7 @@ export default function NewForm() {
         </Ariakit.FormLabel>
         <textarea
           name={String(form.names.singleProject)}
-          value={form.useValue('singleProject')}
+          value={singleProjectValue}
           onChange={e => form.setValue('singleProject', e.target.value)}
           placeholder="Add code here..."
           className="form-textarea-single"

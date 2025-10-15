@@ -1,3 +1,4 @@
+/* eslint-env node */
 import fs from "fs"
 import path from "path"
 import { fileURLToPath } from "url"
@@ -7,8 +8,6 @@ const __dirname = path.dirname(__filename)
 
 const configPath = path.resolve(__dirname, "../db/configs/drizzle.config.ts")
 console.log("Reading config file", configPath)
-
-let cfg
 try {
   // Use dynamic import via ts-node/register is not available here; we attempt to parse as text
   const text = fs.readFileSync(configPath, "utf8")

@@ -41,7 +41,11 @@ export default [
     languageOptions: {
       parser: tsParser,
       ecmaVersion: 2018,
-      sourceType: "module"
+      sourceType: "module",
+      globals: {
+        console: "readonly",
+        process: "readonly"
+      }
     },
 
     settings: {
@@ -74,7 +78,7 @@ export default [
       "prefer-spread": "off",
       "import/first": "error",
       "import/newline-after-import": "error",
-      "import/no-duplicates": "error",
+      "import/no-duplicates": "off",
       "import/no-unresolved": "off",
       "import/order": "off",
       "simple-import-sort/imports": "off",

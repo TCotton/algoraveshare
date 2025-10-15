@@ -29,7 +29,7 @@ export const getDescriptionHtml = (currentProjectSoftware: string | null): strin
                     <li>🎚️ Sound Design & Effects<br />
                         How do you shape the sound or texture?<br />
                         ${isTidal ? '(Tidal: `reverb`, `hpf`, `crush`, `shape`)' : ''}
-                        ${isTidal && isStrudel ? ' | ' : ''}
+                        ${isTidal || isStrudel ? ' | ' : ''}
                         ${isStrudel ? '(Strudel: `withFx`, `filter`, `reverb`, `delay`)' : ''}
                         ${isTidal || isStrudel ? '<br />' : ''}
                         > Example: I added delay and filter sweeps to make the high-end shimmer.

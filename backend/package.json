@@ -21,7 +21,14 @@
   "dependencies": {
     "@effect/data": "^0.18.7",
     "@effect/io": "^0.41.2",
+    "@effect/opentelemetry": "^0.58.0",
+    "@effect/platform": "^0.92.1",
+    "@effect/platform-node": "^0.98.3",
+    "@effect/schema": "^0.75.5",
     "@fastify/aws-lambda": "^6.1.1",
+    "@opentelemetry/sdk-metrics": "^2.1.0",
+    "@opentelemetry/sdk-trace-base": "^2.1.0",
+    "@opentelemetry/sdk-trace-node": "^2.1.0",
     "drizzle-orm": "^0.44.6",
     "fastify": "^5.6.1",
     "pg": "^8.16.3"

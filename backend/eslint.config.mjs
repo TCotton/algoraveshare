@@ -41,7 +41,11 @@ export default [
     languageOptions: {
       parser: tsParser,
       ecmaVersion: 2018,
-      sourceType: "module"
+      sourceType: "module",
+      globals: {
+        console: "readonly",
+        process: "readonly"
+      }
     },
 
     settings: {

@@ -2,7 +2,6 @@
 // Usage: npx ts-node backend/scripts/openapi-to-types.ts backend/openapi/openapi.yaml backend/openapi/types.ts
 
 import { execSync } from "child_process"
-import path from "path"
 
 const [, , inputFile, outputFile] = process.argv
 if (!inputFile || !outputFile) {

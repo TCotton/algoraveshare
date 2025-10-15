@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-env node */
 import "dotenv/config"
 import { Client } from "pg"
 

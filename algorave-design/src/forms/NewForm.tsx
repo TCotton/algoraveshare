@@ -3,7 +3,7 @@ import * as Ariakit from '@ariakit/react'
 import { isEmptyString } from 'ramda-adjunct'
 import { equals } from 'ramda'
 import SelectForm from '../forms/SelectForm'
-import { html } from './description-text.ts'
+import { getDescriptionHtml } from './description-text.ts'
 
 export default function NewForm() {
   const form = Ariakit.useFormStore({
@@ -87,6 +87,10 @@ export default function NewForm() {
     alert(JSON.stringify(values))
   })
 
+  // Call all hooks at the top level - never inside conditionals
+  const descriptionValue = form.useValue('description')
+  const singleProjectValue = form.useValue('singleProject')
+
   // Callback function that updates state when projectSoftware selection changes
   const projectSoftwareFn = (label: string, value: string): void => {
     setCurrentProjectSoftware(value)
@@ -158,12 +162,12 @@ export default function NewForm() {
           <div className="description-text">
             <p>When writing your description, consider addressing some of the following questions:</p>
             <div
-              dangerouslySetInnerHTML={{ __html: html }}
+              dangerouslySetInnerHTML={{ __html: getDescriptionHtml(currentProjectSoftware) }}
             />
           </div>
           <textarea
             name="description"
-            value={form.useValue('description')}
+            value={descriptionValue}
             onChange={event => form.setValue('description', event.target.value)}
             placeholder="Describe the project..."
             className="form-textarea"
@@ -182,7 +186,7 @@ export default function NewForm() {
         </Ariakit.FormLabel>
         <textarea
           name={String(form.names.singleProject)}
-          value={form.useValue('singleProject')}
+          value={singleProjectValue}
           onChange={e => form.setValue('singleProject', e.target.value)}
           placeholder="Add code here..."
           className="form-textarea-single"

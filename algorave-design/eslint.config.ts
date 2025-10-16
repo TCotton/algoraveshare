@@ -7,7 +7,7 @@ import stylistic from '@stylistic/eslint-plugin';
 
 export default defineConfig([
     {
-        files: ['src/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+        files: ['src/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}', 'tests/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
         plugins: {js},
         extends: ['js/recommended'],
         languageOptions: {globals: globals.browser},
@@ -16,7 +16,9 @@ export default defineConfig([
         },
         rules: {
             "react/no-unknown-property": ["error", { ignore: ["tsx"] }],
-            "@typescript-eslint/no-explicit-any": "warn"
+            "@typescript-eslint/no-explicit-any": "warn",
+            "curly": ["error", "multi"],
+            '@stylistic/brace-style': ['error', 'stroustrup', { allowSingleLine: true }],
         },
     },
     tseslint.configs.recommended,

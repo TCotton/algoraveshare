@@ -44,8 +44,8 @@ describe('FormTextarea', () => {
     const textarea = screen.getByPlaceholderText('Test')
     expect(textarea).toBeInTheDocument()
     expect(textarea).toHaveAttribute('rows', '4') // default value
-    expect(textarea).toHaveAttribute('autoCapitalize', 'none') // default value
-    expect(textarea).toHaveAttribute('autoCorrect', 'off') // default value
+    expect(textarea).toHaveAttribute('autocapitalize', 'none') // default value
+    expect(textarea).toHaveAttribute('autocorrect', 'off') // default value
     expect(textarea).not.toHaveAttribute('required')
   })
 
@@ -103,8 +103,8 @@ describe('FormTextarea', () => {
     )
 
     const textarea = screen.getByPlaceholderText('Test')
-    expect(textarea).toHaveAttribute('autoCapitalize', 'sentences')
-    expect(textarea).toHaveAttribute('autoCorrect', 'on')
+    expect(textarea).toHaveAttribute('autocapitalize', 'sentences')
+    expect(textarea).toHaveAttribute('autocorrect', 'on')
   })
 
   it('renders with description textarea configuration', () => {

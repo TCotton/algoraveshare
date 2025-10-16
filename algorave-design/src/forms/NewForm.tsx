@@ -48,7 +48,8 @@ export default function NewForm() {
       form.setError('projectType', '')
 
     // Validate projectName
-    if (!String(values.projectName || isEmptyString(values.projectName)).trim()) {
+    const name = String(values.projectName ?? '').trim()
+    if (!name) {
       form.setError('projectName', 'Name is required')
       hasError = true
     }
@@ -60,7 +61,8 @@ export default function NewForm() {
       form.setError('projectName', '')
 
     // Validate description
-    if (!String(values.description || isEmptyString(values.description)).trim()) {
+    const desc = String(values.description ?? '').trim()
+    if (!desc) {
       form.setError('description', 'Description is required')
       hasError = true
     }

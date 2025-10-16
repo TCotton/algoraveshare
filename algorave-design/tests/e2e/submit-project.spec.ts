@@ -29,9 +29,6 @@ test.describe('Submit Project Form', () => {
     // Click submit without filling any fields
     await page.locator('button.button', { hasText: 'Submit' }).click()
 
-    // Wait a bit for validation to complete
-    await page.waitForTimeout(500)
-
     // Check for validation errors using role-based selectors
     await expect(page.getByText('Name is required')).toBeVisible()
     await expect(page.getByText('Don\'t forget to add your code!')).toBeVisible()

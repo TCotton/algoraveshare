@@ -161,23 +161,23 @@ test.describe.serial('Submit Project Form', () => {
     // Ensure clean state - wait for page to be fully loaded and form to be ready
     await page.waitForLoadState('networkidle')
     await expect(page.locator('.form-wrapper')).toBeVisible()
-    
+
     // Submit empty form to trigger name validation error
     await page.locator('button.button', { hasText: 'Submit' }).click()
     await page.waitForTimeout(100)
     await expect(page.getByText('Please fill in this field.')).toBeVisible()
-    
+
     // Fill in name and verify error clears
     await page.getByLabel('Name').fill('Valid Project name Name')
     await page.waitForTimeout(100)
     await expect(page.getByText('Please fill in this field.')).not.toBeVisible()
-    
+
     // Submit again to trigger software and type validation errors
     await page.locator('button.button', { hasText: 'Submit' }).click()
     await page.waitForTimeout(100)
     await expect(page.getByText('Please select a project software')).toBeVisible()
     await expect(page.getByText('Please select a project type')).toBeVisible()
-    
+
     // Select software and type, verify errors clear
     await page.locator('.project-software button.select-trigger').click()
     await page.locator('.project-software .menu-item.strudel').click()
@@ -187,13 +187,13 @@ test.describe.serial('Submit Project Form', () => {
     await page.waitForTimeout(100)
     await expect(page.getByText('Please select a project software')).not.toBeVisible()
     await expect(page.getByText('Please select a project type')).not.toBeVisible()
-    
+
     // Submit again to trigger description and code validation errors
     await page.locator('button.button', { hasText: 'Submit' }).click()
     await page.waitForTimeout(100)
     await expect(page.getByText('Description is required')).toBeVisible()
     await expect(page.getByText('Don\'t forget to add your code!')).toBeVisible()
-    
+
     // Fill in description and code, verify errors clear
     await page.locator('textarea[name="description"]').fill('A great description of my project')
     await page.locator('textarea.form-single-codeblock').fill('d1 $ sound "bd sd"')
@@ -206,7 +206,7 @@ test.describe.serial('Submit Project Form', () => {
     // Ensure clean state - wait for page to be fully loaded and form to be ready
     await page.waitForLoadState('networkidle')
     await expect(page.locator('.form-wrapper')).toBeVisible()
-    
+
     // Submit empty form and fill in name
     await page.locator('button.button', { hasText: 'Submit' }).click()
     await page.waitForTimeout(100) // Brief wait for validation to process
@@ -214,13 +214,13 @@ test.describe.serial('Submit Project Form', () => {
     await page.getByLabel('Name').fill('Valid Project name Name')
     await page.waitForTimeout(100)
     await expect(page.getByText('Please fill in this field.')).not.toBeVisible()
-    
+
     // Submit and trigger software/type validation errors
     await page.locator('button.button', { hasText: 'Submit' }).click()
     await page.waitForTimeout(100)
     await expect(page.getByText('Please select a project software')).toBeVisible()
     await expect(page.getByText('Please select a project type')).toBeVisible()
-    
+
     // Select software and type
     await page.locator('.project-software button.select-trigger').click()
     await page.locator('.project-software .menu-item.strudel').click()
@@ -230,20 +230,20 @@ test.describe.serial('Submit Project Form', () => {
     await page.waitForTimeout(100)
     await expect(page.getByText('Please select a project software')).not.toBeVisible()
     await expect(page.getByText('Please select a project type')).not.toBeVisible()
-    
+
     // Submit and trigger description/code validation errors
     await page.locator('button.button', { hasText: 'Submit' }).click()
     await page.waitForTimeout(100)
     await expect(page.getByText('Description is required')).toBeVisible()
     await expect(page.getByText('Don\'t forget to add your code!')).toBeVisible()
-    
+
     // Fill in description and code
     await page.locator('textarea[name="description"]').fill('A great description of my project')
     await page.locator('textarea.form-single-codeblock').fill('d1 $ sound "bd sd"')
     await page.waitForTimeout(100)
     await expect(page.getByText('Description is required')).not.toBeVisible()
     await expect(page.getByText('Don\'t forget to add your code!')).not.toBeVisible()
-    
+
     // Verify that all form values are still present
     await expect(page.getByLabel('Name')).toHaveValue('Valid Project name Name')
     await expect(page.locator('textarea[name="description"]')).toHaveValue('A great description of my project')
@@ -254,7 +254,7 @@ test.describe.serial('Submit Project Form', () => {
     // Ensure clean state - wait for page to be fully loaded and form to be ready
     await page.waitForLoadState('networkidle')
     await expect(page.locator('.form-wrapper')).toBeVisible()
-    
+
     // Check placeholders
     await expect(page.getByLabel('Name')).toHaveAttribute('placeholder', 'Name of project')
 

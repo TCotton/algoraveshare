@@ -96,9 +96,11 @@ import 'modern-normalize/modern-normalize.css';
     .select-container {
         padding: 0 2ch 2ch 2ch;
         margin-bottom: 1lh;
+
         a {
             color: rgb(85, 26, 139);
         }
+
         .menu-item:first-of-type a {
             text-decoration: none;
         }
@@ -107,6 +109,7 @@ import 'modern-normalize/modern-normalize.css';
             margin-bottom: 0.2lh;
 
         }
+
         .menu-wrapper {
             //background-color: rgb(from var(--flamingo) r g b / 0.3);
         }
@@ -130,6 +133,56 @@ import 'modern-normalize/modern-normalize.css';
 
     :root {
         @layer components {
+            .field-upload-audio {
+                input,
+                [is-~='input'],
+                &[size-='thicc'] {
+                    height: 3lh;
+                    width: 100%;
+                    padding: 0 1ch;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    :root {
+        @layer components {
+            .field-upload-audio {
+                input::file-selector-button {
+                    --button-primary: var(--foreground0);
+                    --button-secondary: var(--background0);
+                    --mapped-primary: var(--button-primary);
+                    --mapped-secondary: var(--button-secondary);
+                    color: var(--mapped-secondary);
+                    font-size: var(--font-size);
+                    line-height: var(--line-height);
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: none;
+                    padding: 0 2ch;
+                    outline: none;
+                    background-color: transparent;
+                    background-image: linear-gradient(
+                            to bottom,
+                            transparent 0,
+                            transparent 0.5lh,
+                            var(--mapped-primary) 0.5lh,
+                            var(--mapped-primary) calc(100% - 0.5lh),
+                            transparent calc(100% - 0.5lh),
+                            transparent
+                    );
+                    height: 3lh;
+                    margin-right: 1ch;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    :root {
+        @layer components {
             textarea,
             [is-~='textarea'],
             &[size-='thicc'] {
@@ -139,6 +192,7 @@ import 'modern-normalize/modern-normalize.css';
             }
         }
     }
+
 
     .form-wrapper {
         .error {
@@ -206,6 +260,10 @@ import 'modern-normalize/modern-normalize.css';
             --box-border-color: var(--surface0);
         }
 
+        div.field-upload-audio[box-~='round'] {
+            --box-border-color: var(--surface0);
+        }
+
         div.audio-wrapper[box-~='round'] {
             --box-border-color: var(--surface0);
         }
@@ -240,6 +298,7 @@ import 'modern-normalize/modern-normalize.css';
     }
 
     /* Code blocks */
+
     pre[class*="language-"] {
         padding: 1em;
         margin: .5em 0;
@@ -253,6 +312,7 @@ import 'modern-normalize/modern-normalize.css';
     }
 
     /* Inline code */
+
     :not(pre) > code[class*="language-"] {
         padding: .1em;
         border-radius: .3em;

@@ -20,6 +20,7 @@ export default function NewForm() {
       projectType: '',
       codeBlockOne: '',
       codeBlockTwo: '',
+      audioUpload: null,
     },
   })
 
@@ -29,6 +30,7 @@ export default function NewForm() {
   const tidal = 'Tidal Cycles'
   const finishedProject = 'Finished Project'
   const beforeAfterLiveCodingProject = 'Before and After Live Coding Project'
+  const audioFilesAllowed = '\'audio/wav\', \'audio/mp3\', \'audio/flac\', \'audio/aac\', \'audio/ogg\''
 
   form.useSubmit((state) => {
     console.info(state)
@@ -258,6 +260,19 @@ export default function NewForm() {
           <Ariakit.FormError name={form.names.codeBlockTwo} className="error" />
         </div>
       )}
+      <div className="field field-upload-audio" is-="typography-block" box-="round" shear-="top">
+        <div is-="badge" variant-="background0"><Ariakit.FormLabel name={form.names.audioUpload}>Audio upload: accepts WAV, MP3, FLAC, AAC and OGG</Ariakit.FormLabel></div>
+        <Ariakit.FormInput
+          type="file"
+          name={form.names.audioUpload}
+          placeholder="Audio file"
+          className="input-audio-file"
+          size-="large"
+          accept={audioFilesAllowed}
+        />
+        <Ariakit.FormError name={form.names.audioUpload} className="error" />
+
+      </div>
       <div className="buttons">
         <Ariakit.FormSubmit className="button">Submit</Ariakit.FormSubmit>
       </div>

@@ -22,36 +22,36 @@ export default function ProjectForm() {
 
     switch (field) {
       case 'projectSoftware':
-        if (value === '' || value === projectSoftwareDefault) {
+        if (value === '' || value === projectSoftwareDefault)
           error = 'Please select a project software'
-        }
+
         break
 
       case 'projectType':
-        if (value === '' || value === projectTypeDefault) {
+        if (value === '' || value === projectTypeDefault)
           error = 'Please select a project type'
-        }
+
         break
 
       case 'projectName':
-        if (!String(value || '').trim()) {
+        if (!String(value || '').trim())
           error = 'Name is required'
-        }
-        else if (value.trim().length > 200) {
+
+        else if (value.trim().length > 200)
           error = 'The project name must not be longer than 200 characters'
-        }
+
         break
 
       case 'description':
-        if (!String(value || '').trim()) {
+        if (!String(value || '').trim())
           error = 'Description is required'
-        }
+
         break
 
       case 'singleProject':
-        if (!value) {
+        if (!value)
           error = 'Don\'t forget to add your code!'
-        }
+
         break
     }
 

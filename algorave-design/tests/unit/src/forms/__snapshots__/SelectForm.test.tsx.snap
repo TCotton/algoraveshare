@@ -15,5 +15,6 @@ exports[`SelectForm > matches snapshot 1`] = `
     ]
   }
   label="Choose a project type"
+  name="projectType"
 />
 `;

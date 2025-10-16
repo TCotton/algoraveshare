@@ -16,7 +16,9 @@ export default defineConfig([
         },
         rules: {
             "react/no-unknown-property": ["error", { ignore: ["tsx"] }],
-            "@typescript-eslint/no-explicit-any": "warn"
+            "@typescript-eslint/no-explicit-any": "warn",
+            "curly": ["error", "multi"],
+            '@stylistic/brace-style': ['error', 'stroustrup', { allowSingleLine: true }],
         },
     },
     tseslint.configs.recommended,
@@ -27,15 +29,27 @@ export default defineConfig([
             react: {version: '19.0'}
         }
     },
-    globalIgnores([
-        'node_modules/*',
-        '.astro',
-        'tests',
-        'vitest.config.ts',
-        'eslint.config.ts'
-    ]),
     stylistic.configs.customize({
         quotes: 'single',
         semi: false,
     }),
+    {
+        files: ['tests/**/*.{ts,tsx,spec.ts}'],
+        languageOptions: {
+            globals: {
+                ...globals.browser,
+                ...globals.node,
+            }
+        },
+        rules: {
+            "@typescript-eslint/no-explicit-any": "off",
+            "react/react-in-jsx-scope": "off",
+        },
+    },
+    globalIgnores([
+        'node_modules/*',
+        '.astro',
+        'vitest.config.ts',
+        'eslint.config.ts'
+    ]),
 ]);

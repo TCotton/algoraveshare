@@ -149,6 +149,20 @@ import 'modern-normalize/modern-normalize.css';
     :root {
         @layer components {
             .field-upload-audio {
+                [is-~='badge'] {
+                    &[variant-='background0'] {
+                        label {
+                            color: rgb(205, 214, 244) !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    :root {
+        @layer components {
+            .field-upload-audio {
                 input::file-selector-button {
                     --button-primary: var(--foreground0);
                     --button-secondary: var(--background0);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import * as Ariakit from '@ariakit/react'
-import { isEmptyString } from 'ramda-adjunct'
-import { equals } from 'ramda'
+import { toArray, isEmptyString } from 'ramda-adjunct'
+import { equals, split, map, trim, pipe, last, toLower } from 'ramda'
 import SelectForm from '../forms/SelectForm'
 import FormTextarea from '../forms/FormTextarea'
 import { getDescriptionHtml } from './description-text.ts'
@@ -20,7 +20,7 @@ export default function NewForm() {
       projectType: '',
       codeBlockOne: '',
       codeBlockTwo: '',
-      audioUpload: null,
+      audioUpload: '',
     },
   })
 
@@ -94,6 +94,26 @@ export default function NewForm() {
     }
     else { form.setError('codeBlockTwo', '') }
 
+    if (!isEmptyString(values.audioUpload)) {
+      const getFileExtension = pipe(
+        split('.'), // split by dot
+        last, // take the last segment
+        toLower, // normalize case
+      )
+
+      const audioArray = pipe(
+        split(','), // split by comma
+        map(pipe(
+          trim, // remove surrounding spaces
+          split('/'), // split by '/'
+          last, // take last segment (e.g., 'wav')
+        )),
+      )(audioFilesAllowed)
+
+      const result = audioArray.some(fileExtension => equals(getFileExtension(values.audioUpload), fileExtension))
+      console.info(result)
+    }
+
     if (hasError) {
       return
     }
@@ -137,6 +157,19 @@ export default function NewForm() {
       className="form-wrapper"
       method="post"
     >
+      <div className="field field-project-name">
+        <Ariakit.FormLabel name={form.names.projectName}>Name</Ariakit.FormLabel>
+        <Ariakit.FormInput
+          name={form.names.projectName}
+          placeholder="Name of project"
+          className="input"
+          autoCapitalize="none"
+          autoComplete="off"
+          size-="large"
+          required
+        />
+        <Ariakit.FormError name={form.names.projectName} className="error" />
+      </div>
       <div className="field">
         <SelectForm
           label="Choose the project software"
@@ -151,19 +184,6 @@ export default function NewForm() {
           onChange={projectSoftwareFn}
         />
         <Ariakit.FormError name={form.names.projectSoftware} className="error" />
-      </div>
-      <div className="field field-project-name">
-        <Ariakit.FormLabel name={form.names.projectName}>Name</Ariakit.FormLabel>
-        <Ariakit.FormInput
-          name={form.names.projectName}
-          placeholder="Name of project"
-          className="input"
-          autoCapitalize="none"
-          autoComplete="off"
-          size-="large"
-          required
-        />
-        <Ariakit.FormError name={form.names.projectName} className="error" />
       </div>
       <div className="field">
         <SelectForm

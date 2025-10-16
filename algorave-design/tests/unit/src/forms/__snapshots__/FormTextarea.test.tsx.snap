@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`FormTextarea > matches snapshot 1`] = `
+<textarea
+  autocapitalize="none"
+  autocorrect="off"
+  class="test-class"
+  name="testTextarea"
+  placeholder="Test placeholder"
+  required=""
+  rows="4"
+>
+  Test value
+</textarea>
+`;

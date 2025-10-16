@@ -3,6 +3,7 @@ import * as Ariakit from '@ariakit/react'
 import { isEmptyString } from 'ramda-adjunct'
 import { equals } from 'ramda'
 import SelectForm from '../forms/SelectForm'
+import FormTextarea from '../forms/FormTextarea'
 import { getDescriptionHtml } from './description-text.ts'
 
 export default function NewForm() {
@@ -188,7 +189,7 @@ export default function NewForm() {
               dangerouslySetInnerHTML={{ __html: getDescriptionHtml(currentProjectSoftware) }}
             />
           </div>
-          <textarea
+          <FormTextarea
             name="description"
             value={descriptionValue}
             onChange={event => form.setValue('description', event.target.value)}
@@ -208,7 +209,7 @@ export default function NewForm() {
           <Ariakit.FormLabel name={form.names.singleProject}>
             Code block
           </Ariakit.FormLabel>
-          <textarea
+          <FormTextarea
             name={String(form.names.singleProject)}
             value={singleProjectValue}
             onChange={e => form.setValue('singleProject', e.target.value)}
@@ -227,7 +228,7 @@ export default function NewForm() {
           <Ariakit.FormLabel name={form.names.codeBlockOne}>
             Code block for the start of the performance
           </Ariakit.FormLabel>
-          <textarea
+          <FormTextarea
             name={String(form.names.codeBlockOne)}
             value={codeBlockOneValue}
             onChange={e => form.setValue('codeBlockOne', e.target.value)}
@@ -243,7 +244,7 @@ export default function NewForm() {
           <Ariakit.FormLabel name={form.names.codeBlockTwo}>
             Finished code
           </Ariakit.FormLabel>
-          <textarea
+          <FormTextarea
             name={String(form.names.codeBlockTwo)}
             value={codeBlockTwoValue}
             onChange={e => form.setValue('codeBlockTwo', e.target.value)}

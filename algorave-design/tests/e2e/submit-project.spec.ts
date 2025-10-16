@@ -123,7 +123,7 @@ test.describe('Submit Project Form', () => {
 
   test.fixme('should successfully submit form with all valid data for Tidal Cycles', async ({ page }) => {
     // Set up alert handler to capture the submission
-    page.on('dialog', async dialog => {
+    page.on('dialog', async (dialog) => {
       expect(dialog.type()).toBe('alert')
       const message = dialog.message()
       const data = JSON.parse(message)
@@ -153,9 +153,9 @@ test.describe('Submit Project Form', () => {
     // Submit the form
     await page.locator('button.button', { hasText: 'Submit' }).click()
   })
-    test.fixme('should successfully submit form with all valid data for Strudel', async ({ page }) => {
+  test.fixme('should successfully submit form with all valid data for Strudel', async ({ page }) => {
     // Set up alert handler to capture the submission
-    page.on('dialog', async dialog => {
+    page.on('dialog', async (dialog) => {
       expect(dialog.type()).toBe('alert')
       const message = dialog.message()
       const data = JSON.parse(message)
@@ -186,7 +186,7 @@ test.describe('Submit Project Form', () => {
     await page.locator('button.button', { hasText: 'Submit' }).click()
   })
 
-    test.fixme('should clear validation errors when fields are corrected', async ({ page }) => {
+  test.fixme('should clear validation errors when fields are corrected', async ({ page }) => {
     // Submit empty form to trigger errors
     await page.locator('button.button', { hasText: 'Submit' }).click()
 
@@ -216,7 +216,7 @@ test.describe('Submit Project Form', () => {
     // Note: We're not checking for error absence here because the alert will show success
   })
 
-    test.fixme('should maintain form values after validation error', async ({ page }) => {
+  test.fixme('should maintain form values after validation error', async ({ page }) => {
     // Fill in some fields
     await page.getByLabel('Name').fill('Test Project Name')
     await page.locator('textarea[name="singleProject"]').fill('// test code')
@@ -229,7 +229,7 @@ test.describe('Submit Project Form', () => {
     await expect(page.locator('textarea[name="singleProject"]')).toHaveValue('// test code')
   })
 
-    test.fixme('should have correct placeholder text for all inputs', async ({ page }) => {
+  test.fixme('should have correct placeholder text for all inputs', async ({ page }) => {
     // Check placeholders
     await expect(page.getByLabel('Name')).toHaveAttribute('placeholder', 'Name of project')
     await expect(page.locator('textarea[name="singleProject"]')).toHaveAttribute('placeholder', 'Add code here...')
@@ -240,7 +240,7 @@ test.describe('Submit Project Form', () => {
     await expect(page.locator('textarea[name="description"]')).toHaveAttribute('placeholder', 'Describe the project...')
   })
 
-    test.fixme('should display description helper text with proper heading', async ({ page }) => {
+  test.fixme('should display description helper text with proper heading', async ({ page }) => {
     // Select a software to show description
     await page.getByText('Choose the project software').click()
     await page.locator('a[href="#menu-form"]', { hasText: 'Tidal Cycles' }).click()

@@ -7,7 +7,7 @@ import stylistic from '@stylistic/eslint-plugin';
 
 export default defineConfig([
     {
-        files: ['src/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}', 'tests/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+        files: ['src/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
         plugins: {js},
         extends: ['js/recommended'],
         languageOptions: {globals: globals.browser},
@@ -29,15 +29,27 @@ export default defineConfig([
             react: {version: '19.0'}
         }
     },
-    globalIgnores([
-        'node_modules/*',
-        '.astro',
-        'tests',
-        'vitest.config.ts',
-        'eslint.config.ts'
-    ]),
     stylistic.configs.customize({
         quotes: 'single',
         semi: false,
     }),
+    {
+        files: ['tests/**/*.{ts,tsx,spec.ts}'],
+        languageOptions: {
+            globals: {
+                ...globals.browser,
+                ...globals.node,
+            }
+        },
+        rules: {
+            "@typescript-eslint/no-explicit-any": "off",
+            "react/react-in-jsx-scope": "off",
+        },
+    },
+    globalIgnores([
+        'node_modules/*',
+        '.astro',
+        'vitest.config.ts',
+        'eslint.config.ts'
+    ]),
 ]);

@@ -115,8 +115,8 @@ export default function NewForm() {
 
   // Use useEffect to log or perform side effects when projectSoftware changes
   useEffect(() => {
-    if (currentProjectType && !equals(currentProjectType, projectSoftwareDefault)) {
-      console.info('Project software changed to:', currentProjectSoftware)
+    if (currentProjectSoftware && !equals(currentProjectType, projectSoftwareDefault)) {
+      console.info('Project type changed to:', currentProjectSoftware)
     }
   }, [currentProjectSoftware])
 

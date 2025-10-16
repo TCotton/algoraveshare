@@ -213,7 +213,7 @@ export default function NewForm() {
             value={singleProjectValue}
             onChange={e => form.setValue('singleProject', e.target.value)}
             placeholder="Add code here..."
-            className="form-codeblock-one"
+            className="form-single-codeblock"
             autoCapitalize="none"
             autoCorrect="off"
             rows={4}
@@ -232,7 +232,7 @@ export default function NewForm() {
             value={codeBlockOneValue}
             onChange={e => form.setValue('codeBlockOne', e.target.value)}
             placeholder="Add code you start with here..."
-            className="form-textarea-single"
+            className="form-textarea-codeblock-one"
             autoCapitalize="none"
             autoCorrect="off"
             rows={4}
@@ -248,7 +248,7 @@ export default function NewForm() {
             value={codeBlockTwoValue}
             onChange={e => form.setValue('codeBlockTwo', e.target.value)}
             placeholder="Add the code you finish with here..."
-            className="form-textarea-single"
+            className="form-textarea-codeblock-two"
             autoCapitalize="none"
             autoCorrect="off"
             rows={4}

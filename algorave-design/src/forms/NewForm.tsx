@@ -231,7 +231,7 @@ export default function NewForm() {
             name={String(form.names.codeBlockOne)}
             value={codeBlockOneValue}
             onChange={e => form.setValue('codeBlockOne', e.target.value)}
-            placeholder="Add code here..."
+            placeholder="Add code you start with here..."
             className="form-textarea-single"
             autoCapitalize="none"
             autoCorrect="off"
@@ -247,7 +247,7 @@ export default function NewForm() {
             name={String(form.names.codeBlockTwo)}
             value={codeBlockTwoValue}
             onChange={e => form.setValue('codeBlockTwo', e.target.value)}
-            placeholder="Add code here..."
+            placeholder="Add the code you finish with here..."
             className="form-textarea-single"
             autoCapitalize="none"
             autoCorrect="off"

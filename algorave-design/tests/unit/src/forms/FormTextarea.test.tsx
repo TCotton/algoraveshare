@@ -170,4 +170,71 @@ describe('FormTextarea', () => {
 
     expect(container.firstChild).toMatchSnapshot()
   })
+
+  it('forwards ref correctly', () => {
+    const mockOnChange = vi.fn()
+    const ref = React.createRef<HTMLTextAreaElement>()
+
+    render(
+      <FormTextarea
+        ref={ref}
+        name="testTextarea"
+        value=""
+        onChange={mockOnChange}
+        placeholder="Test"
+        className="test-class"
+      />,
+    )
+
+    expect(ref.current).toBeInstanceOf(HTMLTextAreaElement)
+    expect(ref.current).toHaveAttribute('name', 'testTextarea')
+  })
+
+  it('accepts additional HTML textarea attributes via rest props', () => {
+    const mockOnChange = vi.fn()
+
+    render(
+      <FormTextarea
+        name="testTextarea"
+        value=""
+        onChange={mockOnChange}
+        placeholder="Test"
+        className="test-class"
+        id="custom-id"
+        disabled
+        maxLength={100}
+        spellCheck={false}
+        data-testid="custom-textarea"
+        aria-label="Custom textarea"
+      />,
+    )
+
+    const textarea = screen.getByTestId('custom-textarea')
+    expect(textarea).toBeInTheDocument()
+    expect(textarea).toHaveAttribute('id', 'custom-id')
+    expect(textarea).toBeDisabled()
+    expect(textarea).toHaveAttribute('maxLength', '100')
+    expect(textarea).toHaveAttribute('spellCheck', 'false')
+    expect(textarea).toHaveAttribute('aria-label', 'Custom textarea')
+  })
+
+  it('supports imperative focus via ref', () => {
+    const mockOnChange = vi.fn()
+    const ref = React.createRef<HTMLTextAreaElement>()
+
+    render(
+      <FormTextarea
+        ref={ref}
+        name="testTextarea"
+        value=""
+        onChange={mockOnChange}
+        placeholder="Test"
+        className="test-class"
+      />,
+    )
+
+    // Simulate imperative focus
+    ref.current?.focus()
+    expect(ref.current).toHaveFocus()
+  })
 })

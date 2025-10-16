@@ -1,39 +1,50 @@
 import React from 'react'
 
-interface FormTextareaProps {
+type FormTextareaProps = Omit<
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+  'value' | 'onChange' | 'name'
+> & {
   name: string
   value: string
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
-  placeholder: string
-  className: string
-  rows?: number
-  required?: boolean
-  autoCapitalize?: string
-  autoCorrect?: string
+  autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters'
+  autoCorrect?: 'on' | 'off'
 }
 
-export default function FormTextarea({
-  name,
-  value,
-  onChange,
-  placeholder,
-  className,
-  rows = 4,
-  required = false,
-  autoCapitalize = 'none',
-  autoCorrect = 'off',
-}: FormTextareaProps) {
-  return (
-    <textarea
-      name={name}
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      className={className}
-      autoCapitalize={autoCapitalize}
-      autoCorrect={autoCorrect}
-      rows={rows}
-      required={required}
-    />
-  )
-}
+const FormTextarea = React.forwardRef<HTMLTextAreaElement, FormTextareaProps>(
+  (
+    {
+      name,
+      value,
+      onChange,
+      placeholder,
+      className,
+      rows = 4,
+      required = false,
+      autoCapitalize = 'none',
+      autoCorrect = 'off',
+      ...rest
+    },
+    ref,
+  ) => {
+    return (
+      <textarea
+        ref={ref}
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className={className}
+        autoCapitalize={autoCapitalize}
+        autoCorrect={autoCorrect}
+        rows={rows}
+        required={required}
+        {...rest}
+      />
+    )
+  },
+)
+
+FormTextarea.displayName = 'FormTextarea'
+
+export default FormTextarea

@@ -28,8 +28,12 @@ export default function SelectForm(props: ExtendedSelectFormProps) {
     items: formattedItems,
     value: form ? form.useValue(name) : undefined,
     setValue: (val: string) => {
-      if (form) form.setValue(name, val)
-      if (onChange) onChange(name, val)
+      if (form) {
+        form.setValue(name, val)
+      }
+      if (onChange) {
+        onChange(name, val)
+      }
     },
   })
   return (

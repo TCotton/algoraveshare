@@ -8,6 +8,7 @@ import { getDescriptionHtml } from './description-text.ts'
 export default function NewForm() {
   // Use useState to track the current project software selection
   const [currentProjectSoftware, setCurrentProjectSoftware] = useState<string | null>(null)
+  const [currentProjectType, setCurrentProjectType] = useState<string | null>(null)
 
   const form = Ariakit.useFormStore({
     defaultValues: {
@@ -16,6 +17,8 @@ export default function NewForm() {
       singleProject: '',
       projectSoftware: '',
       projectType: '',
+      codeBlockOne: '',
+      codeBlockTwo: '',
     },
   })
 
@@ -23,11 +26,13 @@ export default function NewForm() {
   const projectTypeDefault = 'Project type'
   const strudel = 'Strudel'
   const tidal = 'Tidal Cycles'
+  const finishedProject = 'Finished Project'
+  const beforeAfterLiveCodingProject = 'Before and After Live Coding Project'
 
   form.useSubmit((state) => {
-    console.log(state)
+    console.info(state)
     const { values } = state
-    console.dir(values)
+    console.info(values)
 
     let hasError = false
 
@@ -36,16 +41,14 @@ export default function NewForm() {
       form.setError('projectSoftware', 'Please select a project software')
       hasError = true
     }
-    else
-      form.setError('projectSoftware', '')
+    else { form.setError('projectSoftware', '') }
 
     // Validate projectType
     if (isEmptyString(values.projectType) || equals(values.projectType, projectTypeDefault)) {
       form.setError('projectType', 'Please select a project type')
       hasError = true
     }
-    else
-      form.setError('projectType', '')
+    else { form.setError('projectType', '') }
 
     // Validate projectName
     const name = String(values.projectName ?? '').trim()
@@ -57,8 +60,7 @@ export default function NewForm() {
       form.setError('projectName', 'The project name must not be longer than 200 characters')
       hasError = true
     }
-    else
-      form.setError('projectName', '')
+    else { form.setError('projectName', '') }
 
     // Validate description
     const desc = String(values.description ?? '').trim()
@@ -66,19 +68,32 @@ export default function NewForm() {
       form.setError('description', 'Description is required')
       hasError = true
     }
-    else
-      form.setError('description', '')
+    else { form.setError('description', '') }
 
     // Validate singleProject
-    if (isEmptyString(values.singleProject.trim())) {
+    if (equals(finishedProject, currentProjectType) && isEmptyString(values.singleProject.trim())) {
       form.setError('singleProject', 'Don\'t forget to add your code!')
       hasError = true
     }
-    else
-      form.setError('singleProject', '')
+    else { form.setError('singleProject', '') }
 
-    if (hasError)
+    // Validate codeBlockOne
+    if (equals(beforeAfterLiveCodingProject, currentProjectType) && isEmptyString(values.codeBlockOne.trim())) {
+      form.setError('codeBlockOne', 'Don\'t forget to add your code!')
+      hasError = true
+    }
+    else { form.setError('codeBlockOne', '') }
+
+    // Validate codeBlockTwo
+    if (equals(beforeAfterLiveCodingProject, currentProjectType) && isEmptyString(values.codeBlockTwo.trim())) {
+      form.setError('codeBlockTwo', 'Don\'t forget to add your code!')
+      hasError = true
+    }
+    else { form.setError('codeBlockTwo', '') }
+
+    if (hasError) {
       return
+    }
 
     alert(JSON.stringify(values))
   })
@@ -86,17 +101,31 @@ export default function NewForm() {
   // Call all hooks at the top level - never inside conditionals
   const descriptionValue = form.useValue('description')
   const singleProjectValue = form.useValue('singleProject')
+  const codeBlockOneValue = form.useValue('codeBlockOne')
+  const codeBlockTwoValue = form.useValue('codeBlockTwo')
 
   // Callback function that updates state when projectSoftware selection changes
-  const projectSoftwareFn = (label: string, value: string): void => {
+  const projectSoftwareFn = (_label: string, value: string): void => {
     setCurrentProjectSoftware(value)
+  }
+
+  const projectTypeFn = (_label: string, value: string): void => {
+    setCurrentProjectType(value)
   }
 
   // Use useEffect to log or perform side effects when projectSoftware changes
   useEffect(() => {
-    if (currentProjectSoftware && !equals(currentProjectSoftware, projectSoftwareDefault))
-      console.log('Project software changed to:', currentProjectSoftware)
+    if (currentProjectSoftware && !equals(currentProjectType, projectSoftwareDefault)) {
+      console.info('Project type changed to:', currentProjectSoftware)
+    }
   }, [currentProjectSoftware])
+
+  // Use useEffect to log or perform side effects when projectType changes
+  useEffect(() => {
+    if (currentProjectType && !equals(currentProjectType, projectTypeDefault)) {
+      console.info('Project software changed to:', currentProjectType)
+    }
+  }, [currentProjectType])
 
   return (
     <Ariakit.Form
@@ -144,10 +173,7 @@ export default function NewForm() {
             { value: 'Before and After Live Coding Project', label: 'before-after' },
           ]}
           selectClass="project-type"
-          onChange={(name, value) => {
-            // Example: log or handle change
-            console.log(`Select changed: ${name} = ${value}`)
-          }}
+          onChange={projectTypeFn}
         />
         <Ariakit.FormError name={form.names.projectType} className="error" />
       </div>
@@ -177,23 +203,60 @@ export default function NewForm() {
         </div>
       )}
       {/* Removed duplicate SelectForm for project type. If needed, add name and form props. */}
-      <div className="form-textarea-single">
-        <Ariakit.FormLabel name={form.names.singleProject}>
-          Description
-        </Ariakit.FormLabel>
-        <textarea
-          name={String(form.names.singleProject)}
-          value={singleProjectValue}
-          onChange={e => form.setValue('singleProject', e.target.value)}
-          placeholder="Add code here..."
-          className="form-textarea-single"
-          autoCapitalize="none"
-          autoCorrect="off"
-          rows={4}
-          required
-        />
-        <Ariakit.FormError name={form.names.singleProject} className="error" />
-      </div>
+      {currentProjectType === finishedProject && (
+        <div className="field form-textarea-single">
+          <Ariakit.FormLabel name={form.names.singleProject}>
+            Code block
+          </Ariakit.FormLabel>
+          <textarea
+            name={String(form.names.singleProject)}
+            value={singleProjectValue}
+            onChange={e => form.setValue('singleProject', e.target.value)}
+            placeholder="Add code here..."
+            className="form-codeblock-one"
+            autoCapitalize="none"
+            autoCorrect="off"
+            rows={4}
+            required
+          />
+          <Ariakit.FormError name={form.names.singleProject} className="error" />
+        </div>
+      )}
+      {currentProjectType === beforeAfterLiveCodingProject && (
+        <div className="field form-textarea-double">
+          <Ariakit.FormLabel name={form.names.codeBlockOne}>
+            Code block for the start of the performance
+          </Ariakit.FormLabel>
+          <textarea
+            name={String(form.names.codeBlockOne)}
+            value={codeBlockOneValue}
+            onChange={e => form.setValue('codeBlockOne', e.target.value)}
+            placeholder="Add code you start with here..."
+            className="form-textarea-single"
+            autoCapitalize="none"
+            autoCorrect="off"
+            rows={4}
+            required
+          />
+          <Ariakit.FormError name={form.names.codeBlockOne} className="error" />
+          <div is-="separator" direction-="horizontal"></div>
+          <Ariakit.FormLabel name={form.names.codeBlockTwo}>
+            Finished code
+          </Ariakit.FormLabel>
+          <textarea
+            name={String(form.names.codeBlockTwo)}
+            value={codeBlockTwoValue}
+            onChange={e => form.setValue('codeBlockTwo', e.target.value)}
+            placeholder="Add the code you finish with here..."
+            className="form-textarea-single"
+            autoCapitalize="none"
+            autoCorrect="off"
+            rows={4}
+            required
+          />
+          <Ariakit.FormError name={form.names.codeBlockTwo} className="error" />
+        </div>
+      )}
       <div className="buttons">
         <Ariakit.FormSubmit className="button">Submit</Ariakit.FormSubmit>
       </div>

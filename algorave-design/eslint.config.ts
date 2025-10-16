@@ -15,10 +15,9 @@ export default defineConfig([
             react: {version: '19.0'}
         },
         rules: {
-            "react/no-unknown-property": ["error", { ignore: ["tsx"] }],
             "@typescript-eslint/no-explicit-any": "warn",
-            "curly": ["error", "multi"],
-            '@stylistic/brace-style': ['error', 'stroustrup', { allowSingleLine: true }],
+            "curly": ["error", "all"],
+            '@stylistic/brace-style': ['error', 'stroustrup', { allowSingleLine: false }],
         },
     },
     tseslint.configs.recommended,
@@ -27,6 +26,9 @@ export default defineConfig([
         settings: {
             ...(pluginReact.configs.flat.recommended.settings || {}),
             react: {version: '19.0'}
+        },
+        rules: {
+            'react/no-unknown-property': 'warn'
         }
     },
     stylistic.configs.customize({

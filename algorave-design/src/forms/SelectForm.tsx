@@ -33,7 +33,7 @@ export default function SelectForm(props: ExtendedSelectFormProps) {
     },
   })
   return (
-    <div className={`select-container ${selectClass}`} is-="typography-block" box-="round" shear-="top">
+    <div className={`select-container ${selectClass || ''}`} is-="typography-block" box-="round" shear-="top">
       <SelectProvider store={select}>
         <Ariakit.SelectLabel store={select} className="select-label">
           <div is-="badge" variant-="background0">{label}</div>

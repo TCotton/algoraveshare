@@ -70,26 +70,26 @@ test.describe('Submit Project Form', () => {
 
     // Select Strudel - use more specific selector within the select menu
     await page.locator('.project-software button.select-trigger').click()
-    await page.locator('.project-software .menu-item.tidal-cycles').click()
+    await page.locator('.project-software .menu-item.strudel').click()
 
     // Description field should now be visible
     await expect(page.locator('textarea[name="description"]')).toBeVisible()
 
     // Check for Strudel specific content
-    await expect(page.locator('.description-text .tidal-cycles')).toBeVisible()
-    await expect(page.locator('.description-text .strudel')).not.toBeVisible()
+    await expect(page.locator('.description-text .tidal-cycles')).not.toBeVisible()
+    await expect(page.locator('.description-text .strudel')).toBeVisible()
   })
 
   test('should hide description field when project software is not selected', async ({ page }) => {
     // Select Tidal Cycles first
-      await page.locator('.project-software button.select-trigger').click()
-      await page.locator('.project-software .menu-item.tidal-cycles').click()
+    await page.locator('.project-software button.select-trigger').click()
+    await page.locator('.project-software .menu-item.tidal-cycles').click()
 
     // Verify description is visible
     await expect(page.locator('textarea[name="description"]')).toBeVisible()
 
     // Change back to default
-      await page.locator('.project-software button.select-trigger').click()
+    await page.locator('.project-software button.select-trigger').click()
     await page.locator('.project-software .menu-item').first().click()
 
     // Description field should be hidden again
@@ -98,12 +98,12 @@ test.describe('Submit Project Form', () => {
 
   test.fixme('should require description when Tidal Cycles is selected', async ({ page }) => {
     // Select Tidal Cycles
-      await page.locator('.project-software button.select-trigger').click()
-      await page.locator('.project-software .menu-item.tidal-cycles').click()
+    await page.locator('.project-software button.select-trigger').click()
+    await page.locator('.project-software .menu-item.tidal-cycles').click()
 
     // Fill other required fields but leave description empty
     await page.getByLabel('Name').fill('Test Project')
-      await page.locator('.project-software button.select-trigger').click()
+    await page.locator('.project-software button.select-trigger').click()
     await page.getByText('Finished Project').click()
     await page.locator('textarea[name="singleProject"]').fill('// some code')
 

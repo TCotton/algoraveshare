@@ -26,6 +26,8 @@ export default function NewForm() {
   const projectTypeDefault = 'Project type'
   const strudel = 'Strudel'
   const tidal = 'Tidal Cycles'
+  const finishedProject = 'Finished Project'
+  const beforeAfterLiveCodingProject = 'Before and After Live Coding Project'
 
   form.useSubmit((state) => {
     console.info(state)
@@ -69,11 +71,25 @@ export default function NewForm() {
     else { form.setError('description', '') }
 
     // Validate singleProject
-    if (isEmptyString(values.singleProject.trim())) {
+    if (equals(finishedProject, currentProjectType) && isEmptyString(values.singleProject.trim())) {
       form.setError('singleProject', 'Don\'t forget to add your code!')
       hasError = true
     }
     else { form.setError('singleProject', '') }
+
+    // Validate codeBlockOne
+    if (equals(beforeAfterLiveCodingProject, currentProjectType) && isEmptyString(values.codeBlockOne.trim())) {
+      form.setError('codeBlockOne', 'Don\'t forget to add your code!')
+      hasError = true
+    }
+    else { form.setError('codeBlockOne', '') }
+
+    // Validate codeBlockTwo
+    if (equals(beforeAfterLiveCodingProject, currentProjectType) && isEmptyString(values.codeBlockTwo.trim())) {
+      form.setError('codeBlockTwo', 'Don\'t forget to add your code!')
+      hasError = true
+    }
+    else { form.setError('codeBlockTwo', '') }
 
     if (hasError) {
       return
@@ -85,8 +101,8 @@ export default function NewForm() {
   // Call all hooks at the top level - never inside conditionals
   const descriptionValue = form.useValue('description')
   const singleProjectValue = form.useValue('singleProject')
-  const codeBlockOne = form.useValue('codeBlockOne')
-  const codeBlockTwo = form.useValue('codeBlockTwo')
+  const codeBlockOneValue = form.useValue('codeBlockOne')
+  const codeBlockTwoValue = form.useValue('codeBlockTwo')
 
   // Callback function that updates state when projectSoftware selection changes
   const projectSoftwareFn = (_label: string, value: string): void => {
@@ -188,13 +204,13 @@ export default function NewForm() {
       )}
       {/* Removed duplicate SelectForm for project type. If needed, add name and form props. */}
       <div className="field form-textarea-single">
-        <Ariakit.FormLabel name={form.names.codeBlockOne}>
+        <Ariakit.FormLabel name={form.names.singleProject}>
           Code block
         </Ariakit.FormLabel>
         <textarea
-          name={String(form.names.codeBlockOne)}
-          value={codeBlockOne}
-          onChange={e => form.setValue('codeBlockOne', e.target.value)}
+          name={String(form.names.singleProject)}
+          value={singleProjectValue}
+          onChange={e => form.setValue('singleProject', e.target.value)}
           placeholder="Add code here..."
           className="form-codeblock-one"
           autoCapitalize="none"
@@ -205,13 +221,13 @@ export default function NewForm() {
         <Ariakit.FormError name={form.names.singleProject} className="error" />
       </div>
       <div className="field form-textarea-double">
-        <Ariakit.FormLabel name={form.names.singleProject}>
+        <Ariakit.FormLabel name={form.names.codeBlockOne}>
           Code block for the start of the performance
         </Ariakit.FormLabel>
         <textarea
-          name={String(form.names.singleProject)}
-          value={singleProjectValue}
-          onChange={e => form.setValue('singleProject', e.target.value)}
+          name={String(form.names.codeBlockOne)}
+          value={codeBlockOneValue}
+          onChange={e => form.setValue('codeBlockOne', e.target.value)}
           placeholder="Add code here..."
           className="form-textarea-single"
           autoCapitalize="none"
@@ -219,15 +235,15 @@ export default function NewForm() {
           rows={4}
           required
         />
-        <Ariakit.FormError name={form.names.singleProject} className="error" />
+        <Ariakit.FormError name={form.names.codeBlockOne} className="error" />
         <div is-="separator" direction-="horizontal"></div>
-        <Ariakit.FormLabel name={form.names.singleProject}>
-          Code block for the start of the performance
+        <Ariakit.FormLabel name={form.names.codeBlockTwo}>
+          Finished code
         </Ariakit.FormLabel>
         <textarea
-          name={String(form.names.singleProject)}
-          value={singleProjectValue}
-          onChange={e => form.setValue('singleProject', e.target.value)}
+          name={String(form.names.codeBlockTwo)}
+          value={codeBlockTwoValue}
+          onChange={e => form.setValue('codeBlockTwo', e.target.value)}
           placeholder="Add code here..."
           className="form-textarea-single"
           autoCapitalize="none"
@@ -235,7 +251,7 @@ export default function NewForm() {
           rows={4}
           required
         />
-        <Ariakit.FormError name={form.names.singleProject} className="error" />
+        <Ariakit.FormError name={form.names.codeBlockTwo} className="error" />
       </div>
       <div className="buttons">
         <Ariakit.FormSubmit className="button">Submit</Ariakit.FormSubmit>

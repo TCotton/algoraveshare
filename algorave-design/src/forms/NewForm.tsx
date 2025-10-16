@@ -203,56 +203,60 @@ export default function NewForm() {
         </div>
       )}
       {/* Removed duplicate SelectForm for project type. If needed, add name and form props. */}
-      <div className="field form-textarea-single">
-        <Ariakit.FormLabel name={form.names.singleProject}>
-          Code block
-        </Ariakit.FormLabel>
-        <textarea
-          name={String(form.names.singleProject)}
-          value={singleProjectValue}
-          onChange={e => form.setValue('singleProject', e.target.value)}
-          placeholder="Add code here..."
-          className="form-codeblock-one"
-          autoCapitalize="none"
-          autoCorrect="off"
-          rows={4}
-          required
-        />
-        <Ariakit.FormError name={form.names.singleProject} className="error" />
-      </div>
-      <div className="field form-textarea-double">
-        <Ariakit.FormLabel name={form.names.codeBlockOne}>
-          Code block for the start of the performance
-        </Ariakit.FormLabel>
-        <textarea
-          name={String(form.names.codeBlockOne)}
-          value={codeBlockOneValue}
-          onChange={e => form.setValue('codeBlockOne', e.target.value)}
-          placeholder="Add code here..."
-          className="form-textarea-single"
-          autoCapitalize="none"
-          autoCorrect="off"
-          rows={4}
-          required
-        />
-        <Ariakit.FormError name={form.names.codeBlockOne} className="error" />
-        <div is-="separator" direction-="horizontal"></div>
-        <Ariakit.FormLabel name={form.names.codeBlockTwo}>
-          Finished code
-        </Ariakit.FormLabel>
-        <textarea
-          name={String(form.names.codeBlockTwo)}
-          value={codeBlockTwoValue}
-          onChange={e => form.setValue('codeBlockTwo', e.target.value)}
-          placeholder="Add code here..."
-          className="form-textarea-single"
-          autoCapitalize="none"
-          autoCorrect="off"
-          rows={4}
-          required
-        />
-        <Ariakit.FormError name={form.names.codeBlockTwo} className="error" />
-      </div>
+      {currentProjectType === finishedProject && (
+        <div className="field form-textarea-single">
+          <Ariakit.FormLabel name={form.names.singleProject}>
+            Code block
+          </Ariakit.FormLabel>
+          <textarea
+            name={String(form.names.singleProject)}
+            value={singleProjectValue}
+            onChange={e => form.setValue('singleProject', e.target.value)}
+            placeholder="Add code here..."
+            className="form-codeblock-one"
+            autoCapitalize="none"
+            autoCorrect="off"
+            rows={4}
+            required
+          />
+          <Ariakit.FormError name={form.names.singleProject} className="error" />
+        </div>
+      )}
+      {currentProjectType === beforeAfterLiveCodingProject && (
+        <div className="field form-textarea-double">
+          <Ariakit.FormLabel name={form.names.codeBlockOne}>
+            Code block for the start of the performance
+          </Ariakit.FormLabel>
+          <textarea
+            name={String(form.names.codeBlockOne)}
+            value={codeBlockOneValue}
+            onChange={e => form.setValue('codeBlockOne', e.target.value)}
+            placeholder="Add code here..."
+            className="form-textarea-single"
+            autoCapitalize="none"
+            autoCorrect="off"
+            rows={4}
+            required
+          />
+          <Ariakit.FormError name={form.names.codeBlockOne} className="error" />
+          <div is-="separator" direction-="horizontal"></div>
+          <Ariakit.FormLabel name={form.names.codeBlockTwo}>
+            Finished code
+          </Ariakit.FormLabel>
+          <textarea
+            name={String(form.names.codeBlockTwo)}
+            value={codeBlockTwoValue}
+            onChange={e => form.setValue('codeBlockTwo', e.target.value)}
+            placeholder="Add code here..."
+            className="form-textarea-single"
+            autoCapitalize="none"
+            autoCorrect="off"
+            rows={4}
+            required
+          />
+          <Ariakit.FormError name={form.names.codeBlockTwo} className="error" />
+        </div>
+      )}
       <div className="buttons">
         <Ariakit.FormSubmit className="button">Submit</Ariakit.FormSubmit>
       </div>

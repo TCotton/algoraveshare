@@ -8,9 +8,9 @@ import '@blocknote/ariakit/style.css'
 
 export default function Editor(props: { form: FormStore }) {
   // Only render if window/document is defined (browser)
-  if (typeof window === 'undefined' || typeof document === 'undefined') {
+  if (typeof window === 'undefined' || typeof document === 'undefined')
     return null
-  }
+
   const { form } = props
   console.log(form)
   // Creates a new editor instance.

@@ -36,18 +36,16 @@ export default function NewForm() {
       form.setError('projectSoftware', 'Please select a project software')
       hasError = true
     }
-    else {
+    else
       form.setError('projectSoftware', '')
-    }
 
     // Validate projectType
     if (isEmptyString(values.projectType) || equals(values.projectType, projectTypeDefault)) {
       form.setError('projectType', 'Please select a project type')
       hasError = true
     }
-    else {
+    else
       form.setError('projectType', '')
-    }
 
     // Validate projectName
     if (!String(values.projectName || isEmptyString(values.projectName)).trim()) {
@@ -58,31 +56,27 @@ export default function NewForm() {
       form.setError('projectName', 'The project name must not be longer than 200 characters')
       hasError = true
     }
-    else {
+    else
       form.setError('projectName', '')
-    }
 
     // Validate description
     if (!String(values.description || isEmptyString(values.description)).trim()) {
       form.setError('description', 'Description is required')
       hasError = true
     }
-    else {
+    else
       form.setError('description', '')
-    }
 
     // Validate singleProject
     if (isEmptyString(values.singleProject.trim())) {
       form.setError('singleProject', 'Don\'t forget to add your code!')
       hasError = true
     }
-    else {
+    else
       form.setError('singleProject', '')
-    }
 
-    if (hasError) {
+    if (hasError)
       return
-    }
 
     alert(JSON.stringify(values))
   })
@@ -98,9 +92,8 @@ export default function NewForm() {
 
   // Use useEffect to log or perform side effects when projectSoftware changes
   useEffect(() => {
-    if (currentProjectSoftware && !equals(currentProjectSoftware, projectSoftwareDefault)) {
+    if (currentProjectSoftware && !equals(currentProjectSoftware, projectSoftwareDefault))
       console.log('Project software changed to:', currentProjectSoftware)
-    }
   }, [currentProjectSoftware])
 
   return (

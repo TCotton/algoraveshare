@@ -28,8 +28,9 @@ vi.mock('../../../../src/forms/SelectForm', () => ({
       <label>{label}</label>
       <select onChange={(e) => {
         const selectedItem = items.find((item: any) => item.value === e.target.value)
-        if (selectedItem && onChange)
+        if (selectedItem && onChange) {
           onChange(selectedItem.label, selectedItem.value)
+        }
       }}
       >
         {items.map((item: any) => (
@@ -56,6 +57,7 @@ vi.mock('@ariakit/react', () => {
 
   return {
     __esModule: true,
+    useSelectStore: vi.fn(() => ({})),
     useFormStore: vi.fn(() => ({
       names: {
         projectName: 'projectName',

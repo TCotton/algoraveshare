@@ -6,6 +6,9 @@ import SelectForm from '../forms/SelectForm'
 import { getDescriptionHtml } from './description-text.ts'
 
 export default function NewForm() {
+  // Use useState to track the current project software selection
+  const [currentProjectSoftware, setCurrentProjectSoftware] = useState<string | null>(null)
+
   const form = Ariakit.useFormStore({
     defaultValues: {
       projectName: '',
@@ -20,9 +23,6 @@ export default function NewForm() {
   const projectTypeDefault = 'Project type'
   const strudel = 'Strudel'
   const tidal = 'Tidal Cycles'
-
-  // Use useState to track the current project software selection
-  const [currentProjectSoftware, setCurrentProjectSoftware] = useState<string | null>(null)
 
   form.useSubmit((state) => {
     console.log(state)

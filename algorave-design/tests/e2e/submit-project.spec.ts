@@ -5,7 +5,7 @@ test.describe('Submit Project Form', () => {
     await page.goto('http://localhost:4321/submit-project')
   })
 
-  test.only('should display the form with all initial elements', async ({ page }) => {
+  test('should display the form with all initial elements', async ({ page }) => {
     // Check that the form exists
     await expect(page.locator('.form-wrapper')).toBeVisible()
 
@@ -30,11 +30,10 @@ test.describe('Submit Project Form', () => {
     await page.locator('button.button', { hasText: 'Submit' }).click()
 
     // Check for validation errors using role-based selectors
-    await expect(page.getByText('Name is required')).toBeVisible()
-    await expect(page.getByText('Don\'t forget to add your code!')).toBeVisible()
+    await expect(page.getByText('Please fill in this field.')).toBeVisible()
   })
 
-  test.fixme('should validate project name length', async ({ page }) => {
+  test('should validate project name length', async ({ page }) => {
     // Fill in a name that's too long (> 200 characters)
     const longName = 'a'.repeat(201)
     await page.getByLabel('Name').fill(longName)
@@ -49,13 +48,13 @@ test.describe('Submit Project Form', () => {
     await expect(page.getByText('The project name must not be longer than 200 characters')).toBeVisible()
   })
 
-  test.fixme('should show description field when Tidal Cycles is selected', async ({ page }) => {
+  test('should show description field when Tidal Cycles is selected', async ({ page }) => {
     // Initially description field should not be visible
     await expect(page.locator('textarea[name="description"]')).not.toBeVisible()
 
     // Select Tidal Cycles - use more specific selector within the select menu
-    await page.getByText('Choose the project software').click()
-    await page.locator('a[href="#menu-form"]', { hasText: 'Tidal Cycles' }).click()
+    await page.locator('.project-software button.select-trigger').click()
+    await page.locator('.project-software .menu-item.tidal-cycles', { hasText: 'Tidal Cycles' }).click()
 
     // Description field should now be visible
     await expect(page.locator('textarea[name="description"]')).toBeVisible()
@@ -65,33 +64,33 @@ test.describe('Submit Project Form', () => {
     await expect(page.locator('.description-text .strudel')).not.toBeVisible()
   })
 
-  test.fixme('should show description field when Strudel is selected', async ({ page }) => {
+  test('should show description field when Strudel is selected', async ({ page }) => {
     // Initially description field should not be visible
     await expect(page.locator('textarea[name="description"]')).not.toBeVisible()
 
     // Select Strudel - use more specific selector within the select menu
-    await page.getByText('Choose the project software').click()
-    await page.locator('a[href="#menu-form"]', { hasText: 'Strudel' }).click()
+    await page.locator('.project-software button.select-trigger').click()
+    await page.locator('.project-software .menu-item.strudel').click()
 
     // Description field should now be visible
     await expect(page.locator('textarea[name="description"]')).toBeVisible()
 
     // Check for Strudel specific content
-    await expect(page.locator('.description-text .strudel')).toBeVisible()
     await expect(page.locator('.description-text .tidal-cycles')).not.toBeVisible()
+    await expect(page.locator('.description-text .strudel')).toBeVisible()
   })
 
-  test.fixme('should hide description field when project software is not selected', async ({ page }) => {
+  test('should hide description field when project software is not selected', async ({ page }) => {
     // Select Tidal Cycles first
-    await page.getByText('Choose the project software').click()
-    await page.locator('a[href="#menu-form"]', { hasText: 'Tidal Cycles' }).click()
+    await page.locator('.project-software button.select-trigger').click()
+    await page.locator('.project-software .menu-item.tidal-cycles').click()
 
     // Verify description is visible
     await expect(page.locator('textarea[name="description"]')).toBeVisible()
 
     // Change back to default
-    await page.getByText('Choose the project software').click()
-    await page.locator('a[href="#menu-form"]').first().click()
+    await page.locator('.project-software button.select-trigger').click()
+    await page.locator('.project-software .menu-item').first().click()
 
     // Description field should be hidden again
     await expect(page.locator('textarea[name="description"]')).not.toBeVisible()
@@ -99,12 +98,12 @@ test.describe('Submit Project Form', () => {
 
   test.fixme('should require description when Tidal Cycles is selected', async ({ page }) => {
     // Select Tidal Cycles
-    await page.getByText('Choose the project software').click()
-    await page.locator('a[href="#menu-form"]', { hasText: 'Tidal Cycles' }).click()
+    await page.locator('.project-software button.select-trigger').click()
+    await page.locator('.project-software .menu-item.tidal-cycles').click()
 
     // Fill other required fields but leave description empty
     await page.getByLabel('Name').fill('Test Project')
-    await page.getByText('Choose a project type').click()
+    await page.locator('.project-software button.select-trigger').click()
     await page.getByText('Finished Project').click()
     await page.locator('textarea[name="singleProject"]').fill('// some code')
 

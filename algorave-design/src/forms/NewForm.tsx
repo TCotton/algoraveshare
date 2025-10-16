@@ -115,6 +115,7 @@ export default function NewForm() {
             { value: 'Tidal Cycles', label: 'tidal-cycles' },
             { value: 'Strudel', label: 'strudel' },
           ]}
+          selectClass="project-software"
           onChange={projectSoftwareFn}
         />
         <Ariakit.FormError name={form.names.projectSoftware} className="error" />
@@ -142,6 +143,7 @@ export default function NewForm() {
             { value: 'Finished Project', label: 'finished' },
             { value: 'Before and After Live Coding Project', label: 'before-after' },
           ]}
+          selectClass="project-type"
           onChange={(name, value) => {
             // Example: log or handle change
             console.log(`Select changed: ${name} = ${value}`)

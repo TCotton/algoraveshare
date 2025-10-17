@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react'
 import * as Ariakit from '@ariakit/react'
-import { toArray, isEmptyString } from 'ramda-adjunct'
+import { isEmptyString } from 'ramda-adjunct'
 import { equals, split, map, trim, pipe, last, toLower } from 'ramda'
 import SelectForm from '../forms/SelectForm'
 import FormTextarea from '../forms/FormTextarea'
 import { getDescriptionHtml } from './description-text.ts'
 import MusicNoteOne from './svgComponents/MusicNoteOne.tsx'
 import MusicNoteTwo from './svgComponents/MusicNoteTwo.tsx'
+import { getFileExtension, audioArray } from '../libs/helper-functions.ts'
 
 export default function NewForm() {
   // Use useState to track the current project software selection
@@ -47,29 +48,35 @@ export default function NewForm() {
 
     // Validate projectSoftware
     if (isEmptyString(values.projectSoftware) || equals(values.projectSoftware, projectSoftwareDefault)) {
-      form.setError('projectSoftware', 'Please select a project software')
+      form.setError('projectSoftware', 'Please select project software')
       hasError = true
     }
-    else { form.setError('projectSoftware', '') }
+    else {
+      form.setError('projectSoftware', '')
+    }
 
     // Validate projectType
     if (isEmptyString(values.projectType) || equals(values.projectType, projectTypeDefault)) {
       form.setError('projectType', 'Please select a project type')
       hasError = true
     }
-    else { form.setError('projectType', '') }
+    else {
+      form.setError('projectType', '')
+    }
 
     // Validate projectName
     const name = String(values.projectName ?? '').trim()
     if (!name) {
-      form.setError('projectName', 'Name is required')
+      form.setError('projectName', 'A project name is required')
       hasError = true
     }
     else if (values.projectName.trim().length > 200) {
       form.setError('projectName', 'The project name must not be longer than 200 characters')
       hasError = true
     }
-    else { form.setError('projectName', '') }
+    else {
+      form.setError('projectName', '')
+    }
 
     // Validate description
     const desc = String(values.description ?? '').trim()
@@ -77,47 +84,35 @@ export default function NewForm() {
       form.setError('description', 'Description is required')
       hasError = true
     }
-    else { form.setError('description', '') }
+    else {
+      form.setError('description', '')
+    }
 
     // Validate singleProject
     if (equals(finishedProject, currentProjectType) && isEmptyString(values.singleProject.trim())) {
       form.setError('singleProject', 'Don\'t forget to add your code!')
       hasError = true
     }
-    else { form.setError('singleProject', '') }
+    else {
+      form.setError('singleProject', '')
+    }
 
     // Validate codeBlockOne
     if (equals(beforeAfterLiveCodingProject, currentProjectType) && isEmptyString(values.codeBlockOne.trim())) {
       form.setError('codeBlockOne', 'Don\'t forget to add your code!')
       hasError = true
     }
-    else { form.setError('codeBlockOne', '') }
+    else {
+      form.setError('codeBlockOne', '')
+    }
 
     // Validate codeBlockTwo
     if (equals(beforeAfterLiveCodingProject, currentProjectType) && isEmptyString(values.codeBlockTwo.trim())) {
       form.setError('codeBlockTwo', 'Don\'t forget to add your code!')
       hasError = true
     }
-    else { form.setError('codeBlockTwo', '') }
-
-    if (!isEmptyString(values.audioUpload)) {
-      const getFileExtension = pipe(
-        split('.'), // split by dot
-        last, // take the last segment
-        toLower, // normalize case
-      )
-
-      const audioArray = pipe(
-        split(','), // split by comma
-        map(pipe(
-          trim, // remove surrounding spaces
-          split('/'), // split by '/'
-          last, // take last segment (e.g., 'wav')
-        )),
-      )(audioFilesAllowed)
-
-      const result = audioArray.some(fileExtension => equals(getFileExtension(values.audioUpload), fileExtension))
-      console.info(result)
+    else {
+      form.setError('codeBlockTwo', '')
     }
 
     if (hasError) {
@@ -205,6 +200,31 @@ export default function NewForm() {
       console.info('Project software changed to:', currentProjectType)
     }
   }, [currentProjectType])
+
+  // Use form.useValidate to validate audioUpload field
+  form.useValidate(() => {
+    const audioFileName = form.getState().values.audioUpload
+
+    // If no filename, no error
+    if (!audioFileName) {
+      form.setError('audioUpload', '')
+      return
+    }
+
+    const audioTypeArray = audioArray(audioFilesAllowed)
+    const result = audioTypeArray.some((fileExtension) => {
+      return equals(getFileExtension(audioFileName), fileExtension)
+    })
+
+    if (!result) {
+      console.log('Validation: Invalid file type:', audioFileName)
+      form.setError('audioUpload', 'Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')
+    }
+    else {
+      console.log('Validation: Valid file type:', audioFileName)
+      form.setError('audioUpload', '')
+    }
+  })
 
   return (
     <Ariakit.Form
@@ -347,7 +367,12 @@ export default function NewForm() {
         </div>
       )}
       <div className="field field-upload-audio" is-="typography-block" box-="round" shear-="top">
-        <div is-="badge" variant-="background0"><Ariakit.FormLabel name={form.names.audioUpload}>Audio upload: accepts WAV, MP3, FLAC, AAC and OGG</Ariakit.FormLabel></div>
+        <div is-="badge" variant-="background0">
+          <Ariakit.FormLabel name={form.names.audioUpload}>
+            Audio upload:
+            accepts WAV, MP3, FLAC, AAC and OGG
+          </Ariakit.FormLabel>
+        </div>
         <Ariakit.FormInput
           type="file"
           name={form.names.audioUpload}

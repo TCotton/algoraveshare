@@ -283,4 +283,124 @@ test.describe.serial('Submit Project Form', () => {
     await page.locator('.project-software .menu-item.strudel').click()
     await expect(page.locator('.description-text > p', { hasText: 'When writing your description, consider addressing some of the following questions:' })).toBeVisible()
   })
+
+  test('should display audio upload field with correct label and accept attribute', async ({ page }) => {
+    // Check that audio upload field is visible
+    await expect(page.locator('.field-upload-audio')).toBeVisible()
+
+    // Check the label exists (it may be visually hidden for accessibility)
+    await expect(page.locator('label', { hasText: 'Audio upload:' })).toBeAttached()
+    await expect(page.locator('label', { hasText: 'accepts WAV, MP3, FLAC, AAC and OGG' })).toBeAttached()
+
+    // Check file input has correct accept attribute
+    const fileInput = page.locator('input[type="file"].input-audio-file')
+    await expect(fileInput).toBeVisible()
+    await expect(fileInput).toHaveAttribute('accept', '\'audio/wav\', \'audio/mp3\', \'audio/flac\', \'audio/aac\', \'audio/ogg\'')
+  })
+
+  test('should display YouTube link field with correct label and placeholder', async ({ page }) => {
+    await page.waitForLoadState('networkidle')
+    await page.waitForTimeout(100)
+
+    // Check that YouTube link field is visible
+    await expect(page.locator('.input-youtube-link')).toBeVisible()
+
+    // Check the label exists (it may be visually hidden for accessibility)
+    await expect(page.locator('label', { hasText: 'Add a URL of a relevant YouTube video' })).toBeAttached()
+
+    // Check input has correct placeholder
+    const youtubeInput = page.locator('input.youtube-link')
+    await expect(youtubeInput).toBeVisible()
+    await expect(youtubeInput).toHaveAttribute('placeholder', 'Link to YouTube video')
+  })
+
+  test('should validate YouTube link URL format', async ({ page }) => {
+    const youtubeInput = page.locator('input.youtube-link')
+
+    // Enter an invalid URL
+    await page.getByLabel('Name').fill('Valid Project name Name')
+    await youtubeInput.fill('not-a-valid-url')
+
+    // Submit the form to trigger validation
+    await page.locator('button.button', { hasText: 'Submit' }).click()
+    await page.waitForTimeout(100)
+
+    // Check for URL validation error
+    await expect(page.getByText('Are you sure that URL is correct?')).toBeVisible()
+  })
+
+  test('should accept valid YouTube link URL', async ({ page }) => {
+    const youtubeInput = page.locator('input.youtube-link')
+
+    // Enter a valid URL
+    await page.getByLabel('Name').fill('Valid Project name Name')
+    await youtubeInput.fill('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+
+    // Submit the form
+    await page.locator('button.button', { hasText: 'Submit' }).click()
+    await page.waitForTimeout(100)
+
+    // URL validation error should not appear
+    await expect(page.getByText('Are you sure that URL is correct?')).not.toBeVisible()
+  })
+
+  test('should clear YouTube link validation error when corrected', async ({ page }) => {
+    const youtubeInput = page.locator('input.youtube-link')
+
+    // Enter an invalid URL
+    await page.getByLabel('Name').fill('Valid Project name Name')
+    await youtubeInput.fill('invalid-url')
+
+    // Submit to trigger validation
+    await page.locator('button.button', { hasText: 'Submit' }).click()
+    await page.waitForTimeout(100)
+    await expect(page.getByText('Are you sure that URL is correct?')).toBeVisible()
+
+    // Correct the URL
+    await youtubeInput.fill('https://www.youtube.com/watch?v=validID')
+
+    // Submit again
+    await page.locator('button.button', { hasText: 'Submit' }).click()
+    await page.waitForTimeout(100)
+
+    // Error should be cleared
+    await expect(page.getByText('Are you sure that URL is correct?')).not.toBeVisible()
+  })
+
+  test('should allow YouTube link field to be optional', async ({ page }) => {
+    // Leave YouTube link empty and fill other required fields
+    await page.locator('.project-software button.select-trigger').click()
+    await page.locator('.project-software .menu-item.tidal-cycles').click()
+    await page.getByLabel('Name').fill('Test Project')
+    await page.locator('textarea[name="description"]').fill('Test description')
+    await page.locator('.project-type button.select-trigger').click()
+    await page.locator('.project-type .menu-item.finished').click()
+    await page.locator('textarea.form-single-codeblock').fill('d1 $ sound "bd"')
+
+    // YouTube link should be empty
+    const youtubeInput = page.locator('input.youtube-link')
+    await expect(youtubeInput).toHaveValue('')
+
+    // Submit should not show error for empty YouTube link
+    await page.locator('button.button', { hasText: 'Submit' }).click()
+    await page.waitForTimeout(100)
+
+    // No YouTube link error should appear (it's optional)
+    await expect(page.getByText('Are you sure that URL is correct?')).not.toBeVisible()
+  })
+
+  test('should maintain YouTube link value after validation error', async ({ page }) => {
+    const youtubeInput = page.locator('input.youtube-link')
+    const validUrl = 'https://www.youtube.com/watch?v=test123'
+
+    // Fill YouTube link
+    await youtubeInput.fill(validUrl)
+
+    // Submit form (will fail on other required fields)
+    await page.locator('button.button', { hasText: 'Submit' }).click()
+    await page.waitForTimeout(100)
+
+    // YouTube link value should be maintained
+    await expect(youtubeInput).toHaveValue(validUrl)
+  })
 })

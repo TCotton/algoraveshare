@@ -13,6 +13,7 @@
     "test:unit:watch": "vitest",
     "test:unit:snapshot": "vitest -u",
     "test:unit:ui": "vitest --ui",
+    "test:playwright:headless": "npx playwright test --project=chromium",
     "test:playwright": "npx playwright test --project=chromium --headed",
     "test:playwright:debug": "npx playwright test --debug",
     "test:playwright:ui": "npx playwright test --ui",

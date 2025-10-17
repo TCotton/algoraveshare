@@ -300,38 +300,38 @@ test.describe.serial('Submit Project Form', () => {
 
   test('should accept valid audio file upload (WAV)', async ({ page }) => {
     const fileInput = page.locator('input[type="file"].input-audio-file')
-    
+
     // Upload a valid WAV file
     await fileInput.setInputFiles('tests/data/test-pass-file.wav')
     await page.waitForTimeout(100)
-    
+
     // No error should be displayed for valid file
     await expect(page.getByText('Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')).not.toBeVisible()
   })
 
   test('should reject invalid audio file upload (TXT)', async ({ page }) => {
     const fileInput = page.locator('input[type="file"].input-audio-file')
-    
+
     // Upload an invalid TXT file
     await fileInput.setInputFiles('tests/data/test-fail-pass.txt')
     await page.waitForTimeout(100)
-    
+
     // Error message should be displayed
     await expect(page.getByText('Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')).toBeVisible()
   })
 
   test('should clear audio upload error when valid file is uploaded', async ({ page }) => {
     const fileInput = page.locator('input[type="file"].input-audio-file')
-    
+
     // First upload an invalid file
     await fileInput.setInputFiles('tests/data/test-fail-pass.txt')
     await page.waitForTimeout(100)
     await expect(page.getByText('Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')).toBeVisible()
-    
+
     // Then upload a valid file
     await fileInput.setInputFiles('tests/data/test-pass-file.wav')
     await page.waitForTimeout(100)
-    
+
     // Error should be cleared
     await expect(page.getByText('Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')).not.toBeVisible()
   })
@@ -345,11 +345,11 @@ test.describe.serial('Submit Project Form', () => {
     await page.locator('.project-type button.select-trigger').click()
     await page.locator('.project-type .menu-item.finished').click()
     await page.locator('textarea.form-single-codeblock').fill('d1 $ sound "bd"')
-    
+
     // Submit without audio file
     await page.locator('button.button', { hasText: 'Submit' }).click()
     await page.waitForTimeout(100)
-    
+
     // No audio upload error should appear (it's optional)
     await expect(page.getByText('Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')).not.toBeVisible()
   })

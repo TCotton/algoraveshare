@@ -45,6 +45,7 @@ CREATE TABLE projects
     description     TEXT        NOT NULL,
     audio_file_path TEXT,
     audio_file_type TEXT CHECK (audio_file_type IN ('wav', 'mp3', 'flac', 'aac', 'ogg')),
+    audio_data      JSONB NULL,
     youtube_url_id  TEXT NULL,
     software_type   TEXT        NOT NULL CHECK (software_type IN ('strudel', 'tidalcycles')),
     created_at      TIMESTAMPTZ NOT NULL DEFAULT now()

@@ -1,18 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react'
 import * as Ariakit from '@ariakit/react'
 import { isEmptyString } from 'ramda-adjunct'
-import { equals, split, map, trim, pipe, last, toLower } from 'ramda'
+import { equals } from 'ramda'
 import SelectForm from '../forms/SelectForm'
 import FormTextarea from '../forms/FormTextarea'
 import { getDescriptionHtml } from './description-text.ts'
 import MusicNoteOne from './svgComponents/MusicNoteOne.tsx'
 import MusicNoteTwo from './svgComponents/MusicNoteTwo.tsx'
-import { getFileExtension, audioArray } from '../libs/helper-functions.ts'
+import { validateAudioFileUpload } from '../libs/helper-functions.ts'
 
 export default function NewForm() {
   // Use useState to track the current project software selection
   const [currentProjectSoftware, setCurrentProjectSoftware] = useState<string | null>(null)
   const [currentProjectType, setCurrentProjectType] = useState<string | null>(null)
+  const [audioFiles, setAudioFiles] = useState<string[]>([])
 
   // Create a ref to access the MusicNoteOne SVG DOM element
   const musicNoteOneRef = useRef<SVGSVGElement>(null)
@@ -48,7 +49,7 @@ export default function NewForm() {
 
     // Validate projectSoftware
     if (isEmptyString(values.projectSoftware) || equals(values.projectSoftware, projectSoftwareDefault)) {
-      form.setError('projectSoftware', 'Please select project software')
+      form.setError('projectSoftware', 'Please select the project software')
       hasError = true
     }
     else {
@@ -113,6 +114,11 @@ export default function NewForm() {
     }
     else {
       form.setError('codeBlockTwo', '')
+    }
+
+    if (values.audioUpload) {
+      const audioFileName = form.getState().values.audioUpload
+      console.dir(audioFileName)
     }
 
     if (hasError) {
@@ -187,6 +193,38 @@ export default function NewForm() {
     }
   }
 
+  const audioFileValidation = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const audioFile = event.target.files?.[0]
+
+    // Mark the field as touched so errors will display
+    form.setTouched({ audioUpload: true })
+
+    // If no file is selected, clear state and form value
+    if (!audioFile) {
+      form.setValue('audioUpload', '')
+      setAudioFiles([])
+      return
+    }
+
+    const result = validateAudioFileUpload(audioFile.name, audioFilesAllowed)
+
+    if (result) {
+      // Save file details to state
+      const audioFileDetails = JSON.stringify({
+        lastModified: audioFile.lastModified,
+        name: audioFile.name,
+        size: audioFile.size,
+        type: audioFile.type,
+      })
+      // Update state with the file details
+      setAudioFiles([audioFileDetails])
+      console.log('File details:', audioFileDetails)
+    }
+
+    // Set form value to trigger validation (handled by form.useValidate)
+    form.setValue('audioUpload', audioFile.name)
+  }
+
   // Use useEffect to log or perform side effects when projectSoftware changes
   useEffect(() => {
     if (currentProjectSoftware && !equals(currentProjectType, projectSoftwareDefault)) {
@@ -211,10 +249,7 @@ export default function NewForm() {
       return
     }
 
-    const audioTypeArray = audioArray(audioFilesAllowed)
-    const result = audioTypeArray.some((fileExtension) => {
-      return equals(getFileExtension(audioFileName), fileExtension)
-    })
+    const result = validateAudioFileUpload(audioFileName, audioFilesAllowed)
 
     if (!result) {
       console.log('Validation: Invalid file type:', audioFileName)
@@ -380,6 +415,7 @@ export default function NewForm() {
           className="input-audio-file"
           size-="large"
           accept={audioFilesAllowed}
+          onChange={audioFileValidation}
         />
         <Ariakit.FormError name={form.names.audioUpload} className="error" />
 

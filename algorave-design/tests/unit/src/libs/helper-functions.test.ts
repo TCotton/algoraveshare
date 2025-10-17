@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { getFileExtension, audioArray } from '../../../../src/libs/helper-functions'
+import { getFileExtension, audioArray, validateAudioFileUpload } from '../../../../src/libs/helper-functions'
 
 describe('getFileExtension', () => {
   it('extracts file extension from a filename', () => {
@@ -112,3 +112,102 @@ describe('audioArray', () => {
     expect(result).not.toContain('mp3\'')
   })
 })
+
+describe('validateAudioFileUpload', () => {
+  const audioFilesAllowed = '\'audio/wav\', \'audio/mp3\', \'audio/flac\', \'audio/aac\', \'audio/ogg\''
+
+  it('returns true for valid WAV file', () => {
+    const result = validateAudioFileUpload('audio.wav', audioFilesAllowed)
+    expect(result).toBe(true)
+  })
+
+  it('returns true for valid MP3 file', () => {
+    const result = validateAudioFileUpload('song.mp3', audioFilesAllowed)
+    expect(result).toBe(true)
+  })
+
+  it('returns true for valid FLAC file', () => {
+    const result = validateAudioFileUpload('music.flac', audioFilesAllowed)
+    expect(result).toBe(true)
+  })
+
+  it('returns true for valid AAC file', () => {
+    const result = validateAudioFileUpload('track.aac', audioFilesAllowed)
+    expect(result).toBe(true)
+  })
+
+  it('returns true for valid OGG file', () => {
+    const result = validateAudioFileUpload('audio.ogg', audioFilesAllowed)
+    expect(result).toBe(true)
+  })
+
+  it('returns true for valid file with uppercase extension', () => {
+    const result = validateAudioFileUpload('AUDIO.WAV', audioFilesAllowed)
+    expect(result).toBe(true)
+  })
+
+  it('returns true for valid file with mixed case extension', () => {
+    const result = validateAudioFileUpload('music.Mp3', audioFilesAllowed)
+    expect(result).toBe(true)
+  })
+
+  it('returns true for valid file with path', () => {
+    const result = validateAudioFileUpload('/path/to/audio.wav', audioFilesAllowed)
+    expect(result).toBe(true)
+  })
+
+  it('returns true for valid file with multiple dots in name', () => {
+    const result = validateAudioFileUpload('my.audio.file.mp3', audioFilesAllowed)
+    expect(result).toBe(true)
+  })
+
+  it('returns false for invalid file extension', () => {
+    const result = validateAudioFileUpload('document.pdf', audioFilesAllowed)
+    expect(result).toBe(false)
+  })
+
+  it('returns false for invalid audio format (m4a)', () => {
+    const result = validateAudioFileUpload('audio.m4a', audioFilesAllowed)
+    expect(result).toBe(false)
+  })
+
+  it('returns false for video file', () => {
+    const result = validateAudioFileUpload('video.mp4', audioFilesAllowed)
+    expect(result).toBe(false)
+  })
+
+  it('returns false for text file', () => {
+    const result = validateAudioFileUpload('readme.txt', audioFilesAllowed)
+    expect(result).toBe(false)
+  })
+
+  it('returns false for file with no extension', () => {
+    const result = validateAudioFileUpload('audiofile', audioFilesAllowed)
+    expect(result).toBe(false)
+  })
+
+  it('returns false for undefined file', () => {
+    const result = validateAudioFileUpload(undefined, audioFilesAllowed)
+    expect(result).toBe(false)
+  })
+
+  it('returns false for empty string', () => {
+    const result = validateAudioFileUpload('', audioFilesAllowed)
+    expect(result).toBe(false)
+  })
+
+  it('handles different MIME type formats without quotes', () => {
+    const audioFiles = 'audio/wav, audio/mp3'
+    const result = validateAudioFileUpload('song.wav', audioFiles)
+    expect(result).toBe(true)
+  })
+
+  it('validates correctly with single allowed type', () => {
+    const audioFiles = '\'audio/wav\''
+    const resultValid = validateAudioFileUpload('audio.wav', audioFiles)
+    const resultInvalid = validateAudioFileUpload('audio.mp3', audioFiles)
+    expect(resultValid).toBe(true)
+    expect(resultInvalid).toBe(false)
+  })
+})
+

@@ -1,4 +1,5 @@
 import { split, map, trim, pipe, last, toLower, replace } from 'ramda'
+import { equals } from 'ramda'
 
 export const getFileExtension = pipe(
   split('.'), // split by dot
@@ -15,3 +16,14 @@ export const audioArray = (audioFilesAllowed: string) => pipe(
     last, // take last segment (e.g., 'wav')
   )),
 )(audioFilesAllowed)
+
+export const validateAudioFileUpload = (file: string | undefined, audioFilesAllowed: string): boolean => {
+  if (!file) {
+    return false
+  }
+  const audioTypeArray = audioArray(audioFilesAllowed)
+  const result = audioTypeArray.some((fileExtension) => {
+    return equals(getFileExtension(file), fileExtension)
+  })
+  return result
+}

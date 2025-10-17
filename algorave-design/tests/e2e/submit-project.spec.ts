@@ -175,7 +175,7 @@ test.describe.serial('Submit Project Form', () => {
     // Submit again to trigger software and type validation errors
     await page.locator('button.button', { hasText: 'Submit' }).click()
     await page.waitForTimeout(100)
-    await expect(page.getByText('Please select a project software')).toBeVisible()
+    await expect(page.getByText('Please select the project software')).toBeVisible()
     await expect(page.getByText('Please select a project type')).toBeVisible()
 
     // Select software and type, verify errors clear
@@ -185,7 +185,7 @@ test.describe.serial('Submit Project Form', () => {
     await page.locator('.project-type button.select-trigger').click()
     await page.locator('.project-type .menu-item.finished').click()
     await page.waitForTimeout(100)
-    await expect(page.getByText('Please select a project software')).not.toBeVisible()
+    await expect(page.getByText('Please select the project software')).not.toBeVisible()
     await expect(page.getByText('Please select a project type')).not.toBeVisible()
 
     // Submit again to trigger description and code validation errors
@@ -218,7 +218,7 @@ test.describe.serial('Submit Project Form', () => {
     // Submit and trigger software/type validation errors
     await page.locator('button.button', { hasText: 'Submit' }).click()
     await page.waitForTimeout(100)
-    await expect(page.getByText('Please select a project software')).toBeVisible()
+    await expect(page.getByText('Please select the project software')).toBeVisible()
     await expect(page.getByText('Please select a project type')).toBeVisible()
 
     // Select software and type
@@ -228,7 +228,7 @@ test.describe.serial('Submit Project Form', () => {
     await page.locator('.project-type button.select-trigger').click()
     await page.locator('.project-type .menu-item.finished').click()
     await page.waitForTimeout(100)
-    await expect(page.getByText('Please select a project software')).not.toBeVisible()
+    await expect(page.getByText('Please select the project software')).not.toBeVisible()
     await expect(page.getByText('Please select a project type')).not.toBeVisible()
 
     // Submit and trigger description/code validation errors
@@ -267,7 +267,7 @@ test.describe.serial('Submit Project Form', () => {
     await expect(page.getByText('Please fill in this field.')).not.toBeVisible()
     await page.locator('button.button', { hasText: 'Submit' }).click()
     await page.waitForTimeout(100)
-    await expect(page.getByText('Please select a project software')).toBeVisible()
+    await expect(page.getByText('Please select the project software')).toBeVisible()
     await expect(page.getByText('Please select a project type')).toBeVisible()
     await page.locator('.project-software button.select-trigger').click()
     await page.locator('.project-software .menu-item.strudel').click()

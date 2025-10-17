@@ -4,6 +4,8 @@ The ProjectService is responsible for projet-related functionalities in our appl
 import { Context, Effect, Layer } from "effect"
 import { ProjectRepository } from "../repository/project.repository.js"
 
+// this needs to be rewritten to be a single service
+
 const make = Effect.gen(function*() {
   const repository = yield* ProjectRepository
 

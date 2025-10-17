@@ -1,8 +1,10 @@
 /**
  * In the "models" directory we define the expected structure of the JSON response from the OMDb API.
  */
-import { HttpClientResponse } from "@effect/platform"
 import { Schema } from "@effect/schema"
+import { Either } from "effect"
+
+// example of schema in Effect and validating schema using Schema.decodeUnknownEither
 
 export class ProjectData extends Schema.Class<ProjectData>("ProjectData")({
   projectId: Schema.String,

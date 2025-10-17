@@ -151,3 +151,5 @@ vite.config.ts.timestamp-*
 .history/
 secret.json
 docker
+.github/prompts
+.specify

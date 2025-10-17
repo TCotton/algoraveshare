@@ -1,0 +1,58 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MusicNoteTwo > matches snapshot 1`] = `
+<svg
+  class="svg-icon-two"
+  fill-rule="nonzero"
+  height="144px"
+  viewBox="0,0,256,256"
+  width="144px"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g
+    fill="none"
+    fill-rule="nonzero"
+    font-family="none"
+    font-size="none"
+    font-weight="none"
+    stroke="#b4befe"
+    stroke-dasharray=""
+    stroke-dashoffset="0"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-miterlimit="10"
+    stroke-width="3"
+  >
+    <g
+      transform="scale(5.33333,5.33333)"
+    >
+      <path
+        class="path-one"
+        d="M40.5,15.5v-8l-19.7,4.5c-1.4,0.3 -2.3,1.5 -2.3,2.9v5.6l15,-3.4"
+        data-animation="stop"
+      />
+      <path
+        class="path-one"
+        d="M18.5,15.5v21"
+        data-animation="stop"
+      />
+      <path
+        class="path-one"
+        d="M40.5,12.5v20"
+        data-animation="stop"
+      />
+      <path
+        class="path-one"
+        d="M14.1,31.6c2.6,0.6 4.4,2.5 4.4,4.9c0,2.8 -2.7,5 -6,5c-3.3,0 -6,-2.2 -6,-5c0,-0.9 0.3,-1.7 0.7,-2.4"
+        data-animation="stop"
+      />
+      <ellipse
+        cx="34.5"
+        cy="32.5"
+        rx="6"
+        ry="5"
+      />
+    </g>
+  </g>
+</svg>
+`;

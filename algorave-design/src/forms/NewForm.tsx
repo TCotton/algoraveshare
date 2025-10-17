@@ -6,6 +6,7 @@ import SelectForm from '../forms/SelectForm'
 import FormTextarea from '../forms/FormTextarea'
 import { getDescriptionHtml } from './description-text.ts'
 import MusicNoteOne from './svgComponents/MusicNoteOne.tsx'
+import MusicNoteTwo from './svgComponents/MusicNoteTwo.tsx'
 
 export default function NewForm() {
   // Use useState to track the current project software selection
@@ -14,6 +15,7 @@ export default function NewForm() {
 
   // Create a ref to access the MusicNoteOne SVG DOM element
   const musicNoteOneRef = useRef<SVGSVGElement>(null)
+  const musicNoteTwoRef = useRef<SVGSVGElement>(null)
 
   const form = Ariakit.useFormStore({
     defaultValues: {
@@ -166,6 +168,30 @@ export default function NewForm() {
     }
   }
 
+  const changeAnimationMusicNoteTwo = () => {
+    if (musicNoteTwoRef.current) {
+      // Query all path elements in the SVG
+      const paths = musicNoteTwoRef.current.querySelectorAll('path')
+
+      // Set animation-play-state to 'paused' for each path
+      paths.forEach((path) => {
+        (path as SVGPathElement).style.animationPlayState = 'running'
+      })
+    }
+  }
+
+  const stopAnimationMusicNoteTwo = () => {
+    if (musicNoteTwoRef.current) {
+      // Query all path elements in the SVG
+      const paths = musicNoteTwoRef.current.querySelectorAll('path')
+
+      // Set animation-play-state to 'paused' for each path
+      paths.forEach((path) => {
+        (path as SVGPathElement).style.animationPlayState = 'paused'
+      })
+    }
+  }
+
   // Use useEffect to log or perform side effects when projectSoftware changes
   useEffect(() => {
     if (currentProjectSoftware && !equals(currentProjectType, projectSoftwareDefault)) {
@@ -232,8 +258,13 @@ export default function NewForm() {
           ]}
           selectClass="project-type"
           onChange={projectTypeFn}
+          onMouseEnter={changeAnimationMusicNoteTwo}
+          onMouseLeave={stopAnimationMusicNoteTwo}
         />
         <Ariakit.FormError name={form.names.projectType} className="error" />
+      </div>
+      <div className="field">
+        <MusicNoteTwo ref={musicNoteTwoRef} />
       </div>
       {(currentProjectSoftware === strudel || currentProjectSoftware === tidal) && (
         <div className="field description-textarea">

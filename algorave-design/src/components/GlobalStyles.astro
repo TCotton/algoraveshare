@@ -3,9 +3,41 @@ import 'modern-normalize/modern-normalize.css';
 ---
 <style is:global>
     @layer base, utils, components;
-    @import '../../node_modules/@webtui/css/dist/base.css';
     @import '../../node_modules/@webtui/css/dist/full.css';
     @import '../../node_modules/@webtui/theme-catppuccin/dist/index.css';
+
+    @keyframes opacity-fade-in {
+        0% {
+            /* pushes the sun down past the viewport */
+            opacity: 1
+        }
+        50% {
+            opacity: 0.6
+        }
+        100% {
+            /* returns the sun to its default position */
+            opacity: 1
+        }
+    }
+
+
+    .svg-icon {
+        .path-one {
+            animation: 4s linear 0s infinite alternate opacity-fade-in;
+        }
+        .path-two {
+            animation: 3s linear 1s infinite alternate opacity-fade-in;
+        }
+        .path-three {
+            animation: 2s linear 2s infinite alternate opacity-fade-in;
+        }
+        .path-four {
+            animation: 5s linear 3s infinite alternate opacity-fade-in;
+        }
+        .path-five {
+            animation: 6s linear 4s infinite alternate opacity-fade-in;
+        }
+    }
 
     .container {
         margin: 0 auto;
@@ -111,7 +143,7 @@ import 'modern-normalize/modern-normalize.css';
         }
 
         .menu-wrapper {
-            //background-color: rgb(from var(--flamingo) r g b / 0.3);
+            background-color: rgb(from var(--flamingo) r g b / 0.3);
         }
     }
 
@@ -152,7 +184,7 @@ import 'modern-normalize/modern-normalize.css';
                 [is-~='badge'] {
                     &[variant-='background0'] {
                         label {
-                            color: rgb(205, 214, 244) !important;
+                            color: rgb(205, 214, 244)!important;
                         }
                     }
                 }
@@ -192,6 +224,14 @@ import 'modern-normalize/modern-normalize.css';
                     cursor: pointer;
                 }
             }
+        }
+    }
+
+    @layer utils {
+        [box-=square], [box-=round], [box-=double] {
+            position: relative;
+            isolation: isolate;
+            padding: 1lh 1ch
         }
     }
 
@@ -259,6 +299,10 @@ import 'modern-normalize/modern-normalize.css';
         line-height: var(--line-height-paragraph);
     }
 
+    /*.svg-icon {
+        position: static;
+    }
+*/
     @layer utils {
         [box-~='square'],
         [box-~='round'],
@@ -409,7 +453,7 @@ import 'modern-normalize/modern-normalize.css';
     }
 
     svg {
-        filter: opacity(0.8);
+        display: block;
     }
 
     @media (max-width: 768px) {

@@ -5,6 +5,7 @@ import { equals, split, map, trim, pipe, last, toLower } from 'ramda'
 import SelectForm from '../forms/SelectForm'
 import FormTextarea from '../forms/FormTextarea'
 import { getDescriptionHtml } from './description-text.ts'
+import MusicNoteOne from './svgComponents/MusicNoteOne.tsx'
 
 export default function NewForm() {
   // Use useState to track the current project software selection
@@ -184,6 +185,9 @@ export default function NewForm() {
           onChange={projectSoftwareFn}
         />
         <Ariakit.FormError name={form.names.projectSoftware} className="error" />
+      </div>
+      <div className="field">
+          <MusicNoteOne />
       </div>
       <div className="field">
         <SelectForm

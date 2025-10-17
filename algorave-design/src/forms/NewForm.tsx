@@ -169,7 +169,7 @@ export default function NewForm() {
   }
 
   // Handler to play the animation when mouse enters
-  const changeAnimationMusicNoteOne = () => {
+  const startAnimationMusicNoteOne = () => {
     if (musicNoteOneRef.current) {
       // Query all path elements in the SVG
       const paths = musicNoteOneRef.current.querySelectorAll('path')
@@ -194,7 +194,7 @@ export default function NewForm() {
     }
   }
 
-  const changeAnimationMusicNoteTwo = () => {
+  const startAnimationMusicNoteTwo = () => {
     if (musicNoteTwoRef.current) {
       // Query all path elements in the SVG
       const paths = musicNoteTwoRef.current.querySelectorAll('path')
@@ -318,7 +318,7 @@ export default function NewForm() {
           ]}
           selectClass="project-software"
           onChange={projectSoftwareFn}
-          onMouseEnter={changeAnimationMusicNoteOne}
+          onMouseEnter={startAnimationMusicNoteOne}
           onMouseLeave={stopAnimationMusicNoteOne}
         />
         <Ariakit.FormError name={form.names.projectSoftware} className="error" />
@@ -338,7 +338,7 @@ export default function NewForm() {
           ]}
           selectClass="project-type"
           onChange={projectTypeFn}
-          onMouseEnter={changeAnimationMusicNoteTwo}
+          onMouseEnter={startAnimationMusicNoteTwo}
           onMouseLeave={stopAnimationMusicNoteTwo}
         />
         <Ariakit.FormError name={form.names.projectType} className="error" />
@@ -458,7 +458,7 @@ export default function NewForm() {
           autoComplete="off"
           size-="large"
         />
-        <Ariakit.FormError name={form.names.projectName} className="error" />
+        <Ariakit.FormError name={form.names.youtubeLink} className="error" />
       </div>
       <div className="buttons">
         <Ariakit.FormSubmit className="button">Submit</Ariakit.FormSubmit>

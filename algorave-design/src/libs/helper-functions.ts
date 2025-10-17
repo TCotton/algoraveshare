@@ -1,5 +1,4 @@
-import { split, map, trim, pipe, last, toLower, replace } from 'ramda'
-import { equals } from 'ramda'
+import { equals, split, map, trim, pipe, last, toLower, replace } from 'ramda'
 
 export const getFileExtension = pipe(
   split('.'), // split by dot

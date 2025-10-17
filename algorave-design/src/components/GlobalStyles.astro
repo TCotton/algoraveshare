@@ -5,6 +5,7 @@ import 'modern-normalize/modern-normalize.css';
     @layer base, utils, components;
     @import '../../node_modules/@webtui/css/dist/full.css';
     @import '../../node_modules/@webtui/theme-catppuccin/dist/index.css';
+    /* Note: 'full.css' includes the base styles from 'base.css', so a separate import is not needed. */
 
     @keyframes opacity-fade-in {
         0% {
@@ -27,7 +28,7 @@ import 'modern-normalize/modern-normalize.css';
         25% {
             fill: color-mix(var(--lavender) 50%, var(--blue) 50%);
         }
-        25% {
+        50% {
             fill: color-mix(var(--lavender) 0%, var(--blue) 100%);
         }
         75% {
@@ -220,21 +221,6 @@ import 'modern-normalize/modern-normalize.css';
     :root {
         @layer components {
             .field-upload-audio {
-                input,
-                [is-~='input'],
-                &[size-='thicc'] {
-                    height: 3lh;
-                    width: 100%;
-                    padding: 0 1ch;
-                    cursor: pointer;
-                }
-            }
-        }
-    }
-
-    :root {
-        @layer components {
-            .input-youtube-link {
                 input,
                 [is-~='input'],
                 &[size-='thicc'] {

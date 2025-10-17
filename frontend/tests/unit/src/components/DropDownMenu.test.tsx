@@ -46,17 +46,17 @@ describe('DropDownMenu', () => {
   it('renders all menu items with correct links', () => {
     const menuItems = screen.getAllByTestId('menu-item')
     expect(menuItems).toHaveLength(3)
-    
+
     // Check Home link
     const homeLink = screen.getByRole('link', { name: 'Home' })
     expect(homeLink).toBeInTheDocument()
     expect(homeLink).toHaveAttribute('href', '/')
-    
+
     // Check Projects link
     const projectsLink = screen.getByRole('link', { name: 'Projects' })
     expect(projectsLink).toBeInTheDocument()
     expect(projectsLink).toHaveAttribute('href', '/projects')
-    
+
     // Check Snippets link
     const snippetsLink = screen.getByRole('link', { name: 'Snippets' })
     expect(snippetsLink).toBeInTheDocument()

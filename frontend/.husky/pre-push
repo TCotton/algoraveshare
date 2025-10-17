@@ -3,4 +3,4 @@
 cd frontend
 npm run lint:fix
 npm run test:unit
-npm run test:playwright:headless
+npm run test:playwright

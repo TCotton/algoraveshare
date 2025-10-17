@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "type": "module",
+  "prepare": "husky install",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",

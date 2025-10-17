@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import * as Ariakit from '@ariakit/react'
 import { toArray, isEmptyString } from 'ramda-adjunct'
 import { equals, split, map, trim, pipe, last, toLower } from 'ramda'
@@ -11,6 +11,9 @@ export default function NewForm() {
   // Use useState to track the current project software selection
   const [currentProjectSoftware, setCurrentProjectSoftware] = useState<string | null>(null)
   const [currentProjectType, setCurrentProjectType] = useState<string | null>(null)
+
+  // Create a ref to access the MusicNoteOne SVG DOM element
+  const musicNoteOneRef = useRef<SVGSVGElement>(null)
 
   const form = Ariakit.useFormStore({
     defaultValues: {
@@ -137,6 +140,32 @@ export default function NewForm() {
     setCurrentProjectType(value)
   }
 
+  // Handler to play the animation when mouse enters
+  const changeAnimationMusicNoteOne = () => {
+    if (musicNoteOneRef.current) {
+      // Query all path elements in the SVG
+      const paths = musicNoteOneRef.current.querySelectorAll('path')
+
+      // Set animation-play-state to 'running' for each path
+      paths.forEach((path) => {
+        (path as SVGPathElement).style.animationPlayState = 'running'
+      })
+    }
+  }
+
+  // Handler to stop the animation when mouse leaves
+  const stopAnimationMusicNoteOne = () => {
+    if (musicNoteOneRef.current) {
+      // Query all path elements in the SVG
+      const paths = musicNoteOneRef.current.querySelectorAll('path')
+
+      // Set animation-play-state to 'paused' for each path
+      paths.forEach((path) => {
+        (path as SVGPathElement).style.animationPlayState = 'paused'
+      })
+    }
+  }
+
   // Use useEffect to log or perform side effects when projectSoftware changes
   useEffect(() => {
     if (currentProjectSoftware && !equals(currentProjectType, projectSoftwareDefault)) {
@@ -183,11 +212,13 @@ export default function NewForm() {
           ]}
           selectClass="project-software"
           onChange={projectSoftwareFn}
+          onMouseEnter={changeAnimationMusicNoteOne}
+          onMouseLeave={stopAnimationMusicNoteOne}
         />
         <Ariakit.FormError name={form.names.projectSoftware} className="error" />
       </div>
       <div className="field">
-          <MusicNoteOne />
+        <MusicNoteOne ref={musicNoteOneRef} />
       </div>
       <div className="field">
         <SelectForm

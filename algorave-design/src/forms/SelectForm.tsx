@@ -14,10 +14,12 @@ interface ExtendedSelectFormProps extends SelectFormProps {
   form?: FormObject
   selectClass?: string
   onChange?: (name: string, value: string) => void
+  onMouseEnter?: (event: React.MouseEvent<HTMLDivElement>) => void
+  onMouseLeave?: (event: React.MouseEvent<HTMLDivElement>) => void
 }
 
 export default function SelectForm(props: ExtendedSelectFormProps) {
-  const { items, label, name, form, onChange, selectClass } = props
+  const { items, label, name, form, onChange, selectClass, onMouseEnter, onMouseLeave } = props
   const formattedItems = items?.map((item: { value: string, label: string }) => ({
     id: item.value,
     label: item.label,
@@ -37,7 +39,14 @@ export default function SelectForm(props: ExtendedSelectFormProps) {
     },
   })
   return (
-    <div className={`select-container ${selectClass || ''}`} is-="typography-block" box-="round" shear-="top">
+    <div
+      className={`select-container ${selectClass || ''}`}
+      is-="typography-block"
+      box-="round"
+      shear-="top"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <SelectProvider store={select}>
         <Ariakit.SelectLabel store={select} className="select-label">
           <div is-="badge" variant-="background0">{label}</div>

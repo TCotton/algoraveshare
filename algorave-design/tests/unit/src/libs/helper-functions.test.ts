@@ -210,4 +210,3 @@ describe('validateAudioFileUpload', () => {
     expect(resultInvalid).toBe(false)
   })
 })
-

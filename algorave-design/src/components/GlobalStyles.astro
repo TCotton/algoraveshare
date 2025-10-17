@@ -38,7 +38,6 @@ import 'modern-normalize/modern-normalize.css';
         }
     }
 
-
     .svg-icon {
         .path-one {
             animation: 4s linear 0s infinite alternate opacity-fade-in,
@@ -145,7 +144,7 @@ import 'modern-normalize/modern-normalize.css';
         font-style: italic;
     }
 
-    .description, .left-column, .right-column, .social-media, .audio-section, .snippets-content {
+    .description, .left-column, .right-column, .social-media, .audio-section, .snippets-content, .input-youtube-link {
         padding: 0 2ch 4ch 2ch;
         position: relative;
 
@@ -162,6 +161,10 @@ import 'modern-normalize/modern-normalize.css';
             top: -20px;
             right: -20px;
         }
+    }
+
+    .input-youtube-link {
+        padding: 0 4ch 2ch 4ch;
     }
 
     .content, .description, .audio-section, .tags {
@@ -231,11 +234,55 @@ import 'modern-normalize/modern-normalize.css';
 
     :root {
         @layer components {
+            .input-youtube-link {
+                input,
+                [is-~='input'],
+                &[size-='thicc'] {
+                    height: 3lh;
+                    width: 100%;
+                    padding: 0 1ch;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    :root {
+        @layer components {
+            .input-youtube-link {
+                input,
+                [is-~='input'],
+                &[size-='thicc'] {
+                    height: 3lh;
+                    width: 100%;
+                    padding: 0 1ch;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    :root {
+        @layer components {
             .field-upload-audio {
                 [is-~='badge'] {
                     &[variant-='background0'] {
                         label {
                             color: rgb(205, 214, 244) !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    :root {
+        @layer components {
+            .input-youtube-link {
+                [is-~='badge'] {
+                    &[variant-='background0'] {
+                        label {
+                            color: rgb(205, 214, 244)!important
                         }
                     }
                 }
@@ -312,7 +359,18 @@ import 'modern-normalize/modern-normalize.css';
                 margin-bottom: 1lh;
                 color: var(--yellow);
             }
+            &.input-youtube-link {
+                > div {
+                    margin-bottom: 1lh;
+
+                }
+                label {
+                    color: var(--yellow);
+                }
+            }
         }
+
+
 
         .field.field-project-name input {
             margin-bottom: 1lh;
@@ -350,10 +408,6 @@ import 'modern-normalize/modern-normalize.css';
         line-height: var(--line-height-paragraph);
     }
 
-    /*.svg-icon {
-        position: static;
-    }
-*/
     @layer utils {
         [box-~='square'],
         [box-~='round'],
@@ -362,6 +416,10 @@ import 'modern-normalize/modern-normalize.css';
         }
 
         div.site-icon[box-~='round'] {
+            --box-border-color: var(--surface0);
+        }
+
+        div.input-youtube-link[box-~='round'] {
             --box-border-color: var(--surface0);
         }
 

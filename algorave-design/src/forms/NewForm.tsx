@@ -29,6 +29,7 @@ export default function NewForm() {
       codeBlockOne: '',
       codeBlockTwo: '',
       audioUpload: '',
+      youtubeLink: '',
     },
   })
 
@@ -116,9 +117,32 @@ export default function NewForm() {
       form.setError('codeBlockTwo', '')
     }
 
+    // Validate audioUpload
     if (values.audioUpload) {
       const audioFileName = form.getState().values.audioUpload
+      const result = validateAudioFileUpload(audioFileName, audioFilesAllowed)
+      if (!result) {
+        console.log('Validation: Invalid file type:', audioFileName)
+        form.setError('audioUpload', 'Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')
+        hasError = true
+      }
+      else {
+        console.log('Validation: Valid file type:', audioFileName)
+        form.setError('audioUpload', '')
+      }
       console.dir(audioFileName)
+    }
+
+    // Validate youtubeLink
+    if (values.youtubeLink) {
+      const youtubeLink = String(values.youtubeLink ?? '').trim()
+      if (!URL.canParse(youtubeLink)) {
+        form.setError('youtubeLink', 'Are you sure that URL is correct?')
+        hasError = true
+      }
+      else {
+        form.setError('youtubeLink', '')
+      }
     }
 
     if (hasError) {
@@ -133,6 +157,7 @@ export default function NewForm() {
   const singleProjectValue = form.useValue('singleProject')
   const codeBlockOneValue = form.useValue('codeBlockOne')
   const codeBlockTwoValue = form.useValue('codeBlockTwo')
+  const youtubeLinkValue = form.useValue('youtubeLink')
 
   // Callback function that updates state when projectSoftware selection changes
   const projectSoftwareFn = (_label: string, value: string): void => {
@@ -418,7 +443,22 @@ export default function NewForm() {
           onChange={audioFileValidation}
         />
         <Ariakit.FormError name={form.names.audioUpload} className="error" />
-
+      </div>
+      <div className="field input-youtube-link" is-="typography-block" box-="round" shear-="top">
+        <div is-="badge" variant-="background0">
+          <Ariakit.FormLabel name={form.names.youtubeLink}>Add a URL of a relevant YouTube video</Ariakit.FormLabel>
+        </div>
+        <Ariakit.FormInput
+          name="youtubeLink"
+          value={youtubeLinkValue}
+          onChange={event => form.setValue('youtubeLink', event.target.value)}
+          placeholder="Link to YouTube video"
+          className="youtube-link"
+          autoCapitalize="none"
+          autoComplete="off"
+          size-="large"
+        />
+        <Ariakit.FormError name={form.names.projectName} className="error" />
       </div>
       <div className="buttons">
         <Ariakit.FormSubmit className="button">Submit</Ariakit.FormSubmit>

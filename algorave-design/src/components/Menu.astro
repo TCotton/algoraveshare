@@ -1,16 +1,27 @@
 ---
 import DropDownMenu from './DropDownMenu.jsx';
 ---
-<DropDownMenu client:visible />
+<DropDownMenu client:visible/>
 <style>
     @layer components {
         :root {
-            .menu-wrapper button.button {
-                margin: 1ch 2ch!important;
+            .menu-popover {
+                background: white;
+                > div {
+                    margin-bottom: 2lh;
+                }
+                ul {
+                    background : white;
+                }
             }
+            .menu-wrapper button.button {
+                margin: 1ch 2ch !important;
+            }
+
             .menu-wrapper button:hover {
                 cursor: pointer;
             }
+
             .separator {
                 margin-top: 0.5rem;
                 margin-bottom: 0.5rem;
@@ -25,23 +36,7 @@ import DropDownMenu from './DropDownMenu.jsx';
             }
 
             .menu {
-                position: relative;
-                z-index: 50;
-                display: flex;
-                max-height: var(--popover-available-height, 100px);
-                min-width: 180px;
-                flex-direction: column;
-                overflow: auto;
-                overscroll-behavior: contain;
-                border-radius: 0.5rem;
-                border-width: 1px;
-                border-style: solid;
-                border-color: hsl(204 20% 88%);
-                background-color: var(--rosewater);
-                padding: 0.5rem;
-                color: var(--base);
-                box-shadow: none;
-                outline: none !important;
+
             }
 
             .menu:where(.dark, .dark *) {
@@ -53,14 +48,16 @@ import DropDownMenu from './DropDownMenu.jsx';
 
             .menu-item {
                 display: flex;
+                z-index: 10000;
                 cursor: default;
                 scroll-margin: 0.5rem;
                 align-items: center;
                 gap: 0.5rem;
                 border-radius: 0.25rem;
                 padding: 0.5rem;
-                outline: none !important;
+                outline: none;
                 background-color: var(--flamingo);
+
                 &:hover {
                     cursor: pointer;
                 }

@@ -3,9 +3,92 @@ import 'modern-normalize/modern-normalize.css';
 ---
 <style is:global>
     @layer base, utils, components;
-    @import '../../node_modules/@webtui/css/dist/base.css';
     @import '../../node_modules/@webtui/css/dist/full.css';
     @import '../../node_modules/@webtui/theme-catppuccin/dist/index.css';
+    /* Note: 'full.css' includes the base styles from 'base.css', so a separate import is not needed. */
+
+    @keyframes opacity-fade-in {
+        0% {
+            /* pushes the sun down past the viewport */
+            opacity: 1
+        }
+        50% {
+            opacity: 0.6
+        }
+        100% {
+            /* returns the sun to its default position */
+            opacity: 1
+        }
+    }
+
+    @keyframes change-colour {
+        0% {
+            fill: color-mix(var(--lavender) 100%, var(--blue) 0%);
+        }
+        25% {
+            fill: color-mix(var(--lavender) 50%, var(--blue) 50%);
+        }
+        50% {
+            fill: color-mix(var(--lavender) 0%, var(--blue) 100%);
+        }
+        75% {
+            fill: color-mix(var(--lavender) 50%, var(--blue) 50%);
+        }
+        100% {
+            fill: color-mix(var(--lavender) 100%, var(--blue) 0%);
+        }
+    }
+
+    .svg-icon {
+        .path-one {
+            animation: 4s linear 0s infinite alternate opacity-fade-in,
+            4s linear 0s infinite alternate change-colour;
+            animation-play-state: paused;
+        }
+
+        .path-two {
+            animation: 3s linear 1s infinite alternate opacity-fade-in, 3s linear 1s infinite alternate change-colour;
+            animation-play-state: paused;
+        }
+
+        .path-three {
+            animation: 2s linear 2s infinite alternate opacity-fade-in, 2s linear 2s infinite alternate change-colour;
+            animation-play-state: paused;
+        }
+
+        .path-four {
+            animation: 5s linear 3s infinite alternate opacity-fade-in, 5s linear 3s infinite alternate change-colour;
+            animation-play-state: paused;
+        }
+
+        .path-five {
+            animation: 6s linear 4s infinite alternate opacity-fade-in, 6s linear 4s infinite alternate change-colour;
+            animation-play-state: paused;
+        }
+    }
+
+    .svg-icon-two {
+        .path-one {
+            animation: 4s linear 0s infinite alternate opacity-fade-in,
+            4s linear 0s infinite alternate change-colour;
+            animation-play-state: paused;
+        }
+
+        .path-two {
+            animation: 3s linear 1s infinite alternate opacity-fade-in, 3s linear 1s infinite alternate change-colour;
+            animation-play-state: paused;
+        }
+
+        .path-three {
+            animation: 2s linear 2s infinite alternate opacity-fade-in, 2s linear 2s infinite alternate change-colour;
+            animation-play-state: paused;
+        }
+
+        .path-four {
+            animation: 5s linear 3s infinite alternate opacity-fade-in, 5s linear 3s infinite alternate change-colour;
+            animation-play-state: paused;
+        }
+    }
 
     .container {
         margin: 0 auto;
@@ -62,7 +145,7 @@ import 'modern-normalize/modern-normalize.css';
         font-style: italic;
     }
 
-    .description, .left-column, .right-column, .social-media, .audio-section, .snippets-content {
+    .description, .left-column, .right-column, .social-media, .audio-section, .snippets-content, .input-youtube-link {
         padding: 0 2ch 4ch 2ch;
         position: relative;
 
@@ -81,6 +164,10 @@ import 'modern-normalize/modern-normalize.css';
         }
     }
 
+    .input-youtube-link {
+        padding: 0 4ch 2ch 4ch;
+    }
+
     .content, .description, .audio-section, .tags {
         margin-bottom: 2lh; /* Space between sections */
     }
@@ -96,9 +183,11 @@ import 'modern-normalize/modern-normalize.css';
     .select-container {
         padding: 0 2ch 2ch 2ch;
         margin-bottom: 1lh;
+
         a {
             color: rgb(85, 26, 139);
         }
+
         .menu-item:first-of-type a {
             text-decoration: none;
         }
@@ -107,8 +196,9 @@ import 'modern-normalize/modern-normalize.css';
             margin-bottom: 0.2lh;
 
         }
+
         .menu-wrapper {
-            //background-color: rgb(from var(--flamingo) r g b / 0.3);
+            background-color: rgb(from var(--flamingo) r g b / 0.3);
         }
     }
 
@@ -130,6 +220,107 @@ import 'modern-normalize/modern-normalize.css';
 
     :root {
         @layer components {
+            .field-upload-audio {
+                input,
+                [is-~='input'],
+                &[size-='thicc'] {
+                    height: 3lh;
+                    width: 100%;
+                    padding: 0 1ch;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    :root {
+        @layer components {
+            .input-youtube-link {
+                input,
+                [is-~='input'],
+                &[size-='thicc'] {
+                    height: 3lh;
+                    width: 100%;
+                    padding: 0 1ch;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    :root {
+        @layer components {
+            .field-upload-audio {
+                [is-~='badge'] {
+                    &[variant-='background0'] {
+                        label {
+                            color: rgb(205, 214, 244) !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    :root {
+        @layer components {
+            .input-youtube-link {
+                [is-~='badge'] {
+                    &[variant-='background0'] {
+                        label {
+                            color: rgb(205, 214, 244)!important
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    :root {
+        @layer components {
+            .field-upload-audio {
+                input::file-selector-button {
+                    --button-primary: var(--foreground0);
+                    --button-secondary: var(--background0);
+                    --mapped-primary: var(--button-primary);
+                    --mapped-secondary: var(--button-secondary);
+                    color: var(--mapped-secondary);
+                    font-size: var(--font-size);
+                    line-height: var(--line-height);
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: none;
+                    padding: 0 2ch;
+                    outline: none;
+                    background-color: transparent;
+                    background-image: linear-gradient(
+                            to bottom,
+                            transparent 0,
+                            transparent 0.5lh,
+                            var(--mapped-primary) 0.5lh,
+                            var(--mapped-primary) calc(100% - 0.5lh),
+                            transparent calc(100% - 0.5lh),
+                            transparent
+                    );
+                    height: 3lh;
+                    margin-right: 1ch;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    @layer utils {
+        [box-=square], [box-=round], [box-=double] {
+            position: relative;
+            isolation: isolate;
+            padding: 1lh 1ch
+        }
+    }
+
+    :root {
+        @layer components {
             textarea,
             [is-~='textarea'],
             &[size-='thicc'] {
@@ -139,6 +330,7 @@ import 'modern-normalize/modern-normalize.css';
             }
         }
     }
+
 
     .form-wrapper {
         .error {
@@ -153,7 +345,18 @@ import 'modern-normalize/modern-normalize.css';
                 margin-bottom: 1lh;
                 color: var(--yellow);
             }
+            &.input-youtube-link {
+                > div {
+                    margin-bottom: 1lh;
+
+                }
+                label {
+                    color: var(--yellow);
+                }
+            }
         }
+
+
 
         .field.field-project-name input {
             margin-bottom: 1lh;
@@ -202,7 +405,15 @@ import 'modern-normalize/modern-normalize.css';
             --box-border-color: var(--surface0);
         }
 
+        div.input-youtube-link[box-~='round'] {
+            --box-border-color: var(--surface0);
+        }
+
         div.select-container[box-~='round'] {
+            --box-border-color: var(--surface0);
+        }
+
+        div.field-upload-audio[box-~='round'] {
             --box-border-color: var(--surface0);
         }
 
@@ -240,6 +451,7 @@ import 'modern-normalize/modern-normalize.css';
     }
 
     /* Code blocks */
+
     pre[class*="language-"] {
         padding: 1em;
         margin: .5em 0;
@@ -253,6 +465,7 @@ import 'modern-normalize/modern-normalize.css';
     }
 
     /* Inline code */
+
     :not(pre) > code[class*="language-"] {
         padding: .1em;
         border-radius: .3em;
@@ -335,7 +548,7 @@ import 'modern-normalize/modern-normalize.css';
     }
 
     svg {
-        filter: opacity(0.8);
+        display: block;
     }
 
     @media (max-width: 768px) {

@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import * as Ariakit from '@ariakit/react'
 import { isEmptyString } from 'ramda-adjunct'
 import { equals } from 'ramda'
 import SelectForm from '../forms/SelectForm'
 import FormTextarea from '../forms/FormTextarea'
 import { getDescriptionHtml } from './description-text.ts'
+import MusicNoteOne from './svgComponents/MusicNoteOne.tsx'
+import MusicNoteTwo from './svgComponents/MusicNoteTwo.tsx'
+import { validateAudioFileUpload } from '../libs/helper-functions.ts'
 
 export default function NewForm() {
   // Use useState to track the current project software selection
   const [currentProjectSoftware, setCurrentProjectSoftware] = useState<string | null>(null)
   const [currentProjectType, setCurrentProjectType] = useState<string | null>(null)
+  const [audioFiles, setAudioFiles] = useState<string[]>([])
+
+  // Create a ref to access the MusicNoteOne SVG DOM element
+  const musicNoteOneRef = useRef<SVGSVGElement>(null)
+  const musicNoteTwoRef = useRef<SVGSVGElement>(null)
 
   const form = Ariakit.useFormStore({
     defaultValues: {
@@ -20,6 +28,8 @@ export default function NewForm() {
       projectType: '',
       codeBlockOne: '',
       codeBlockTwo: '',
+      audioUpload: '',
+      youtubeLink: '',
     },
   })
 
@@ -29,6 +39,7 @@ export default function NewForm() {
   const tidal = 'Tidal Cycles'
   const finishedProject = 'Finished Project'
   const beforeAfterLiveCodingProject = 'Before and After Live Coding Project'
+  const audioFilesAllowed = '\'audio/wav\', \'audio/mp3\', \'audio/flac\', \'audio/aac\', \'audio/ogg\''
 
   form.useSubmit((state) => {
     console.info(state)
@@ -39,29 +50,35 @@ export default function NewForm() {
 
     // Validate projectSoftware
     if (isEmptyString(values.projectSoftware) || equals(values.projectSoftware, projectSoftwareDefault)) {
-      form.setError('projectSoftware', 'Please select a project software')
+      form.setError('projectSoftware', 'Please select the project software')
       hasError = true
     }
-    else { form.setError('projectSoftware', '') }
+    else {
+      form.setError('projectSoftware', '')
+    }
 
     // Validate projectType
     if (isEmptyString(values.projectType) || equals(values.projectType, projectTypeDefault)) {
       form.setError('projectType', 'Please select a project type')
       hasError = true
     }
-    else { form.setError('projectType', '') }
+    else {
+      form.setError('projectType', '')
+    }
 
     // Validate projectName
     const name = String(values.projectName ?? '').trim()
     if (!name) {
-      form.setError('projectName', 'Name is required')
+      form.setError('projectName', 'A project name is required')
       hasError = true
     }
     else if (values.projectName.trim().length > 200) {
       form.setError('projectName', 'The project name must not be longer than 200 characters')
       hasError = true
     }
-    else { form.setError('projectName', '') }
+    else {
+      form.setError('projectName', '')
+    }
 
     // Validate description
     const desc = String(values.description ?? '').trim()
@@ -69,28 +86,64 @@ export default function NewForm() {
       form.setError('description', 'Description is required')
       hasError = true
     }
-    else { form.setError('description', '') }
+    else {
+      form.setError('description', '')
+    }
 
     // Validate singleProject
     if (equals(finishedProject, currentProjectType) && isEmptyString(values.singleProject.trim())) {
       form.setError('singleProject', 'Don\'t forget to add your code!')
       hasError = true
     }
-    else { form.setError('singleProject', '') }
+    else {
+      form.setError('singleProject', '')
+    }
 
     // Validate codeBlockOne
     if (equals(beforeAfterLiveCodingProject, currentProjectType) && isEmptyString(values.codeBlockOne.trim())) {
       form.setError('codeBlockOne', 'Don\'t forget to add your code!')
       hasError = true
     }
-    else { form.setError('codeBlockOne', '') }
+    else {
+      form.setError('codeBlockOne', '')
+    }
 
     // Validate codeBlockTwo
     if (equals(beforeAfterLiveCodingProject, currentProjectType) && isEmptyString(values.codeBlockTwo.trim())) {
       form.setError('codeBlockTwo', 'Don\'t forget to add your code!')
       hasError = true
     }
-    else { form.setError('codeBlockTwo', '') }
+    else {
+      form.setError('codeBlockTwo', '')
+    }
+
+    // Validate audioUpload
+    if (values.audioUpload) {
+      const audioFileName = form.getState().values.audioUpload
+      const result = validateAudioFileUpload(audioFileName, audioFilesAllowed)
+      if (!result) {
+        console.log('Validation: Invalid file type:', audioFileName)
+        form.setError('audioUpload', 'Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')
+        hasError = true
+      }
+      else {
+        console.log('Validation: Valid file type:', audioFileName)
+        form.setError('audioUpload', '')
+      }
+      console.dir(audioFileName)
+    }
+
+    // Validate youtubeLink
+    if (values.youtubeLink) {
+      const youtubeLink = String(values.youtubeLink ?? '').trim()
+      if (!URL.canParse(youtubeLink)) {
+        form.setError('youtubeLink', 'Are you sure that URL is correct?')
+        hasError = true
+      }
+      else {
+        form.setError('youtubeLink', '')
+      }
+    }
 
     if (hasError) {
       return
@@ -104,6 +157,7 @@ export default function NewForm() {
   const singleProjectValue = form.useValue('singleProject')
   const codeBlockOneValue = form.useValue('codeBlockOne')
   const codeBlockTwoValue = form.useValue('codeBlockTwo')
+  const youtubeLinkValue = form.useValue('youtubeLink')
 
   // Callback function that updates state when projectSoftware selection changes
   const projectSoftwareFn = (_label: string, value: string): void => {
@@ -112,6 +166,88 @@ export default function NewForm() {
 
   const projectTypeFn = (_label: string, value: string): void => {
     setCurrentProjectType(value)
+  }
+
+  // Handler to play the animation when mouse enters
+  const startAnimationMusicNoteOne = () => {
+    if (musicNoteOneRef.current) {
+      // Query all path elements in the SVG
+      const paths = musicNoteOneRef.current.querySelectorAll('path')
+
+      // Set animation-play-state to 'running' for each path
+      paths.forEach((path) => {
+        (path as SVGPathElement).style.animationPlayState = 'running'
+      })
+    }
+  }
+
+  // Handler to stop the animation when mouse leaves
+  const stopAnimationMusicNoteOne = () => {
+    if (musicNoteOneRef.current) {
+      // Query all path elements in the SVG
+      const paths = musicNoteOneRef.current.querySelectorAll('path')
+
+      // Set animation-play-state to 'paused' for each path
+      paths.forEach((path) => {
+        (path as SVGPathElement).style.animationPlayState = 'paused'
+      })
+    }
+  }
+
+  const startAnimationMusicNoteTwo = () => {
+    if (musicNoteTwoRef.current) {
+      // Query all path elements in the SVG
+      const paths = musicNoteTwoRef.current.querySelectorAll('path')
+
+      // Set animation-play-state to 'paused' for each path
+      paths.forEach((path) => {
+        (path as SVGPathElement).style.animationPlayState = 'running'
+      })
+    }
+  }
+
+  const stopAnimationMusicNoteTwo = () => {
+    if (musicNoteTwoRef.current) {
+      // Query all path elements in the SVG
+      const paths = musicNoteTwoRef.current.querySelectorAll('path')
+
+      // Set animation-play-state to 'paused' for each path
+      paths.forEach((path) => {
+        (path as SVGPathElement).style.animationPlayState = 'paused'
+      })
+    }
+  }
+
+  const audioFileValidation = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const audioFile = event.target.files?.[0]
+
+    // Mark the field as touched so errors will display
+    form.setTouched({ audioUpload: true })
+
+    // If no file is selected, clear state and form value
+    if (!audioFile) {
+      form.setValue('audioUpload', '')
+      setAudioFiles([])
+      return
+    }
+
+    const result = validateAudioFileUpload(audioFile.name, audioFilesAllowed)
+
+    if (result) {
+      // Save file details to state
+      const audioFileDetails = JSON.stringify({
+        lastModified: audioFile.lastModified,
+        name: audioFile.name,
+        size: audioFile.size,
+        type: audioFile.type,
+      })
+      // Update state with the file details
+      setAudioFiles([audioFileDetails])
+      console.log('File details:', audioFileDetails)
+    }
+
+    // Set form value to trigger validation (handled by form.useValidate)
+    form.setValue('audioUpload', audioFile.name)
   }
 
   // Use useEffect to log or perform side effects when projectSoftware changes
@@ -128,6 +264,28 @@ export default function NewForm() {
     }
   }, [currentProjectType])
 
+  // Use form.useValidate to validate audioUpload field
+  form.useValidate(() => {
+    const audioFileName = form.getState().values.audioUpload
+
+    // If no filename, no error
+    if (!audioFileName) {
+      form.setError('audioUpload', '')
+      return
+    }
+
+    const result = validateAudioFileUpload(audioFileName, audioFilesAllowed)
+
+    if (!result) {
+      console.log('Validation: Invalid file type:', audioFileName)
+      form.setError('audioUpload', 'Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')
+    }
+    else {
+      console.log('Validation: Valid file type:', audioFileName)
+      form.setError('audioUpload', '')
+    }
+  })
+
   return (
     <Ariakit.Form
       store={form}
@@ -135,21 +293,6 @@ export default function NewForm() {
       className="form-wrapper"
       method="post"
     >
-      <div className="field">
-        <SelectForm
-          label="Choose the project software"
-          name="projectSoftware"
-          form={form}
-          items={[
-            { value: projectSoftwareDefault, label: 'project-software' },
-            { value: 'Tidal Cycles', label: 'tidal-cycles' },
-            { value: 'Strudel', label: 'strudel' },
-          ]}
-          selectClass="project-software"
-          onChange={projectSoftwareFn}
-        />
-        <Ariakit.FormError name={form.names.projectSoftware} className="error" />
-      </div>
       <div className="field field-project-name">
         <Ariakit.FormLabel name={form.names.projectName}>Name</Ariakit.FormLabel>
         <Ariakit.FormInput
@@ -165,6 +308,26 @@ export default function NewForm() {
       </div>
       <div className="field">
         <SelectForm
+          label="Choose the project software"
+          name="projectSoftware"
+          form={form}
+          items={[
+            { value: projectSoftwareDefault, label: 'project-software' },
+            { value: 'Tidal Cycles', label: 'tidal-cycles' },
+            { value: 'Strudel', label: 'strudel' },
+          ]}
+          selectClass="project-software"
+          onChange={projectSoftwareFn}
+          onMouseEnter={startAnimationMusicNoteOne}
+          onMouseLeave={stopAnimationMusicNoteOne}
+        />
+        <Ariakit.FormError name={form.names.projectSoftware} className="error" />
+      </div>
+      <div className="field">
+        <MusicNoteOne ref={musicNoteOneRef} />
+      </div>
+      <div className="field">
+        <SelectForm
           label="Choose a project type"
           name="projectType"
           form={form}
@@ -175,8 +338,13 @@ export default function NewForm() {
           ]}
           selectClass="project-type"
           onChange={projectTypeFn}
+          onMouseEnter={startAnimationMusicNoteTwo}
+          onMouseLeave={stopAnimationMusicNoteTwo}
         />
         <Ariakit.FormError name={form.names.projectType} className="error" />
+      </div>
+      <div className="field">
+        <MusicNoteTwo ref={musicNoteTwoRef} />
       </div>
       {(currentProjectSoftware === strudel || currentProjectSoftware === tidal) && (
         <div className="field description-textarea">
@@ -258,6 +426,40 @@ export default function NewForm() {
           <Ariakit.FormError name={form.names.codeBlockTwo} className="error" />
         </div>
       )}
+      <div className="field field-upload-audio" is-="typography-block" box-="round" shear-="top">
+        <div is-="badge" variant-="background0">
+          <Ariakit.FormLabel name={form.names.audioUpload}>
+            Audio upload:
+            accepts WAV, MP3, FLAC, AAC and OGG
+          </Ariakit.FormLabel>
+        </div>
+        <Ariakit.FormInput
+          type="file"
+          name={form.names.audioUpload}
+          placeholder="Audio file"
+          className="input-audio-file"
+          size-="large"
+          accept={audioFilesAllowed}
+          onChange={audioFileValidation}
+        />
+        <Ariakit.FormError name={form.names.audioUpload} className="error" />
+      </div>
+      <div className="field input-youtube-link" is-="typography-block" box-="round" shear-="top">
+        <div is-="badge" variant-="background0">
+          <Ariakit.FormLabel name={form.names.youtubeLink}>Add a URL of a relevant YouTube video</Ariakit.FormLabel>
+        </div>
+        <Ariakit.FormInput
+          name="youtubeLink"
+          value={youtubeLinkValue}
+          onChange={event => form.setValue('youtubeLink', event.target.value)}
+          placeholder="Link to YouTube video"
+          className="youtube-link"
+          autoCapitalize="none"
+          autoComplete="off"
+          size-="large"
+        />
+        <Ariakit.FormError name={form.names.youtubeLink} className="error" />
+      </div>
       <div className="buttons">
         <Ariakit.FormSubmit className="button">Submit</Ariakit.FormSubmit>
       </div>

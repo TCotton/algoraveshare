@@ -45,7 +45,14 @@ CREATE TABLE projects
     description     TEXT        NOT NULL,
     audio_file_path TEXT,
     audio_file_type TEXT CHECK (audio_file_type IN ('wav', 'mp3', 'flac', 'aac', 'ogg')),
-    audio_data      JSONB,
+    -- Stores audio metadata as JSON. Typical structure:
+    -- {
+    --   "duration": <float, seconds>,
+    --   "bitrate": <int, kbps>,
+    --   "sample_rate": <int, Hz>,
+    --   "channels": <int>,
+    --   "format": <string, e.g. "wav" or "mp3">
+    -- }    audio_data      JSONB,
     youtube_url_id  TEXT,
     software_type   TEXT        NOT NULL CHECK (software_type IN ('strudel', 'tidalcycles')),
     created_at      TIMESTAMPTZ NOT NULL DEFAULT now()

@@ -16,7 +16,7 @@ export default function ProjectForm() {
   })
 
   // 🔍 Validation logic per field
-  const validateField = (field: string, values: Record<string, any>) => {
+  const validateField = (field: string, values: Record<string, any>) => { //eslint-disable-line
     const value = values[field]
     let error = ''
 

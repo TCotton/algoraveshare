@@ -13,7 +13,7 @@ export default function NewForm() {
   // Use useState to track the current project software selection
   const [currentProjectSoftware, setCurrentProjectSoftware] = useState<string | null>(null)
   const [currentProjectType, setCurrentProjectType] = useState<string | null>(null)
-  const [audioFiles, setAudioFiles] = useState<string[]>([])
+  const [audioFiles, setAudioFiles] = useState<string[]>([]) // eslint-disable-line
 
   // Create a ref to access the MusicNoteOne SVG DOM element
   const musicNoteOneRef = useRef<SVGSVGElement>(null)

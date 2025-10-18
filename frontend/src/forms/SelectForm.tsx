@@ -9,17 +9,41 @@ interface FormObject {
   setValue: (name: string, value: string) => void
 }
 
+/**
+ * In the future use the data-test-id for PlayWright tests:
+ *
+ * SelectForm
+ *   label="Choose the project software"
+ *   name="projectSoftware"
+ *   form={form}
+ *   items={[...]}
+ *   selectClass="project-software"
+ *   data-test-id="project-software-select"
+ * />
+ *
+ *
+ * // Instead of using class selectors:
+ * await page.locator('.project-software button.select-trigger').click()
+ *
+ * // You can now use data-test-id:
+ * await page.locator('[data-test-id="project-software-select"] button.select-trigger').click()
+ *
+ * // Or more simply:
+ * await page.getByTestId('project-software-select').click()
+ */
+
 interface ExtendedSelectFormProps extends SelectFormProps {
-  name: string
-  form?: FormObject
-  selectClass?: string
-  onChange?: (name: string, value: string) => void
-  onMouseEnter?: (event: React.MouseEvent<HTMLDivElement>) => void
-  onMouseLeave?: (event: React.MouseEvent<HTMLDivElement>) => void
+  'name': string
+  'form'?: FormObject
+  'selectClass'?: string
+  'onChange'?: (name: string, value: string) => void
+  'onMouseEnter'?: (event: React.MouseEvent<HTMLDivElement>) => void
+  'onMouseLeave'?: (event: React.MouseEvent<HTMLDivElement>) => void
+  'data-test-id'?: string
 }
 
 export default function SelectForm(props: ExtendedSelectFormProps) {
-  const { items, label, name, form, onChange, selectClass, onMouseEnter, onMouseLeave } = props
+  const { items, label, name, form, onChange, selectClass, onMouseEnter, onMouseLeave, 'data-test-id': dataTestId } = props
   const formattedItems = items?.map((item: { value: string, label: string }) => ({
     id: item.value,
     label: item.label,
@@ -46,6 +70,7 @@ export default function SelectForm(props: ExtendedSelectFormProps) {
       shear-="top"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      data-test-id={dataTestId}
     >
       <SelectProvider store={select}>
         <Ariakit.SelectLabel store={select} className="select-label">

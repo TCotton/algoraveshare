@@ -18,3 +18,23 @@ exports[`SelectForm > matches snapshot 1`] = `
   name="projectType"
 />
 `;
+
+exports[`SelectForm > matches snapshot with data-test-id 1`] = `
+<SelectForm
+  data-test-id="snapshot-test-id"
+  items={
+    [
+      {
+        "label": "finished",
+        "value": "Finished Project",
+      },
+      {
+        "label": "before-after",
+        "value": "Before and After Live Coding Project",
+      },
+    ]
+  }
+  label="Choose a project type"
+  name="projectType"
+/>
+`;

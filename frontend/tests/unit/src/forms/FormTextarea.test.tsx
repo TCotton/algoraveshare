@@ -237,4 +237,80 @@ describe('FormTextarea', () => {
     ref.current?.focus()
     expect(ref.current).toHaveFocus()
   })
+
+  it('renders with data-test-id attribute when provided', () => {
+    const mockOnChange = vi.fn()
+
+    render(
+      <FormTextarea
+        name="testTextarea"
+        value=""
+        onChange={mockOnChange}
+        placeholder="Test"
+        className="test-class"
+        data-test-id="my-test-textarea"
+      />,
+    )
+
+    const textarea = screen.getByPlaceholderText('Test')
+    expect(textarea).toBeInTheDocument()
+    expect(textarea).toHaveAttribute('data-test-id', 'my-test-textarea')
+  })
+
+  it('renders without data-test-id attribute when not provided', () => {
+    const mockOnChange = vi.fn()
+
+    render(
+      <FormTextarea
+        name="testTextarea"
+        value=""
+        onChange={mockOnChange}
+        placeholder="Test"
+        className="test-class"
+      />,
+    )
+
+    const textarea = screen.getByPlaceholderText('Test')
+    expect(textarea).toBeInTheDocument()
+    expect(textarea).not.toHaveAttribute('data-test-id')
+  })
+
+  it('renders with both className and data-test-id', () => {
+    const mockOnChange = vi.fn()
+
+    render(
+      <FormTextarea
+        name="testTextarea"
+        value=""
+        onChange={mockOnChange}
+        placeholder="Test"
+        className="custom-textarea-class"
+        data-test-id="custom-textarea-testid"
+      />,
+    )
+
+    const textarea = screen.getByPlaceholderText('Test')
+    expect(textarea).toBeInTheDocument()
+    expect(textarea).toHaveClass('custom-textarea-class')
+    expect(textarea).toHaveAttribute('data-test-id', 'custom-textarea-testid')
+  })
+
+  it('matches snapshot with data-test-id', () => {
+    const mockOnChange = vi.fn()
+
+    const { container } = render(
+      <FormTextarea
+        name="testTextarea"
+        value="Test value"
+        onChange={mockOnChange}
+        placeholder="Test placeholder"
+        className="test-class"
+        rows={4}
+        required
+        data-test-id="snapshot-textarea"
+      />,
+    )
+
+    expect(container.firstChild).toMatchSnapshot()
+  })
 })

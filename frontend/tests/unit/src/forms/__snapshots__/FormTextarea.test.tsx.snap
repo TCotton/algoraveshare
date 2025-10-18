@@ -13,3 +13,18 @@ exports[`FormTextarea > matches snapshot 1`] = `
   Test value
 </textarea>
 `;
+
+exports[`FormTextarea > matches snapshot with data-test-id 1`] = `
+<textarea
+  autocapitalize="none"
+  autocorrect="off"
+  class="test-class"
+  data-test-id="snapshot-textarea"
+  name="testTextarea"
+  placeholder="Test placeholder"
+  required=""
+  rows="4"
+>
+  Test value
+</textarea>
+`;

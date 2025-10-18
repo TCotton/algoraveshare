@@ -16,7 +16,7 @@
     "test:playwright:headless": "npx playwright test --project=chromium",
     "test:playwright": "npx playwright test --project=chromium --headed",
     "test:playwright:debug": "npx playwright test --debug",
-    "test:playwright:ui": "npx playwright test --ui",
+    "test:playwright:ui": "npx playwright test --ui --project=chromium",
     "lint": "eslint . --config ./eslint.config.ts --ext .js,.ts,.jsx,.tsx ",
     "lint:fix": "eslint . --config ./eslint.config.ts --ext .js,.ts,.jsx,.tsx --fix",
     "typecheck": "tsc --noEmit",

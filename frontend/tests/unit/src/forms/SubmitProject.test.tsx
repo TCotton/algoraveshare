@@ -122,28 +122,28 @@ vi.mock('@ariakit/react', () => {
 
 describe.skip('SubmitProjectForm - Skipped due to hook mocking complexity', () => {
   it('renders the form', () => {
-  render(<SubmitProjectForm />)
+    render(<SubmitProjectForm />)
     expect(screen.getByRole('form')).toBeInTheDocument()
   })
 
   it('renders SelectForm components', () => {
-  render(<SubmitProjectForm />)
+    render(<SubmitProjectForm />)
     const selectForms = screen.getAllByTestId('select-form')
     expect(selectForms.length).toBeGreaterThan(0)
   })
 
   it('renders software options', () => {
-  render(<SubmitProjectForm />)
+    render(<SubmitProjectForm />)
     expect(screen.getByText('Choose the project software')).toBeInTheDocument()
   })
 
   it('renders type options', () => {
-  render(<SubmitProjectForm />)
+    render(<SubmitProjectForm />)
     expect(screen.getByText('Choose the project type')).toBeInTheDocument()
   })
 
   it('renders name field', () => {
-  render(<SubmitProjectForm />)
+    render(<SubmitProjectForm />)
     expect(screen.getByPlaceholderText('Project name')).toBeInTheDocument()
   })
 
@@ -153,7 +153,7 @@ describe.skip('SubmitProjectForm - Skipped due to hook mocking complexity', () =
   })
 
   it('matches snapshot', () => {
-  const { container } = render(<SubmitProjectForm />)
+    const { container } = render(<SubmitProjectForm />)
     expect(container.firstChild).toMatchSnapshot()
   })
 })

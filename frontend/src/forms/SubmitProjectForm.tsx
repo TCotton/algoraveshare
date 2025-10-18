@@ -290,7 +290,7 @@ export default function SubmitProjectForm() {
   return (
     <Ariakit.Form
       store={form}
-      aria-labelledby="add-new-participant"
+      aria-labelledby="add-new-project"
       className="form-wrapper"
       method="post"
     >

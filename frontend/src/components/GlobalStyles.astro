@@ -268,7 +268,7 @@ import 'modern-normalize/modern-normalize.css';
                 [is-~='badge'] {
                     &[variant-='background0'] {
                         label {
-                            color: rgb(205, 214, 244)!important
+                            color: rgb(205, 214, 244) !important
                         }
                     }
                 }
@@ -333,8 +333,25 @@ import 'modern-normalize/modern-normalize.css';
 
 
     .form-wrapper {
+        &.registration-form {
+            .field {
+                input {
+                    width: 50ch;
+                }
+            }
+            .field-registration-password-one {
+                label > span {
+                    color: var(--lavender);
+                }
+            }
+        }
+
         .error {
             color: var(--red);
+        }
+
+        .field[aria-invalid="true"] {
+            border-color: var(--red);
         }
 
         .field {
@@ -345,17 +362,18 @@ import 'modern-normalize/modern-normalize.css';
                 margin-bottom: 1lh;
                 color: var(--yellow);
             }
+
             &.input-youtube-link {
                 > div {
                     margin-bottom: 1lh;
 
                 }
+
                 label {
                     color: var(--yellow);
                 }
             }
         }
-
 
 
         .field.field-project-name input {

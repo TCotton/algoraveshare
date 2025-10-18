@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import * as Ariakit from '@ariakit/react'
 import { isEmptyString } from 'ramda-adjunct'
+import sanitize from 'sanitize-filename'
 import { equals } from 'ramda'
 import SelectForm from '../forms/SelectForm'
 import FormTextarea from '../forms/FormTextarea'
@@ -135,7 +136,7 @@ export default function NewForm() {
 
     // Validate youtubeLink
     if (values.youtubeLink) {
-      const youtubeLink = String(values.youtubeLink ?? '').trim()
+      const youtubeLink = sanitize(String(values.youtubeLink ?? '').trim())
       if (!URL.canParse(youtubeLink)) {
         form.setError('youtubeLink', 'Are you sure that URL is correct?')
         hasError = true
@@ -220,6 +221,7 @@ export default function NewForm() {
 
   const audioFileValidation = (event: React.ChangeEvent<HTMLInputElement>) => {
     const audioFile = event.target.files?.[0]
+    const sanitiizedFileName = sanitize(audioFile?.name ?? '')
 
     // Mark the field as touched so errors will display
     form.setTouched({ audioUpload: true })
@@ -230,24 +232,23 @@ export default function NewForm() {
       setAudioFiles([])
       return
     }
-
-    const result = validateAudioFileUpload(audioFile.name, audioFilesAllowed)
+    const result = validateAudioFileUpload(sanitiizedFileName, audioFilesAllowed)
 
     if (result) {
       // Save file details to state
       const audioFileDetails = JSON.stringify({
         lastModified: audioFile.lastModified,
-        name: audioFile.name,
+        name: sanitiizedFileName,
         size: audioFile.size,
         type: audioFile.type,
       })
       // Update state with the file details
       setAudioFiles([audioFileDetails])
-      console.log('File details:', audioFileDetails)
+      console.log('File details:', sanitiizedFileName)
     }
 
     // Set form value to trigger validation (handled by form.useValidate)
-    form.setValue('audioUpload', audioFile.name)
+    form.setValue('audioUpload', sanitize(audioFile.name))
   }
 
   // Use useEffect to log or perform side effects when projectSoftware changes
@@ -266,7 +267,7 @@ export default function NewForm() {
 
   // Use form.useValidate to validate audioUpload field
   form.useValidate(() => {
-    const audioFileName = form.getState().values.audioUpload
+    const audioFileName = sanitize(form.getState().values.audioUpload)
 
     // If no filename, no error
     if (!audioFileName) {

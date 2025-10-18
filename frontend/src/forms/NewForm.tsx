@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import * as Ariakit from '@ariakit/react'
 import { isEmptyString } from 'ramda-adjunct'
+import sanitize from 'sanitize-filename'
 import { equals } from 'ramda'
 import SelectForm from '../forms/SelectForm'
 import FormTextarea from '../forms/FormTextarea'
@@ -231,13 +232,13 @@ export default function NewForm() {
       return
     }
 
-    const result = validateAudioFileUpload(audioFile.name, audioFilesAllowed)
+    const result = validateAudioFileUpload(sanitize(audioFile.name), audioFilesAllowed)
 
     if (result) {
       // Save file details to state
       const audioFileDetails = JSON.stringify({
         lastModified: audioFile.lastModified,
-        name: audioFile.name,
+        name: sanitize(audioFile.name),
         size: audioFile.size,
         type: audioFile.type,
       })
@@ -247,7 +248,7 @@ export default function NewForm() {
     }
 
     // Set form value to trigger validation (handled by form.useValidate)
-    form.setValue('audioUpload', audioFile.name)
+    form.setValue('audioUpload', sanitize(audioFile.name))
   }
 
   // Use useEffect to log or perform side effects when projectSoftware changes

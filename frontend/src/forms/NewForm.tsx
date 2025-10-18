@@ -136,7 +136,7 @@ export default function NewForm() {
 
     // Validate youtubeLink
     if (values.youtubeLink) {
-      const youtubeLink = sanitize(String(values.youtubeLink ?? '').trim())
+      const youtubeLink = String(values.youtubeLink ?? '').trim()
       if (!URL.canParse(youtubeLink)) {
         form.setError('youtubeLink', 'Are you sure that URL is correct?')
         hasError = true
@@ -221,7 +221,6 @@ export default function NewForm() {
 
   const audioFileValidation = (event: React.ChangeEvent<HTMLInputElement>) => {
     const audioFile = event.target.files?.[0]
-    const sanitiizedFileName = sanitize(audioFile?.name ?? '')
 
     // Mark the field as touched so errors will display
     form.setTouched({ audioUpload: true })
@@ -232,19 +231,20 @@ export default function NewForm() {
       setAudioFiles([])
       return
     }
-    const result = validateAudioFileUpload(sanitiizedFileName, audioFilesAllowed)
+
+    const result = validateAudioFileUpload(sanitize(audioFile.name), audioFilesAllowed)
 
     if (result) {
       // Save file details to state
       const audioFileDetails = JSON.stringify({
         lastModified: audioFile.lastModified,
-        name: sanitiizedFileName,
+        name: sanitize(audioFile.name),
         size: audioFile.size,
         type: audioFile.type,
       })
       // Update state with the file details
       setAudioFiles([audioFileDetails])
-      console.log('File details:', sanitiizedFileName)
+      console.log('File details:', audioFileDetails)
     }
 
     // Set form value to trigger validation (handled by form.useValidate)

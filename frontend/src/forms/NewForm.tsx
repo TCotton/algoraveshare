@@ -267,7 +267,7 @@ export default function NewForm() {
 
   // Use form.useValidate to validate audioUpload field
   form.useValidate(() => {
-    const audioFileName = sanitize(form.getState().values.audioUpload)
+    const audioFileName = form.getState().values.audioUpload
 
     // If no filename, no error
     if (!audioFileName) {

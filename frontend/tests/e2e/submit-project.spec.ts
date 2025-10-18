@@ -30,15 +30,15 @@ test.describe.serial('Submit Project Form', () => {
       dialogAppeared = true
       await dialog.dismiss()
     })
-    
+
     // Click submit without filling any fields
     await page.locator('button.button', { hasText: 'Submit' }).click()
     await page.waitForTimeout(500)
-    
+
     // The form should not submit (no dialog should appear)
     // due to either HTML5 or Ariakit validation
     expect(dialogAppeared).toBe(false)
-    
+
     // Verify required fields still have their empty values
     // (form submission was prevented by validation)
     const nameInput = page.getByLabel('Name')
@@ -183,7 +183,7 @@ test.describe.serial('Submit Project Form', () => {
       dialogAppeared = true
       await dialog.dismiss()
     })
-    
+
     await page.locator('button.button', { hasText: 'Submit' }).click()
     await page.waitForTimeout(100)
     // Form should not submit due to validation
@@ -278,7 +278,7 @@ test.describe.serial('Submit Project Form', () => {
     // Fill in name to proceed with form
     await page.getByLabel('Name').fill('Valid Project name Name')
     await page.waitForTimeout(100)
-    
+
     // Verify placeholder is still correct after filling
     await expect(page.getByLabel('Name')).toHaveAttribute('placeholder', 'Name of project')
     await page.locator('button.button', { hasText: 'Submit' }).click()

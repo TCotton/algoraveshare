@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm"
-import { pgTable, primaryKey, serial, text, timestamp, uuid } from "drizzle-orm/pg-core"
+import { jsonb, pgTable, primaryKey, serial, text, timestamp, uuid } from "drizzle-orm/pg-core"
 
 // ====================================================
 // Enums (for CHECK constraints)
@@ -40,6 +40,7 @@ export const projects = pgTable("projects", {
   description: text("description").notNull(),
   audioFilePath: text("audio_file_path"),
   audioFileType: text("audio_file_type", { enum: audioFileTypes }),
+  audioData: jsonb("audio_data"),
   youtubeUrlId: text("youtube_url_id"),
   softwareType: text("software_type", { enum: softwareTypes }).notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow()
@@ -50,6 +51,7 @@ export const projects = pgTable("projects", {
 // ====================================================
 export const snippets = pgTable("snippets", {
   snippetId: uuid("snippet_id").primaryKey().default(sql`gen_random_uuid()`),
+  snippetName: text("snippet_name").notNull(),
   userId: uuid("user_id")
     .notNull()
     .references(() => users.userId, { onDelete: "cascade" }),

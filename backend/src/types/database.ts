@@ -7,11 +7,11 @@
 // Enums
 // ====================================================
 
-export type AudioFileType = "wav" | "mp3" | "flac" | "aac" | "ogg"
+export type AudioFileType = 'wav' | 'mp3' | 'flac' | 'aac' | 'ogg'
 
-export type SoftwareType = "strudel" | "tidalcycles"
+export type SoftwareType = 'strudel' | 'tidalcycles'
 
-export type EntityType = "project" | "snippet"
+export type EntityType = 'project' | 'snippet'
 
 // ====================================================
 // Users Table

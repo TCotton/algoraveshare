@@ -1,5 +1,5 @@
-import { HttpApiEndpoint } from "@effect/platform"
-import { Schema } from "effect"
+import { HttpApiEndpoint } from '@effect/platform'
+import { Schema } from 'effect'
 
 const User = Schema.Struct({
   id: Schema.Number,
@@ -7,7 +7,7 @@ const User = Schema.Struct({
   createdAt: Schema.DateTimeUtc
 })
 // Define a GET endpoint with a path parameter ":id"
-const getUser = HttpApiEndpoint.get("getUser", "/user/:id")
+const getUser = HttpApiEndpoint.get('getUser', '/user/:id')
   .setPath(
     Schema.Struct({
       // Define a schema for the "id" path parameter

@@ -1,12 +1,12 @@
-import { HttpRouter, HttpServerResponse } from "@effect/platform"
-import { Effect, Layer } from "effect"
-import { ProjectService } from "../../domain/project/service/project.service.js"
+import { HttpRouter, HttpServerResponse } from '@effect/platform'
+import { Effect, Layer } from 'effect'
+import { ProjectService } from '../../domain/project/service/project.service.js'
 
-export class ProjectRouter extends HttpRouter.Tag("ProjectRouter")<ProjectRouter>() {
+export class ProjectRouter extends HttpRouter.Tag('ProjectRouter')<ProjectRouter>() {
 }
 
 export enum Routes {
-  All = "/all"
+  All = '/all'
 }
 
 const GetProjects = ProjectRouter.use((router) =>

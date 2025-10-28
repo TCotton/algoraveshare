@@ -1,4 +1,4 @@
-import { run } from "./service.js"
+import { run } from './service.js'
 
 /**
  * AWS Lambda (HTTP API / API Gateway) compatible handler
@@ -8,7 +8,7 @@ export const handler = async (_event: unknown) => {
   const body = await run()
   return {
     statusCode: 200,
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ message: body })
   }
 }

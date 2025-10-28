@@ -8,11 +8,11 @@ const UserSchema = Schema.Struct({
     }),
   ),
   email: Schema.Trim.pipe(
-    Schema.filter(x => isEmail(x) ? 'The email is not valid' : undefined),
+    Schema.filter(x => !isEmail(x) ? 'The email is not valid' : undefined),
   ),
   passwordOne: Schema.Trim.pipe(
-    Schema.minLength(12, {
-      message: parseIssue => `Password must be at least 12 characters long, got ${parseIssue.actual}`,
+    Schema.minLength(8, {
+      message: parseIssue => `Password must be at least 8 characters long, got ${parseIssue.actual}`,
     }),
     Schema.pattern(/[A-Z]/, {
       message: () => 'Password must contain at least one uppercase letter',
@@ -26,8 +26,8 @@ const UserSchema = Schema.Struct({
     Schema.Redacted,
   ),
   passwordTwo: Schema.Trim.pipe(
-    Schema.minLength(12, {
-      message: parseIssue => `Password must be at least 12 characters long, got ${parseIssue.actual}`,
+    Schema.minLength(8, {
+      message: parseIssue => `Password must be at least 8 characters long, got ${parseIssue.actual}`,
     }),
     Schema.pattern(/[A-Z]/, {
       message: () => 'Password must contain at least one uppercase letter',

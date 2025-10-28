@@ -335,9 +335,6 @@ import 'modern-normalize/modern-normalize.css';
     .form-wrapper {
         &.registration-form {
             .field {
-                input {
-                    width: 50ch;
-                }
                 .error {
                     margin-top: 0.5lh;
                 }
@@ -346,6 +343,14 @@ import 'modern-normalize/modern-normalize.css';
             .field-registration-password-one {
                 label > span {
                     color: var(--lavender);
+                }
+            }
+        }
+
+        &.submit-snippet-form {
+            .field {
+                .error {
+                    margin-top: 0.5lh;
                 }
             }
         }

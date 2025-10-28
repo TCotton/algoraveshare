@@ -21,8 +21,7 @@ export const validateAudioFileUpload = (file: string | undefined, audioFilesAllo
     return false
   }
   const audioTypeArray = audioArray(audioFilesAllowed)
-  const result = audioTypeArray.some((fileExtension) => {
+  return audioTypeArray.some((fileExtension) => {
     return equals(getFileExtension(file), fileExtension)
   })
-  return result
 }

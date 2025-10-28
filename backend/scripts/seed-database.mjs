@@ -85,7 +85,8 @@ const tidalProjects = [
     code_start: 'd1 $ sound "bd sd"',
     code_end: 'd1 $ sound "bd sd hh cp" # speed 2',
     code_full: 'd1 $ sound "bd sd hh cp"\nd2 $ sound "arpy*8" # n (irand 16)\nd3 $ sound "bass3" # n 5',
-    description: 'A progressive exploration of rhythm patterns using TidalCycles. Starting with basic kick and snare, evolving into complex polyrhythmic structures.',
+    description:
+      'A progressive exploration of rhythm patterns using TidalCycles. Starting with basic kick and snare, evolving into complex polyrhythmic structures.',
     audio_file_path: '/audio/tidal-rhythm-01.wav',
     audio_file_type: 'wav',
     audio_data: { duration: 120.5, bitrate: 1411, sample_rate: 44100, channels: 2, format: 'wav' },
@@ -96,8 +97,10 @@ const tidalProjects = [
     project_name: 'Ambient Textures with Tidal',
     code_start: 'd1 $ slow 4 $ sound "pad" # n 3',
     code_end: 'd1 $ slow 8 $ sound "pad*4" # n (scale 3 5 $ slow 16 sine) # room 0.8 # size 0.9',
-    code_full: 'd1 $ slow 8 $ sound "pad*4" # n (scale 3 5 $ slow 16 sine)\nd2 $ every 4 (rev) $ sound "birds3" # speed 0.5\nd3 $ rarely (# crush 4) $ sound "feel:4"',
-    description: 'Creating atmospheric soundscapes with slowly evolving pad sounds, modulated by sine waves for smooth transitions.',
+    code_full:
+      'd1 $ slow 8 $ sound "pad*4" # n (scale 3 5 $ slow 16 sine)\nd2 $ every 4 (rev) $ sound "birds3" # speed 0.5\nd3 $ rarely (# crush 4) $ sound "feel:4"',
+    description:
+      'Creating atmospheric soundscapes with slowly evolving pad sounds, modulated by sine waves for smooth transitions.',
     audio_file_path: '/audio/tidal-ambient-02.mp3',
     audio_file_type: 'mp3',
     audio_data: { duration: 240.0, bitrate: 320, sample_rate: 48000, channels: 2, format: 'mp3' },
@@ -112,7 +115,8 @@ const strudelProjects = [
     code_start: 's("bd sd")',
     code_end: 's("bd sd hh*4 cp").fast(2)',
     code_full: 's("bd sd hh*4 cp").fast(2)\n.stack(\n  s("arpy*8").n("0 1 2 3 4 5 6 7"),\n  s("bass3").n(5)\n)',
-    description: 'A simple yet effective drum machine pattern in Strudel, demonstrating layering and rhythm multiplication.',
+    description:
+      'A simple yet effective drum machine pattern in Strudel, demonstrating layering and rhythm multiplication.',
     audio_file_path: '/audio/strudel-drums-01.flac',
     audio_file_type: 'flac',
     audio_data: { duration: 60.0, bitrate: 1411, sample_rate: 96000, channels: 2, format: 'flac' },
@@ -123,8 +127,10 @@ const strudelProjects = [
     project_name: 'Melodic Sequences in Strudel',
     code_start: 'note("c a f e")',
     code_end: 'note("c a f e".scale("C:minor")).fast(2).s("piano")',
-    code_full: 'note("c a f e".scale("C:minor"))\n  .fast(2)\n  .s("piano")\n  .stack(\n    note("0 2 4 7".sub(12)).s("sawtooth"),\n    s("bd sd").fast(2)\n  )',
-    description: 'Exploring melodic patterns and harmonies in Strudel, combining piano melodies with bass synth and drums.',
+    code_full:
+      'note("c a f e".scale("C:minor"))\n  .fast(2)\n  .s("piano")\n  .stack(\n    note("0 2 4 7".sub(12)).s("sawtooth"),\n    s("bd sd").fast(2)\n  )',
+    description:
+      'Exploring melodic patterns and harmonies in Strudel, combining piano melodies with bass synth and drums.',
     audio_file_path: '/audio/strudel-melody-02.aac',
     audio_file_type: 'aac',
     audio_data: { duration: 90.3, bitrate: 256, sample_rate: 44100, channels: 2, format: 'aac' },
@@ -145,7 +151,8 @@ const tidalSnippets = [
   {
     snippet_name: 'Euclidean Rhythm',
     code_sample: 'd1 $ sound "bd(5,8)" # speed 1.2',
-    description: 'Using Euclidean rhythms to create interesting polyrhythmic patterns. 5 beats distributed across 8 steps.',
+    description:
+      'Using Euclidean rhythms to create interesting polyrhythmic patterns. 5 beats distributed across 8 steps.',
     audio_file_path: null,
     audio_file_type: null,
     software_type: 'tidalcycles'
@@ -209,8 +216,17 @@ async function seedDatabase() {
         `INSERT INTO users (name, email, password_hash, location, portfolio_url, youtube_url, mastodon_url, bluesky_url, linkedin_url)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
          RETURNING user_id`,
-        [user.name, user.email, user.password_hash, user.location, user.portfolio_url, 
-         user.youtube_url, user.mastodon_url, user.bluesky_url, user.linkedin_url]
+        [
+          user.name,
+          user.email,
+          user.password_hash,
+          user.location,
+          user.portfolio_url,
+          user.youtube_url,
+          user.mastodon_url,
+          user.bluesky_url,
+          user.linkedin_url
+        ]
       )
       userIds.push(result.rows[0].user_id)
       console.log(`  ✓ Created user: ${user.name}`)
@@ -239,9 +255,19 @@ async function seedDatabase() {
                                audio_file_path, audio_file_type, audio_data, youtube_url_id, software_type)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
          RETURNING project_id`,
-        [project.project_name, userId, project.code_start, project.code_end, project.code_full,
-         project.description, project.audio_file_path, project.audio_file_type, 
-         JSON.stringify(project.audio_data), project.youtube_url_id, project.software_type]
+        [
+          project.project_name,
+          userId,
+          project.code_start,
+          project.code_end,
+          project.code_full,
+          project.description,
+          project.audio_file_path,
+          project.audio_file_type,
+          JSON.stringify(project.audio_data),
+          project.youtube_url_id,
+          project.software_type
+        ]
       )
       projectIds.push(result.rows[0].project_id)
       console.log(`  ✓ Created project: ${project.project_name}`)
@@ -257,9 +283,19 @@ async function seedDatabase() {
                                audio_file_path, audio_file_type, audio_data, youtube_url_id, software_type)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
          RETURNING project_id`,
-        [project.project_name, userId, project.code_start, project.code_end, project.code_full,
-         project.description, project.audio_file_path, project.audio_file_type, 
-         JSON.stringify(project.audio_data), project.youtube_url_id, project.software_type]
+        [
+          project.project_name,
+          userId,
+          project.code_start,
+          project.code_end,
+          project.code_full,
+          project.description,
+          project.audio_file_path,
+          project.audio_file_type,
+          JSON.stringify(project.audio_data),
+          project.youtube_url_id,
+          project.software_type
+        ]
       )
       projectIds.push(result.rows[0].project_id)
       console.log(`  ✓ Created project: ${project.project_name}`)
@@ -276,8 +312,15 @@ async function seedDatabase() {
                                audio_file_path, audio_file_type, software_type)
          VALUES ($1, $2, $3, $4, $5, $6, $7)
          RETURNING snippet_id`,
-        [snippet.snippet_name, userId, snippet.code_sample, snippet.description,
-         snippet.audio_file_path, snippet.audio_file_type, snippet.software_type]
+        [
+          snippet.snippet_name,
+          userId,
+          snippet.code_sample,
+          snippet.description,
+          snippet.audio_file_path,
+          snippet.audio_file_type,
+          snippet.software_type
+        ]
       )
       snippetIds.push(result.rows[0].snippet_id)
       console.log(`  ✓ Created snippet: ${snippet.snippet_name}`)
@@ -293,8 +336,15 @@ async function seedDatabase() {
                                audio_file_path, audio_file_type, software_type)
          VALUES ($1, $2, $3, $4, $5, $6, $7)
          RETURNING snippet_id`,
-        [snippet.snippet_name, userId, snippet.code_sample, snippet.description,
-         snippet.audio_file_path, snippet.audio_file_type, snippet.software_type]
+        [
+          snippet.snippet_name,
+          userId,
+          snippet.code_sample,
+          snippet.description,
+          snippet.audio_file_path,
+          snippet.audio_file_type,
+          snippet.software_type
+        ]
       )
       snippetIds.push(result.rows[0].snippet_id)
       console.log(`  ✓ Created snippet: ${snippet.snippet_name}`)
@@ -306,7 +356,7 @@ async function seedDatabase() {
       { projectIndex: 0, tagIndices: [1, 3, 9] }, // Tidal Rhythm: intermediate, percussion, live-coding
       { projectIndex: 1, tagIndices: [2, 5, 7] }, // Tidal Ambient: advanced, ambient, experimental
       { projectIndex: 2, tagIndices: [0, 3, 8] }, // Strudel Drums: beginner, percussion, tutorial
-      { projectIndex: 3, tagIndices: [1, 4, 6] }, // Strudel Melody: intermediate, melodic, techno
+      { projectIndex: 3, tagIndices: [1, 4, 6] } // Strudel Melody: intermediate, melodic, techno
     ]
 
     for (const assignment of projectTagAssignments) {
@@ -324,12 +374,12 @@ async function seedDatabase() {
     // Assign tags to snippets
     console.log('\n🔗 Assigning tags to snippets...')
     const snippetTagAssignments = [
-      { snippetIndex: 0, tagIndices: [0, 3] },    // Basic Kick: beginner, percussion
+      { snippetIndex: 0, tagIndices: [0, 3] }, // Basic Kick: beginner, percussion
       { snippetIndex: 1, tagIndices: [1, 3, 7] }, // Euclidean: intermediate, percussion, experimental
-      { snippetIndex: 2, tagIndices: [1, 5] },    // Reverb: intermediate, ambient
+      { snippetIndex: 2, tagIndices: [1, 5] }, // Reverb: intermediate, ambient
       { snippetIndex: 3, tagIndices: [0, 4, 8] }, // Simple Arp: beginner, melodic, tutorial
-      { snippetIndex: 4, tagIndices: [1, 4] },    // Scale Helper: intermediate, melodic
-      { snippetIndex: 5, tagIndices: [0, 3, 8] }, // Stack Layers: beginner, percussion, tutorial
+      { snippetIndex: 4, tagIndices: [1, 4] }, // Scale Helper: intermediate, melodic
+      { snippetIndex: 5, tagIndices: [0, 3, 8] } // Stack Layers: beginner, percussion, tutorial
     ]
 
     for (const assignment of snippetTagAssignments) {
@@ -351,7 +401,6 @@ async function seedDatabase() {
     console.log(`   Projects: ${projectIds.length}`)
     console.log(`   Snippets: ${snippetIds.length}`)
     console.log(`   Tag Assignments: ${projectTagAssignments.length + snippetTagAssignments.length}`)
-
   } catch (error) {
     console.error('\n❌ Error seeding database:', error)
     process.exit(1)

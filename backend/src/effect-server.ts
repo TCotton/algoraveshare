@@ -1,7 +1,10 @@
-import { HttpApi, HttpApiBuilder, HttpApiEndpoint, HttpApiGroup } from '@effect/platform'
+import 'dotenv/config'
+import { HttpApi, HttpApiBuilder, HttpApiEndpoint, HttpApiGroup, HttpMiddleware } from '@effect/platform'
 import { NodeHttpServer, NodeRuntime } from '@effect/platform-node'
 import { Effect, Layer, Schema } from 'effect'
 import { createServer } from 'node:http'
+import { EnvVars } from './common/env-vars.js'
+import * as Database from './db.js'
 // Define our API with one group named "Greetings" and one endpoint called "hello-world"
 const MyApi = HttpApi.make('MyApi').add(
   HttpApiGroup.make('Greetings').add(
@@ -14,11 +17,24 @@ const GreetingsLive = HttpApiBuilder.group(
   'Greetings',
   (handlers) => handlers.handle('hello-world', () => Effect.succeed('Hello, World!'))
 )
+
+const DatabaseLive = Layer.unwrapEffect(
+  EnvVars.pipe(
+    Effect.map((envVars) =>
+      Database.layer({
+        url: envVars.DATABASE_URL,
+        ssl: envVars.ENV === 'prod'
+      })
+    )
+  )
+).pipe(Layer.provide(EnvVars.Default))
+
 // Provide the implementation for the API
 const MyApiLive = HttpApiBuilder.api(MyApi).pipe(Layer.provide(GreetingsLive))
 // Set up the server using NodeHttpServer on port 3000
-const ServerLive = HttpApiBuilder.serve().pipe(
+const ServerLive = HttpApiBuilder.serve(HttpMiddleware.logger).pipe(
   Layer.provide(MyApiLive),
+  Layer.provide(DatabaseLive),
   Layer.provide(NodeHttpServer.layer(createServer, { port: 3000 }))
 )
 // Launch the server

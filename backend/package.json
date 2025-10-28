@@ -6,8 +6,9 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/server.js",
-    "start:effect": "node dist/src/effect-server.js",
-    "dev": "ts-node-esm src/server.ts",
+    "start:effect": "tsx src/effect-server.ts",
+    "dev": "tsx src/server.ts",
+    "dev:effect": "tsx src/effect-server.ts",
     "test": "vitest",
     "typecheck": "tsc --noEmit -p tsconfig.src.json",
     "lint": "eslint --config ./eslint.config.mjs --ext .js,.mjs,.cjs,.ts,.mts,.cts src/ scripts/ db/",
@@ -58,6 +59,7 @@
     "globals": "^16.4.0",
     "openapi-typescript": "^7.9.1",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
     "typescript": "^5.0.0",
     "vitest": "^3.2.4"
   }

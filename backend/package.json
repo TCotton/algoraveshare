@@ -9,7 +9,7 @@
     "start:effect": "tsx src/effect-server.ts",
     "dev": "tsx src/server.ts",
     "dev:effect": "tsx src/effect-server.ts",
-    "test": "vitest",
+    "test:unit": "vitest run",
     "typecheck": "tsc --noEmit -p tsconfig.src.json",
     "lint": "eslint --config ./eslint.config.mjs --ext .js,.mjs,.cjs,.ts,.mts,.cts src/ scripts/ db/",
     "lint:fix": "eslint --config ./eslint.config.mjs --fix --ext .js,.mjs,.cjs,.ts,.mts,.cts src/ scripts/ db/",

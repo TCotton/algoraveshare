@@ -10,7 +10,7 @@ import MusicNoteOne from './svgComponents/MusicNoteOne.tsx'
 import MusicNoteTwo from './svgComponents/MusicNoteTwo.tsx'
 import { validateAudioFileUpload } from '../libs/helper-functions.ts'
 
-export default function NewForm() {
+export default function SubmitProjectForm() {
   // Use useState to track the current project software selection
   const [currentProjectSoftware, setCurrentProjectSoftware] = useState<string | null>(null)
   const [currentProjectType, setCurrentProjectType] = useState<string | null>(null)
@@ -290,7 +290,7 @@ export default function NewForm() {
   return (
     <Ariakit.Form
       store={form}
-      aria-labelledby="add-new-participant"
+      aria-labelledby="add-new-project"
       className="form-wrapper"
       method="post"
     >

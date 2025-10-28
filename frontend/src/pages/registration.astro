@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RegistrationForm from "../forms/RegistrationForm.tsx";
+---
+<Layout sectionName="addProjects">
+    <header class="add-projects-header">
+        <h1>Registration</h1>
+        <p>This is then registration page. The only required fields are you name (which must be unique to algoraveshare), email address and password</p>
+        <div is-="separator" direction-="horizontal"></div>
+        <RegistrationForm client:only="react"/>
+    </header>
+</Layout>

@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import NewForm from "../forms/NewForm.tsx";
+import SubmitProjectForm from "../forms/SubmitProjectForm.tsx";
 ---
 <Layout sectionName="addProjects">
     <header class="add-projects-header">
@@ -9,6 +9,6 @@ import NewForm from "../forms/NewForm.tsx";
             coding project. Some users of Tidal Cycles or Strudel like to start a live performance with a framework or
             skeleton code which is added or manipulated as the live performance progresses.</p>
         <div is-="separator" direction-="horizontal"></div>
-        <NewForm client:only="react"/>
+    <SubmitProjectForm client:only="react"/>
     </header>
 </Layout>

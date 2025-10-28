@@ -1,7 +1,7 @@
 import React from 'react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import NewForm from '../../../../src/forms/NewForm'
+import SubmitProjectForm from '../../../../src/forms/SubmitProjectForm'
 
 // Set up test environment
 beforeEach(() => {
@@ -100,9 +100,9 @@ vi.mock('@ariakit/react', () => {
 })
 
 /**
- * NOTE: Unit tests for NewForm are currently skipped due to React hook mocking complexity.
+ * NOTE: Unit tests for SubmitProjectForm are currently skipped due to React hook mocking complexity.
  *
- * The NewForm component uses React hooks (useState, useEffect) at the top level, which
+ * The SubmitProjectForm component uses React hooks (useState, useEffect) at the top level, which
  * require proper React context to function. Mocking @ariakit/react alone doesn't prevent
  * the component from calling React.useState, which returns null in the test environment.
  *
@@ -112,7 +112,7 @@ vi.mock('@ariakit/react', () => {
  * 3. Mocking React.useState/useEffect - Complex and fragile
  *
  * The component is comprehensively tested via E2E tests in:
- * tests/e2e/submit-project.spec.ts (14 test cases covering all functionality)
+ * tests/e2e/submit-project.spec.ts (25 test cases covering all functionality)
  *
  * Future improvements:
  * - Refactor component to be more testable (extract hook logic)
@@ -120,40 +120,40 @@ vi.mock('@ariakit/react', () => {
  * - Consider if E2E coverage is sufficient for this complex form component
  */
 
-describe.skip('NewForm - Skipped due to hook mocking complexity', () => {
+describe.skip('SubmitProjectForm - Skipped due to hook mocking complexity', () => {
   it('renders the form', () => {
-    render(<NewForm />)
+    render(<SubmitProjectForm />)
     expect(screen.getByRole('form')).toBeInTheDocument()
   })
 
   it('renders SelectForm components', () => {
-    render(<NewForm />)
+    render(<SubmitProjectForm />)
     const selectForms = screen.getAllByTestId('select-form')
     expect(selectForms.length).toBeGreaterThan(0)
   })
 
   it('renders software options', () => {
-    render(<NewForm />)
+    render(<SubmitProjectForm />)
     expect(screen.getByText('Choose the project software')).toBeInTheDocument()
   })
 
   it('renders type options', () => {
-    render(<NewForm />)
+    render(<SubmitProjectForm />)
     expect(screen.getByText('Choose the project type')).toBeInTheDocument()
   })
 
   it('renders name field', () => {
-    render(<NewForm />)
+    render(<SubmitProjectForm />)
     expect(screen.getByPlaceholderText('Project name')).toBeInTheDocument()
   })
 
   it('renders submit button', () => {
-    render(<NewForm />)
-    expect(screen.getByText('Submit Project')).toBeInTheDocument()
+    render(<SubmitProjectForm />)
+    expect(screen.getByText('Submit')).toBeInTheDocument()
   })
 
   it('matches snapshot', () => {
-    const { container } = render(<NewForm />)
+    const { container } = render(<SubmitProjectForm />)
     expect(container.firstChild).toMatchSnapshot()
   })
 })

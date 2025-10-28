@@ -1,5 +1,17 @@
 import { test, expect } from '@playwright/test'
 
+interface SubmitProjectFormData {
+  projectSoftware: string
+  projectType: string
+  projectName: string
+  description: string
+  singleProject?: string
+  codeBlockOne?: string
+  codeBlockTwo?: string
+  audioUpload?: string
+  youtubeLink?: string
+}
+
 test.describe.serial('Submit Project Form', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to the page and ensure it's fully loaded
@@ -119,7 +131,7 @@ test.describe.serial('Submit Project Form', () => {
     page.on('dialog', async (dialog) => {
       expect(dialog.type()).toBe('alert')
       const message = dialog.message()
-      const data = JSON.parse(message)
+      const data = JSON.parse(message) as SubmitProjectFormData
 
       // Verify submitted data
       expect(data.projectSoftware).toBe('Tidal Cycles')
@@ -146,7 +158,7 @@ test.describe.serial('Submit Project Form', () => {
     page.on('dialog', async (dialog) => {
       expect(dialog.type()).toBe('alert')
       const message = dialog.message()
-      const data = JSON.parse(message)
+      const data = JSON.parse(message) as SubmitProjectFormData
 
       // Verify submitted data
       expect(data.projectSoftware).toBe('Strudel')

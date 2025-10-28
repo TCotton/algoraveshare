@@ -338,12 +338,24 @@ import 'modern-normalize/modern-normalize.css';
                 input {
                     width: 50ch;
                 }
+                .error {
+                    margin-top: 0.5lh;
+                }
             }
+
             .field-registration-password-one {
                 label > span {
                     color: var(--lavender);
                 }
             }
+        }
+
+        *:focus {
+            outline: none;
+        }
+
+        button:focus-visible, a:focus-visible, input:focus-visible {
+            outline: 5px solid oklch(60% 0.15 252);
         }
 
         .error {
@@ -359,7 +371,7 @@ import 'modern-normalize/modern-normalize.css';
 
             label {
                 display: block;
-                margin-bottom: 1lh;
+                margin-bottom: 0.5lh;
                 color: var(--yellow);
             }
 

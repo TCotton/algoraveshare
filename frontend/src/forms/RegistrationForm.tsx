@@ -1,23 +1,22 @@
 import React from 'react'
 import * as Ariakit from '@ariakit/react'
 import isEmail from 'validator/lib/isEmail'
-import { Redacted, Equivalence, Either, Schema } from 'effect'
+import { Redacted, Equivalence } from 'effect'
 import isStrongPassword from 'validator/lib/isStrongPassword'
 import FormInput from './FormInput'
-import UserSchema from '../schema/usersSchema.schema.ts'
 
-// interface FormValues {
-//   name: string
-//   email: string
-//   passwordOne: string
-//   passwordTwo: string
-//   portfolioUrl: string
-//   location: string
-//   mastodonUrl: string
-//   blueskyUrl: string
-//   linkedinUrl: string
-//   youtubeLink: string
-// }
+interface FormValues {
+  name: string
+  email: string
+  passwordOne: string
+  passwordTwo: string
+  portfolioUrl: string
+  location: string
+  mastodonUrl: string
+  blueskyUrl: string
+  linkedinUrl: string
+  youtubeLink: string
+}
 
 export default function RegistrationForm() {
   const form = Ariakit.useFormStore({
@@ -35,22 +34,8 @@ export default function RegistrationForm() {
     },
   })
 
-  // interface User extends Schema.Schema.Type<typeof UserSchema> {}
-
-  form.useSubmit((state: { values: User }) => {
+  form.useSubmit((state: { values: FormValues }) => {
     const { values } = state
-
-    // const decode = Schema.decodeUnknownSync(UserSchema)
-    const result = Schema.decodeUnknownEither(UserSchema, { errors: 'all' })(values)
-
-    if (Either.isRight(result)) {
-      console.log(result.right)
-    }
-    else {
-      console.error(result.left.message)
-    }
-
-    // console.info(values)
 
     let hasError = false
 
@@ -69,7 +54,7 @@ export default function RegistrationForm() {
 
     // Validate email
     if (!values.email || values.email.trim() === '') {
-      form.setError('email', 'Please enter your email')
+      form.setError('email', 'Please enter a valid email address')
       hasError = true
     }
     else if (!isEmail(values.email)) {
@@ -93,6 +78,7 @@ export default function RegistrationForm() {
       hasError = true
     }
     else if (!isStrongPassword(values.passwordOne)) {
+      console.log('not strong password')
       form.setError('passwordOne', 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character')
       hasError = true
     }
@@ -113,9 +99,71 @@ export default function RegistrationForm() {
       form.setError('passwordTwo', '')
     }
 
+    // Validate correct URL for portfolioUrl
+    if (values.portfolioUrl) {
+      const portfolioUrl = String(values.portfolioUrl ?? '').trim()
+      if (!URL.canParse(portfolioUrl)) {
+        form.setError('portfolioUrl', 'Are you sure the URL is correct?')
+        hasError = true
+      }
+      else {
+        form.setError('portfolioUrl', '')
+      }
+    }
+
+    // Validate correct URL for youtubeLink
+    if (values.youtubeLink) {
+      const youtubeLink = String(values.youtubeLink ?? '').trim()
+      if (!URL.canParse(youtubeLink)) {
+        form.setError('youtubeLink', 'Are you sure the URL is correct?')
+        hasError = true
+      }
+      else {
+        form.setError('youtubeLink', '')
+      }
+    }
+
+    // Validate correct URL for mastodonUrl
+    if (values.mastodonUrl) {
+      const mastodonUrl = String(values.mastodonUrl ?? '').trim()
+      if (!URL.canParse(mastodonUrl)) {
+        form.setError('mastodonUrl', 'Are you sure the URL is correct?')
+        hasError = true
+      }
+      else {
+        form.setError('mastodonUrl', '')
+      }
+    }
+
+    // Validate correct URL for blueskyUrl
+    if (values.blueskyUrl) {
+      const blueskyUrl = String(values.blueskyUrl ?? '').trim()
+      if (!URL.canParse(blueskyUrl)) {
+        form.setError('blueskyUrl', 'Are you sure the URL is correct?')
+        hasError = true
+      }
+      else {
+        form.setError('blueskyUrl', '')
+      }
+    }
+
+    // Validate correct URL for linkedinUrl
+    if (values.linkedinUrl) {
+      const linkedinUrl = String(values.linkedinUrl ?? '').trim()
+      if (!URL.canParse(linkedinUrl)) {
+        form.setError('linkedinUrl', 'Are you sure the URL is correct?')
+        hasError = true
+      }
+      else {
+        form.setError('linkedinUrl', '')
+      }
+    }
+
     if (hasError) {
       return
     }
+
+    alert(JSON.stringify(values))
   })
   const nameValue = form.useValue('name')
   const emailValue = form.useValue('email')
@@ -144,7 +192,7 @@ export default function RegistrationForm() {
           placeholder="Your name"
           className="input"
           size-="large"
-          data-test-id="name"
+          data-testid="name"
           autoComplete="on"
         />
         <Ariakit.FormError name={form.names.name} className="error" />
@@ -159,7 +207,7 @@ export default function RegistrationForm() {
           placeholder="Email address"
           className="input"
           size-="large"
-          data-test-id="email"
+          data-testid="email"
           autoComplete="on"
         />
         <Ariakit.FormError name={form.names.email} className="error" />
@@ -177,11 +225,11 @@ export default function RegistrationForm() {
           placeholder="Example of passwords: +r)47S+n@B, GEa8^n%qxsg*, W7r9!FAT"
           className="input"
           size-="large"
-          data-test-id="passwordOne"
+          data-testid="passwordOne"
           autoComplete="new-password"
           title="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character."
         />
-        <Ariakit.FormError name={form.names.passwordTwo} className="error" />
+        <Ariakit.FormError name={form.names.passwordOne} className="error" />
       </div>
       <div className="field field-registration-password-two">
         <Ariakit.FormLabel name={form.names.passwordTwo}>
@@ -195,7 +243,7 @@ export default function RegistrationForm() {
           placeholder="Must match the first password"
           className="input"
           size-="large"
-          data-test-id="passwordTwo"
+          data-testid="passwordTwo"
           autoComplete="new-password"
         />
         <Ariakit.FormError name={form.names.passwordTwo} className="error" />
@@ -206,13 +254,13 @@ export default function RegistrationForm() {
         </Ariakit.FormLabel>
         <FormInput
           value={location}
-          onChange={event => form.setValue('passwordTwo', event.target.value)}
+          onChange={event => form.setValue('location', event.target.value)}
           type="text"
           name={form.names.location}
           placeholder="Add your town, city or country"
           className="input"
           size-="large"
-          data-test-id="location"
+          data-testid="location"
           autoComplete="on"
           autoCapitalize="on"
         />
@@ -226,11 +274,12 @@ export default function RegistrationForm() {
           value={portfolioUrl}
           onChange={event => form.setValue('portfolioUrl', event.target.value)}
           type="url"
-          name={form.names.location}
+          name={form.names.portfolioUrl}
           placeholder="Add a link to you portfolio"
           className="input"
           size-="large"
-          data-test-id="portfolioUrl"
+          data-testid="portfolioUrl"
+          autoCapitalize="off"
         />
         <Ariakit.FormError name={form.names.portfolioUrl} className="error" />
       </div>
@@ -246,7 +295,8 @@ export default function RegistrationForm() {
           placeholder="Add a link to your YouTube channel"
           className="input"
           size-="large"
-          data-test-id="youtubeLink"
+          data-testid="youtubeLink"
+          autoCapitalize="off"
         />
         <Ariakit.FormError name={form.names.youtubeLink} className="error" />
       </div>
@@ -262,7 +312,8 @@ export default function RegistrationForm() {
           placeholder="Add a link to your Mastodon account"
           className="input"
           size-="large"
-          data-test-id="mastodonUrl"
+          data-testid="mastodonUrl"
+          autoCapitalize="off"
         />
         <Ariakit.FormError name={form.names.mastodonUrl} className="error" />
       </div>
@@ -278,7 +329,8 @@ export default function RegistrationForm() {
           placeholder="Add a link to your Bluesky account"
           className="input"
           size-="large"
-          data-test-id="blueskyUrl"
+          data-testid="blueskyUrl"
+          autoCapitalize="off"
         />
         <Ariakit.FormError name={form.names.blueskyUrl} className="error" />
       </div>
@@ -291,10 +343,11 @@ export default function RegistrationForm() {
           onChange={event => form.setValue('linkedinUrl', event.target.value)}
           type="url"
           name={form.names.linkedinUrl}
-          placeholder="AAdd a link to your LinkedIn account"
+          placeholder="Add a link to your LinkedIn account"
           className="input"
           size-="large"
-          data-test-id="linkedinUrl"
+          data-testid="linkedinUrl"
+          autoCapitalize="off"
         />
         <Ariakit.FormError name={form.names.linkedinUrl} className="error" />
       </div>

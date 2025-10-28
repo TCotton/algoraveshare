@@ -15,7 +15,7 @@ interface FormInputProps {
   'placeholder'?: string
   'className'?: string
   'size-'?: string
-  'data-test-id'?: string
+  'data-testid'?: string
   'autoComplete'?: string
   'autoCapitalize'?: string
   'required'?: boolean
@@ -32,7 +32,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
       placeholder,
       className = 'input',
       'size-': sizeAttr,
-      'data-test-id': dataTestId,
+      'data-testid': dataTestId,
       autoComplete = 'off',
       autoCapitalize = 'none',
       required = false,
@@ -50,7 +50,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
         placeholder={placeholder}
         className={className}
         size-={sizeAttr}
-        data-test-id={dataTestId}
+        data-testid={dataTestId}
         autoComplete={autoComplete}
         autoCapitalize={autoCapitalize}
         required={required}

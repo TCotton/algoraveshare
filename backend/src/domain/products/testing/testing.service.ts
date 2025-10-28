@@ -24,7 +24,7 @@ const schemaBodyJson = <A, I, R>(schema: Schema.Schema<A, I, R>) => (response: H
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const program = Effect.gen(function*() {
   const httpClient = yield* HttpClient.HttpClient
-  return yield* httpClient.get(process.env.MOCK_DUMMMY_DATA as string).pipe(
+  return yield* httpClient.get(process.env.MOCK_DUMMY_DATA as string).pipe(
     Effect.flatMap(schemaBodyJson(Projects)),
     Effect.catchTags({
       RequestError: () => Effect.fail('Request failed')

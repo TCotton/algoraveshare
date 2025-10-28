@@ -8,7 +8,7 @@ const UserSchema = Schema.Struct({
     }),
   ),
   email: Schema.Trim.pipe(
-    Schema.filter(x => !isEmail(x) ? 'The email is not valid' : undefined),
+    Schema.filter(x => isEmail(x) ? undefined : 'The email is not valid'),
   ),
   passwordOne: Schema.Trim.pipe(
     Schema.minLength(8, {

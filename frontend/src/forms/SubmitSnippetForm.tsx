@@ -209,7 +209,7 @@ export default function SubmitSnippetForm() {
       {(currentProjectSoftware === strudel || currentProjectSoftware === tidal) && (
         <div className="field form-textarea">
           <Ariakit.FormLabel name={form.names.description}>
-            Code block
+            Description
           </Ariakit.FormLabel>
           <div className="description-text">
             <p>When writing your description, consider addressing some of the following questions:</p>
@@ -242,7 +242,7 @@ export default function SubmitSnippetForm() {
           value={audioUploadValue}
           onChange={audioFileValidation}
           type="file"
-          name={form.names.snippetName}
+          name={form.names.audioUpload}
           placeholder="Audio file"
           className="input-audio-file"
           size-="large"

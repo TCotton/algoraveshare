@@ -2,6 +2,7 @@ import js from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import pluginReact from 'eslint-plugin-react';
+import pluginReactHooks from 'eslint-plugin-react-hooks';
 import {defineConfig, globalIgnores} from 'eslint/config';
 import stylistic from '@stylistic/eslint-plugin';
 
@@ -29,6 +30,15 @@ export default defineConfig([
         },
         rules: {
             'react/no-unknown-property': 'warn'
+        }
+    },
+    {
+        plugins: {
+            'react-hooks': pluginReactHooks as any
+        },
+        rules: {
+            'react-hooks/rules-of-hooks': 'error',
+            'react-hooks/exhaustive-deps': 'warn'
         }
     },
     stylistic.configs.customize({

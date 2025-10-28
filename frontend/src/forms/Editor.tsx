@@ -18,6 +18,7 @@ export default function Editor(props: { form: FormStore }) {
   }
 
   // Creates a new editor instance.
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const editor = useCreateBlockNote({
     schema: BlockNoteSchema.create().extend({
       blockSpecs: {

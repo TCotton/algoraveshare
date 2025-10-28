@@ -33,6 +33,15 @@ export default function SignInForm() {
       form.setError('email', '')
     }
 
+    // Validate passwordOne
+    if (!values.passwordOne || values.passwordOne.trim() === '') {
+      form.setError('passwordOne', 'Please enter a password')
+      hasError = true
+    }
+    else {
+      form.setError('passwordOne', '')
+    }
+
     if (hasError) {
       return
     }
@@ -41,6 +50,7 @@ export default function SignInForm() {
   })
   const emailValue = form.useValue('email')
   const passwordOneValue = form.useValue('passwordOne')
+
   return (
     <Ariakit.Form
       store={form}

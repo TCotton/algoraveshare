@@ -11,13 +11,28 @@ console.log('Reading config file', configPath)
 try {
   // Use dynamic import via ts-node/register is not available here; we attempt to parse as text
   const text = fs.readFileSync(configPath, 'utf8')
-  // simple regex to extract schema path - not robust but helpful for local checks
-  const m = text.match(/schema:\s*"([^"]+)"/)
-  if (!m) {
+  
+  // Try to extract schema path - support both string literals and path.resolve patterns
+  let schemaRel
+  
+  // Pattern 1: schema: "path/to/schema.ts"
+  let m = text.match(/schema:\s*["']([^"']+)["']/)
+  if (m) {
+    schemaRel = m[1]
+  } else {
+    // Pattern 2: schema: path.resolve(__dirname, 'schema.ts')
+    m = text.match(/schema:\s*path\.resolve\(__dirname,\s*["']([^"']+)["']\)/)
+    if (m) {
+      schemaRel = m[1]
+    }
+  }
+  
+  if (!schemaRel) {
     console.error('Could not find schema entry in config')
+    console.error('Expected pattern: schema: "path" or schema: path.resolve(__dirname, "path")')
     process.exit(2)
   }
-  const schemaRel = m[1]
+  
   const schemaPath = path.resolve(path.dirname(configPath), schemaRel)
   console.log('Resolved schema path:', schemaPath)
   if (!fs.existsSync(schemaPath)) {

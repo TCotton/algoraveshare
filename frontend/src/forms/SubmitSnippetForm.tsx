@@ -171,7 +171,6 @@ export default function SubmitSnippetForm() {
           size-="large"
           data-testid="name"
           autoComplete="on"
-          required
         />
         <Ariakit.FormError name={form.names.snippetName} className="error" />
       </div>
@@ -190,20 +189,20 @@ export default function SubmitSnippetForm() {
         />
         <Ariakit.FormError name={form.names.projectSoftware} className="error" />
       </div>
-      <div className="field form-textarea">
+      <div className="field form-textarea form-codeblock">
         <Ariakit.FormLabel name={form.names.codeBlock}>
           Code block
         </Ariakit.FormLabel>
         <FormTextarea
           name={String(form.names.codeBlock)}
-          value={descriptionValue}
+          value={codeBlockValue}
           onChange={e => form.setValue('codeBlock', e.target.value)}
           placeholder="Add code here..."
           className="form-codeblock"
           autoCapitalize="none"
           autoCorrect="off"
+          data-testid="codeBlock"
           rows={4}
-          required
         />
         <Ariakit.FormError name={form.names.codeBlock} className="error" />
       </div>
@@ -220,14 +219,14 @@ export default function SubmitSnippetForm() {
           </div>
           <FormTextarea
             name={String(form.names.description)}
-            value={codeBlockValue}
+            value={descriptionValue}
             onChange={e => form.setValue('description', e.target.value)}
             placeholder="Add description here..."
             className="form-description"
             autoCapitalize="none"
             autoCorrect="off"
+            data-testid="description"
             rows={4}
-            required
           />
           <Ariakit.FormError name={form.names.description} className="error" />
         </div>

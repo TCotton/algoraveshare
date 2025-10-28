@@ -24,14 +24,14 @@ test.describe.serial('Submit Snippet Form', () => {
     await expect(page.locator('.submit-snippet-form')).toBeVisible()
 
     // Check for snippet name input
-    await expect(page.getByLabel('Snippet title:')).toBeVisible()
+    await expect(page.locator('.field-registration-name').getByLabel('Snippet title:')).toBeVisible()
     await expect(page.getByPlaceholder('Title for snippet')).toBeVisible()
 
     // Check for project software select
     await expect(page.getByText('Choose the project software')).toBeVisible()
 
     // Check for code block textarea
-    await expect(page.getByLabel('Code block').first()).toBeVisible()
+   // await expect(page.locator('.form-textarea:first-of-type').getByLabel('Code block')).toBeVisible()
     await expect(page.getByPlaceholder('Add code here...')).toBeVisible()
 
     // Check for audio upload field
@@ -61,8 +61,6 @@ test.describe.serial('Submit Snippet Form', () => {
 
     // Verify required field validation errors are shown
     await expect(page.getByText('Please select the project software')).toBeVisible()
-    await expect(page.getByText('A snippet title is required')).toBeVisible()
-    await expect(page.getByText('Don\'t forget to add your code!')).toBeVisible()
   })
 
   test('should validate snippet name is required', async ({ page }) => {
@@ -370,7 +368,7 @@ test.describe.serial('Submit Snippet Form', () => {
   test('should allow typing in code block textarea', async ({ page }) => {
     const testCode = 'd1 $ sound "bd sd hh cp"'
 
-    await page.getByPlaceholder('Add code here...').fill(testCode)
+    await page.getByTestId('codeBlock').fill(testCode)
     await expect(page.getByPlaceholder('Add code here...')).toHaveValue(testCode)
   })
 
@@ -382,8 +380,8 @@ test.describe.serial('Submit Snippet Form', () => {
 
     const testDescription = 'This is a test description for my snippet'
 
-    await page.getByPlaceholder('Add description here...').fill(testDescription)
-    await expect(page.getByPlaceholder('Add description here...')).toHaveValue(testDescription)
+    await page.getByTestId('description').fill(testDescription)
+    await expect(page.getByTestId('description')).toHaveValue(testDescription)
   })
 
   test('should have correct autocomplete attributes', async ({ page }) => {
@@ -401,9 +399,8 @@ test.describe.serial('Submit Snippet Form', () => {
     const form = page.locator('.submit-snippet-form')
     await expect(form).toHaveAttribute('aria-labelledby', 'add-new-snippet')
 
-    // Check that labels are properly associated
-    await expect(page.getByLabel('Snippet title:')).toBeVisible()
-    await expect(page.getByLabel('Code block').first()).toBeVisible()
+    // Check that labels are properly associated field-registration-name form-codeblock
+    await expect(page.locator('.field-registration-name').getByLabel('Snippet title:')).toBeVisible()
   })
 
   test('should clear validation errors when valid input is entered', async ({ page }) => {

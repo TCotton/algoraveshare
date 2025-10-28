@@ -31,7 +31,7 @@ test.describe.serial('Submit Snippet Form', () => {
     await expect(page.getByText('Choose the project software')).toBeVisible()
 
     // Check for code block textarea
-   // await expect(page.locator('.form-textarea:first-of-type').getByLabel('Code block')).toBeVisible()
+    // await expect(page.locator('.form-textarea:first-of-type').getByLabel('Code block')).toBeVisible()
     await expect(page.getByPlaceholder('Add code here...')).toBeVisible()
 
     // Check for audio upload field

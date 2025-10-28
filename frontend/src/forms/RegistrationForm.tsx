@@ -1,22 +1,23 @@
 import React from 'react'
 import * as Ariakit from '@ariakit/react'
 import isEmail from 'validator/lib/isEmail'
-import { Redacted, Equivalence } from 'effect'
+import { Redacted, Equivalence, Either, Schema } from 'effect'
 import isStrongPassword from 'validator/lib/isStrongPassword'
 import FormInput from './FormInput'
+import UserSchema from '../schema/usersSchema.schema.ts'
 
-interface FormValues {
-  name: string
-  email: string
-  passwordOne: string
-  passwordTwo: string
-  portfolioUrl: string
-  location: string
-  mastodonUrl: string
-  blueskyUrl: string
-  linkedinUrl: string
-  youtubeLink: string
-}
+// interface FormValues {
+//   name: string
+//   email: string
+//   passwordOne: string
+//   passwordTwo: string
+//   portfolioUrl: string
+//   location: string
+//   mastodonUrl: string
+//   blueskyUrl: string
+//   linkedinUrl: string
+//   youtubeLink: string
+// }
 
 export default function RegistrationForm() {
   const form = Ariakit.useFormStore({
@@ -33,9 +34,23 @@ export default function RegistrationForm() {
       youtubeLink: '',
     },
   })
-  form.useSubmit((state: { values: FormValues }) => {
+
+  // interface User extends Schema.Schema.Type<typeof UserSchema> {}
+
+  form.useSubmit((state: { values: User }) => {
     const { values } = state
-    console.info(values)
+
+    // const decode = Schema.decodeUnknownSync(UserSchema)
+    const result = Schema.decodeUnknownEither(UserSchema, { errors: 'all' })(values)
+
+    if (Either.isRight(result)) {
+      console.log(result.right)
+    }
+    else {
+      console.error(result.left.message)
+    }
+
+    // console.info(values)
 
     let hasError = false
 

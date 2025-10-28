@@ -1,4 +1,6 @@
-const UserSchema = Schema.struct({
+import { Schema } from 'effect'
+
+const UserSchema = Schema.Struct({
   name: Schema.NonEmptyString,
   email: Schema.NonEmptyString,
   passwordOne: Schema.Trim.pipe(
@@ -15,10 +17,11 @@ const UserSchema = Schema.struct({
     Schema.pattern(/[!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\;]/),
     Schema.Redacted,
   ),
-  location: Schema.optional(Schema.string),
-  portfolioUrl: Schema.optional(Schema.string),
-  mastodonUrl: Schema.optional(Schema.string),
-  blueskyUrl: Schema.optional(Schema.string),
-  linkedinUrl: Schema.optional(Schema.string),
-  youtubeLink: Schema.optional(Schema.string),
+  location: Schema.optional(Schema.String),
+  portfolioUrl: Schema.optional(Schema.String),
+  mastodonUrl: Schema.optional(Schema.String),
+  blueskyUrl: Schema.optional(Schema.String),
+  linkedinUrl: Schema.optional(Schema.String),
+  youtubeLink: Schema.optional(Schema.String),
 })
+export default UserSchema

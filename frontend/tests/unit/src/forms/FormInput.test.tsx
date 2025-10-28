@@ -42,7 +42,7 @@ describe('FormInput', () => {
         placeholder="Enter email"
         className="custom-input"
         size-="medium"
-        data-test-id="email-input"
+        data-testid="email-input"
         autoComplete="email"
         autoCapitalize="off"
         required={true}
@@ -53,7 +53,7 @@ describe('FormInput', () => {
     expect(input).toBeInTheDocument()
     expect(input).toHaveClass('custom-input')
     expect(input).toHaveAttribute('type', 'email')
-    expect(input).toHaveAttribute('data-test-id', 'email-input')
+    expect(input).toHaveAttribute('data-testid', 'email-input')
     expect(input).toHaveAttribute('autocomplete', 'email')
     expect(input).toHaveAttribute('autocapitalize', 'off')
     expect(input).toBeRequired()
@@ -92,19 +92,19 @@ describe('FormInput', () => {
     expect(mockOnChange).toHaveBeenCalled()
   })
 
-  it('renders with data-test-id for testing purposes', () => {
+  it('renders with data-testid for testing purposes', () => {
     render(
       <FormInput
         name={mockName}
         value="test"
         onChange={mockOnChange}
-        data-test-id="my-input"
+        data-testid="my-input"
       />,
     )
 
     const input = screen.getByDisplayValue('test')
     expect(input).toBeInTheDocument()
-    expect(input).toHaveAttribute('data-test-id', 'my-input')
+    expect(input).toHaveAttribute('data-testid', 'my-input')
   })
 
   it('handles different input types', () => {

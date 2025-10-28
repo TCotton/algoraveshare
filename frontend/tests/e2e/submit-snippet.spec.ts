@@ -22,24 +22,24 @@ test.describe.serial('Submit Snippet Form', () => {
   test('should display the form with all initial elements', async ({ page }) => {
     // Check that the form exists
     await expect(page.locator('.submit-snippet-form')).toBeVisible()
-    
+
     // Check for snippet name input
     await expect(page.getByLabel('Snippet title:')).toBeVisible()
     await expect(page.getByPlaceholder('Title for snippet')).toBeVisible()
-    
+
     // Check for project software select
     await expect(page.getByText('Choose the project software')).toBeVisible()
-    
+
     // Check for code block textarea
     await expect(page.getByLabel('Code block').first()).toBeVisible()
     await expect(page.getByPlaceholder('Add code here...')).toBeVisible()
-    
+
     // Check for audio upload field
     await expect(page.getByText(/Audio upload/i)).toBeVisible()
-    
+
     // Check for YouTube link field
     await expect(page.getByLabel('Add a URL of a relevant YouTube video')).toBeVisible()
-    
+
     // Check for submit button
     await expect(page.locator('button.button', { hasText: 'Submit' })).toBeVisible()
   })
@@ -98,7 +98,7 @@ test.describe.serial('Submit Snippet Form', () => {
     // Fill in a name that's too long (> 200 characters)
     const longName = 'a'.repeat(201)
     await page.getByTestId('name').fill(longName)
-    
+
     // Fill in other required fields
     await page.locator('.project-software button.select-trigger').click()
     await page.locator('.project-software .menu-item.strudel').click()
@@ -170,7 +170,7 @@ test.describe.serial('Submit Snippet Form', () => {
 
     // Description field should now be visible
     await expect(descriptionTextarea).toBeVisible()
-    
+
     // Check for Tidal Cycles specific content
     await expect(page.locator('.description-text .tidal-cycles')).toBeVisible()
     await expect(page.locator('.description-text .strudel')).not.toBeVisible()
@@ -190,7 +190,7 @@ test.describe.serial('Submit Snippet Form', () => {
 
     // Description field should now be visible
     await expect(descriptionTextarea).toBeVisible()
-    
+
     // Check for Strudel specific content
     await expect(page.locator('.description-text .tidal-cycles')).not.toBeVisible()
     await expect(page.locator('.description-text .strudel')).toBeVisible()
@@ -255,7 +255,7 @@ test.describe.serial('Submit Snippet Form', () => {
     const description = 'This is a basic drum pattern'
 
     await page.getByTestId('name').fill(snippetName)
-    
+
     // Select Strudel
     await page.locator('.project-software button.select-trigger').click()
     await page.locator('.project-software .menu-item.strudel').click()
@@ -273,7 +273,7 @@ test.describe.serial('Submit Snippet Form', () => {
 
     // Verify the dialog appeared with correct data
     expect(dialogMessage).toBeTruthy()
-    
+
     const data = JSON.parse(dialogMessage) as SubmitSnippetFormData
     expect(data.snippetName).toBe(snippetName)
     expect(data.projectSoftware).toBe('Strudel')
@@ -295,7 +295,7 @@ test.describe.serial('Submit Snippet Form', () => {
     const description = 'Basic Tidal pattern'
 
     await page.getByTestId('name').fill(snippetName)
-    
+
     // Select Tidal Cycles
     await page.locator('.project-software button.select-trigger').click()
     await page.locator('.project-software .menu-item.tidal-cycles').click()
@@ -313,7 +313,7 @@ test.describe.serial('Submit Snippet Form', () => {
 
     // Verify the dialog appeared with correct data
     expect(dialogMessage).toBeTruthy()
-    
+
     const data = JSON.parse(dialogMessage) as SubmitSnippetFormData
     expect(data.snippetName).toBe(snippetName)
     expect(data.projectSoftware).toBe('Tidal Cycles')
@@ -335,7 +335,7 @@ test.describe.serial('Submit Snippet Form', () => {
     const youtubeLink = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 
     await page.getByTestId('name').fill(snippetName)
-    
+
     // Select Strudel (no description required)
     await page.locator('.project-software button.select-trigger').click()
     await page.locator('.project-software .menu-item.strudel').click()
@@ -354,7 +354,7 @@ test.describe.serial('Submit Snippet Form', () => {
 
     // Verify the dialog appeared with correct data
     expect(dialogMessage).toBeTruthy()
-    
+
     const data = JSON.parse(dialogMessage) as SubmitSnippetFormData
     expect(data.snippetName).toBe(snippetName)
     expect(data.youtubeLink).toBe(youtubeLink)
@@ -362,14 +362,14 @@ test.describe.serial('Submit Snippet Form', () => {
 
   test('should allow typing in snippet name field', async ({ page }) => {
     const testName = 'Test Snippet Name'
-    
+
     await page.getByTestId('name').fill(testName)
     await expect(page.getByTestId('name')).toHaveValue(testName)
   })
 
   test('should allow typing in code block textarea', async ({ page }) => {
     const testCode = 'd1 $ sound "bd sd hh cp"'
-    
+
     await page.getByPlaceholder('Add code here...').fill(testCode)
     await expect(page.getByPlaceholder('Add code here...')).toHaveValue(testCode)
   })
@@ -381,7 +381,7 @@ test.describe.serial('Submit Snippet Form', () => {
     await page.waitForTimeout(300)
 
     const testDescription = 'This is a test description for my snippet'
-    
+
     await page.getByPlaceholder('Add description here...').fill(testDescription)
     await expect(page.getByPlaceholder('Add description here...')).toHaveValue(testDescription)
   })
@@ -427,7 +427,7 @@ test.describe.serial('Submit Snippet Form', () => {
     page.on('dialog', async (dialog) => {
       await dialog.accept()
     })
-    
+
     await page.locator('button.button', { hasText: 'Submit' }).click()
     await page.waitForTimeout(500)
 
@@ -452,7 +452,7 @@ test.describe.serial('Submit Snippet Form', () => {
     await page.getByPlaceholder('Add code here...').fill('some code')
 
     // Leave description empty
-    
+
     // Submit the form
     await page.locator('button.button', { hasText: 'Submit' }).click()
     await page.waitForTimeout(500)
@@ -478,7 +478,7 @@ test.describe.serial('Submit Snippet Form', () => {
     await page.getByPlaceholder('Add code here...').fill('some code')
 
     // Leave description empty
-    
+
     // Submit the form
     await page.locator('button.button', { hasText: 'Submit' }).click()
     await page.waitForTimeout(500)

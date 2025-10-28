@@ -9,7 +9,7 @@ type FormTextareaProps = Omit<
   'onChange': (e: React.ChangeEvent<HTMLTextAreaElement>) => void
   'autoCapitalize'?: 'none' | 'sentences' | 'words' | 'characters'
   'autoCorrect'?: 'on' | 'off'
-  'data-test-id'?: string
+  'data-testid'?: string
 }
 
 /**
@@ -42,7 +42,7 @@ const FormTextarea = React.forwardRef<HTMLTextAreaElement, FormTextareaProps>(
       required = false,
       autoCapitalize = 'none',
       autoCorrect = 'off',
-      'data-test-id': dataTestId,
+      'data-testid': dataTestId,
       ...rest
     },
     ref,
@@ -59,7 +59,7 @@ const FormTextarea = React.forwardRef<HTMLTextAreaElement, FormTextareaProps>(
         autoCorrect={autoCorrect}
         rows={rows}
         required={required}
-        data-test-id={dataTestId}
+        data-testid={dataTestId}
         {...rest}
       />
     )

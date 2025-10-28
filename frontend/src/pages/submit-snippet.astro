@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SubmitSnippetForm from "../forms/SubmitSnippetForm.tsx";
+---
+<Layout sectionName="submitSnippet">
+    <header class="submit-snippet-header">
+        <h1>Submit snippet</h1>
+        <p>This is the page to code snippets for either Tidal Cycle or Strudel</p>
+        <div is-="separator" direction-="horizontal"></div>
+        <SubmitSnippetForm client:only="react"/>
+    </header>
+</Layout>

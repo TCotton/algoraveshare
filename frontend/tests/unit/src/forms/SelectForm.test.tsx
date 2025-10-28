@@ -43,13 +43,13 @@ describe('SelectForm', () => {
         label="Test Label"
         items={items.items}
         name="testSelect"
-        data-test-id="my-test-select"
+        data-testid="my-test-select"
       />,
     )
 
-    const selectContainer = container.querySelector('[data-test-id="my-test-select"]')
+    const selectContainer = container.querySelector('[data-testid="my-test-select"]')
     expect(selectContainer).toBeInTheDocument()
-    expect(selectContainer).toHaveAttribute('data-test-id', 'my-test-select')
+    expect(selectContainer).toHaveAttribute('data-testid', 'my-test-select')
   })
 
   it('renders without data-test-id attribute when not provided', () => {
@@ -73,15 +73,15 @@ describe('SelectForm', () => {
         items={items.items}
         name="testSelect"
         selectClass="custom-select"
-        data-test-id="custom-select-testid"
+        data-testid="custom-select-testid"
       />,
     )
 
-    const selectContainer = container.querySelector('[data-test-id="custom-select-testid"]')
+    const selectContainer = container.querySelector('[data-testid="custom-select-testid"]')
     expect(selectContainer).toBeInTheDocument()
     expect(selectContainer).toHaveClass('select-container')
     expect(selectContainer).toHaveClass('custom-select')
-    expect(selectContainer).toHaveAttribute('data-test-id', 'custom-select-testid')
+    expect(selectContainer).toHaveAttribute('data-testid', 'custom-select-testid')
   })
 
   it('matches snapshot', () => {

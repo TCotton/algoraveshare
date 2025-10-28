@@ -66,6 +66,7 @@ CREATE INDEX idx_projects_user_id ON projects (user_id);
 CREATE TABLE snippets
 (
     snippet_id      UUID PRIMARY KEY     DEFAULT gen_random_uuid(),
+    snippet_name    TEXT        NOT NULL CHECK (char_length(snippet_name) BETWEEN 1 AND 200),
     user_id         UUID        NOT NULL REFERENCES users (user_id) ON DELETE CASCADE,
     code_sample     TEXT        NOT NULL CHECK (char_length(code_sample) <= 400),
     description     TEXT        NOT NULL,

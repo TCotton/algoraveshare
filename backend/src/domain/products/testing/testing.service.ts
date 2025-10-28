@@ -21,6 +21,7 @@ const schemaBodyJson = <A, I, R>(schema: Schema.Schema<A, I, R>) => (response: H
     Effect.flatMap(Schema.decodeUnknown(schema))
   )
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const program = Effect.gen(function*() {
   const httpClient = yield* HttpClient.HttpClient
   return yield* httpClient.get(process.env.MOCK_DUMMMY_DATA as string).pipe(

@@ -5,7 +5,13 @@ import react from '@astrojs/react'
 export default defineConfig({
   output: 'server',
   adapter: node({ mode: 'standalone' }),
-  integrations: [react()],
+  integrations: [react({
+    babel: {
+      plugins: [
+        ['babel-plugin-react-compiler'],
+      ],
+    },
+  })],
   vite: {
     ssr: {
       noExternal: [

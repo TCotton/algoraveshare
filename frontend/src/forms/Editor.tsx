@@ -7,11 +7,6 @@ import type { FormStore } from '@ariakit/react'
 import '@blocknote/ariakit/style.css'
 
 export default function Editor(props: { form: FormStore }) {
-  // Only render if window/document is defined (browser)
-  if (typeof window === 'undefined' || typeof document === 'undefined') {
-    return null
-  }
-
   const { form } = props
   if (process.env.NODE_ENV === 'development') {
     console.log(form)
@@ -81,6 +76,10 @@ export default function Editor(props: { form: FormStore }) {
     ],
   })
   // Renders the editor instance using a React component.
+  // Only render if window/document is defined (browser)
+  if (typeof window === 'undefined' || typeof document === 'undefined') {
+    return null
+  }
   return (
     <BlockNoteView
       editor={editor}

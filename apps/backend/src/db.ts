@@ -3,7 +3,7 @@ import { drizzle, type NodePgDatabase, type NodePgQueryResultHKT } from 'drizzle
 import { type PgTransaction } from 'drizzle-orm/pg-core'
 import { Cause, Context, Data, Effect, Exit, Layer, Option, Redacted, Runtime } from 'effect'
 import * as pg from 'pg'
-import * as DbSchema from '../db/configs/schema.js'
+import { DbSchema } from '../db/configs/index.js'
 
 type TransactionClient = PgTransaction<
   NodePgQueryResultHKT,

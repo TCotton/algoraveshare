@@ -1,5 +1,13 @@
 import 'dotenv/config'
-import { HttpApi, HttpApiBuilder, HttpApiEndpoint, HttpApiGroup, HttpMiddleware } from '@effect/platform'
+import {
+  HttpApi,
+  HttpApiBuilder,
+  HttpApiEndpoint,
+  HttpApiGroup,
+  HttpApiSwagger,
+  HttpMiddleware,
+  HttpServer
+} from '@effect/platform'
 import { NodeHttpServer, NodeRuntime } from '@effect/platform-node'
 import { Effect, Layer, Schema } from 'effect'
 import { createServer } from 'node:http'
@@ -33,8 +41,12 @@ const DatabaseLive = Layer.unwrapEffect(
 const MyApiLive = HttpApiBuilder.api(MyApi).pipe(Layer.provide(GreetingsLive))
 // Set up the server using NodeHttpServer on port 3000
 const ServerLive = HttpApiBuilder.serve(HttpMiddleware.logger).pipe(
+  Layer.provide(HttpApiBuilder.middlewareCors()),
+  Layer.provide(HttpApiSwagger.layer()),
+  Layer.provide(HttpApiBuilder.middlewareOpenApi()),
   Layer.provide(MyApiLive),
   Layer.provide(DatabaseLive),
+  HttpServer.withLogAddress,
   Layer.provide(NodeHttpServer.layer(createServer, { port: 3000 }))
 )
 // Launch the server

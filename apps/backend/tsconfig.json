@@ -1,7 +1,9 @@
 {
   "extends": "./tsconfig.base.json",
   "include": ["src/**/*", "scripts/**/*", "db/**/*"],
-  "exclude": ["build/**/*", "dist/**/*", "node_modules/**/*", "src/domain/products/testing/testing.service.ts"],
+  "exclude": ["build/**/*", "dist/**/*", "node_modules/**/*",
+    "src/domain/projects/testing/testing.service.ts"
+  ],
   "compilerOptions": {
     "composite": false,
     "outDir": "dist",

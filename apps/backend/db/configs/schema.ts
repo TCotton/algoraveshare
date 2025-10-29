@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm'
-import { jsonb, pgTable, primaryKey, serial, text, timestamp, uuid } from 'drizzle-orm/pg-core'
+import { index, jsonb, pgTable, primaryKey, serial, text, timestamp, uuid } from 'drizzle-orm/pg-core'
 
 // ====================================================
 // Enums (for CHECK constraints)
@@ -13,7 +13,7 @@ export const entityTypes = ['project', 'snippet'] as const
 // ====================================================
 export const users = pgTable('users', {
   userId: uuid('user_id').primaryKey().default(sql`gen_random_uuid()`),
-  name: text('name').notNull(),
+  name: text('name').notNull().unique(),
   email: text('email').notNull().unique(), // drizzle doesn't support citext natively, use lowercase/indexing in app
   passwordHash: text('password_hash').notNull(),
   location: text('location'),
@@ -44,7 +44,9 @@ export const projects = pgTable('projects', {
   youtubeUrlId: text('youtube_url_id'),
   softwareType: text('software_type', { enum: softwareTypes }).notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow()
-})
+}, (table) => ({
+  userIdIdx: index('idx_projects_user_id').on(table.userId)
+}))
 
 // ====================================================
 // Snippets
@@ -59,9 +61,12 @@ export const snippets = pgTable('snippets', {
   description: text('description').notNull(),
   audioFilePath: text('audio_file_path'),
   audioFileType: text('audio_file_type', { enum: audioFileTypes }),
+  audioData: jsonb('audio_data'),
   softwareType: text('software_type', { enum: softwareTypes }).notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow()
-})
+}, (table) => ({
+  userIdIdx: index('idx_snippets_user_id').on(table.userId)
+}))
 
 // ====================================================
 // Tags
@@ -82,5 +87,7 @@ export const tagAssignments = pgTable('tag_assignments', {
   entityId: uuid('entity_id').notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow()
 }, (table) => ({
-  pk: primaryKey({ columns: [table.tagId, table.entityType, table.entityId] })
+  pk: primaryKey({ columns: [table.tagId, table.entityType, table.entityId] }),
+  entityIdIdx: index('idx_tag_assignments_entity_id').on(table.entityId),
+  entityTypeIdx: index('idx_tag_assignments_entity_type').on(table.entityType)
 }))

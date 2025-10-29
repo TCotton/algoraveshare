@@ -41,9 +41,9 @@ const DatabaseLive = Layer.unwrapEffect(
 const MyApiLive = HttpApiBuilder.api(MyApi).pipe(Layer.provide(GreetingsLive))
 // Set up the server using NodeHttpServer on port 3000
 const ServerLive = HttpApiBuilder.serve(HttpMiddleware.logger).pipe(
+  Layer.provide(HttpApiBuilder.middlewareCors()),
   Layer.provide(HttpApiSwagger.layer()),
   Layer.provide(HttpApiBuilder.middlewareOpenApi()),
-  Layer.provide(HttpApiBuilder.middlewareCors()),
   Layer.provide(MyApiLive),
   Layer.provide(DatabaseLive),
   HttpServer.withLogAddress,

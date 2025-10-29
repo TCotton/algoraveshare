@@ -287,7 +287,7 @@ export class InternalServerError extends Schema.TaggedError<InternalServerError>
   },
   HttpApiSchema.annotations({
     status: 500,
-    description: 'The server has encountered a situation it doesn\'t know how to handle'
+    description: 'The server has encountered a situation it does not know how to handle'
   })
 ) {}
 

@@ -5,29 +5,15 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1759337245602,
+      "when": 1761687318613,
       "tag": "0000_all-tables",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1759338759707,
+      "when": 1761687505411,
       "tag": "0001_all-tables",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1759338940071,
-      "tag": "0002_all-tables",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1759340105710,
-      "tag": "0003_all-tables",
       "breakpoints": true
     }
   ]

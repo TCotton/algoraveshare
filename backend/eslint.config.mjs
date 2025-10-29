@@ -115,13 +115,13 @@ export default [
           indentWidth: 2,
           lineWidth: 120,
           semiColons: "asi",
-          quoteStyle: "alwaysDouble",
+          quoteStyle: "alwaysSingle",
           trailingCommas: "never",
           operatorPosition: "maintain",
           "arrowFunction.useParentheses": "force"
         }
       }],
-      "@stylistic/quotes": ["error", "double"],
+      "@stylistic/quotes": ["error", "single"],
       "@stylistic/semi": ["error", "never"]
     }
   }

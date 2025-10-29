@@ -1,0 +1,25 @@
+{
+  "name": "schema",
+  "version": "1.0.0",
+  "description": "schema used in both frontend and backend",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint . --config ./eslint.config.ts --ext .js,.ts,.jsx,.tsx "
+  },
+  "dependencies": {
+    "effect": "^3.18.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.38.0",
+    "@stylistic/eslint-plugin": "^5.5.0",
+    "eslint": "^9.38.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "globals": "^16.4.0",
+    "jiti": "^2.6.1",
+    "typescript-eslint": "^8.46.2"
+  }
+}

@@ -6,17 +6,23 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node dist/server.js",
-    "dev": "ts-node-esm src/server.ts",
-    "test": "vitest",
+    "start:effect": "tsx src/effect-server.ts",
+    "dev": "tsx src/server.ts",
+    "dev:effect": "tsx src/effect-server.ts",
+    "test:unit": "vitest run",
     "typecheck": "tsc --noEmit -p tsconfig.src.json",
     "lint": "eslint --config ./eslint.config.mjs --ext .js,.mjs,.cjs,.ts,.mts,.cts src/ scripts/ db/",
     "lint:fix": "eslint --config ./eslint.config.mjs --fix --ext .js,.mjs,.cjs,.ts,.mts,.cts src/ scripts/ db/",
     "migration:generate": "npm run build && drizzle-kit generate --config=./db/configs/drizzle.config.ts --name=all-tables --custom",
     "migration:check": "node ./scripts/check-drizzle-schema.mjs",
     "migration:push": "node -r esbuild-register ./db/migrate.ts",
+    "db:push": "drizzle-kit push --config=./db/configs/drizzle.config.ts",
+    "db:studio": "drizzle-kit studio --config=./db/configs/drizzle.config.ts",
+    "db:seed": "node ./scripts/seed-database.mjs",
     "db:check": "node ./scripts/check-db-connection.mjs",
     "check:tests": "node -e \"const {execSync}=require('child_process');let f='';try{f=execSync('git diff --name-only --cached').toString().trim();}catch(e){} if(!f)f=execSync('git --no-pager diff --name-only HEAD~1 HEAD').toString().trim(); if(!f)console.log('No changed files found'); process.env.CHANGED_FILES=f; require('../.github/actions/check-tests/index.js');\"",
-    "lint:openapi": "spectral lint openapi/openapi.yaml --ruleset .spectral.yml || true"
+    "lint:openapi": "spectral lint openapi/openapi.yaml --ruleset .spectral.yml || true",
+    "prepare": "husky install && bash -c 'chmod ug+x .husky/*'"
   },
   "dependencies": {
     "@effect/data": "^0.18.7",
@@ -41,7 +47,7 @@
     "@eslint/js": "^9.37.0",
     "@stoplight/spectral-cli": "^6.8.0",
     "@stylistic/eslint-plugin": "^5.4.0",
-    "@types/pg": "^8.15.5",
+    "@types/pg": "^8.15.6",
     "@typescript-eslint/eslint-plugin": "^8.46.1",
     "@typescript-eslint/parser": "^8.46.1",
     "dotenv": "^17.2.3",
@@ -52,8 +58,10 @@
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-sort-destructure-keys": "^2.0.0",
     "globals": "^16.4.0",
+    "husky": "^9.1.7",
     "openapi-typescript": "^7.9.1",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
     "typescript": "^5.0.0",
     "vitest": "^3.2.4"
   }

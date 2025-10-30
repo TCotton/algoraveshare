@@ -1,5 +1,5 @@
 import { Schema } from 'effect'
-import isEmail from 'validator/lib/isEmail'
+import { isEmail } from 'validator'
 
 const UserSchema = Schema.Struct({
   name: Schema.Trim.pipe(

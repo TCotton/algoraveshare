@@ -1,7 +1,9 @@
 #!/usr/bin/env sh
 set -e
 
-cd frontend
+# Navigate to repository root
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT/apps/frontend"
 npm run lint:fix
 npm run test:unit
 npm run test:playwright:headless

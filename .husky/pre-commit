@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+set -e
+
+# Navigate to repository root
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+
+echo "Running pre-commit hooks..."
+
+# Run backend pre-commit
+echo "→ Running backend checks..."
+cd "$REPO_ROOT/apps/backend"
+npm run lint:fix
+
+# Run frontend pre-commit
+echo "→ Running frontend checks..."
+cd "$REPO_ROOT/apps/frontend"
+npm run lint:fix
+
+echo "✓ Pre-commit checks passed"

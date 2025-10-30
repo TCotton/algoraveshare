@@ -147,6 +147,9 @@ importers:
       '@blocknote/ariakit':
         specifier: ^0.41.1
         version: 0.41.1(@floating-ui/dom@1.7.4)(@tiptap/extensions@3.9.1(@tiptap/core@3.9.1(@tiptap/pm@3.9.1))(@tiptap/pm@3.9.1))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@blocknote/core':
+        specifier: ^0.41.1
+        version: 0.41.1(@tiptap/extensions@3.9.1(@tiptap/core@3.9.1(@tiptap/pm@3.9.1))(@tiptap/pm@3.9.1))(@types/hast@3.0.4)
       '@blocknote/react':
         specifier: ^0.41.1
         version: 0.41.1(@floating-ui/dom@1.7.4)(@tiptap/extensions@3.9.1(@tiptap/core@3.9.1(@tiptap/pm@3.9.1))(@tiptap/pm@3.9.1))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)

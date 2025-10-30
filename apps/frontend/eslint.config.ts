@@ -5,8 +5,10 @@ import pluginReact from 'eslint-plugin-react';
 import pluginReactHooks from 'eslint-plugin-react-hooks';
 import {defineConfig, globalIgnores} from 'eslint/config';
 import stylistic from '@stylistic/eslint-plugin';
+import turboConfig from 'eslint-config-turbo/flat';
 
 export default defineConfig([
+    turboConfig,
     {
         files: ['src/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
         plugins: {js},

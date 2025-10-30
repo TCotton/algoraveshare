@@ -152,4 +152,4 @@ vite.config.ts.timestamp-*
 secret.json
 docker
 .github/prompts
-.specify
+.turbo

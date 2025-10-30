@@ -69,6 +69,7 @@
     "@webtui/theme-catppuccin": "^0.0.3",
     "@webtui/theme-vitesse": "^0.0.1",
     "effect": "^3.18.4",
+    "eslint-config-turbo": "^2.5.8",
     "get-youtube-id": "^1.0.1",
     "modern-normalize": "^3.0.1",
     "prismjs": "^1.30.0",

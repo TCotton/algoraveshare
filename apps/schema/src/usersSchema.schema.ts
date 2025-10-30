@@ -1,4 +1,5 @@
 import { Redacted, Schema } from 'effect'
+import isEmail from 'validator/lib/isEmail'
 
 const UserSchema = Schema.Struct({
   name: Schema.Trim.pipe(
@@ -8,9 +9,7 @@ const UserSchema = Schema.Struct({
     }),
   ),
   email: Schema.Trim.pipe(
-    Schema.pattern(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, {
-      message: () => 'The email is not valid',
-    }),
+    Schema.filter(x => isEmail(x) ? undefined : 'The email is not valid'),
   ),
   passwordOne: Schema.Trim.pipe(
     Schema.minLength(8, {
@@ -45,11 +44,36 @@ const UserSchema = Schema.Struct({
     Schema.Redacted,
   ),
   location: Schema.optional(Schema.String),
-  portfolioUrl: Schema.optional(Schema.String),
-  mastodonUrl: Schema.optional(Schema.String),
-  blueskyUrl: Schema.optional(Schema.String),
-  linkedinUrl: Schema.optional(Schema.String),
-  youtubeLink: Schema.optional(Schema.String),
+  portfolioUrl: Schema.Trim.pipe(
+    Schema.filter((x) => {
+      if (!x) return undefined
+      return URL.parse(x) ? undefined : 'This URL is not valid'
+    }),
+  ),
+  mastodonUrl: Schema.Trim.pipe(
+    Schema.filter((x) => {
+      if (!x) return undefined
+      return URL.parse(x) ? undefined : 'This URL is not valid'
+    }),
+  ),
+  blueskyUrl: Schema.Trim.pipe(
+    Schema.filter((x) => {
+      if (!x) return undefined
+      return URL.parse(x) ? undefined : 'This URL is not valid'
+    }),
+  ),
+  linkedinUrl: Schema.Trim.pipe(
+    Schema.filter((x) => {
+      if (!x) return undefined
+      return URL.parse(x) ? undefined : 'This URL is not valid'
+    }),
+  ),
+  youtubeLink: Schema.Trim.pipe(
+    Schema.filter((x) => {
+      if (!x) return undefined
+      return URL.parse(x) ? undefined : 'This URL is not valid'
+    }),
+  ),
 }).pipe(
   Schema.filter((user) => {
     // Unwrap Redacted values for comparison

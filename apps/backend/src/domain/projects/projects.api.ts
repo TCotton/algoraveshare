@@ -1,6 +1,11 @@
-import { HttpApiGroup } from '@effect/platform'
+import { HttpApiEndpoint, HttpApiGroup } from '@effect/platform'
+import { ProjectSchema } from '@repo/schema/projects'
+import { Schema } from 'effect'
 
-export class ProjectsApi extends HttpApiGroup.make('projects').prefix('/projects') {}
+export class ProjectsApi extends HttpApiGroup.make('projects').prefix('/projects').add(
+  HttpApiEndpoint.get('getAllProjects', '/projects')
+    .addSuccess(Schema.Array(ProjectSchema))
+) {}
 
 /**
  * import { HttpApiEndpoint } from "@effect/platform"

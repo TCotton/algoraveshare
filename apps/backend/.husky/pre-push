@@ -3,7 +3,6 @@ set -e
 
 # Navigate to repository root
 REPO_ROOT="$(git rev-parse --show-toplevel)"
-cd "$REPO_ROOT/backend"
+cd "$REPO_ROOT/apps/backend"
 npm run lint:fix
 npm run test:unit
-

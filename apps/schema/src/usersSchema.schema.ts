@@ -1,5 +1,6 @@
 import { Redacted, Schema } from 'effect'
 import isEmail from 'validator/lib/isEmail'
+import isStrongPassword from 'validator/lib/isStrongPassword'
 
 const UserSchema = Schema.Struct({
   name: Schema.Trim.pipe(
@@ -16,15 +17,7 @@ const UserSchema = Schema.Struct({
       message: parseIssue =>
         `Password must be at least 8 characters long, got ${parseIssue.actual}`,
     }),
-    Schema.pattern(/[A-Z]/, {
-      message: () => 'Password must contain at least one uppercase letter',
-    }),
-    Schema.pattern(/[a-z]/, {
-      message: () => 'Password must contain at least one lowercase letter',
-    }),
-    Schema.pattern(/[!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\;]/, {
-      message: () => 'Password must contain at least one special character',
-    }),
+    Schema.filter(x => isStrongPassword(x) ? undefined : 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character'),
     Schema.Redacted,
   ),
   passwordTwo: Schema.Trim.pipe(
@@ -32,15 +25,7 @@ const UserSchema = Schema.Struct({
       message: parseIssue =>
         `Password must be at least 8 characters long, got ${parseIssue.actual}`,
     }),
-    Schema.pattern(/[A-Z]/, {
-      message: () => 'Password must contain at least one uppercase letter',
-    }),
-    Schema.pattern(/[a-z]/, {
-      message: () => 'Password must contain at least one lowercase letter',
-    }),
-    Schema.pattern(/[!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\;]/, {
-      message: () => 'Password must contain at least one special character',
-    }),
+    Schema.filter(x => isStrongPassword(x) ? undefined : 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character'),
     Schema.Redacted,
   ),
   location: Schema.optional(Schema.String),

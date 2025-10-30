@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+set -e
+
+# Navigate to repository root
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+
+echo "Running pre-push hooks..."
+
+# Run backend pre-push
+echo "→ Running backend checks..."
+cd "$REPO_ROOT/apps/backend"
+npm run lint:fix
+npm run test:unit
+
+# Run frontend pre-push
+echo "→ Running frontend checks..."
+cd "$REPO_ROOT/apps/frontend"
+npm run lint:fix
+npm run test:unit
+npm run test:playwright:headless
+npm run typecheck
+
+echo "✓ Pre-push checks passed"

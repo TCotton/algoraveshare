@@ -1,8 +1,0 @@
-#!/usr/bin/env sh
-set -e
-
-cd frontend
-npm run lint:fix
-npm run test:unit
-npm run test:playwright:headless
-npm run typecheck

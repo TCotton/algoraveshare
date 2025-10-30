@@ -1,5 +1,5 @@
 {
-  "name": "schema",
+  "name": "@repo/schema",
   "version": "1.0.0",
   "description": "schema used in both frontend and backend",
   "license": "ISC",
@@ -12,6 +12,28 @@
     "lint": "eslint . --config ./eslint.config.ts --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint . --config ./eslint.config.ts --ext .js,.ts,.jsx,.tsx --fix",
     "preinstall": "npx only-allow pnpm"
+  },
+  "exports": {
+    "./projects": {
+      "types": "./src/projects.schema.ts",
+      "default": "./dist/src/projects.schema.js"
+    },
+    "./tagAssignments": {
+      "types": "./src/tagAssignments.schema.ts",
+      "default": "./dist/src/tagAssignments.schema.js"
+    },
+    "./tags": {
+      "types": "./src/tags.schema.ts",
+      "default": "./dist/src/tags.schema.js"
+    },
+    "./users": {
+      "types": "./src/users.schema.ts",
+      "default": "./dist/src/users.schema.js"
+    },
+    "./usersSchema": {
+      "types": "./src/usersSchema.schema.ts",
+      "default": "./dist/src/usersSchema.schema.js"
+    }
   },
   "dependencies": {
     "effect": "^3.18.4"

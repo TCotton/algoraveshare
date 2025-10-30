@@ -4,6 +4,7 @@
   "description": "",
   "type": "module",
   "main": "index.js",
+  "packageManager": "pnpm@10.0.0",
   "scripts": {
     "test": "vitest",
     "test:unit": "vitest",
@@ -11,7 +12,8 @@
     "frontend": "cd backend && npm ci && npm test",
     "backend": "cd backend && npm ci && npm test",
     "infrastructure": "cd infrastructure && terraform init -backend=false && terraform validate",
-    "prepare": "husky"
+    "prepare": "husky",
+    "preinstall": "npx only-allow pnpm"
   },
   "author": "",
   "license": "ISC",

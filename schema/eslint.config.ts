@@ -63,6 +63,8 @@ export default defineConfig([
         '.astro',
         'vitest.config.ts',
         'eslint.config.ts',
-        'dist/*'
+        'dist/*',
+        'eslint.config.mjs',
+        'eslint.config.ts'
     ]),
 ]);

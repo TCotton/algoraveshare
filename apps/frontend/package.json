@@ -51,6 +51,7 @@
     "globals": "^16.4.0",
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
+    "jsdom": "^27.0.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-test-renderer": "^19.2.0",

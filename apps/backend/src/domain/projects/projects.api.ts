@@ -3,7 +3,7 @@ import { ProjectSchema } from '@repo/schema/projects'
 import { Schema } from 'effect'
 
 export class ProjectsApi extends HttpApiGroup.make('projects').prefix('/projects').add(
-  HttpApiEndpoint.get('getAllProjects', '/projects')
+  HttpApiEndpoint.get('getAllProjects', '/')
     .addSuccess(Schema.Array(ProjectSchema))
 ) {}
 

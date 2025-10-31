@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "packageManager": "pnpm@10.0.0",
+  "engines": {
+    "node": ">=22 <23"
+  },
   "scripts": {
     "install:deps": "echo 'Dependencies checked for backend'",
     "deps:check": "test -d node_modules || echo 'Run: pnpm install from root'",

@@ -6,7 +6,11 @@ export default defineConfig({
   test: {
     setupFiles: [path.join(__dirname, "setupTests.ts")],
     include: ["./test/**/*.test.ts"],
-    globals: true
+    globals: true,
+    coverage: {
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: ['db/**', '**/node_modules/**', '**/dist/**', 'types.ts', 'typescript/**']
+    },
   },
   resolve: {
     alias: {

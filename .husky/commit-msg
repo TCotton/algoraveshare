@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+set -e
+
+# Run conventional commits validation
+if command -v npx > /dev/null 2>&1; then
+  npx --yes git-conventional-commits commit-msg-hook "$1"
+fi

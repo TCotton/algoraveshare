@@ -16,4 +16,9 @@ echo "→ Running frontend checks..."
 cd "$REPO_ROOT/apps/frontend"
 npm run lint:fix
 
+# Run schema pre-commit
+echo "→ Running schema checks..."
+cd "$REPO_ROOT/apps/schema"
+npm run lint:fix
+
 echo "✓ Pre-commit checks passed"

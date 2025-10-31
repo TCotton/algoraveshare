@@ -20,4 +20,11 @@ npm run test:unit
 npm run test:e2e:headless
 npm run typecheck
 
+# Run schema pre-push
+echo "→ Running schema checks..."
+cd "$REPO_ROOT/apps/schema"
+npm run lint:fix
+npm run test:unit
+npm run typecheck
+
 echo "✓ Pre-push checks passed"

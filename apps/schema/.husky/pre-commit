@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-set -e
-
-# Navigate to repository root
-REPO_ROOT="$(git rev-parse --show-toplevel)"
-cd "$REPO_ROOT/apps/schema"
-npm run lint:fix

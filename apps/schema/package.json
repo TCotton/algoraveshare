@@ -16,6 +16,7 @@
     "lint": "eslint . --config ./eslint.config.ts --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint . --config ./eslint.config.ts --ext .js,.ts,.jsx,.tsx --fix",
     "typecheck": "tsc --noEmit",
+    "prepare": "husky",
     "preinstall": "npx only-allow pnpm"
   },
   "exports": {
@@ -53,6 +54,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "globals": "^16.4.0",
+    "husky": "^9.1.7",
     "jiti": "^2.6.1",
     "typescript-eslint": "^8.46.2",
     "validator": "^13.15.20",

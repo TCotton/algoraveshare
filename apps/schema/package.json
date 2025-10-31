@@ -7,6 +7,10 @@
   "type": "module",
   "main": "index.js",
   "packageManager": "pnpm@10.0.0",
+  "engines": {
+    "node": ">=22 <23",
+    "npm": ">=11 <12"
+  },
   "scripts": {
     "install:deps": "echo 'Dependencies checked for schema'",
     "deps:check": "test -d node_modules || echo 'Run: pnpm install from root'",

@@ -6,7 +6,7 @@ export default defineConfig({
     environment: 'node',
     coverage: {
         include: ['src/**/*.{ts,tsx}'],
-        exclude: ['**/node_modules/**', '**/dist/**', '**.astro', 'astro.config.mjs', 'types.ts', 'typescript/**']
+        exclude: ['**/node_modules/**', '**/dist/**',  'astro.config.mjs', 'types.ts', 'typescript/**']
     },
   },
 })

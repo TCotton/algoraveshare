@@ -8,11 +8,10 @@ export default defineConfig({
     include: ["./test/**/*.test.ts"],
     globals: true,
     coverage: {
-       include: ['src/**/*.{ts,tsx}'],
-       exclude: ['db/**', '**/node_modules/**', '**/dist/**', 'types.ts', 'typescript/**']
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: ['db/**', '**/node_modules/**', '**/dist/**', 'types.ts', 'typescript/**']
     },
   },
-
   resolve: {
     alias: {
       "@template/basic/test": path.join(__dirname, "test"),

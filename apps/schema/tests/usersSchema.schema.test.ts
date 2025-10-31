@@ -1,5 +1,5 @@
+import { Redacted, Schema } from 'effect'
 import { describe, expect, it } from 'vitest'
-import { Schema, Redacted } from 'effect'
 import UserSchema from '../src/usersSchema.schema.js'
 
 describe('usersSchema.schema (Registration Form Schema)', () => {
@@ -15,7 +15,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
         mastodonUrl: 'https://mastodon.social/@johndoe',
         blueskyUrl: 'https://bsky.app/profile/johndoe',
         linkedinUrl: 'https://linkedin.com/in/johndoe',
-        youtubeLink: 'https://youtube.com/johndoe',
+        youtubeLink: 'https://youtube.com/johndoe'
       }
 
       const result = Schema.decodeUnknownSync(UserSchema)(validRegistration)
@@ -32,7 +32,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
         name: 'Jane Smith',
         email: 'jane.smith@example.com',
         passwordOne: 'SecurePass456@',
-        passwordTwo: 'SecurePass456@',
+        passwordTwo: 'SecurePass456@'
       }
 
       const result = Schema.decodeUnknownSync(UserSchema)(validRegistration)
@@ -49,7 +49,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
         name: '  John Doe  ',
         email: '  john.doe@example.com  ',
         passwordOne: 'Password123!',
-        passwordTwo: 'Password123!',
+        passwordTwo: 'Password123!'
       }
 
       const result = Schema.decodeUnknownSync(UserSchema)(validRegistration)
@@ -78,7 +78,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
         'Incredible|Pass123',
         'Outstanding_Pass123',
         'Excellent-Pass123',
-        'Wonderful=Pass123',
+        'Wonderful=Pass123'
       ]
 
       validPasswords.forEach((password) => {
@@ -86,7 +86,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
           name: 'Test User',
           email: 'test@example.com',
           passwordOne: password,
-          passwordTwo: password,
+          passwordTwo: password
         }
 
         const result = Schema.decodeUnknownSync(UserSchema)(validRegistration)
@@ -104,7 +104,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
         'a@b.co',
         'test.email+tag@example.subdomain.com',
         'user_name@example.com',
-        'user-name@example.com',
+        'user-name@example.com'
       ]
 
       validEmails.forEach((email) => {
@@ -112,7 +112,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
           name: 'Test User',
           email,
           passwordOne: 'Password123!',
-          passwordTwo: 'Password123!',
+          passwordTwo: 'Password123!'
         }
 
         const result = Schema.decodeUnknownSync(UserSchema)(validRegistration)
@@ -129,7 +129,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
           name: longName,
           email: 'test@example.com',
           passwordOne: 'Password123!',
-          passwordTwo: 'Password123!',
+          passwordTwo: 'Password123!'
         }
 
         expect(() => Schema.decodeUnknownSync(UserSchema)(invalidRegistration)).toThrow()
@@ -140,7 +140,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
           name: 123,
           email: 'test@example.com',
           passwordOne: 'Password123!',
-          passwordTwo: 'Password123!',
+          passwordTwo: 'Password123!'
         }
 
         expect(() => Schema.decodeUnknownSync(UserSchema)(invalidRegistration)).toThrow()
@@ -156,7 +156,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
           'user@',
           'user@.com',
           'user..name@example.com',
-          'user@domain..com',
+          'user@domain..com'
         ]
 
         invalidEmails.forEach((email) => {
@@ -164,7 +164,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
             name: 'Test User',
             email,
             passwordOne: 'Password123!',
-            passwordTwo: 'Password123!',
+            passwordTwo: 'Password123!'
           }
 
           expect(() => Schema.decodeUnknownSync(UserSchema)(invalidRegistration)).toThrow()
@@ -179,7 +179,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
           name: 'Test User',
           email: 'test@example.com',
           passwordOne: shortPassword,
-          passwordTwo: shortPassword,
+          passwordTwo: shortPassword
         }
 
         expect(() => Schema.decodeUnknownSync(UserSchema)(invalidRegistration)).toThrow()
@@ -191,7 +191,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
           name: 'Test User',
           email: 'test@example.com',
           passwordOne: noUppercasePassword,
-          passwordTwo: noUppercasePassword,
+          passwordTwo: noUppercasePassword
         }
 
         expect(() => Schema.decodeUnknownSync(UserSchema)(invalidRegistration)).toThrow()
@@ -203,7 +203,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
           name: 'Test User',
           email: 'test@example.com',
           passwordOne: noLowercasePassword,
-          passwordTwo: noLowercasePassword,
+          passwordTwo: noLowercasePassword
         }
 
         expect(() => Schema.decodeUnknownSync(UserSchema)(invalidRegistration)).toThrow()
@@ -215,7 +215,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
           name: 'Test User',
           email: 'test@example.com',
           passwordOne: noSpecialCharPassword,
-          passwordTwo: noSpecialCharPassword,
+          passwordTwo: noSpecialCharPassword
         }
 
         expect(() => Schema.decodeUnknownSync(UserSchema)(invalidRegistration)).toThrow()
@@ -226,7 +226,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
           name: 'Test User',
           email: 'test@example.com',
           passwordOne: 'Password123!',
-          passwordTwo: 'DifferentPass456@',
+          passwordTwo: 'DifferentPass456@'
         }
 
         // Note: The current schema doesn't include password matching validation
@@ -242,7 +242,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
         const invalidRegistration = {
           email: 'test@example.com',
           passwordOne: 'Password123!',
-          passwordTwo: 'Password123!',
+          passwordTwo: 'Password123!'
         }
 
         expect(() => Schema.decodeUnknownSync(UserSchema)(invalidRegistration)).toThrow()
@@ -252,7 +252,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
         const invalidRegistration = {
           name: 'Test User',
           passwordOne: 'Password123!',
-          passwordTwo: 'Password123!',
+          passwordTwo: 'Password123!'
         }
 
         expect(() => Schema.decodeUnknownSync(UserSchema)(invalidRegistration)).toThrow()
@@ -262,7 +262,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
         const invalidRegistration = {
           name: 'Test User',
           email: 'test@example.com',
-          passwordTwo: 'Password123!',
+          passwordTwo: 'Password123!'
         }
 
         expect(() => Schema.decodeUnknownSync(UserSchema)(invalidRegistration)).toThrow()
@@ -272,7 +272,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
         const invalidRegistration = {
           name: 'Test User',
           email: 'test@example.com',
-          passwordOne: 'Password123!',
+          passwordOne: 'Password123!'
         }
 
         expect(() => Schema.decodeUnknownSync(UserSchema)(invalidRegistration)).toThrow()
@@ -292,7 +292,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
         mastodonUrl: 'https://mastodon.social/@test',
         blueskyUrl: 'https://bsky.app/profile/test',
         linkedinUrl: 'https://linkedin.com/in/test',
-        youtubeLink: 'https://youtube.com/test',
+        youtubeLink: 'https://youtube.com/test'
       }
 
       const result = Schema.decodeUnknownSync(UserSchema)(validRegistration)
@@ -315,7 +315,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
         mastodonUrl: '',
         blueskyUrl: '',
         linkedinUrl: '',
-        youtubeLink: '',
+        youtubeLink: ''
       }
 
       const result = Schema.decodeUnknownSync(UserSchema)(validRegistration)
@@ -335,7 +335,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
         'François Müller',
         'Анна Петрова',
         '田中太郎',
-        'محمد علي',
+        'محمد علي'
       ]
 
       unicodeNames.forEach((name) => {
@@ -343,7 +343,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
           name,
           email: 'test@example.com',
           passwordOne: 'Password123!',
-          passwordTwo: 'Password123!',
+          passwordTwo: 'Password123!'
         }
 
         const result = Schema.decodeUnknownSync(UserSchema)(validRegistration)
@@ -355,7 +355,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
       const complexPasswords = [
         'Test@#$%^&*()Pass1',
         'Pass,.?":{}|<>Word1',
-        'Word_-+=~`[]\\;Pass1',
+        'Word_-+=~`[]\\;Pass1'
       ]
 
       complexPasswords.forEach((password) => {
@@ -363,7 +363,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
           name: 'Test User',
           email: 'test@example.com',
           passwordOne: password,
-          passwordTwo: password,
+          passwordTwo: password
         }
 
         const result = Schema.decodeUnknownSync(UserSchema)(validRegistration)
@@ -377,7 +377,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
         name: maxLengthName,
         email: 'test@example.com',
         passwordOne: 'Password123!',
-        passwordTwo: 'Password123!',
+        passwordTwo: 'Password123!'
       }
 
       const result = Schema.decodeUnknownSync(UserSchema)(validRegistration)

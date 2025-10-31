@@ -13,5 +13,5 @@ export const ProjectSchema = Schema.Struct({
   audioData: Schema.NullOr(Schema.Unknown), // JSONB can contain any valid JSON
   youtubeUrlId: Schema.NullOr(Schema.String),
   softwareType: Schema.Literal('strudel', 'tidalcycles'),
-  createdAt: Schema.Date,
+  createdAt: Schema.Date
 })

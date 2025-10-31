@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Schema } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { UserSchema } from '../src/users.schema.js'
 
 describe('UserSchema', () => {
@@ -16,13 +16,13 @@ describe('UserSchema', () => {
         youtubeUrl: 'https://youtube.com/johndoe',
         mastodonUrl: 'https://mastodon.social/@johndoe',
         blueskyUrl: 'https://bsky.app/profile/johndoe',
-        linkedinUrl: 'https://linkedin.com/in/johndoe',
+        linkedinUrl: 'https://linkedin.com/in/johndoe'
       }
 
       const result = Schema.decodeUnknownSync(UserSchema)(validUser)
       expect(result).toEqual({
         ...validUser,
-        createdAt: new Date('2023-01-01T00:00:00Z'),
+        createdAt: new Date('2023-01-01T00:00:00Z')
       })
     })
 
@@ -38,13 +38,13 @@ describe('UserSchema', () => {
         youtubeUrl: null,
         mastodonUrl: null,
         blueskyUrl: null,
-        linkedinUrl: null,
+        linkedinUrl: null
       }
 
       const result = Schema.decodeUnknownSync(UserSchema)(validUser)
       expect(result).toEqual({
         ...validUser,
-        createdAt: new Date('2023-01-01T00:00:00Z'),
+        createdAt: new Date('2023-01-01T00:00:00Z')
       })
     })
 
@@ -55,7 +55,7 @@ describe('UserSchema', () => {
         'user+tag@example.com',
         'user123@example123.com',
         'a@b.co',
-        'test.email+tag@example.subdomain.com',
+        'test.email+tag@example.subdomain.com'
       ]
 
       validEmails.forEach((email) => {
@@ -70,7 +70,7 @@ describe('UserSchema', () => {
           youtubeUrl: null,
           mastodonUrl: null,
           blueskyUrl: null,
-          linkedinUrl: null,
+          linkedinUrl: null
         }
 
         const result = Schema.decodeUnknownSync(UserSchema)(validUser)
@@ -92,7 +92,7 @@ describe('UserSchema', () => {
         youtubeUrl: null,
         mastodonUrl: null,
         blueskyUrl: null,
-        linkedinUrl: null,
+        linkedinUrl: null
       }
 
       expect(() => Schema.decodeUnknownSync(UserSchema)(invalidUser)).toThrow()
@@ -110,7 +110,7 @@ describe('UserSchema', () => {
         youtubeUrl: null,
         mastodonUrl: null,
         blueskyUrl: null,
-        linkedinUrl: null,
+        linkedinUrl: null
       }
 
       expect(() => Schema.decodeUnknownSync(UserSchema)(invalidUser)).toThrow()
@@ -128,7 +128,7 @@ describe('UserSchema', () => {
         youtubeUrl: null,
         mastodonUrl: null,
         blueskyUrl: null,
-        linkedinUrl: null,
+        linkedinUrl: null
       }
 
       expect(() => Schema.decodeUnknownSync(UserSchema)(invalidUser)).toThrow()
@@ -146,7 +146,7 @@ describe('UserSchema', () => {
         youtubeUrl: null,
         mastodonUrl: null,
         blueskyUrl: null,
-        linkedinUrl: null,
+        linkedinUrl: null
       }
 
       expect(() => Schema.decodeUnknownSync(UserSchema)(invalidUser)).toThrow()
@@ -155,7 +155,7 @@ describe('UserSchema', () => {
     it('should fail with missing required fields', () => {
       const incompleteUser = {
         userId: '123e4567-e89b-12d3-a456-426614174000',
-        name: 'John Doe',
+        name: 'John Doe'
         // missing required fields
       }
 
@@ -171,7 +171,7 @@ describe('UserSchema', () => {
         'Tokyo, Japan',
         'Remote',
         'Traveling',
-        null,
+        null
       ]
 
       locations.forEach((location) => {
@@ -186,7 +186,7 @@ describe('UserSchema', () => {
           youtubeUrl: null,
           mastodonUrl: null,
           blueskyUrl: null,
-          linkedinUrl: null,
+          linkedinUrl: null
         }
 
         const result = Schema.decodeUnknownSync(UserSchema)(validUser)
@@ -200,7 +200,7 @@ describe('UserSchema', () => {
         'http://example.com',
         'https://subdomain.example.com/path',
         'https://example.com/user/profile?id=123',
-        null,
+        null
       ]
 
       const urlFields = ['portfolioUrl', 'youtubeUrl', 'mastodonUrl', 'blueskyUrl', 'linkedinUrl'] as const
@@ -219,7 +219,7 @@ describe('UserSchema', () => {
             mastodonUrl: null,
             blueskyUrl: null,
             linkedinUrl: null,
-            [field]: url,
+            [field]: url
           }
 
           const result = Schema.decodeUnknownSync(UserSchema)(validUser)
@@ -243,7 +243,7 @@ describe('UserSchema', () => {
         youtubeUrl: null,
         mastodonUrl: null,
         blueskyUrl: null,
-        linkedinUrl: null,
+        linkedinUrl: null
       }
 
       const result = Schema.decodeUnknownSync(UserSchema)(validUser)
@@ -257,7 +257,7 @@ describe('UserSchema', () => {
         'Анна Петрова',
         '田中太郎',
         'محمد علي',
-        'Παναγιώτης',
+        'Παναγιώτης'
       ]
 
       unicodeNames.forEach((name) => {
@@ -272,7 +272,7 @@ describe('UserSchema', () => {
           youtubeUrl: null,
           mastodonUrl: null,
           blueskyUrl: null,
-          linkedinUrl: null,
+          linkedinUrl: null
         }
 
         const result = Schema.decodeUnknownSync(UserSchema)(validUser)
@@ -293,7 +293,7 @@ describe('UserSchema', () => {
         youtubeUrl: null,
         mastodonUrl: null,
         blueskyUrl: null,
-        linkedinUrl: null,
+        linkedinUrl: null
       }
 
       const result = Schema.decodeUnknownSync(UserSchema)(validUser)
@@ -312,7 +312,7 @@ describe('UserSchema', () => {
         youtubeUrl: '',
         mastodonUrl: '',
         blueskyUrl: '',
-        linkedinUrl: '',
+        linkedinUrl: ''
       }
 
       const result = Schema.decodeUnknownSync(UserSchema)(validUser)

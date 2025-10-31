@@ -1,17 +1,19 @@
 import '@testing-library/jest-dom'
-import React from 'react'
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+
 import { render, screen } from '@testing-library/react'
+import React from 'react'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
 import DropDownMenu from '../../../../src/components/DropDownMenu'
 
 vi.mock('@ariakit/react', () => ({
   __esModule: true,
-  MenuProvider: (props: any) => <div data-testid="menu-provider" {...props}>{props.children}</div>,
-  MenuButton: (props: any) => <button data-testid="menu-button" {...props}>{props.children}</button>,
-  MenuButtonArrow: () => <span data-testid="menu-button-arrow">▼</span>,
-  Menu: (props: any) => <div data-testid="menu" role="menu" {...props}>{props.children}</div>,
-  MenuItem: (props: any) => <div data-testid="menu-item" role="menuitem" {...props}>{props.children}</div>,
-  MenuSeparator: (props: any) => <hr data-testid="menu-separator" {...props} />,
+  MenuProvider: (props: any) => <div data-testid='menu-provider' {...props}>{props.children}</div>,
+  MenuButton: (props: any) => <button data-testid='menu-button' {...props}>{props.children}</button>,
+  MenuButtonArrow: () => <span data-testid='menu-button-arrow'>▼</span>,
+  Menu: (props: any) => <div data-testid='menu' role='menu' {...props}>{props.children}</div>,
+  MenuItem: (props: any) => <div data-testid='menu-item' role='menuitem' {...props}>{props.children}</div>,
+  MenuSeparator: (props: any) => <hr data-testid='menu-separator' {...props} />
 }))
 
 describe('DropDownMenu', () => {

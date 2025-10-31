@@ -1,7 +1,8 @@
-/* eslint-disable react/no-unknown-property */
-import React from 'react'
+ 
 import * as Ariakit from '@ariakit/react'
 import { SelectProvider } from '@ariakit/react'
+import React from 'react'
+
 import type { SelectFormProps } from './formtypes.ts'
 
 interface FormObject {
@@ -20,7 +21,6 @@ interface FormObject {
  *   selectClass="project-software"
  *   data-test-id="project-software-select"
  * />
- *
  *
  * // Instead of using class selectors:
  * await page.locator('.project-software button.select-trigger').click()
@@ -43,11 +43,12 @@ interface ExtendedSelectFormProps extends SelectFormProps {
 }
 
 export default function SelectForm(props: ExtendedSelectFormProps) {
-  const { items, label, name, form, onChange, selectClass, onMouseEnter, onMouseLeave, 'data-testid': dataTestId } = props
-  const formattedItems = items?.map((item: { value: string, label: string }) => ({
+  const { 'data-testid': dataTestId, form, items, label, name, onChange, onMouseEnter, onMouseLeave, selectClass } =
+    props
+  const formattedItems = items?.map((item: { value: string; label: string }) => ({
     id: item.value,
     label: item.label,
-    value: item.value,
+    value: item.value
   }))
   const select = Ariakit.useSelectStore({
     defaultValue: items.length > 0 ? items[0].value : undefined,
@@ -60,30 +61,30 @@ export default function SelectForm(props: ExtendedSelectFormProps) {
       if (onChange) {
         onChange(name, val)
       }
-    },
+    }
   })
   return (
     <div
       className={`select-container ${selectClass || ''}`}
-      is-="typography-block"
-      box-="round"
-      shear-="top"
+      is-='typography-block'
+      box-='round'
+      shear-='top'
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       data-testid={dataTestId}
     >
       <SelectProvider store={select}>
-        <Ariakit.SelectLabel store={select} className="select-label">
-          <div is-="badge" variant-="background0">{label}</div>
+        <Ariakit.SelectLabel store={select} className='select-label'>
+          <div is-='badge' variant-='background0'>{label}</div>
         </Ariakit.SelectLabel>
-        <Ariakit.Select store={select} className="select-trigger">
+        <Ariakit.Select store={select} className='select-trigger'>
           <Ariakit.SelectValue fallback={items.length > 0 ? items[0].value : undefined} />
-          <Ariakit.SelectArrow className="select-arrow" />
+          <Ariakit.SelectArrow className='select-arrow' />
         </Ariakit.Select>
-        <Ariakit.SelectPopover store={select} className="menu-wrapper" id="menu-form" gutter={4}>
-          {formattedItems.map((item: { value: string, label: string, id: string }) => (
+        <Ariakit.SelectPopover store={select} className='menu-wrapper' id='menu-form' gutter={4}>
+          {formattedItems.map((item: { value: string; label: string; id: string }) => (
             <Ariakit.SelectItem className={`menu-item ${item.label}`} value={item.value} key={item.id}>
-              <a href="#menu-form">{item.value}</a>
+              <a href='#menu-form'>{item.value}</a>
             </Ariakit.SelectItem>
           ))}
         </Ariakit.SelectPopover>

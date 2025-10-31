@@ -1,6 +1,7 @@
-import React from 'react'
-import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import React from 'react'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
 import SelectForm from '../../../../src/forms/SelectForm'
 
 vi.mock('@ariakit/react', () => ({
@@ -12,7 +13,7 @@ vi.mock('@ariakit/react', () => ({
   SelectProvider: (props: any) => <div {...props}>{props.children}</div>,
   SelectLabel: (props: any) => <label {...props}>{props.children}</label>,
   SelectValue: () => <span>Selected Value</span>,
-  SelectArrow: () => <span>▼</span>,
+  SelectArrow: () => <span>▼</span>
 }))
 
 // Sample data
@@ -20,12 +21,12 @@ const items = {
   label: 'Choose a project type',
   items: [
     { value: 'Finished Project', label: 'finished' },
-    { value: 'Before and After Live Coding Project', label: 'before-after' },
-  ],
+    { value: 'Before and After Live Coding Project', label: 'before-after' }
+  ]
 }
 
 beforeEach(() => {
-  render(<SelectForm label={items.label} items={items.items} name="projectType" />)
+  render(<SelectForm label={items.label} items={items.items} name='projectType' />)
 })
 
 describe('SelectForm', () => {
@@ -33,18 +34,18 @@ describe('SelectForm', () => {
     expect(screen.getByText(/choose a project type/i)).toBeInTheDocument()
     expect(screen.getByText('Finished Project')).toBeInTheDocument()
     expect(
-      screen.getByText('Before and After Live Coding Project'),
+      screen.getByText('Before and After Live Coding Project')
     ).toBeInTheDocument()
   })
 
   it('renders with data-test-id attribute when provided', () => {
     const { container } = render(
       <SelectForm
-        label="Test Label"
+        label='Test Label'
         items={items.items}
-        name="testSelect"
-        data-testid="my-test-select"
-      />,
+        name='testSelect'
+        data-testid='my-test-select'
+      />
     )
 
     const selectContainer = container.querySelector('[data-testid="my-test-select"]')
@@ -55,10 +56,10 @@ describe('SelectForm', () => {
   it('renders without data-test-id attribute when not provided', () => {
     const { container } = render(
       <SelectForm
-        label="Test Label"
+        label='Test Label'
         items={items.items}
-        name="testSelect"
-      />,
+        name='testSelect'
+      />
     )
 
     const selectContainer = container.querySelector('.select-container')
@@ -69,12 +70,12 @@ describe('SelectForm', () => {
   it('renders with correct class and data-test-id together', () => {
     const { container } = render(
       <SelectForm
-        label="Test Label"
+        label='Test Label'
         items={items.items}
-        name="testSelect"
-        selectClass="custom-select"
-        data-testid="custom-select-testid"
-      />,
+        name='testSelect'
+        selectClass='custom-select'
+        data-testid='custom-select-testid'
+      />
     )
 
     const selectContainer = container.querySelector('[data-testid="custom-select-testid"]')
@@ -85,7 +86,7 @@ describe('SelectForm', () => {
   })
 
   it('matches snapshot', () => {
-    const result = <SelectForm label={items.label} items={items.items} name="projectType" />
+    const result = <SelectForm label={items.label} items={items.items} name='projectType' />
     expect(result).toMatchSnapshot()
   })
 
@@ -94,8 +95,8 @@ describe('SelectForm', () => {
       <SelectForm
         label={items.label}
         items={items.items}
-        name="projectType"
-        data-test-id="snapshot-test-id"
+        name='projectType'
+        data-test-id='snapshot-test-id'
       />
     )
     expect(result).toMatchSnapshot()

@@ -1,6 +1,6 @@
 export type SelectFormProps = {
   label: string
-  items: { label: string, value: string }[]
+  items: Array<{ label: string; value: string }>
 }
 
 export interface FormProps extends SelectFormProps {

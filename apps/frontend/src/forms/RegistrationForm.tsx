@@ -1,8 +1,9 @@
-import React from 'react'
 import * as Ariakit from '@ariakit/react'
+import { Equivalence, Redacted } from 'effect'
+import React from 'react'
 import isEmail from 'validator/lib/isEmail'
-import { Redacted, Equivalence } from 'effect'
 import isStrongPassword from 'validator/lib/isStrongPassword'
+
 import FormInput from './FormInput'
 
 interface FormValues {
@@ -30,8 +31,8 @@ export default function RegistrationForm() {
       mastodonUrl: '',
       blueskyUrl: '',
       linkedinUrl: '',
-      youtubeLink: '',
-    },
+      youtubeLink: ''
+    }
   })
 
   form.useSubmit((state: { values: FormValues }) => {
@@ -44,11 +45,11 @@ export default function RegistrationForm() {
       form.setError('name', 'Please enter your name')
       hasError = true
     }
-    else if (values.name.trim().length > 200) {
+ else if (values.name.trim().length > 200) {
       form.setError('name', 'Your name must not be longer than 200 characters')
       hasError = true
     }
-    else {
+ else {
       form.setError('name', '')
     }
 
@@ -57,11 +58,11 @@ export default function RegistrationForm() {
       form.setError('email', 'Please enter a valid email address')
       hasError = true
     }
-    else if (!isEmail(values.email)) {
+ else if (!isEmail(values.email)) {
       form.setError('email', 'Please enter a valid email address')
       hasError = true
     }
-    else {
+ else {
       form.setError('email', '')
     }
 
@@ -77,12 +78,15 @@ export default function RegistrationForm() {
       form.setError('passwordOne', 'Please enter a password')
       hasError = true
     }
-    else if (!isStrongPassword(values.passwordOne)) {
+ else if (!isStrongPassword(values.passwordOne)) {
       console.log('not strong password')
-      form.setError('passwordOne', 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character')
+      form.setError(
+        'passwordOne',
+        'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character'
+      )
       hasError = true
     }
-    else {
+ else {
       form.setError('passwordOne', '')
     }
 
@@ -91,11 +95,11 @@ export default function RegistrationForm() {
       form.setError('passwordTwo', 'Please enter a password')
       hasError = true
     }
-    else if (!Equivalence.string(Redacted.value(redactedPasswordOne), Redacted.value(redactedPasswordTwo))) {
+ else if (!Equivalence.string(Redacted.value(redactedPasswordOne), Redacted.value(redactedPasswordTwo))) {
       form.setError('passwordTwo', 'Passwords do not match')
       hasError = true
     }
-    else {
+ else {
       form.setError('passwordTwo', '')
     }
 
@@ -106,7 +110,7 @@ export default function RegistrationForm() {
         form.setError('portfolioUrl', 'Are you sure the URL is correct?')
         hasError = true
       }
-      else {
+ else {
         form.setError('portfolioUrl', '')
       }
     }
@@ -118,7 +122,7 @@ export default function RegistrationForm() {
         form.setError('youtubeLink', 'Are you sure the URL is correct?')
         hasError = true
       }
-      else {
+ else {
         form.setError('youtubeLink', '')
       }
     }
@@ -130,7 +134,7 @@ export default function RegistrationForm() {
         form.setError('mastodonUrl', 'Are you sure the URL is correct?')
         hasError = true
       }
-      else {
+ else {
         form.setError('mastodonUrl', '')
       }
     }
@@ -142,7 +146,7 @@ export default function RegistrationForm() {
         form.setError('blueskyUrl', 'Are you sure the URL is correct?')
         hasError = true
       }
-      else {
+ else {
         form.setError('blueskyUrl', '')
       }
     }
@@ -154,7 +158,7 @@ export default function RegistrationForm() {
         form.setError('linkedinUrl', 'Are you sure the URL is correct?')
         hasError = true
       }
-      else {
+ else {
         form.setError('linkedinUrl', '')
       }
     }
@@ -178,181 +182,184 @@ export default function RegistrationForm() {
   return (
     <Ariakit.Form
       store={form}
-      aria-labelledby="add-new-project"
-      className="form-wrapper registration-form"
-      method="post"
+      aria-labelledby='add-new-project'
+      className='form-wrapper registration-form'
+      method='post'
     >
-      <div className="field field-registration-name">
+      <div className='field field-registration-name'>
         <Ariakit.FormLabel name={form.names.name}>Name:</Ariakit.FormLabel>
         <FormInput
           value={nameValue}
-          onChange={event => form.setValue('name', event.target.value)}
-          type="text"
+          onChange={(event) => form.setValue('name', event.target.value)}
+          type='text'
           name={form.names.name}
-          placeholder="Your name"
-          className="input"
-          size-="large"
-          data-testid="name"
-          autoComplete="on"
+          placeholder='Your name'
+          className='input'
+          size-='large'
+          data-testid='name'
+          autoComplete='on'
         />
-        <Ariakit.FormError name={form.names.name} className="error" />
+        <Ariakit.FormError name={form.names.name} className='error' />
       </div>
-      <div className="field field-project-email">
+      <div className='field field-project-email'>
         <Ariakit.FormLabel name={form.names.email}>Email:</Ariakit.FormLabel>
         <FormInput
           value={emailValue}
-          onChange={event => form.setValue('email', event.target.value)}
-          type="email"
+          onChange={(event) => form.setValue('email', event.target.value)}
+          type='email'
           name={form.names.email}
-          placeholder="Email address"
-          className="input"
-          size-="large"
-          data-testid="email"
-          autoComplete="on"
+          placeholder='Email address'
+          className='input'
+          size-='large'
+          data-testid='email'
+          autoComplete='on'
         />
-        <Ariakit.FormError name={form.names.email} className="error" />
+        <Ariakit.FormError name={form.names.email} className='error' />
       </div>
-      <div className="field field-registration-password-one">
+      <div className='field field-registration-password-one'>
         <Ariakit.FormLabel name={form.names.passwordOne}>
           Password:
-          <span> The password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.</span>
+          <span>
+            The password must be at least 8 characters long and contain at least one uppercase letter, one lowercase
+            letter, one number, and one special character.
+          </span>
         </Ariakit.FormLabel>
         <FormInput
           value={passwordOneValue}
-          onChange={event => form.setValue('passwordOne', event.target.value)}
-          type="password"
+          onChange={(event) => form.setValue('passwordOne', event.target.value)}
+          type='password'
           name={form.names.passwordOne}
-          placeholder="Example of passwords: +r)47S+n@B, GEa8^n%qxsg*, W7r9!FAT"
-          className="input"
-          size-="large"
-          data-testid="passwordOne"
-          autoComplete="new-password"
-          title="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+          placeholder='Example of passwords: +r)47S+n@B, GEa8^n%qxsg*, W7r9!FAT'
+          className='input'
+          size-='large'
+          data-testid='passwordOne'
+          autoComplete='new-password'
+          title='Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.'
         />
-        <Ariakit.FormError name={form.names.passwordOne} className="error" />
+        <Ariakit.FormError name={form.names.passwordOne} className='error' />
       </div>
-      <div className="field field-registration-password-two">
+      <div className='field field-registration-password-two'>
         <Ariakit.FormLabel name={form.names.passwordTwo}>
           Please type the same password again.
         </Ariakit.FormLabel>
         <FormInput
           value={passwordTwoValue}
-          onChange={event => form.setValue('passwordTwo', event.target.value)}
-          type="password"
+          onChange={(event) => form.setValue('passwordTwo', event.target.value)}
+          type='password'
           name={form.names.passwordTwo}
-          placeholder="Must match the first password"
-          className="input"
-          size-="large"
-          data-testid="passwordTwo"
-          autoComplete="new-password"
+          placeholder='Must match the first password'
+          className='input'
+          size-='large'
+          data-testid='passwordTwo'
+          autoComplete='new-password'
         />
-        <Ariakit.FormError name={form.names.passwordTwo} className="error" />
+        <Ariakit.FormError name={form.names.passwordTwo} className='error' />
       </div>
-      <div className="field field-registration-location">
+      <div className='field field-registration-location'>
         <Ariakit.FormLabel name={form.names.location}>
           Add your town, city or country
         </Ariakit.FormLabel>
         <FormInput
           value={location}
-          onChange={event => form.setValue('location', event.target.value)}
-          type="text"
+          onChange={(event) => form.setValue('location', event.target.value)}
+          type='text'
           name={form.names.location}
-          placeholder="Add your town, city or country"
-          className="input"
-          size-="large"
-          data-testid="location"
-          autoComplete="on"
-          autoCapitalize="on"
+          placeholder='Add your town, city or country'
+          className='input'
+          size-='large'
+          data-testid='location'
+          autoComplete='on'
+          autoCapitalize='on'
         />
-        <Ariakit.FormError name={form.names.location} className="error" />
+        <Ariakit.FormError name={form.names.location} className='error' />
       </div>
-      <div className="field field-registration-portfolioUrl">
+      <div className='field field-registration-portfolioUrl'>
         <Ariakit.FormLabel name={form.names.portfolioUrl}>
           Add a link to your portfolio
         </Ariakit.FormLabel>
         <FormInput
           value={portfolioUrl}
-          onChange={event => form.setValue('portfolioUrl', event.target.value)}
-          type="url"
+          onChange={(event) => form.setValue('portfolioUrl', event.target.value)}
+          type='url'
           name={form.names.portfolioUrl}
-          placeholder="Add a link to you portfolio"
-          className="input"
-          size-="large"
-          data-testid="portfolioUrl"
-          autoCapitalize="off"
+          placeholder='Add a link to you portfolio'
+          className='input'
+          size-='large'
+          data-testid='portfolioUrl'
+          autoCapitalize='off'
         />
-        <Ariakit.FormError name={form.names.portfolioUrl} className="error" />
+        <Ariakit.FormError name={form.names.portfolioUrl} className='error' />
       </div>
-      <div className="field field-registration-youtubeLink">
+      <div className='field field-registration-youtubeLink'>
         <Ariakit.FormLabel name={form.names.youtubeLink}>
           Add a link to your YouTube channel
         </Ariakit.FormLabel>
         <FormInput
           value={youtubeLink}
-          onChange={event => form.setValue('youtubeLink', event.target.value)}
-          type="url"
+          onChange={(event) => form.setValue('youtubeLink', event.target.value)}
+          type='url'
           name={form.names.youtubeLink}
-          placeholder="Add a link to your YouTube channel"
-          className="input"
-          size-="large"
-          data-testid="youtubeLink"
-          autoCapitalize="off"
+          placeholder='Add a link to your YouTube channel'
+          className='input'
+          size-='large'
+          data-testid='youtubeLink'
+          autoCapitalize='off'
         />
-        <Ariakit.FormError name={form.names.youtubeLink} className="error" />
+        <Ariakit.FormError name={form.names.youtubeLink} className='error' />
       </div>
-      <div className="field field-registration-youtubeLink">
+      <div className='field field-registration-youtubeLink'>
         <Ariakit.FormLabel name={form.names.mastodonUrl}>
           Add a link to your Mastodon account
         </Ariakit.FormLabel>
         <FormInput
           value={mastodonUrl}
-          onChange={event => form.setValue('mastodonUrl', event.target.value)}
-          type="url"
+          onChange={(event) => form.setValue('mastodonUrl', event.target.value)}
+          type='url'
           name={form.names.mastodonUrl}
-          placeholder="Add a link to your Mastodon account"
-          className="input"
-          size-="large"
-          data-testid="mastodonUrl"
-          autoCapitalize="off"
+          placeholder='Add a link to your Mastodon account'
+          className='input'
+          size-='large'
+          data-testid='mastodonUrl'
+          autoCapitalize='off'
         />
-        <Ariakit.FormError name={form.names.mastodonUrl} className="error" />
+        <Ariakit.FormError name={form.names.mastodonUrl} className='error' />
       </div>
-      <div className="field field-registration-blueskyUrl">
+      <div className='field field-registration-blueskyUrl'>
         <Ariakit.FormLabel name={form.names.blueskyUrl}>
           Add a link to your Bluesky account
         </Ariakit.FormLabel>
         <FormInput
           value={blueskyUrl}
-          onChange={event => form.setValue('blueskyUrl', event.target.value)}
-          type="url"
+          onChange={(event) => form.setValue('blueskyUrl', event.target.value)}
+          type='url'
           name={form.names.blueskyUrl}
-          placeholder="Add a link to your Bluesky account"
-          className="input"
-          size-="large"
-          data-testid="blueskyUrl"
-          autoCapitalize="off"
+          placeholder='Add a link to your Bluesky account'
+          className='input'
+          size-='large'
+          data-testid='blueskyUrl'
+          autoCapitalize='off'
         />
-        <Ariakit.FormError name={form.names.blueskyUrl} className="error" />
+        <Ariakit.FormError name={form.names.blueskyUrl} className='error' />
       </div>
-      <div className="field field-registration-linkedinUrl">
+      <div className='field field-registration-linkedinUrl'>
         <Ariakit.FormLabel name={form.names.linkedinUrl}>
           Add a link to your LinkedIn account
         </Ariakit.FormLabel>
         <FormInput
           value={linkedinUrl}
-          onChange={event => form.setValue('linkedinUrl', event.target.value)}
-          type="url"
+          onChange={(event) => form.setValue('linkedinUrl', event.target.value)}
+          type='url'
           name={form.names.linkedinUrl}
-          placeholder="Add a link to your LinkedIn account"
-          className="input"
-          size-="large"
-          data-testid="linkedinUrl"
-          autoCapitalize="off"
+          placeholder='Add a link to your LinkedIn account'
+          className='input'
+          size-='large'
+          data-testid='linkedinUrl'
+          autoCapitalize='off'
         />
-        <Ariakit.FormError name={form.names.linkedinUrl} className="error" />
+        <Ariakit.FormError name={form.names.linkedinUrl} className='error' />
       </div>
-      <div className="buttons">
-        <Ariakit.FormSubmit className="button">Submit</Ariakit.FormSubmit>
+      <div className='buttons'>
+        <Ariakit.FormSubmit className='button'>Submit</Ariakit.FormSubmit>
       </div>
     </Ariakit.Form>
   )

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test.describe.serial('Registration Form', () => {
   test.beforeEach(async ({ page }) => {
@@ -50,8 +50,10 @@ test.describe.serial('Registration Form', () => {
     // Check for validation error messages
     await expect(page.locator('.error', { hasText: 'Please enter your name' })).toBeVisible()
     await expect(page.locator('.error', { hasText: 'Please enter a valid email address' })).toBeVisible()
-    await expect(page.locator('.field-registration-password-one .error', { hasText: 'Please enter a password' })).toBeVisible()
-    await expect(page.locator('.field-registration-password-two .error', { hasText: 'Please enter a password' })).toBeVisible()
+    await expect(page.locator('.field-registration-password-one .error', { hasText: 'Please enter a password' }))
+      .toBeVisible()
+    await expect(page.locator('.field-registration-password-two .error', { hasText: 'Please enter a password' }))
+      .toBeVisible()
   })
 
   test('should validate name field - empty name', async ({ page }) => {
@@ -104,7 +106,11 @@ test.describe.serial('Registration Form', () => {
     await page.waitForTimeout(500)
 
     // Should show invalid email error
-    await expect(page.locator('.error', { hasText: 'Please include an \'@\' in the email address. \'invalid-email\' is missing an \'@\'.\n' })).toBeVisible()
+    await expect(
+      page.locator('.error', {
+        hasText: 'Please include an \'@\' in the email address. \'invalid-email\' is missing an \'@\'.\n'
+      })
+    ).toBeVisible()
   })
 
   test('should validate password field - empty password', async ({ page }) => {
@@ -115,8 +121,10 @@ test.describe.serial('Registration Form', () => {
     await page.waitForTimeout(500)
 
     // Should show password validation error
-    await expect(page.locator('.field-registration-password-one .error', { hasText: 'Please enter a password' })).toBeVisible()
-    await expect(page.locator('.field-registration-password-two .error', { hasText: 'Please enter a password' })).toBeVisible()
+    await expect(page.locator('.field-registration-password-one .error', { hasText: 'Please enter a password' }))
+      .toBeVisible()
+    await expect(page.locator('.field-registration-password-two .error', { hasText: 'Please enter a password' }))
+      .toBeVisible()
   })
 
   test('should validate password field - weak password (no uppercase)', async ({ page }) => {
@@ -129,7 +137,12 @@ test.describe.serial('Registration Form', () => {
     await page.waitForTimeout(500)
 
     // Should show weak password error
-    await expect(page.locator('.field-registration-password-one .error', { hasText: /Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character/i })).toBeVisible()
+    await expect(
+      page.locator('.field-registration-password-one .error', {
+        hasText:
+          /Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character/i
+      })
+    ).toBeVisible()
   })
 
   test('should validate password field - weak password (no lowercase)', async ({ page }) => {
@@ -142,7 +155,12 @@ test.describe.serial('Registration Form', () => {
     await page.waitForTimeout(500)
 
     // Should show weak password error
-    await expect(page.locator('.field-registration-password-one .error', { hasText: /Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character/i })).toBeVisible()
+    await expect(
+      page.locator('.field-registration-password-one .error', {
+        hasText:
+          /Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character/i
+      })
+    ).toBeVisible()
   })
 
   test('should validate password field - weak password (no number)', async ({ page }) => {
@@ -155,7 +173,12 @@ test.describe.serial('Registration Form', () => {
     await page.waitForTimeout(500)
 
     // Should show weak password error
-    await expect(page.locator('.field-registration-password-one .error', { hasText: /Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character/i })).toBeVisible()
+    await expect(
+      page.locator('.field-registration-password-one .error', {
+        hasText:
+          /Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character/i
+      })
+    ).toBeVisible()
   })
 
   test('should validate password field - weak password (no special character)', async ({ page }) => {
@@ -168,7 +191,12 @@ test.describe.serial('Registration Form', () => {
     await page.waitForTimeout(500)
 
     // Should show weak password error
-    await expect(page.locator('.field-registration-password-one .error', { hasText: /Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character/i })).toBeVisible()
+    await expect(
+      page.locator('.field-registration-password-one .error', {
+        hasText:
+          /Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character/i
+      })
+    ).toBeVisible()
   })
 
   test('should validate password field - password too short', async ({ page }) => {
@@ -181,7 +209,12 @@ test.describe.serial('Registration Form', () => {
     await page.waitForTimeout(500)
 
     // Should show weak password error
-    await expect(page.locator('.field-registration-password-one .error', { hasText: /Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character/i })).toBeVisible()
+    await expect(
+      page.locator('.field-registration-password-one .error', {
+        hasText:
+          /Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character/i
+      })
+    ).toBeVisible()
   })
 
   test('should validate password confirmation - passwords do not match', async ({ page }) => {
@@ -194,7 +227,8 @@ test.describe.serial('Registration Form', () => {
     await page.waitForTimeout(500)
 
     // Should show passwords don't match error
-    await expect(page.locator('.field-registration-password-two .error', { hasText: 'Passwords do not match' })).toBeVisible()
+    await expect(page.locator('.field-registration-password-two .error', { hasText: 'Passwords do not match' }))
+      .toBeVisible()
   })
 
   test('should validate optional URL fields - invalid portfolio URL', async ({ page }) => {
@@ -365,7 +399,11 @@ test.describe.serial('Registration Form', () => {
     await page.waitForTimeout(500)
 
     // Error should appear
-    await expect(page.locator('.error', { hasText: 'Please include an \'@\' in the email address. \'invalid-email\' is missing an \'@\'.\n' })).toBeVisible()
+    await expect(
+      page.locator('.error', {
+        hasText: 'Please include an \'@\' in the email address. \'invalid-email\' is missing an \'@\'.\n'
+      })
+    ).toBeVisible()
 
     // Fix the email
     await page.getByTestId('email').fill('valid@example.com')
@@ -408,7 +446,7 @@ test.describe.serial('Registration Form', () => {
       'GEa8^n%qxsg*',
       'W7r9!FAT',
       'MyP@ssw0rd',
-      'Str0ng!Pass',
+      'Str0ng!Pass'
     ]
 
     for (const password of validPasswords) {

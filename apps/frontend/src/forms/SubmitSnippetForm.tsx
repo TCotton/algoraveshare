@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
 import * as Ariakit from '@ariakit/react'
-import { isEmptyString } from 'ramda-adjunct'
-import sanitize from 'sanitize-filename'
 import { equals } from 'ramda'
-import SelectForm from '../forms/SelectForm'
+import { isEmptyString } from 'ramda-adjunct'
+import React, { useState } from 'react'
+import sanitize from 'sanitize-filename'
+
 import FormTextarea from '../forms/FormTextarea'
+import SelectForm from '../forms/SelectForm'
+import { validateAudioFileUpload } from '../libs/helper-functions.ts'
 import { getDescriptionHtml } from './description-text.ts'
 import FormInput from './FormInput'
-import { validateAudioFileUpload } from '../libs/helper-functions.ts'
 
 export default function SubmitSnippetForm() {
   const [currentProjectSoftware, setCurrentProjectSoftware] = useState<string | null>(null)
@@ -20,8 +21,8 @@ export default function SubmitSnippetForm() {
       projectSoftware: '',
       codeBlock: '',
       audioUpload: '',
-      youtubeLink: '',
-    },
+      youtubeLink: ''
+    }
   })
 
   const projectSoftwareDefault = 'Project software'
@@ -40,7 +41,7 @@ export default function SubmitSnippetForm() {
       form.setError('projectSoftware', 'Please select the project software')
       hasError = true
     }
-    else {
+ else {
       form.setError('projectSoftware', '')
     }
 
@@ -50,11 +51,11 @@ export default function SubmitSnippetForm() {
       form.setError('snippetName', 'A snippet title is required')
       hasError = true
     }
-    else if (values.snippetName.trim().length > 200) {
+ else if (values.snippetName.trim().length > 200) {
       form.setError('snippetName', 'The project name must not be longer than 200 characters')
       hasError = true
     }
-    else {
+ else {
       form.setError('snippetName', '')
     }
 
@@ -64,7 +65,7 @@ export default function SubmitSnippetForm() {
       form.setError('description', 'Description is required')
       hasError = true
     }
-    else {
+ else {
       form.setError('description', '')
     }
 
@@ -83,7 +84,7 @@ export default function SubmitSnippetForm() {
         form.setError('audioUpload', 'Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')
         hasError = true
       }
-      else {
+ else {
         console.log('Validation: Valid file type:', audioFileName)
         form.setError('audioUpload', '')
       }
@@ -97,7 +98,7 @@ export default function SubmitSnippetForm() {
         form.setError('youtubeLink', 'Are you sure that URL is correct?')
         hasError = true
       }
-      else {
+ else {
         form.setError('youtubeLink', '')
       }
     }
@@ -134,7 +135,7 @@ export default function SubmitSnippetForm() {
         lastModified: audioFile.lastModified,
         name: sanitize(audioFile.name),
         size: audioFile.size,
-        type: audioFile.type,
+        type: audioFile.type
       })
       // Update state with the file details
       setAudioFiles([audioFileDetails])
@@ -154,64 +155,64 @@ export default function SubmitSnippetForm() {
   return (
     <Ariakit.Form
       store={form}
-      aria-labelledby="add-new-snippet"
-      className="form-wrapper submit-snippet-form"
-      method="post"
+      aria-labelledby='add-new-snippet'
+      className='form-wrapper submit-snippet-form'
+      method='post'
       noValidate={true}
     >
-      <div className="field field-registration-name">
+      <div className='field field-registration-name'>
         <Ariakit.FormLabel name={form.names.snippetName}>Snippet title:</Ariakit.FormLabel>
         <FormInput
           value={snippetNameValue}
-          onChange={event => form.setValue('snippetName', event.target.value)}
-          type="text"
+          onChange={(event) => form.setValue('snippetName', event.target.value)}
+          type='text'
           name={form.names.snippetName}
-          placeholder="Title for snippet"
-          className="input"
-          size-="large"
-          data-testid="name"
-          autoComplete="on"
+          placeholder='Title for snippet'
+          className='input'
+          size-='large'
+          data-testid='name'
+          autoComplete='on'
         />
-        <Ariakit.FormError name={form.names.snippetName} className="error" />
+        <Ariakit.FormError name={form.names.snippetName} className='error' />
       </div>
-      <div className="field field-project-software">
+      <div className='field field-project-software'>
         <SelectForm
-          label="Choose the project software"
-          name="projectSoftware"
+          label='Choose the project software'
+          name='projectSoftware'
           form={form}
           items={[
             { value: projectSoftwareDefault, label: 'project-software' },
             { value: 'Tidal Cycles', label: 'tidal-cycles' },
-            { value: 'Strudel', label: 'strudel' },
+            { value: 'Strudel', label: 'strudel' }
           ]}
-          selectClass="project-software"
+          selectClass='project-software'
           onChange={projectSoftwareFn}
         />
-        <Ariakit.FormError name={form.names.projectSoftware} className="error" />
+        <Ariakit.FormError name={form.names.projectSoftware} className='error' />
       </div>
-      <div className="field form-textarea form-codeblock">
+      <div className='field form-textarea form-codeblock'>
         <Ariakit.FormLabel name={form.names.codeBlock}>
           Code block
         </Ariakit.FormLabel>
         <FormTextarea
           name={String(form.names.codeBlock)}
           value={codeBlockValue}
-          onChange={e => form.setValue('codeBlock', e.target.value)}
-          placeholder="Add code here..."
-          className="form-codeblock"
-          autoCapitalize="none"
-          autoCorrect="off"
-          data-testid="codeBlock"
+          onChange={(e) => form.setValue('codeBlock', e.target.value)}
+          placeholder='Add code here...'
+          className='form-codeblock'
+          autoCapitalize='none'
+          autoCorrect='off'
+          data-testid='codeBlock'
           rows={4}
         />
-        <Ariakit.FormError name={form.names.codeBlock} className="error" />
+        <Ariakit.FormError name={form.names.codeBlock} className='error' />
       </div>
       {(currentProjectSoftware === strudel || currentProjectSoftware === tidal) && (
-        <div className="field form-textarea">
+        <div className='field form-textarea'>
           <Ariakit.FormLabel name={form.names.description}>
             Description
           </Ariakit.FormLabel>
-          <div className="description-text">
+          <div className='description-text'>
             <p>When writing your description, consider addressing some of the following questions:</p>
             <div
               dangerouslySetInnerHTML={{ __html: getDescriptionHtml(currentProjectSoftware) }}
@@ -220,54 +221,53 @@ export default function SubmitSnippetForm() {
           <FormTextarea
             name={String(form.names.description)}
             value={descriptionValue}
-            onChange={e => form.setValue('description', e.target.value)}
-            placeholder="Add description here..."
-            className="form-description"
-            autoCapitalize="none"
-            autoCorrect="off"
-            data-testid="description"
+            onChange={(e) => form.setValue('description', e.target.value)}
+            placeholder='Add description here...'
+            className='form-description'
+            autoCapitalize='none'
+            autoCorrect='off'
+            data-testid='description'
             rows={4}
           />
-          <Ariakit.FormError name={form.names.description} className="error" />
+          <Ariakit.FormError name={form.names.description} className='error' />
         </div>
       )}
-      <div className="field field-upload-audio" is-="typography-block" box-="round" shear-="top">
-        <div is-="badge" variant-="background0">
+      <div className='field field-upload-audio' is-='typography-block' box-='round' shear-='top'>
+        <div is-='badge' variant-='background0'>
           <Ariakit.FormLabel name={form.names.audioUpload}>
-            Audio upload:
-            accepts WAV, MP3, FLAC, AAC and OGG
+            Audio upload: <br />accepts WAV, MP3, FLAC, AAC and OGG
           </Ariakit.FormLabel>
         </div>
         <FormInput
           value={audioUploadValue}
           onChange={audioFileValidation}
-          type="file"
+          type='file'
           name={form.names.audioUpload}
-          placeholder="Audio file"
-          className="input-audio-file"
-          size-="large"
-          data-testid="audio-file-upload"
+          placeholder='Audio file'
+          className='input-audio-file'
+          size-='large'
+          data-testid='audio-file-upload'
         />
-        <Ariakit.FormError name={form.names.audioUpload} className="error" />
+        <Ariakit.FormError name={form.names.audioUpload} className='error' />
       </div>
-      <div className="field input-youtube-link" is-="typography-block" box-="round" shear-="top">
-        <div is-="badge" variant-="background0">
+      <div className='field input-youtube-link' is-='typography-block' box-='round' shear-='top'>
+        <div is-='badge' variant-='background0'>
           <Ariakit.FormLabel name={form.names.youtubeLink}>Add a URL of a relevant YouTube video</Ariakit.FormLabel>
         </div>
         <Ariakit.FormInput
-          name="youtubeLink"
+          name='youtubeLink'
           value={youtubeLinkValue}
-          onChange={event => form.setValue('youtubeLink', event.target.value)}
-          placeholder="Link to YouTube video"
-          className="youtube-link"
-          autoCapitalize="none"
-          autoComplete="off"
-          size-="large"
+          onChange={(event) => form.setValue('youtubeLink', event.target.value)}
+          placeholder='Link to YouTube video'
+          className='youtube-link'
+          autoCapitalize='none'
+          autoComplete='off'
+          size-='large'
         />
-        <Ariakit.FormError name={form.names.youtubeLink} className="error" />
+        <Ariakit.FormError name={form.names.youtubeLink} className='error' />
       </div>
-      <div className="buttons">
-        <Ariakit.FormSubmit className="button">Submit</Ariakit.FormSubmit>
+      <div className='buttons'>
+        <Ariakit.FormSubmit className='button'>Submit</Ariakit.FormSubmit>
       </div>
     </Ariakit.Form>
   )

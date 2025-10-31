@@ -1,6 +1,7 @@
-import React from 'react'
-import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import React from 'react'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
 import SubmitProjectForm from '../../../../src/forms/SubmitProjectForm'
 
 // Set up test environment
@@ -11,27 +12,30 @@ beforeEach(() => {
 // Mock the description-text module
 vi.mock('../../../../src/forms/description-text.ts', () => ({
   getDescriptionHtml: vi.fn((software: string | null) => {
-    if (software === 'Tidal Cycles')
+    if (software === 'Tidal Cycles') {
       return '<ul><li>Tidal Cycles specific content</li></ul>'
+    }
 
-    if (software === 'Strudel')
+    if (software === 'Strudel') {
       return '<ul><li>Strudel specific content</li></ul>'
+    }
 
     return '<ul><li>Generic content</li></ul>'
-  }),
+  })
 }))
 
 // Mock SelectForm component
 vi.mock('../../../../src/forms/SelectForm', () => ({
-  default: ({ label, items, onChange }: any) => (
-    <div data-testid="select-form">
+  default: ({ items, label, onChange }: any) => (
+    <div data-testid='select-form'>
       <label>{label}</label>
-      <select onChange={(e) => {
-        const selectedItem = items.find((item: any) => item.value === e.target.value)
-        if (selectedItem && onChange) {
-          onChange(selectedItem.label, selectedItem.value)
-        }
-      }}
+      <select
+        onChange={(e) => {
+          const selectedItem = items.find((item: any) => item.value === e.target.value)
+          if (selectedItem && onChange) {
+            onChange(selectedItem.label, selectedItem.value)
+          }
+        }}
       >
         {items.map((item: any) => (
           <option key={item.value} value={item.value}>
@@ -40,7 +44,7 @@ vi.mock('../../../../src/forms/SelectForm', () => ({
         ))}
       </select>
     </div>
-  ),
+  )
 }))
 
 // Mock @ariakit/react
@@ -50,7 +54,7 @@ vi.mock('@ariakit/react', () => {
     description: '',
     singleProject: '',
     projectSoftware: '',
-    projectType: '',
+    projectType: ''
   }
   const formErrors: Record<string, string> = {}
   let submitHandler: ((state: any) => void) | null = null
@@ -64,7 +68,7 @@ vi.mock('@ariakit/react', () => {
         description: 'description',
         singleProject: 'singleProject',
         projectSoftware: 'projectSoftware',
-        projectType: 'projectType',
+        projectType: 'projectType'
       },
       useSubmit: (handler: any) => {
         submitHandler = handler
@@ -75,7 +79,7 @@ vi.mock('@ariakit/react', () => {
       },
       setError: (name: string, error: string) => {
         formErrors[name] = error
-      },
+      }
     })),
     Form: ({ children, ...props }: any) => (
       <form
@@ -84,7 +88,7 @@ vi.mock('@ariakit/react', () => {
           e.preventDefault()
           if (submitHandler) {
             submitHandler({
-              values: formValues,
+              values: formValues
             })
           }
         }}
@@ -95,7 +99,7 @@ vi.mock('@ariakit/react', () => {
     FormLabel: ({ children, ...props }: any) => <label {...props}>{children}</label>,
     FormInput: (props: any) => <input {...props} />,
     FormError: ({ name, ...props }: any) => <span {...props} data-error-for={name}>{formErrors[name]}</span>,
-    FormSubmit: ({ children, ...props }: any) => <button type="submit" {...props}>{children}</button>,
+    FormSubmit: ({ children, ...props }: any) => <button type='submit' {...props}>{children}</button>
   }
 })
 

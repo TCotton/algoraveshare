@@ -1,5 +1,5 @@
-import React from 'react'
 import * as Ariakit from '@ariakit/react'
+import React from 'react'
 
 // StringLike is an interface that has toString() and valueOf() methods
 type StringLike = {
@@ -25,20 +25,20 @@ interface FormInputProps {
 const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
   (
     {
-      name,
-      value,
-      onChange,
-      type = 'text',
-      placeholder,
-      className = 'input',
-      'size-': sizeAttr,
-      'data-testid': dataTestId,
-      autoComplete = 'off',
       autoCapitalize = 'none',
+      autoComplete = 'off',
+      className = 'input',
+      'data-testid': dataTestId,
+      name,
+      onChange,
+      placeholder,
       required = false,
+      'size-': sizeAttr,
       title,
+      type = 'text',
+      value
     },
-    ref,
+    ref
   ) => {
     return (
       <Ariakit.FormInput
@@ -57,7 +57,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
         title={title}
       />
     )
-  },
+  }
 )
 
 FormInput.displayName = 'FormInput'

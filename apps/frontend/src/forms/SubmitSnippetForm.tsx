@@ -3,6 +3,7 @@ import { equals } from 'ramda'
 import { isEmptyString } from 'ramda-adjunct'
 import React, { useState } from 'react'
 import sanitize from 'sanitize-filename'
+
 import FormTextarea from '../forms/FormTextarea'
 import SelectForm from '../forms/SelectForm'
 import { validateAudioFileUpload } from '../libs/helper-functions.ts'
@@ -234,7 +235,7 @@ export default function SubmitSnippetForm() {
       <div className='field field-upload-audio' is-='typography-block' box-='round' shear-='top'>
         <div is-='badge' variant-='background0'>
           <Ariakit.FormLabel name={form.names.audioUpload}>
-            Audio upload: accepts WAV, MP3, FLAC, AAC and OGG
+            Audio upload: <br />accepts WAV, MP3, FLAC, AAC and OGG
           </Ariakit.FormLabel>
         </div>
         <FormInput

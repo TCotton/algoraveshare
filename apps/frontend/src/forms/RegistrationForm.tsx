@@ -3,6 +3,7 @@ import { Equivalence, Redacted } from 'effect'
 import React from 'react'
 import isEmail from 'validator/lib/isEmail'
 import isStrongPassword from 'validator/lib/isStrongPassword'
+
 import FormInput from './FormInput'
 
 interface FormValues {

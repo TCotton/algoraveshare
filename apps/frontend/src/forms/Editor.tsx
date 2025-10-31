@@ -1,10 +1,11 @@
-import React from 'react'
 import '@blocknote/core/fonts/inter.css'
+import '@blocknote/ariakit/style.css'
+
 import type { FormStore } from '@ariakit/react'
 import { BlockNoteView } from '@blocknote/ariakit'
 import { BlockNoteSchema, createCodeBlockSpec } from '@blocknote/core'
 import { useCreateBlockNote } from '@blocknote/react'
-import '@blocknote/ariakit/style.css'
+import React from 'react'
 
 export default function Editor(props: { form: FormStore }) {
   const { form } = props

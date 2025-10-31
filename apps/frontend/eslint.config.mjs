@@ -1,3 +1,6 @@
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import { fixupPluginRules } from '@eslint/compat'
 import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
@@ -10,8 +13,6 @@ import pluginReact from 'eslint-plugin-react'
 import pluginReactHooks from 'eslint-plugin-react-hooks'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import sortDestructureKeys from 'eslint-plugin-sort-destructure-keys'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -109,7 +110,7 @@ export default [
       'import/no-duplicates': 'off',
       'import/no-unresolved': 'off',
       'import/order': 'off',
-      'simple-import-sort/imports': 'off',
+      'simple-import-sort/imports': 'error',
       'sort-destructure-keys/sort-destructure-keys': 'error',
 
       '@typescript-eslint/array-type': ['warn', {
@@ -138,8 +139,7 @@ export default [
       '@typescript-eslint/no-namespace': 'off',
 
       '@stylistic/quotes': ['error', 'single'],
-      '@stylistic/semi': ['error', 'never'],
-      '@stylistic/brace-style': ['error', 'stroustrup', { allowSingleLine: false }]
+      '@stylistic/semi': ['error', 'never']
     }
   }
 ]

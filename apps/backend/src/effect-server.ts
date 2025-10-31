@@ -26,6 +26,9 @@ const GreetingsLive = HttpApiBuilder.group(
   (handlers) => handlers.handle('hello-world', () => Effect.succeed('Hello, World!'))
 )
 
+// Provide the implementation for the API
+const MyApiLive = HttpApiBuilder.api(MyApi).pipe(Layer.provide(GreetingsLive))
+
 const DatabaseLive = Layer.unwrapEffect(
   EnvVars.pipe(
     Effect.map((envVars) =>
@@ -37,8 +40,6 @@ const DatabaseLive = Layer.unwrapEffect(
   )
 ).pipe(Layer.provide(EnvVars.Default))
 
-// Provide the implementation for the API
-const MyApiLive = HttpApiBuilder.api(MyApi).pipe(Layer.provide(GreetingsLive))
 // Set up the server using NodeHttpServer on port 3000
 const ServerLive = HttpApiBuilder.serve(HttpMiddleware.logger).pipe(
   Layer.provide(HttpApiBuilder.middlewareCors()),
@@ -50,7 +51,7 @@ const ServerLive = HttpApiBuilder.serve(HttpMiddleware.logger).pipe(
   Layer.provide(NodeHttpServer.layer(createServer, { port: 3000 }))
 )
 // Launch the server
-Layer.launch(ServerLive).pipe(NodeRuntime.runMain)
+NodeRuntime.runMain(Layer.launch(ServerLive))
 
 /**
  * potential CORS config

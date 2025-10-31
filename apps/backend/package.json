@@ -24,7 +24,6 @@
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
-    "@repo/schema": "workspace:*",
     "@effect/data": "^0.18.7",
     "@effect/io": "^0.41.2",
     "@effect/opentelemetry": "^0.58.0",
@@ -35,6 +34,7 @@
     "@opentelemetry/sdk-metrics": "^2.1.0",
     "@opentelemetry/sdk-trace-base": "^2.1.0",
     "@opentelemetry/sdk-trace-node": "^2.1.0",
+    "@repo/schema": "workspace:*",
     "drizzle-orm": "^0.44.6",
     "effect": "^3.18.4",
     "fastify": "^5.6.1",
@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@effect/eslint-plugin": "^0.3.2",
+    "@effect/language-service": "^0.52.1",
     "@effect/vitest": "^0.26.0",
     "@eslint/compat": "^1.4.0",
     "@eslint/eslintrc": "^3.3.1",

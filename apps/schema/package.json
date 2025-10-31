@@ -39,6 +39,7 @@
     "effect": "^3.18.4"
   },
   "devDependencies": {
+    "@effect/language-service": "^0.52.1",
     "@eslint/js": "^9.38.0",
     "@stylistic/eslint-plugin": "^5.5.0",
     "@types/validator": "^13.15.4",

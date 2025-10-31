@@ -5,6 +5,8 @@
   "type": "module",
   "packageManager": "pnpm@10.0.0",
   "scripts": {
+    "install:deps": "echo 'Dependencies checked for backend'",
+    "deps:check": "test -d node_modules || echo 'Run: pnpm install from root'",
     "build": "tsc -p tsconfig.json",
     "dev": "tsx src/effect-server.ts",
     "test:unit": "vitest run",

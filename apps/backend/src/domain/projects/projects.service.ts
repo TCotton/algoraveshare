@@ -4,6 +4,7 @@ import * as Database from '../../db.js'
 export class ProjectsService extends Effect.Service<ProjectsService>()('ProjectsService', {
   effect: Effect.gen(function*() {
     const db = yield* Database.Database
+
     const findAll = db.makeQuery((execute) =>
       execute((client) =>
         client.query.projects.findMany({
@@ -16,6 +17,7 @@ export class ProjectsService extends Effect.Service<ProjectsService>()('Projects
         Effect.withSpan('ProjectsService.findAll')
       )
     )
+
     return {
       findAll
     }

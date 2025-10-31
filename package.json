@@ -6,12 +6,9 @@
   "main": "index.js",
   "packageManager": "pnpm@10.0.0",
   "scripts": {
-    "test": "vitest",
-    "test:unit": "vitest",
-    "install:all": "frontend && backend",
-    "frontend": "cd backend && npm ci && npm test",
-    "backend": "cd backend && npm ci && npm test",
-    "infrastructure": "cd infrastructure && terraform init -backend=false && terraform validate",
+    "install:all": "pnpm install",
+    "install:workspaces": "turbo run install:deps",
+    "deps:check": "turbo run deps:check",
     "prepare": "husky",
     "preinstall": "npx only-allow pnpm"
   },

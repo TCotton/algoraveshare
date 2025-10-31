@@ -1,8 +1,10 @@
 {
   "$schema": "./node_modules/turbo/schema.json",
+  "globalDependencies": [".env"],
   "tasks": {
     "build": {
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "inputs": ["$TURBO_DEFAULT$", ".env"]
     },
     "typecheck": {
       "dependsOn": ["^typecheck"]

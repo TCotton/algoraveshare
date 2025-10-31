@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Schema } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { ProjectSchema } from '../src/projects.schema.js'
 
 describe('ProjectSchema', () => {
@@ -18,13 +18,13 @@ describe('ProjectSchema', () => {
         audioData: { duration: 120, sampleRate: 44100 },
         youtubeUrlId: 'dQw4w9WgXcQ',
         softwareType: 'strudel' as const,
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       const result = Schema.decodeUnknownSync(ProjectSchema)(validProject)
       expect(result).toEqual({
         ...validProject,
-        createdAt: new Date('2023-01-01T00:00:00Z'),
+        createdAt: new Date('2023-01-01T00:00:00Z')
       })
     })
 
@@ -42,13 +42,13 @@ describe('ProjectSchema', () => {
         audioData: null,
         youtubeUrlId: null,
         softwareType: 'tidalcycles' as const,
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       const result = Schema.decodeUnknownSync(ProjectSchema)(validProject)
       expect(result).toEqual({
         ...validProject,
-        createdAt: new Date('2023-01-01T00:00:00Z'),
+        createdAt: new Date('2023-01-01T00:00:00Z')
       })
     })
 
@@ -69,7 +69,7 @@ describe('ProjectSchema', () => {
           audioData: null,
           youtubeUrlId: null,
           softwareType: 'strudel' as const,
-          createdAt: '2023-01-01T00:00:00Z',
+          createdAt: '2023-01-01T00:00:00Z'
         }
 
         const result = Schema.decodeUnknownSync(ProjectSchema)(validProject)
@@ -93,7 +93,7 @@ describe('ProjectSchema', () => {
         audioData: null,
         youtubeUrlId: null,
         softwareType: 'strudel',
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       expect(() => Schema.decodeUnknownSync(ProjectSchema)(invalidProject)).toThrow()
@@ -113,7 +113,7 @@ describe('ProjectSchema', () => {
         audioData: null,
         youtubeUrlId: null,
         softwareType: 'strudel',
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       expect(() => Schema.decodeUnknownSync(ProjectSchema)(invalidProject)).toThrow()
@@ -133,7 +133,7 @@ describe('ProjectSchema', () => {
         audioData: null,
         youtubeUrlId: null,
         softwareType: 'strudel',
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       expect(() => Schema.decodeUnknownSync(ProjectSchema)(invalidProject)).toThrow()
@@ -153,7 +153,7 @@ describe('ProjectSchema', () => {
         audioData: null,
         youtubeUrlId: null,
         softwareType: 'invalid-software', // invalid type
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       expect(() => Schema.decodeUnknownSync(ProjectSchema)(invalidProject)).toThrow()
@@ -161,7 +161,7 @@ describe('ProjectSchema', () => {
 
     it('should fail with missing required fields', () => {
       const incompleteProject = {
-        projectId: '123e4567-e89b-12d3-a456-426614174000',
+        projectId: '123e4567-e89b-12d3-a456-426614174000'
         // missing required fields
       }
 
@@ -182,7 +182,7 @@ describe('ProjectSchema', () => {
         audioData: null,
         youtubeUrlId: null,
         softwareType: 'strudel',
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       expect(() => Schema.decodeUnknownSync(ProjectSchema)(invalidProject)).toThrow()
@@ -202,7 +202,7 @@ describe('ProjectSchema', () => {
         audioData: null,
         youtubeUrlId: null,
         softwareType: 'strudel',
-        createdAt: 'invalid-date', // should be valid ISO date string
+        createdAt: 'invalid-date' // should be valid ISO date string
       }
 
       expect(() => Schema.decodeUnknownSync(ProjectSchema)(invalidProject)).toThrow()
@@ -218,7 +218,7 @@ describe('ProjectSchema', () => {
         'simple string',
         42,
         true,
-        null,
+        null
       ]
 
       validJsonValues.forEach((audioData) => {
@@ -235,7 +235,7 @@ describe('ProjectSchema', () => {
           audioData,
           youtubeUrlId: null,
           softwareType: 'strudel' as const,
-          createdAt: '2023-01-01T00:00:00Z',
+          createdAt: '2023-01-01T00:00:00Z'
         }
 
         const result = Schema.decodeUnknownSync(ProjectSchema)(validProject)

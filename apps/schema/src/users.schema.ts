@@ -11,5 +11,5 @@ export const UserSchema = Schema.Struct({
   youtubeUrl: Schema.NullOr(Schema.String),
   mastodonUrl: Schema.NullOr(Schema.String),
   blueskyUrl: Schema.NullOr(Schema.String),
-  linkedinUrl: Schema.NullOr(Schema.String),
+  linkedinUrl: Schema.NullOr(Schema.String)
 })

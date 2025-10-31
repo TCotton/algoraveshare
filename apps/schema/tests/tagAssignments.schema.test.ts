@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Schema } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { TagAssignmentSchema } from '../src/tagAssignments.schema.js'
 
 describe('TagAssignmentSchema', () => {
@@ -9,13 +9,13 @@ describe('TagAssignmentSchema', () => {
         tagId: 1,
         entityType: 'project' as const,
         entityId: '123e4567-e89b-12d3-a456-426614174000',
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       const result = Schema.decodeUnknownSync(TagAssignmentSchema)(validTagAssignment)
       expect(result).toEqual({
         ...validTagAssignment,
-        createdAt: new Date('2023-01-01T00:00:00Z'),
+        createdAt: new Date('2023-01-01T00:00:00Z')
       })
     })
 
@@ -24,13 +24,13 @@ describe('TagAssignmentSchema', () => {
         tagId: 5,
         entityType: 'snippet' as const,
         entityId: '123e4567-e89b-12d3-a456-426614174001',
-        createdAt: '2023-06-15T12:30:00Z',
+        createdAt: '2023-06-15T12:30:00Z'
       }
 
       const result = Schema.decodeUnknownSync(TagAssignmentSchema)(validTagAssignment)
       expect(result).toEqual({
         ...validTagAssignment,
-        createdAt: new Date('2023-06-15T12:30:00Z'),
+        createdAt: new Date('2023-06-15T12:30:00Z')
       })
     })
 
@@ -42,7 +42,7 @@ describe('TagAssignmentSchema', () => {
           tagId,
           entityType: 'project' as const,
           entityId: '123e4567-e89b-12d3-a456-426614174000',
-          createdAt: '2023-01-01T00:00:00Z',
+          createdAt: '2023-01-01T00:00:00Z'
         }
 
         const result = Schema.decodeUnknownSync(TagAssignmentSchema)(validTagAssignment)
@@ -55,7 +55,7 @@ describe('TagAssignmentSchema', () => {
         '123e4567-e89b-12d3-a456-426614174000',
         '987fcdeb-51a2-43d7-b123-456789abcdef',
         '11111111-2222-3333-4444-555555555555',
-        'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
+        'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
       ]
 
       entityIds.forEach((entityId) => {
@@ -63,7 +63,7 @@ describe('TagAssignmentSchema', () => {
           tagId: 1,
           entityType: 'snippet' as const,
           entityId,
-          createdAt: '2023-01-01T00:00:00Z',
+          createdAt: '2023-01-01T00:00:00Z'
         }
 
         const result = Schema.decodeUnknownSync(TagAssignmentSchema)(validTagAssignment)
@@ -76,7 +76,7 @@ describe('TagAssignmentSchema', () => {
         '2020-01-01T00:00:00Z',
         '2023-06-15T12:30:45Z',
         '2024-12-31T23:59:59Z',
-        '2023-01-01T00:00:00Z',
+        '2023-01-01T00:00:00Z'
       ]
 
       dates.forEach((createdAt) => {
@@ -84,7 +84,7 @@ describe('TagAssignmentSchema', () => {
           tagId: 1,
           entityType: 'project' as const,
           entityId: '123e4567-e89b-12d3-a456-426614174000',
-          createdAt,
+          createdAt
         }
 
         const result = Schema.decodeUnknownSync(TagAssignmentSchema)(validTagAssignment)
@@ -99,7 +99,7 @@ describe('TagAssignmentSchema', () => {
         tagId: 1,
         entityType: 'user', // invalid entity type
         entityId: '123e4567-e89b-12d3-a456-426614174000',
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       expect(() => Schema.decodeUnknownSync(TagAssignmentSchema)(invalidTagAssignment)).toThrow()
@@ -110,7 +110,7 @@ describe('TagAssignmentSchema', () => {
         tagId: 'not-a-number',
         entityType: 'project',
         entityId: '123e4567-e89b-12d3-a456-426614174000',
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       expect(() => Schema.decodeUnknownSync(TagAssignmentSchema)(invalidTagAssignment)).toThrow()
@@ -121,7 +121,7 @@ describe('TagAssignmentSchema', () => {
         tagId: 1,
         entityType: 'project',
         entityId: 'invalid-uuid',
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       expect(() => Schema.decodeUnknownSync(TagAssignmentSchema)(invalidTagAssignment)).toThrow()
@@ -132,7 +132,7 @@ describe('TagAssignmentSchema', () => {
         tagId: 1,
         entityType: 'project',
         entityId: '123e4567-e89b-12d3-a456-426614174000',
-        createdAt: 'invalid-date',
+        createdAt: 'invalid-date'
       }
 
       expect(() => Schema.decodeUnknownSync(TagAssignmentSchema)(invalidTagAssignment)).toThrow()
@@ -143,7 +143,7 @@ describe('TagAssignmentSchema', () => {
         tagId: null,
         entityType: 'project',
         entityId: '123e4567-e89b-12d3-a456-426614174000',
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       expect(() => Schema.decodeUnknownSync(TagAssignmentSchema)(invalidTagAssignment)).toThrow()
@@ -154,7 +154,7 @@ describe('TagAssignmentSchema', () => {
         tagId: 1,
         entityType: null,
         entityId: '123e4567-e89b-12d3-a456-426614174000',
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       expect(() => Schema.decodeUnknownSync(TagAssignmentSchema)(invalidTagAssignment)).toThrow()
@@ -165,7 +165,7 @@ describe('TagAssignmentSchema', () => {
         tagId: 1,
         entityType: 'project',
         entityId: null,
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       expect(() => Schema.decodeUnknownSync(TagAssignmentSchema)(invalidTagAssignment)).toThrow()
@@ -174,7 +174,7 @@ describe('TagAssignmentSchema', () => {
     it('should fail with missing required fields', () => {
       const incompleteTagAssignment = {
         tagId: 1,
-        entityType: 'project',
+        entityType: 'project'
         // missing entityId and createdAt
       }
 
@@ -186,7 +186,7 @@ describe('TagAssignmentSchema', () => {
         tagId: 1.5, // Effect Number schema allows decimals
         entityType: 'project',
         entityId: '123e4567-e89b-12d3-a456-426614174000',
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       const result = Schema.decodeUnknownSync(TagAssignmentSchema)(validTagAssignment)
@@ -198,7 +198,7 @@ describe('TagAssignmentSchema', () => {
         tagId: -1,
         entityType: 'project',
         entityId: '123e4567-e89b-12d3-a456-426614174000',
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       const result = Schema.decodeUnknownSync(TagAssignmentSchema)(validTagAssignment)
@@ -216,7 +216,7 @@ describe('TagAssignmentSchema', () => {
           tagId: 1,
           entityType,
           entityId: '123e4567-e89b-12d3-a456-426614174000',
-          createdAt: '2023-01-01T00:00:00Z',
+          createdAt: '2023-01-01T00:00:00Z'
         }
 
         const result = Schema.decodeUnknownSync(TagAssignmentSchema)(validTagAssignment)
@@ -228,7 +228,7 @@ describe('TagAssignmentSchema', () => {
           tagId: 1,
           entityType,
           entityId: '123e4567-e89b-12d3-a456-426614174000',
-          createdAt: '2023-01-01T00:00:00Z',
+          createdAt: '2023-01-01T00:00:00Z'
         }
 
         expect(() => Schema.decodeUnknownSync(TagAssignmentSchema)(invalidTagAssignment)).toThrow()
@@ -242,7 +242,7 @@ describe('TagAssignmentSchema', () => {
         tagId: Number.MAX_SAFE_INTEGER,
         entityType: 'project' as const,
         entityId: '123e4567-e89b-12d3-a456-426614174000',
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       const result = Schema.decodeUnknownSync(TagAssignmentSchema)(validTagAssignment)
@@ -253,7 +253,7 @@ describe('TagAssignmentSchema', () => {
       const uuidFormats = [
         '123e4567-e89b-12d3-a456-426614174000', // lowercase
         '123E4567-E89B-12D3-A456-426614174000', // uppercase
-        '123e4567-e89b-12d3-a456-426614174000', // mixed case (already lowercase)
+        '123e4567-e89b-12d3-a456-426614174000' // mixed case (already lowercase)
       ]
 
       uuidFormats.forEach((entityId) => {
@@ -261,7 +261,7 @@ describe('TagAssignmentSchema', () => {
           tagId: 1,
           entityType: 'snippet' as const,
           entityId,
-          createdAt: '2023-01-01T00:00:00Z',
+          createdAt: '2023-01-01T00:00:00Z'
         }
 
         const result = Schema.decodeUnknownSync(TagAssignmentSchema)(validTagAssignment)
@@ -274,7 +274,7 @@ describe('TagAssignmentSchema', () => {
         '2023-01-01T00:00:00Z', // date only
         '2023-01-01T12:00:00Z', // with time
         '2023-01-01T12:00:00.123Z', // with milliseconds
-        '2023-01-01T12:00:00.123Z', // with timezone
+        '2023-01-01T12:00:00.123Z' // with timezone
       ]
 
       dates.forEach((createdAt) => {
@@ -282,7 +282,7 @@ describe('TagAssignmentSchema', () => {
           tagId: 1,
           entityType: 'project' as const,
           entityId: '123e4567-e89b-12d3-a456-426614174000',
-          createdAt,
+          createdAt
         }
 
         const result = Schema.decodeUnknownSync(TagAssignmentSchema)(validTagAssignment)
@@ -295,7 +295,7 @@ describe('TagAssignmentSchema', () => {
         tagId: 1,
         entityType: 'project' as const,
         entityId: '123e4567-e89b-12d3-a456-426614174000',
-        createdAt: '2023-01-01T00:00:00Z',
+        createdAt: '2023-01-01T00:00:00Z'
       }
 
       const result = Schema.decodeUnknownSync(TagAssignmentSchema)(tagAssignmentWithExtra)

@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { Schema } from 'effect'
+import { describe, expect, it } from 'vitest'
 import { TagSchema } from '../src/tags.schema.js'
 
 describe('TagSchema', () => {
@@ -7,7 +7,7 @@ describe('TagSchema', () => {
     it('should successfully decode valid tag data', () => {
       const validTag = {
         tagId: 1,
-        name: 'Electronic',
+        name: 'Electronic'
       }
 
       const result = Schema.decodeUnknownSync(TagSchema)(validTag)
@@ -20,7 +20,7 @@ describe('TagSchema', () => {
       tagIds.forEach((tagId) => {
         const validTag = {
           tagId,
-          name: `Tag ${tagId}`,
+          name: `Tag ${tagId}`
         }
 
         const result = Schema.decodeUnknownSync(TagSchema)(validTag)
@@ -40,13 +40,13 @@ describe('TagSchema', () => {
         'Experimental',
         'Live Coding',
         'Algorithmic',
-        'Generative',
+        'Generative'
       ]
 
       tagNames.forEach((name, index) => {
         const validTag = {
           tagId: index + 1,
-          name,
+          name
         }
 
         const result = Schema.decodeUnknownSync(TagSchema)(validTag)
@@ -59,7 +59,7 @@ describe('TagSchema', () => {
     it('should fail with non-number tagId', () => {
       const invalidTag = {
         tagId: 'not-a-number',
-        name: 'Electronic',
+        name: 'Electronic'
       }
 
       expect(() => Schema.decodeUnknownSync(TagSchema)(invalidTag)).toThrow()
@@ -68,7 +68,7 @@ describe('TagSchema', () => {
     it('should fail with non-string name', () => {
       const invalidTag = {
         tagId: 1,
-        name: 123, // should be string
+        name: 123 // should be string
       }
 
       expect(() => Schema.decodeUnknownSync(TagSchema)(invalidTag)).toThrow()
@@ -76,7 +76,7 @@ describe('TagSchema', () => {
 
     it('should fail with missing tagId', () => {
       const invalidTag = {
-        name: 'Electronic',
+        name: 'Electronic'
         // missing tagId
       }
 
@@ -85,7 +85,7 @@ describe('TagSchema', () => {
 
     it('should fail with missing name', () => {
       const invalidTag = {
-        tagId: 1,
+        tagId: 1
         // missing name
       }
 
@@ -95,7 +95,7 @@ describe('TagSchema', () => {
     it('should fail with null tagId', () => {
       const invalidTag = {
         tagId: null,
-        name: 'Electronic',
+        name: 'Electronic'
       }
 
       expect(() => Schema.decodeUnknownSync(TagSchema)(invalidTag)).toThrow()
@@ -104,7 +104,7 @@ describe('TagSchema', () => {
     it('should fail with null name', () => {
       const invalidTag = {
         tagId: 1,
-        name: null,
+        name: null
       }
 
       expect(() => Schema.decodeUnknownSync(TagSchema)(invalidTag)).toThrow()
@@ -113,7 +113,7 @@ describe('TagSchema', () => {
     it('should fail with decimal tagId', () => {
       const invalidTag = {
         tagId: 1.5, // should be integer
-        name: 'Electronic',
+        name: 'Electronic'
       }
 
       // Note: Schema.Number allows decimals by default
@@ -125,7 +125,7 @@ describe('TagSchema', () => {
     it('should fail with negative tagId', () => {
       const invalidTag = {
         tagId: -1,
-        name: 'Electronic',
+        name: 'Electronic'
       }
 
       // Note: Schema.Number allows negative numbers by default
@@ -137,7 +137,7 @@ describe('TagSchema', () => {
     it('should fail with empty string name', () => {
       const invalidTag = {
         tagId: 1,
-        name: '',
+        name: ''
       }
 
       // Note: This test depends on whether the schema validates empty strings
@@ -150,7 +150,7 @@ describe('TagSchema', () => {
       const invalidTag = {
         tagId: 1,
         name: 'Electronic',
-        extraProperty: 'should not be here',
+        extraProperty: 'should not be here'
       }
 
       // Effect Schema by default allows extra properties, so this test verifies current behavior
@@ -166,7 +166,7 @@ describe('TagSchema', () => {
     it('should handle very large tag IDs', () => {
       const validTag = {
         tagId: Number.MAX_SAFE_INTEGER,
-        name: 'Large ID Tag',
+        name: 'Large ID Tag'
       }
 
       const result = Schema.decodeUnknownSync(TagSchema)(validTag)
@@ -177,7 +177,7 @@ describe('TagSchema', () => {
       const longName = 'A'.repeat(1000)
       const validTag = {
         tagId: 1,
-        name: longName,
+        name: longName
       }
 
       const result = Schema.decodeUnknownSync(TagSchema)(validTag)
@@ -195,13 +195,13 @@ describe('TagSchema', () => {
         'Lo-Fi Hip Hop',
         'UK Garage',
         'Psych-Rock',
-        'Afro-Cuban Jazz',
+        'Afro-Cuban Jazz'
       ]
 
       specialNames.forEach((name, index) => {
         const validTag = {
           tagId: index + 1,
-          name,
+          name
         }
 
         const result = Schema.decodeUnknownSync(TagSchema)(validTag)
@@ -217,13 +217,13 @@ describe('TagSchema', () => {
         'Electronicá',
         '電子音楽',
         'موسيقى إلكترونية',
-        'Электронная музыка',
+        'Электронная музыка'
       ]
 
       unicodeNames.forEach((name, index) => {
         const validTag = {
           tagId: index + 1,
-          name,
+          name
         }
 
         const result = Schema.decodeUnknownSync(TagSchema)(validTag)

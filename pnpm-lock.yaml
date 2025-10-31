@@ -66,6 +66,9 @@ importers:
       '@effect/eslint-plugin':
         specifier: ^0.3.2
         version: 0.3.2
+      '@effect/language-service':
+        specifier: ^0.52.1
+        version: 0.52.1
       '@effect/vitest':
         specifier: ^0.26.0
         version: 0.26.0(effect@3.18.4)(vitest@3.2.4)
@@ -302,6 +305,12 @@ importers:
         specifier: ^3.18.4
         version: 3.18.4
     devDependencies:
+      '@effect/language-service':
+        specifier: ^0.52.1
+        version: 0.52.1
+      '@effect/vitest':
+        specifier: ^0.26.0
+        version: 0.26.0(effect@3.18.4)(vitest@3.2.4)
       '@eslint/js':
         specifier: ^9.38.0
         version: 9.38.0
@@ -332,6 +341,9 @@ importers:
       validator:
         specifier: ^13.15.20
         version: 13.15.20
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.9.2)(@vitest/ui@3.2.4)(jiti@2.6.1)(jsdom@27.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
 packages:
 
@@ -617,6 +629,10 @@ packages:
     deprecated: this package has been merged into the main effect package
     peerDependencies:
       '@effect/data': ^0.18.5
+
+  '@effect/language-service@0.52.1':
+    resolution: {integrity: sha512-1azwmMvg5UhJ2HgJ7iNhdbrbCvXgPNvszjOKBZmxEWLUSlvzki/e0JX33nz6pW15GTO2ZkuCf2ExwnsFX9atnQ==}
+    hasBin: true
 
   '@effect/opentelemetry@0.58.0':
     resolution: {integrity: sha512-NKCk64lf2VbrTxpxWUgqWxk02j49u5sh2HD8YK0UPDOi62vmc12aBqdhEyPp+kpdZiw8VI8ZALkgYRG1tH08SQ==}
@@ -7139,6 +7155,8 @@ snapshots:
   '@effect/io@0.41.2(@effect/data@0.18.7)':
     dependencies:
       '@effect/data': 0.18.7
+
+  '@effect/language-service@0.52.1': {}
 
   '@effect/opentelemetry@0.58.0(@effect/platform@0.92.1(effect@3.18.4))(@opentelemetry/api@1.9.0)(@opentelemetry/resources@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-node@2.2.0(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.37.0)(effect@3.18.4)':
     dependencies:

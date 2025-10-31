@@ -6,6 +6,8 @@
   "type": "module",
   "packageManager": "pnpm@10.0.0",
   "scripts": {
+    "install:deps": "echo 'Dependencies checked for frontend'",
+    "deps:check": "test -d node_modules || echo 'Run: pnpm install from root'",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",

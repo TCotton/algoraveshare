@@ -4,12 +4,22 @@
     "build": {
       "outputs": ["dist/**"]
     },
-    "check-types": {
-      "dependsOn": ["^check-types"]
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    },
+    "unittest": {
+      "dependsOn": ["test:unit"]
     },
     "dev": {
       "persistent": true,
       "cache": false
+    },
+    "install:deps": {
+      "cache": false
+    },
+    "deps:check": {
+      "cache": false,
+      "dependsOn": ["^deps:check"]
     }
   }
 }

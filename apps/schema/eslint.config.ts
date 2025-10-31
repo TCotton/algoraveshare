@@ -1,19 +1,29 @@
-import js from '@eslint/js';
-import globals from 'globals';
+import * as js from '@eslint/js';
+import * as globals from 'globals';
 import tseslint from 'typescript-eslint';
-import pluginReact from 'eslint-plugin-react';
-import pluginReactHooks from 'eslint-plugin-react-hooks';
-import {defineConfig, globalIgnores} from 'eslint/config';
+import * as pluginReact from 'eslint-plugin-react';
+import * as pluginReactHooks from 'eslint-plugin-react-hooks';
 import stylistic from '@stylistic/eslint-plugin';
 
-export default defineConfig([
+export default tseslint.config([
+    {
+        ignores: [
+            'node_modules/*',
+            '.astro',
+            'vitest.config.ts',
+            'eslint.config.ts',
+            'dist/*',
+            'eslint.config.mjs',
+        ]
+    },
     {
         files: ['src/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}', 'tests/**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-        plugins: {js},
-        extends: ['js/recommended'],
-        languageOptions: {globals: globals.browser},
+        extends: [js.configs.recommended, ...tseslint.configs.recommended],
+        languageOptions: {
+            globals: globals.browser
+        },
         settings: {
-            react: {version: '19.0'}
+            react: { version: '19.0' }
         },
         rules: {
             "@typescript-eslint/no-explicit-any": "warn",
@@ -21,20 +31,20 @@ export default defineConfig([
             '@stylistic/brace-style': ['error', 'stroustrup', { allowSingleLine: false }],
         },
     },
-    tseslint.configs.recommended,
     {
+        files: ['src/**/*.{jsx,tsx}', 'tests/**/*.{jsx,tsx}'],
         ...pluginReact.configs.flat.recommended,
         settings: {
-            ...(pluginReact.configs.flat.recommended.settings || {}),
-            react: {version: '19.0'}
+            react: { version: '19.0' }
         },
         rules: {
             'react/no-unknown-property': 'warn'
         }
     },
     {
+        files: ['src/**/*.{jsx,tsx}', 'tests/**/*.{jsx,tsx}'],
         plugins: {
-            'react-hooks': pluginReactHooks as any
+            'react-hooks': pluginReactHooks
         },
         rules: {
             'react-hooks/rules-of-hooks': 'error',
@@ -58,13 +68,4 @@ export default defineConfig([
             "react/react-in-jsx-scope": "off",
         },
     },
-    globalIgnores([
-        'node_modules/*',
-        '.astro',
-        'vitest.config.ts',
-        'eslint.config.ts',
-        'dist/*',
-        'eslint.config.mjs',
-        'eslint.config.ts'
-    ]),
 ]);

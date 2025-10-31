@@ -1,6 +1,6 @@
-import React from 'react'
-import { describe, it, expect } from 'vitest'
 import { render } from '@testing-library/react'
+import React from 'react'
+import { describe, expect, it } from 'vitest'
 import MusicNoteTwo from '../../../../../src/forms/svgComponents/MusicNoteTwo'
 
 describe('MusicNoteTwo', () => {
@@ -58,11 +58,11 @@ describe('MusicNoteTwo', () => {
   it('accepts additional SVG props via rest props', () => {
     const { container } = render(
       <MusicNoteTwo
-        data-testid="custom-svg"
-        aria-label="Music note icon two"
-        id="custom-id"
+        data-testid='custom-svg'
+        aria-label='Music note icon two'
+        id='custom-id'
         style={{ opacity: 0.5 }}
-      />,
+      />
     )
 
     const svg = container.querySelector('svg')
@@ -73,7 +73,7 @@ describe('MusicNoteTwo', () => {
   })
 
   it('allows custom className to override default class', () => {
-    const { container } = render(<MusicNoteTwo className="custom-class" />)
+    const { container } = render(<MusicNoteTwo className='custom-class' />)
 
     const svg = container.querySelector('svg')
     expect(svg).toHaveClass('custom-class')

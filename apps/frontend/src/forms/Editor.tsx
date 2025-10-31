@@ -1,9 +1,9 @@
 import React from 'react'
 import '@blocknote/core/fonts/inter.css'
+import type { FormStore } from '@ariakit/react'
+import { BlockNoteView } from '@blocknote/ariakit'
 import { BlockNoteSchema, createCodeBlockSpec } from '@blocknote/core'
 import { useCreateBlockNote } from '@blocknote/react'
-import { BlockNoteView } from '@blocknote/ariakit'
-import type { FormStore } from '@ariakit/react'
 import '@blocknote/ariakit/style.css'
 
 export default function Editor(props: { form: FormStore }) {
@@ -22,37 +22,37 @@ export default function Editor(props: { form: FormStore }) {
           supportedLanguages: {
             typescript: {
               name: 'TypeScript',
-              aliases: ['ts'],
+              aliases: ['ts']
             },
             javascript: {
               name: 'JavaScript',
-              aliases: ['js'],
+              aliases: ['js']
             },
             haskell: {
               name: 'Haskell',
-              aliases: ['hs'],
-            },
-          },
+              aliases: ['hs']
+            }
+          }
           // createHighlighter removed, not available in @blocknote/core
-        }),
-      },
+        })
+      }
     }),
     initialContent: [
       {
         type: 'codeBlock',
         props: {
-          language: 'javascript',
+          language: 'javascript'
         },
         content: [
           {
             type: 'text',
             text: 'const x = 3 * 4;',
-            styles: {},
-          },
-        ],
+            styles: {}
+          }
+        ]
       },
       {
-        type: 'paragraph',
+        type: 'paragraph'
       },
       {
         type: 'heading',
@@ -60,20 +60,20 @@ export default function Editor(props: { form: FormStore }) {
           textColor: 'default',
           backgroundColor: 'default',
           textAlignment: 'left',
-          level: 3,
+          level: 3
         },
         content: [
           {
             type: 'text',
             text: 'Click on "JavaScript" above to see the different supported languages',
-            styles: {},
-          },
-        ],
+            styles: {}
+          }
+        ]
       },
       {
-        type: 'paragraph',
-      },
-    ],
+        type: 'paragraph'
+      }
+    ]
   })
   // Renders the editor instance using a React component.
   // Only render if window/document is defined (browser)
@@ -83,9 +83,9 @@ export default function Editor(props: { form: FormStore }) {
   return (
     <BlockNoteView
       editor={editor}
-      className="form-textarea"
-      autoCapitalize="none"
-      autoCorrect="off"
+      className='form-textarea'
+      autoCapitalize='none'
+      autoCorrect='off'
     />
   )
 }

@@ -1,18 +1,18 @@
+import { fireEvent, render, screen } from '@testing-library/react'
 import React from 'react'
-import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import FormInput from '../../../../src/forms/FormInput'
 
 // Mock Ariakit
 vi.mock('@ariakit/react', () => ({
-  FormInput: ({ children, ...props }: any) => <input {...props}>{children}</input>,
+  FormInput: ({ children, ...props }: any) => <input {...props}>{children}</input>
 }))
 
 describe('FormInput', () => {
   const mockOnChange = vi.fn()
   const mockName = {
     toString: () => 'testField',
-    valueOf: () => 'testField',
+    valueOf: () => 'testField'
   }
 
   beforeEach(() => {
@@ -23,9 +23,9 @@ describe('FormInput', () => {
     render(
       <FormInput
         name={mockName}
-        value="test value"
+        value='test value'
         onChange={mockOnChange}
-      />,
+      />
     )
 
     const input = screen.getByDisplayValue('test value')
@@ -36,17 +36,17 @@ describe('FormInput', () => {
     render(
       <FormInput
         name={mockName}
-        value="test"
+        value='test'
         onChange={mockOnChange}
-        type="email"
-        placeholder="Enter email"
-        className="custom-input"
-        size-="medium"
-        data-testid="email-input"
-        autoComplete="email"
-        autoCapitalize="off"
+        type='email'
+        placeholder='Enter email'
+        className='custom-input'
+        size-='medium'
+        data-testid='email-input'
+        autoComplete='email'
+        autoCapitalize='off'
         required={true}
-      />,
+      />
     )
 
     const input = screen.getByPlaceholderText('Enter email')
@@ -63,9 +63,9 @@ describe('FormInput', () => {
     render(
       <FormInput
         name={mockName}
-        value="test"
+        value='test'
         onChange={mockOnChange}
-      />,
+      />
     )
 
     const input = screen.getByDisplayValue('test')
@@ -80,10 +80,10 @@ describe('FormInput', () => {
     render(
       <FormInput
         name={mockName}
-        value=""
+        value=''
         onChange={mockOnChange}
-        placeholder="Type here"
-      />,
+        placeholder='Type here'
+      />
     )
 
     const input = screen.getByPlaceholderText('Type here')
@@ -96,10 +96,10 @@ describe('FormInput', () => {
     render(
       <FormInput
         name={mockName}
-        value="test"
+        value='test'
         onChange={mockOnChange}
-        data-testid="my-input"
-      />,
+        data-testid='my-input'
+      />
     )
 
     const input = screen.getByDisplayValue('test')
@@ -111,10 +111,10 @@ describe('FormInput', () => {
     const { rerender } = render(
       <FormInput
         name={mockName}
-        value="test"
+        value='test'
         onChange={mockOnChange}
-        type="text"
-      />,
+        type='text'
+      />
     )
 
     let input = screen.getByDisplayValue('test')
@@ -123,10 +123,10 @@ describe('FormInput', () => {
     rerender(
       <FormInput
         name={mockName}
-        value="test@example.com"
+        value='test@example.com'
         onChange={mockOnChange}
-        type="email"
-      />,
+        type='email'
+      />
     )
 
     input = screen.getByDisplayValue('test@example.com')
@@ -135,10 +135,10 @@ describe('FormInput', () => {
     rerender(
       <FormInput
         name={mockName}
-        value="password123"
+        value='password123'
         onChange={mockOnChange}
-        type="password"
-      />,
+        type='password'
+      />
     )
 
     input = screen.getByDisplayValue('password123')
@@ -149,10 +149,10 @@ describe('FormInput', () => {
     render(
       <FormInput
         name={mockName}
-        value="test"
+        value='test'
         onChange={mockOnChange}
-        className="my-custom-class"
-      />,
+        className='my-custom-class'
+      />
     )
 
     const input = screen.getByDisplayValue('test')
@@ -163,10 +163,10 @@ describe('FormInput', () => {
     render(
       <FormInput
         name={mockName}
-        value=""
+        value=''
         onChange={mockOnChange}
-        placeholder="Enter your name"
-      />,
+        placeholder='Enter your name'
+      />
     )
 
     expect(screen.getByPlaceholderText('Enter your name')).toBeInTheDocument()

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 interface SubmitProjectFormData {
   projectSoftware: string
@@ -309,7 +309,11 @@ test.describe.serial('Submit Project Form', () => {
   test('should display description helper text with proper heading', async ({ page }) => {
     await page.locator('.project-software button.select-trigger').click()
     await page.locator('.project-software .menu-item.strudel').click()
-    await expect(page.locator('.description-text > p', { hasText: 'When writing your description, consider addressing some of the following questions:' })).toBeVisible()
+    await expect(
+      page.locator('.description-text > p', {
+        hasText: 'When writing your description, consider addressing some of the following questions:'
+      })
+    ).toBeVisible()
   })
 
   test('should display audio upload field with correct label and accept attribute', async ({ page }) => {
@@ -323,7 +327,10 @@ test.describe.serial('Submit Project Form', () => {
     // Check file input has correct accept attribute
     const fileInput = page.locator('input[type="file"].input-audio-file')
     await expect(fileInput).toBeVisible()
-    await expect(fileInput).toHaveAttribute('accept', '\'audio/wav\', \'audio/mp3\', \'audio/flac\', \'audio/aac\', \'audio/ogg\'')
+    await expect(fileInput).toHaveAttribute(
+      'accept',
+      '\'audio/wav\', \'audio/mp3\', \'audio/flac\', \'audio/aac\', \'audio/ogg\''
+    )
   })
 
   test('should accept valid audio file upload (WAV)', async ({ page }) => {
@@ -334,7 +341,8 @@ test.describe.serial('Submit Project Form', () => {
     await page.waitForTimeout(100)
 
     // No error should be displayed for valid file
-    await expect(page.getByText('Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')).not.toBeVisible()
+    await expect(page.getByText('Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')).not
+      .toBeVisible()
   })
 
   test('should reject invalid audio file upload (TXT)', async ({ page }) => {
@@ -361,7 +369,8 @@ test.describe.serial('Submit Project Form', () => {
     await page.waitForTimeout(100)
 
     // Error should be cleared
-    await expect(page.getByText('Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')).not.toBeVisible()
+    await expect(page.getByText('Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')).not
+      .toBeVisible()
   })
 
   test('should allow audio upload field to be optional', async ({ page }) => {
@@ -379,7 +388,8 @@ test.describe.serial('Submit Project Form', () => {
     await page.waitForTimeout(100)
 
     // No audio upload error should appear (it's optional)
-    await expect(page.getByText('Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')).not.toBeVisible()
+    await expect(page.getByText('Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')).not
+      .toBeVisible()
   })
 
   test('should display YouTube link field with correct label and placeholder', async ({ page }) => {

@@ -1,16 +1,18 @@
 import React from 'react'
 
-type FormTextareaProps = Omit<
-  React.TextareaHTMLAttributes<HTMLTextAreaElement>,
-  'value' | 'onChange' | 'name'
-> & {
-  'name': string
-  'value': string
-  'onChange': (e: React.ChangeEvent<HTMLTextAreaElement>) => void
-  'autoCapitalize'?: 'none' | 'sentences' | 'words' | 'characters'
-  'autoCorrect'?: 'on' | 'off'
-  'data-testid'?: string
-}
+type FormTextareaProps =
+  & Omit<
+    React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    'value' | 'onChange' | 'name'
+  >
+  & {
+    'name': string
+    'value': string
+    'onChange': (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+    'autoCapitalize'?: 'none' | 'sentences' | 'words' | 'characters'
+    'autoCorrect'?: 'on' | 'off'
+    'data-testid'?: string
+  }
 
 /**
  * In the future use the data-test-id for PlayWright tests:
@@ -33,19 +35,19 @@ type FormTextareaProps = Omit<
 const FormTextarea = React.forwardRef<HTMLTextAreaElement, FormTextareaProps>(
   (
     {
-      name,
-      value,
-      onChange,
-      placeholder,
-      className,
-      rows = 4,
-      required = false,
       autoCapitalize = 'none',
       autoCorrect = 'off',
+      className,
       'data-testid': dataTestId,
+      name,
+      onChange,
+      placeholder,
+      required = false,
+      rows = 4,
+      value,
       ...rest
     },
-    ref,
+    ref
   ) => {
     return (
       <textarea
@@ -63,7 +65,7 @@ const FormTextarea = React.forwardRef<HTMLTextAreaElement, FormTextareaProps>(
         {...rest}
       />
     )
-  },
+  }
 )
 
 FormTextarea.displayName = 'FormTextarea'

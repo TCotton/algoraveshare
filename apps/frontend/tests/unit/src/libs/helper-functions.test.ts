@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
-import { getFileExtension, audioArray, validateAudioFileUpload } from '../../../../src/libs/helper-functions'
+import { describe, expect, it } from 'vitest'
+import { audioArray, getFileExtension, validateAudioFileUpload } from '../../../../src/libs/helper-functions'
 
 describe('getFileExtension', () => {
   it('extracts file extension from a filename', () => {

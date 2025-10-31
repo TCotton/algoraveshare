@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 interface SignInFormData {
   email: string
@@ -74,7 +74,9 @@ test.describe.serial('Sign In Form', () => {
     // Check for email validation error
     const emailError = page.locator('.field-signin-email .error')
     await expect(emailError).toBeVisible()
-    await expect(emailError).toContainText('Please include an \'@\' in the email address. \'not-a-valid-email\' is missing an \'@\'.')
+    await expect(emailError).toContainText(
+      'Please include an \'@\' in the email address. \'not-a-valid-email\' is missing an \'@\'.'
+    )
 
     // The form should not submit
     expect(dialogAppeared).toBe(false)

@@ -1,6 +1,6 @@
-import { defineConfig } from 'astro/config'
 import node from '@astrojs/node'
 import react from '@astrojs/react'
+import { defineConfig } from 'astro/config'
 
 export default defineConfig({
   output: 'server',
@@ -8,9 +8,9 @@ export default defineConfig({
   integrations: [react({
     babel: {
       plugins: [
-        ['babel-plugin-react-compiler'],
-      ],
-    },
+        ['babel-plugin-react-compiler']
+      ]
+    }
   })],
   vite: {
     ssr: {
@@ -18,8 +18,8 @@ export default defineConfig({
         'modern-normalize',
         '@webtui/css',
         '@webtui/theme-vitesse',
-        '@webtui/theme-catppuccin',
-      ],
-    },
-  },
+        '@webtui/theme-catppuccin'
+      ]
+    }
+  }
 })

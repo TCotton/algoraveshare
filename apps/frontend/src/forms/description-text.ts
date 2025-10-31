@@ -1,4 +1,5 @@
 import { equals } from 'ramda'
+
 export const getDescriptionHtml = (currentProjectSoftware: string | null): string => {
   const isTidal = equals(currentProjectSoftware, 'Tidal Cycles')
   const isStrudel = equals(currentProjectSoftware, 'Strudel')
@@ -17,14 +18,22 @@ export const getDescriptionHtml = (currentProjectSoftware: string | null): strin
 
                     <li>🧩 Code & Techniques<br />
                         Which functions or operators are central to this idea?<br />
-                        ${isTidal ? '<span class="tidal-cycles">(TidalCycles: `every`, `when`, `superimpose`, `hurry`, etc.)</span>' : ''}
-                        ${isStrudel ? '<span class="strudel">(Strudel: `map`, `withEffects`, `fast`, `stack`, etc.)</span>' : ''}
+                        ${
+    isTidal ? '<span class="tidal-cycles">(TidalCycles: `every`, `when`, `superimpose`, `hurry`, etc.)</span>' : ''
+  }
+                        ${
+    isStrudel ? '<span class="strudel">(Strudel: `map`, `withEffects`, `fast`, `stack`, etc.)</span>' : ''
+  }
                         ${isTidal || isStrudel ? '<br />' : ''}
-                        ${isTidal && isStrudel
-                          ? '> Example: I used `superimpose` in Tidal / `stack` in Strudel to layer two rhythms.'
-                          : isTidal
-                            ? '> Example: I used `superimpose` to layer two rhythms.'
-                            : isStrudel ? '> Example: I used `stack` to layer two rhythms.' : ''}
+                        ${
+    isTidal && isStrudel
+      ? '> Example: I used `superimpose` in Tidal / `stack` in Strudel to layer two rhythms.'
+      : isTidal
+      ? '> Example: I used `superimpose` to layer two rhythms.'
+      : isStrudel
+      ? '> Example: I used `stack` to layer two rhythms.'
+      : ''
+  }
                     </li>
 
                     <li>🎚️ Sound Design & Effects<br />

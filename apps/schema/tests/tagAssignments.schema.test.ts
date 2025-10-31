@@ -295,7 +295,7 @@ describe('TagAssignmentSchema', () => {
         tagId: 1,
         entityType: 'project' as const,
         entityId: '123e4567-e89b-12d3-a456-426614174000',
-        createdAt: '2025-10-31T20:09:03.554Z',
+        createdAt: '2023-01-01T00:00:00Z',
       }
 
       const result = Schema.decodeUnknownSync(TagAssignmentSchema)(tagAssignmentWithExtra)

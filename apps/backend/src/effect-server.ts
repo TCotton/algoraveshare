@@ -51,7 +51,8 @@ const ServerLive = HttpApiBuilder.serve(HttpMiddleware.logger).pipe(
   Layer.provide(NodeHttpServer.layer(createServer, { port: 3000 }))
 )
 // Launch the server
-NodeRuntime.runMain(Layer.launch(ServerLive))
+// NodeRuntime.runMain(Layer.launch(ServerLive))
+ServerLive.pipe(Layer.launch, NodeRuntime.runMain)
 
 /**
  * potential CORS config

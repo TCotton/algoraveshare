@@ -7,8 +7,11 @@
     "typecheck": {
       "dependsOn": ["^typecheck"]
     },
-    "unittest": {
-      "dependsOn": ["test:unit"]
+    "test:unit": {
+      "dependsOn": ["^test:unit"]
+    },
+    "test:e2e:headless": {
+      "dependsOn": ["^test:e2e:headless"]
     },
     "dev": {
       "persistent": true,

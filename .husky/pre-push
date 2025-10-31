@@ -17,7 +17,7 @@ echo "→ Running frontend checks..."
 cd "$REPO_ROOT/apps/frontend"
 npm run lint:fix
 npm run test:unit
-npm run test:playwright:headless
+npm run test:e2e:headless
 npm run typecheck
 
 echo "✓ Pre-push checks passed"

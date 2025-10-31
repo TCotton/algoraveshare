@@ -22,7 +22,6 @@
     "db:check": "node ./scripts/check-db-connection.mjs",
     "check:tests": "node -e \"const {execSync}=require('child_process');let f='';try{f=execSync('git diff --name-only --cached').toString().trim();}catch(e){} if(!f)f=execSync('git --no-pager diff --name-only HEAD~1 HEAD').toString().trim(); if(!f)console.log('No changed files found'); process.env.CHANGED_FILES=f; require('../.github/actions/check-tests/index.js');\"",
     "lint:openapi": "spectral lint openapi/openapi.yaml --ruleset .spectral.yml || true",
-    "prepare": "husky install && bash -c 'chmod ug+x .husky/*'",
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {

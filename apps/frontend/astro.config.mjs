@@ -19,7 +19,7 @@ export default defineConfig({
         '@webtui/css',
         '@webtui/theme-vitesse',
         '@webtui/theme-catppuccin',
-          'ccount'
+        'ccount'
       ]
     }
   }

@@ -18,7 +18,8 @@ export default defineConfig({
         'modern-normalize',
         '@webtui/css',
         '@webtui/theme-vitesse',
-        '@webtui/theme-catppuccin'
+        '@webtui/theme-catppuccin',
+          'ccount'
       ]
     }
   }

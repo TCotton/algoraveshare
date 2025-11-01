@@ -25,12 +25,10 @@ export default function SignInForm() {
     if (!values.email || values.email.trim() === '') {
       form.setError('email', 'Please enter a valid email address')
       hasError = true
-    }
- else if (!isEmail(values.email)) {
+    } else if (!isEmail(values.email)) {
       form.setError('email', 'Please enter a valid email address')
       hasError = true
-    }
- else {
+    } else {
       form.setError('email', '')
     }
 
@@ -38,8 +36,7 @@ export default function SignInForm() {
     if (!values.passwordOne || values.passwordOne.trim() === '') {
       form.setError('passwordOne', 'Please enter a password')
       hasError = true
-    }
- else {
+    } else {
       form.setError('passwordOne', '')
     }
 

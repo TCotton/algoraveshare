@@ -40,8 +40,7 @@ export default function SubmitSnippetForm() {
     if (isEmptyString(values.projectSoftware) || equals(values.projectSoftware, projectSoftwareDefault)) {
       form.setError('projectSoftware', 'Please select the project software')
       hasError = true
-    }
- else {
+    } else {
       form.setError('projectSoftware', '')
     }
 
@@ -50,12 +49,10 @@ export default function SubmitSnippetForm() {
     if (!name) {
       form.setError('snippetName', 'A snippet title is required')
       hasError = true
-    }
- else if (values.snippetName.trim().length > 200) {
+    } else if (values.snippetName.trim().length > 200) {
       form.setError('snippetName', 'The project name must not be longer than 200 characters')
       hasError = true
-    }
- else {
+    } else {
       form.setError('snippetName', '')
     }
 
@@ -64,8 +61,7 @@ export default function SubmitSnippetForm() {
     if (!desc) {
       form.setError('description', 'Description is required')
       hasError = true
-    }
- else {
+    } else {
       form.setError('description', '')
     }
 
@@ -83,8 +79,7 @@ export default function SubmitSnippetForm() {
         console.log('Validation: Invalid file type:', audioFileName)
         form.setError('audioUpload', 'Invalid file type. Only WAV, MP3, FLAC, AAC and OGG files are allowed.')
         hasError = true
-      }
- else {
+      } else {
         console.log('Validation: Valid file type:', audioFileName)
         form.setError('audioUpload', '')
       }
@@ -97,8 +92,7 @@ export default function SubmitSnippetForm() {
       if (!URL.canParse(youtubeLink)) {
         form.setError('youtubeLink', 'Are you sure that URL is correct?')
         hasError = true
-      }
- else {
+      } else {
         form.setError('youtubeLink', '')
       }
     }

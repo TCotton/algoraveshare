@@ -44,12 +44,10 @@ export default function RegistrationForm() {
     if (!values.name || values.name.trim() === '') {
       form.setError('name', 'Please enter your name')
       hasError = true
-    }
- else if (values.name.trim().length > 200) {
+    } else if (values.name.trim().length > 200) {
       form.setError('name', 'Your name must not be longer than 200 characters')
       hasError = true
-    }
- else {
+    } else {
       form.setError('name', '')
     }
 
@@ -57,12 +55,10 @@ export default function RegistrationForm() {
     if (!values.email || values.email.trim() === '') {
       form.setError('email', 'Please enter a valid email address')
       hasError = true
-    }
- else if (!isEmail(values.email)) {
+    } else if (!isEmail(values.email)) {
       form.setError('email', 'Please enter a valid email address')
       hasError = true
-    }
- else {
+    } else {
       form.setError('email', '')
     }
 
@@ -77,16 +73,14 @@ export default function RegistrationForm() {
     if (!values.passwordOne || values.passwordOne.trim() === '') {
       form.setError('passwordOne', 'Please enter a password')
       hasError = true
-    }
- else if (!isStrongPassword(values.passwordOne)) {
+    } else if (!isStrongPassword(values.passwordOne)) {
       console.log('not strong password')
       form.setError(
         'passwordOne',
         'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character'
       )
       hasError = true
-    }
- else {
+    } else {
       form.setError('passwordOne', '')
     }
 
@@ -94,12 +88,10 @@ export default function RegistrationForm() {
     if (!values.passwordTwo || values.passwordTwo.trim() === '') {
       form.setError('passwordTwo', 'Please enter a password')
       hasError = true
-    }
- else if (!Equivalence.string(Redacted.value(redactedPasswordOne), Redacted.value(redactedPasswordTwo))) {
+    } else if (!Equivalence.string(Redacted.value(redactedPasswordOne), Redacted.value(redactedPasswordTwo))) {
       form.setError('passwordTwo', 'Passwords do not match')
       hasError = true
-    }
- else {
+    } else {
       form.setError('passwordTwo', '')
     }
 
@@ -109,8 +101,7 @@ export default function RegistrationForm() {
       if (!URL.canParse(portfolioUrl)) {
         form.setError('portfolioUrl', 'Are you sure the URL is correct?')
         hasError = true
-      }
- else {
+      } else {
         form.setError('portfolioUrl', '')
       }
     }
@@ -121,8 +112,7 @@ export default function RegistrationForm() {
       if (!URL.canParse(youtubeLink)) {
         form.setError('youtubeLink', 'Are you sure the URL is correct?')
         hasError = true
-      }
- else {
+      } else {
         form.setError('youtubeLink', '')
       }
     }
@@ -133,8 +123,7 @@ export default function RegistrationForm() {
       if (!URL.canParse(mastodonUrl)) {
         form.setError('mastodonUrl', 'Are you sure the URL is correct?')
         hasError = true
-      }
- else {
+      } else {
         form.setError('mastodonUrl', '')
       }
     }
@@ -145,8 +134,7 @@ export default function RegistrationForm() {
       if (!URL.canParse(blueskyUrl)) {
         form.setError('blueskyUrl', 'Are you sure the URL is correct?')
         hasError = true
-      }
- else {
+      } else {
         form.setError('blueskyUrl', '')
       }
     }
@@ -157,8 +145,7 @@ export default function RegistrationForm() {
       if (!URL.canParse(linkedinUrl)) {
         form.setError('linkedinUrl', 'Are you sure the URL is correct?')
         hasError = true
-      }
- else {
+      } else {
         form.setError('linkedinUrl', '')
       }
     }

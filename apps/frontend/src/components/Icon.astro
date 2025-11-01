@@ -40,10 +40,12 @@ import MusicNote from '../assets/images/icons8-music-small.apng';
     }
 </style>
 <script>
-    const icon = document.querySelector('.site-icon');
-    if (icon) {
-        icon.addEventListener('click', () => {
-            window.location.href = '/';
-        })
-    }
+    addEventListener("DOMContentLoaded", (event) => {
+        const icon = document.querySelector('.site-icon');
+        if (icon) {
+            icon.addEventListener('click', () => {
+                window.location.href = '/';
+            })
+        }
+    })
 </script>

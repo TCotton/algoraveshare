@@ -2,6 +2,7 @@ import { Schema } from 'effect'
 import { isEmail } from 'validator'
 
 const UserSchema = Schema.Struct({
+  userId: Schema.UUID,
   name: Schema.Trim.pipe(
     Schema.maxLength(200, {
       message: (parseIssue) => `Name must be at most 200 characters long, got ${parseIssue.actual}`

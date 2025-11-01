@@ -9,15 +9,15 @@ export const softwareTypes = ['strudel', 'tidalcycles'] as const
 export const entityTypes = ['project', 'snippet'] as const
 
 // ====================================================
-// Users
+// Users gen_random_uuid()
 // ====================================================
 export const users = pgTable('users', {
-  userId: uuid('user_id').primaryKey().default(sql`gen_random_uuid()`),
+  userId: uuid('user_id').primaryKey().default(sql`uuidv7()`),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   name: text('name').notNull().unique(),
   email: text('email').notNull().unique(), // drizzle doesn't support citext natively, use lowercase/indexing in app
   passwordHash: text('password_hash').notNull(),
   location: text('location'),
-  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   portfolioUrl: text('portfolio_url'),
   youtubeUrl: text('youtube_url'),
   mastodonUrl: text('mastodon_url'),
@@ -52,7 +52,7 @@ export const projects = pgTable('projects', {
 // Snippets
 // ====================================================
 export const snippets = pgTable('snippets', {
-  snippetId: uuid('snippet_id').primaryKey().default(sql`gen_random_uuid()`),
+  snippetId: uuid('snippet_id').primaryKey().default(sql`uuidv7()`),
   snippetName: text('snippet_name').notNull(),
   userId: uuid('user_id')
     .notNull()

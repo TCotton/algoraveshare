@@ -2,7 +2,6 @@
   "name": "@repo/schema",
   "version": "1.0.0",
   "description": "schema used in both frontend and backend",
-  "license": "ISC",
   "author": "",
   "type": "module",
   "main": "index.js",

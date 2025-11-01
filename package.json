@@ -6,8 +6,7 @@
   "main": "index.js",
   "packageManager": "pnpm@10.0.0",
   "scripts": {
-    "install:all": "pnpm install",
-    "install:workspaces": "turbo run install:deps",
+    "install:all": "pnpm install && turbo run install:deps",
     "deps:check": "turbo run deps:check",
     "prepare": "husky",
     "preinstall": "npx only-allow pnpm"

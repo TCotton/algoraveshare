@@ -39,11 +39,13 @@ import MusicNote from '../assets/images/icons8-music-small.apng';
         color: var(--yellow);
     }
 </style>
-<script type="module">
-    const icon = document.querySelector('.site-icon');
-    if (icon) {
-        icon.addEventListener('click', () => {
-            window.location = '/';
-        })
-    }
+<script>
+    addEventListener("DOMContentLoaded", (event) => {
+        const icon = document.querySelector('.site-icon');
+        if (icon) {
+            icon.addEventListener('click', () => {
+                window.location.href = '/';
+            })
+        }
+    })
 </script>

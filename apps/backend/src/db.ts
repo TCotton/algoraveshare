@@ -1,9 +1,9 @@
+import { DbSchema } from '@repo/database/schema'
 import { type ExtractTablesWithRelations } from 'drizzle-orm'
 import { drizzle, type NodePgDatabase, type NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
 import { type PgTransaction } from 'drizzle-orm/pg-core'
 import { Cause, Context, Data, Effect, Exit, Layer, Option, Redacted, Runtime } from 'effect'
 import * as pg from 'pg'
-import { DbSchema } from '../db/configs/index.js'
 
 type TransactionClient = PgTransaction<
   NodePgQueryResultHKT,

@@ -8,6 +8,12 @@
     "node": ">=22 <23",
     "pnpm": ">=10"
   },
+  "exports": {
+    "./schema": {
+      "types": "./src/configs/schema.ts",
+      "default": "./dist/src/index.js"
+    }
+  },
   "scripts": {
     "install:deps": "echo 'Dependencies checked for schema'",
     "deps:check": "test -d node_modules || echo 'Run: pnpm install from root'",

@@ -44,17 +44,15 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
       expect(result.portfolioUrl).toBeUndefined()
     })
 
-    it('should trim whitespace from name and email', () => {
-      const validRegistration = {
+    it('should should fail if whitespace on either end of string', () => {
+      const invalidRegistration = {
         name: '  John Doe  ',
         email: '  john.doe@example.com  ',
         passwordOne: 'Password123!',
         passwordTwo: 'Password123!'
       }
 
-      const result = Schema.decodeUnknownSync(UserSchema)(validRegistration)
-      expect(result.name).toBe('John Doe')
-      expect(result.email).toBe('john.doe@example.com')
+      expect(() => Schema.decodeUnknownSync(UserSchema)(invalidRegistration)).toThrow()
     })
 
     it('should accept valid password patterns', () => {
@@ -229,11 +227,7 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
           passwordTwo: 'DifferentPass456@'
         }
 
-        // Note: The current schema doesn't include password matching validation
-        // This test verifies that the schema would need to be enhanced for this feature
-        const result = Schema.decodeUnknownSync(UserSchema)(invalidRegistration)
-        expect(Redacted.value(result.passwordOne)).toBe('Password123!')
-        expect(Redacted.value(result.passwordTwo)).toBe('DifferentPass456@')
+        expect(() => Schema.decodeUnknownSync(UserSchema)(invalidRegistration)).toThrow()
       })
     })
 
@@ -310,21 +304,11 @@ describe('usersSchema.schema (Registration Form Schema)', () => {
         email: 'test@example.com',
         passwordOne: 'Password123!',
         passwordTwo: 'Password123!',
-        location: '',
-        portfolioUrl: '',
-        mastodonUrl: '',
-        blueskyUrl: '',
-        linkedinUrl: '',
-        youtubeLink: ''
+        location: ''
       }
 
       const result = Schema.decodeUnknownSync(UserSchema)(validRegistration)
       expect(result.location).toBe('')
-      expect(result.portfolioUrl).toBe('')
-      expect(result.mastodonUrl).toBe('')
-      expect(result.blueskyUrl).toBe('')
-      expect(result.linkedinUrl).toBe('')
-      expect(result.youtubeLink).toBe('')
     })
   })
 

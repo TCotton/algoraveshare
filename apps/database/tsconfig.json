@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.base.json",
-  "include": ["src/**/*", ],
+  "include": ["src/**/*"],
   "exclude": ["build/**/*", "dist/**/*", "node_modules/**/*"],
   "compilerOptions": {
     "composite": false,

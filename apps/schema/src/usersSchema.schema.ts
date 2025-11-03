@@ -25,15 +25,7 @@ const UserSchema = Schema.Struct({
     Schema.minLength(8, {
       message: (parseIssue) => `Password must be at least 8 characters long, got ${parseIssue.actual}`
     }),
-    Schema.pattern(/[A-Z]/, {
-      message: () => 'Password must contain at least one uppercase letter'
-    }),
-    Schema.pattern(/[a-z]/, {
-      message: () => 'Password must contain at least one lowercase letter'
-    }),
-    Schema.pattern(/[!@#$%^&*(),.?":{}|<>_\-+=~`[\]\\;]/, {
-      message: () => 'Password must contain at least one special character'
-    }),
+    Schema.filter((x) => isStrongPassword(x) ? undefined : 'The password is not strong enough'),
     Schema.Redacted
   ),
   location: Schema.optional(Schema.String.pipe(

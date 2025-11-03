@@ -1,6 +1,4 @@
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-
+import * as effectEslint from '@effect/eslint-plugin'
 import { fixupPluginRules } from '@eslint/compat'
 import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
@@ -9,10 +7,10 @@ import tsParser from '@typescript-eslint/parser'
 import turboConfig from 'eslint-config-turbo/flat'
 import codegen from 'eslint-plugin-codegen'
 import _import from 'eslint-plugin-import'
-import pluginReact from 'eslint-plugin-react'
-import pluginReactHooks from 'eslint-plugin-react-hooks'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import sortDestructureKeys from 'eslint-plugin-sort-destructure-keys'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -34,10 +32,7 @@ export default [
       '**/node_modules',
       '**/vitest.config.ts',
       '**/eslint.config.ts',
-      'build',
-      '.astro/**/*',
-      '**/playwright-report/**',
-      '**/test-results/**'
+      'build'
     ]
   },
   ...compat.extends(
@@ -45,28 +40,18 @@ export default [
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended'
   ),
-  {
-    files: ['**/*.{ts,tsx}'],
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        tsconfigRootDir: __dirname,
-        project: './tsconfig.json'
-      }
-    }
-  },
+  ...effectEslint.configs.dprint,
   {
     plugins: {
       import: fixupPluginRules(_import),
       'sort-destructure-keys': sortDestructureKeys,
       'simple-import-sort': simpleImportSort,
       codegen,
-      '@stylistic': stylistic,
-      'react': pluginReact,
-      'react-hooks': pluginReactHooks
+      '@stylistic': stylistic
     },
 
     languageOptions: {
+      parser: tsParser,
       ecmaVersion: 2018,
       sourceType: 'module',
       globals: {
@@ -74,11 +59,12 @@ export default [
         process: 'readonly'
       }
     },
+
     settings: {
-      react: { version: '19.0' },
       'import/parsers': {
         '@typescript-eslint/parser': ['.ts', '.tsx']
       },
+
       'import/resolver': {
         typescript: {
           alwaysTryTypes: true
@@ -87,11 +73,6 @@ export default [
     },
 
     rules: {
-      'react/react-in-jsx-scope': 'off',
-      'react/no-unknown-property': 'off',
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
-      'curly': ['error', 'all'],
       'codegen/codegen': 'error',
       'no-fallthrough': 'off',
       'no-irregular-whitespace': 'off',
@@ -112,7 +93,7 @@ export default [
       'import/no-duplicates': 'off',
       'import/no-unresolved': 'off',
       'import/order': 'off',
-      'simple-import-sort/imports': 'error',
+      'simple-import-sort/imports': 'off',
       'sort-destructure-keys/sort-destructure-keys': 'error',
 
       '@typescript-eslint/array-type': ['warn', {
@@ -140,6 +121,17 @@ export default [
       '@typescript-eslint/no-use-before-define': 'off',
       '@typescript-eslint/no-namespace': 'off',
 
+      '@effect/dprint': ['error', {
+        config: {
+          indentWidth: 2,
+          lineWidth: 120,
+          semiColons: 'asi',
+          quoteStyle: 'alwaysSingle',
+          trailingCommas: 'never',
+          operatorPosition: 'maintain',
+          'arrowFunction.useParentheses': 'force'
+        }
+      }],
       '@stylistic/quotes': ['error', 'single'],
       '@stylistic/semi': ['error', 'never']
     }

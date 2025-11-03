@@ -6,7 +6,8 @@
   "type": "module",
   "packageManager": "pnpm@10.0.0",
   "engines": {
-    "node": ">=22 <23"
+    "node": ">=22 <23",
+    "pnpm": ">=10"
   },
   "scripts": {
     "install:deps": "echo 'Dependencies checked for frontend'",
@@ -94,6 +95,7 @@
     "sanitize-filename": "^1.6.3",
     "share-buttons": "^1.9.0",
     "typescript": "^5.9.3",
+    "uuidv7-utilities": "^2.0.2",
     "validator": "^13.15.15",
     "wavesurfer.js": "^7.11.0"
   }

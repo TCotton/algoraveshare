@@ -2,13 +2,13 @@
   "name": "@repo/schema",
   "version": "1.0.0",
   "description": "schema used in both frontend and backend",
-  "license": "ISC",
   "author": "",
   "type": "module",
   "main": "index.js",
   "packageManager": "pnpm@10.0.0",
   "engines": {
-    "node": ">=22 <23"
+    "node": ">=22 <23",
+    "pnpm": ">=10"
   },
   "scripts": {
     "install:deps": "echo 'Dependencies checked for schema'",

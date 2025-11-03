@@ -6,18 +6,19 @@
 -- CREATE ROLE algorave_app LOGIN PASSWORD 'secure_password' NOSUPERUSER NOCREATEDB NOCREATEROLE;
 -- GRANT CONNECT ON DATABASE algorave_share TO algorave_app;
 
--- Extensions```````
+-- Extensions
 CREATE
 EXTENSION IF NOT EXISTS citext;
 CREATE
 EXTENSION IF NOT EXISTS pgcrypto;
-
+CREATE
+EXTENSION IF NOT EXISTS pg_uuidv7;
 -- ====================================================
 -- Users
 -- ====================================================
 CREATE TABLE users
 (
-    user_id       UUID PRIMARY KEY     DEFAULT gen_random_uuid(),
+    user_id       UUID PRIMARY KEY     DEFAULT uuidv7(),
     name          CITEXT      NOT NULL UNIQUE CHECK (char_length(name) BETWEEN 1 AND 200),
     email         CITEXT      NOT NULL UNIQUE,
     password_hash TEXT        NOT NULL,
@@ -36,7 +37,7 @@ CREATE TABLE users
 -- ====================================================
 CREATE TABLE projects
 (
-    project_id      UUID PRIMARY KEY     DEFAULT gen_random_uuid(),
+    project_id      UUID PRIMARY KEY     DEFAULT uuidv7(),
     project_name    TEXT        NOT NULL CHECK (char_length(project_name) BETWEEN 1 AND 200),
     user_id         UUID        NOT NULL REFERENCES users (user_id) ON DELETE CASCADE,
     code_start      TEXT,
@@ -66,14 +67,14 @@ CREATE INDEX idx_projects_user_id ON projects (user_id);
 -- ====================================================
 CREATE TABLE snippets
 (
-    snippet_id      UUID PRIMARY KEY     DEFAULT gen_random_uuid(),
+    snippet_id      UUID PRIMARY KEY     DEFAULT uuidv7(),
     snippet_name    TEXT        NOT NULL CHECK (char_length(snippet_name) BETWEEN 1 AND 200),
     user_id         UUID        NOT NULL REFERENCES users (user_id) ON DELETE CASCADE,
     code_sample     TEXT        NOT NULL CHECK (char_length(code_sample) <= 400),
     description     TEXT        NOT NULL,
     audio_file_path TEXT,
     audio_file_type TEXT CHECK (audio_file_type IN ('wav', 'mp3', 'flac', 'aac', 'ogg')),
-    audio_data      JSONB,``
+    audio_data      JSONB,
     software_type   TEXT        NOT NULL CHECK (software_type IN ('strudel', 'tidalcycles')),
     created_at      TIMESTAMPTZ NOT NULL DEFAULT now()
 );

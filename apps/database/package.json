@@ -1,0 +1,53 @@
+{
+  "name": "@repo/database",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "packageManager": "pnpm@10.0.0",
+  "engines": {
+    "node": ">=22 <23",
+    "pnpm": ">=10"
+  },
+  "scripts": {
+    "install:deps": "echo 'Dependencies checked for schema'",
+    "deps:check": "test -d node_modules || echo 'Run: pnpm install from root'",
+    "build": "tsc",
+    "migration:generate": "npm run build && drizzle-kit generate --config=./src/configs/drizzle.config.ts --name=all-tables --custom",
+    "migration:check": "node ./scripts/check-drizzle-schema.mjs",
+    "migration:push": "node -r esbuild-register ./src/migrate.ts",
+    "db:push": "drizzle-kit push --config=./src/configs/drizzle.config.ts",
+    "db:studio": "drizzle-kit studio --config=./src/configs/drizzle.config.ts",
+    "db:seed": "node ./scripts/seed-database.mjs",
+    "db:check": "node ./scripts/check-db-connection.mjs",
+    "lint": "eslint --config ./eslint.config.mjs --ext .js,.mjs,.cjs,.ts,.mts,.cts scripts/ src/ eslint.config.mjs",
+    "lint:fix": "eslint --config ./eslint.config.mjs --fix --ext .js,.mjs,.cjs,.ts,.mts,.cts scripts/ src/ eslint.config.mjs",
+    "preinstall": "npx only-allow pnpm"
+  },
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "@effect/eslint-plugin": "^0.3.2",
+    "@effect/language-service": "^0.52.1",
+    "@eslint/compat": "^1.4.0",
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.39.0",
+    "@stylistic/eslint-plugin": "^5.5.0",
+    "@types/node": "^24.7.1",
+    "@types/pg": "^8.15.6",
+    "@typescript-eslint/eslint-plugin": "^8.46.1",
+    "@typescript-eslint/parser": "^8.46.3",
+    "@typescript-eslint/typescript-estree": "^8.46.3",
+    "dotenv": "^17.2.3",
+    "drizzle-kit": "^0.31.5",
+    "drizzle-orm": "^0.44.6",
+    "eslint": "^9.39.0",
+    "eslint-config-turbo": "^2.5.8",
+    "eslint-plugin-codegen": "^0.34.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-sort-destructure-keys": "^2.0.0",
+    "globals": "^16.4.0",
+    "jiti": "^2.6.1",
+    "pg": "^8.16.3",
+    "typescript": "^5.9.3"
+  }
+}

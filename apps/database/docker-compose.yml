@@ -1,6 +1,8 @@
 services:
   db:
-    image: postgres:16
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: algoraveshare-db
     environment:
       POSTGRES_USER: postgres
@@ -9,7 +11,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql
 
   adminer:
     image: adminer

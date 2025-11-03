@@ -35,7 +35,9 @@ export default [
       '**/vitest.config.ts',
       '**/eslint.config.ts',
       'build',
-      '.astro/**/*'
+      '.astro/**/*',
+      '**/playwright-report/**',
+      '**/test-results/**'
     ]
   },
   ...compat.extends(

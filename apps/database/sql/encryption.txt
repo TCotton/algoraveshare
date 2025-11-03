@@ -1,0 +1,14 @@
+// Node.js example
+// add SHA-256 first
+import bcrypt from 'bcrypt';
+const { createHash } = require('crypto');
+
+const password = 'SuperSecret123!';
+const hashedPassword = createHash('sha256').update(password).digest('base64');
+const hash = await bcrypt.hash(hashedPassword, 12);
+
+// Insert into PostgreSQL
+await db.query(
+  'INSERT INTO users (name, email, password_hash) VALUES ($1, $2, $3)',
+  ['andrew', 'andrew@example.com', hash]
+);

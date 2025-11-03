@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm'
-import { index, jsonb, pgTable, primaryKey, serial, text, timestamp, uuid } from 'drizzle-orm/pg-core'
+import { check, index, integer, jsonb, pgTable, primaryKey, serial, text, timestamp, uuid } from 'drizzle-orm/pg-core'
 
 // ====================================================
 // Enums (for CHECK constraints)
@@ -9,27 +9,35 @@ export const softwareTypes = ['strudel', 'tidalcycles'] as const
 export const entityTypes = ['project', 'snippet'] as const
 
 // ====================================================
-// Users gen_random_uuid()
+// Users
 // ====================================================
 export const users = pgTable('users', {
-  userId: uuid('user_id').primaryKey().default(sql`uuidv7()`),
-  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  userId: uuid('user_id').primaryKey().default(sql`uuid_generate_v7()`),
   name: text('name').notNull().unique(),
-  email: text('email').notNull().unique(), // drizzle doesn't support citext natively, use lowercase/indexing in app
+  email: text('email').notNull().unique(), // Using TEXT instead of CITEXT for Drizzle compatibility
   passwordHash: text('password_hash').notNull(),
   location: text('location'),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   portfolioUrl: text('portfolio_url'),
   youtubeUrl: text('youtube_url'),
   mastodonUrl: text('mastodon_url'),
   blueskyUrl: text('bluesky_url'),
   linkedinUrl: text('linkedin_url')
-})
+}, (table) => ({
+  nameLength: check('users_name_length', sql`char_length(${table.name}) BETWEEN 1 AND 200`),
+  locationLength: check('users_location_length', sql`char_length(${table.location}) <= 200`),
+  portfolioUrlPattern: check('users_portfolio_url_pattern', sql`${table.portfolioUrl} ~ '^https?://'`),
+  youtubeUrlPattern: check('users_youtube_url_pattern', sql`${table.youtubeUrl} ~ '^https?://'`),
+  mastodonUrlPattern: check('users_mastodon_url_pattern', sql`${table.mastodonUrl} ~ '^https?://'`),
+  blueskyUrlPattern: check('users_bluesky_url_pattern', sql`${table.blueskyUrl} ~ '^https?://'`),
+  linkedinUrlPattern: check('users_linkedin_url_pattern', sql`${table.linkedinUrl} ~ '^https?://'`)
+}))
 
 // ====================================================
 // Projects
 // ====================================================
 export const projects = pgTable('projects', {
-  projectId: uuid('project_id').primaryKey().default(sql`uuidv7()`),
+  projectId: uuid('project_id').primaryKey().default(sql`uuid_generate_v7()`),
   projectName: text('project_name').notNull(),
   userId: uuid('user_id')
     .notNull()
@@ -45,14 +53,20 @@ export const projects = pgTable('projects', {
   softwareType: text('software_type', { enum: softwareTypes }).notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow()
 }, (table) => ({
-  userIdIdx: index('idx_projects_user_id').on(table.userId)
+  userIdIdx: index('idx_projects_user_id').on(table.userId),
+  projectNameLength: check('projects_project_name_length', sql`char_length(${table.projectName}) BETWEEN 1 AND 200`),
+  audioFileTypeCheck: check(
+    'projects_audio_file_type_check',
+    sql`${table.audioFileType} IN ('wav', 'mp3', 'flac', 'aac', 'ogg')`
+  ),
+  softwareTypeCheck: check('projects_software_type_check', sql`${table.softwareType} IN ('strudel', 'tidalcycles')`)
 }))
 
 // ====================================================
 // Snippets
 // ====================================================
 export const snippets = pgTable('snippets', {
-  snippetId: uuid('snippet_id').primaryKey().default(sql`uuidv7()`),
+  snippetId: uuid('snippet_id').primaryKey().default(sql`uuid_generate_v7()`),
   snippetName: text('snippet_name').notNull(),
   userId: uuid('user_id')
     .notNull()
@@ -65,7 +79,14 @@ export const snippets = pgTable('snippets', {
   softwareType: text('software_type', { enum: softwareTypes }).notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow()
 }, (table) => ({
-  userIdIdx: index('idx_snippets_user_id').on(table.userId)
+  userIdIdx: index('idx_snippets_user_id').on(table.userId),
+  snippetNameLength: check('snippets_snippet_name_length', sql`char_length(${table.snippetName}) BETWEEN 1 AND 200`),
+  codeSampleLength: check('snippets_code_sample_length', sql`char_length(${table.codeSample}) <= 400`),
+  audioFileTypeCheck: check(
+    'snippets_audio_file_type_check',
+    sql`${table.audioFileType} IN ('wav', 'mp3', 'flac', 'aac', 'ogg')`
+  ),
+  softwareTypeCheck: check('snippets_software_type_check', sql`${table.softwareType} IN ('strudel', 'tidalcycles')`)
 }))
 
 // ====================================================
@@ -74,13 +95,15 @@ export const snippets = pgTable('snippets', {
 export const tags = pgTable('tags', {
   tagId: serial('tag_id').primaryKey(),
   name: text('name').notNull().unique()
-})
+}, (table) => ({
+  nameLength: check('tags_name_length', sql`char_length(${table.name}) BETWEEN 1 AND 50`)
+}))
 
 // ====================================================
 // Tag Assignments (Polymorphic relationship)
 // ====================================================
 export const tagAssignments = pgTable('tag_assignments', {
-  tagId: serial('tag_id')
+  tagId: integer('tag_id')
     .notNull()
     .references(() => tags.tagId, { onDelete: 'cascade' }),
   entityType: text('entity_type', { enum: entityTypes }).notNull(),
@@ -89,5 +112,6 @@ export const tagAssignments = pgTable('tag_assignments', {
 }, (table) => ({
   pk: primaryKey({ columns: [table.tagId, table.entityType, table.entityId] }),
   entityIdIdx: index('idx_tag_assignments_entity_id').on(table.entityId),
-  entityTypeIdx: index('idx_tag_assignments_entity_type').on(table.entityType)
+  entityTypeIdx: index('idx_tag_assignments_entity_type').on(table.entityType),
+  entityTypeCheck: check('tag_assignments_entity_type_check', sql`${table.entityType} IN ('project', 'snippet')`)
 }))

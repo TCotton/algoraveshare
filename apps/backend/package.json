@@ -5,7 +5,8 @@
   "type": "module",
   "packageManager": "pnpm@10.0.0",
   "engines": {
-    "node": ">=22 <23"
+    "node": ">=22 <23",
+    "pnpm": ">=10"
   },
   "scripts": {
     "install:deps": "echo 'Dependencies checked for backend'",

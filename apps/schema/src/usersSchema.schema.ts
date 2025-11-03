@@ -41,23 +41,23 @@ const UserSchema = Schema.Struct({
   )),
   portfolioUrl: Schema.optional(Schema.String.pipe(
     Schema.trimmed(),
-    Schema.filter((x) => URL.parse(x) ? undefined : 'The URL is not a valid')
+    Schema.filter((x) => URL.parse(x) ? undefined : 'The URL is not valid')
   )),
   mastodonUrl: Schema.optional(Schema.String.pipe(
     Schema.trimmed(),
-    Schema.filter((x) => URL.parse(x) ? undefined : 'The URL is not a valid')
+    Schema.filter((x) => URL.parse(x) ? undefined : 'The URL is not valid')
   )),
   blueskyUrl: Schema.optional(Schema.String.pipe(
     Schema.trimmed(),
-    Schema.filter((x) => URL.parse(x) ? undefined : 'The URL is not a valid')
+    Schema.filter((x) => URL.parse(x) ? undefined : 'The URL is not valid')
   )),
   linkedinUrl: Schema.optional(Schema.String.pipe(
     Schema.trimmed(),
-    Schema.filter((x) => URL.parse(x) ? undefined : 'The URL is not a valid')
+    Schema.filter((x) => URL.parse(x) ? undefined : 'The URL is not valid')
   )),
   youtubeLink: Schema.optional(Schema.String.pipe(
     Schema.trimmed(),
-    Schema.filter((x) => URL.parse(x) ? undefined : 'The URL is not a valid')
+    Schema.filter((x) => URL.parse(x) ? undefined : 'The URL is not valid')
   ))
 }).pipe(
   Schema.filter((user) => {

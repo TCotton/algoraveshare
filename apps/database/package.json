@@ -10,7 +10,7 @@
   },
   "exports": {
     "./schema": {
-      "types": "./src/configs/schema.ts",
+      "types": "./dist/src/configs/schema.d.ts",
       "default": "./dist/src/index.js"
     }
   },

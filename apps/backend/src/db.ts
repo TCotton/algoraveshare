@@ -1,4 +1,4 @@
-import { DbSchema } from '@repo/database/schema'
+import * as DbSchema from '@repo/database/schema'
 import { type ExtractTablesWithRelations } from 'drizzle-orm'
 import { drizzle, type NodePgDatabase, type NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
 import { type PgTransaction } from 'drizzle-orm/pg-core'

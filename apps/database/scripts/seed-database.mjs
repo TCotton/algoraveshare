@@ -262,9 +262,12 @@ async function seedDatabase() {
     await client.query('DELETE FROM snippets')
     await client.query('DELETE FROM projects')
     await client.query('DELETE FROM users')
-    
+
     // Reset sequences to start from 1
     await client.query('ALTER SEQUENCE tags_tag_id_seq RESTART WITH 1')
+    await client.query('ALTER SEQUENCE users_user_id_seq RESTART WITH 1')
+    await client.query('ALTER SEQUENCE projects_project_id_seq RESTART WITH 1')
+    await client.query('ALTER SEQUENCE snippets_snippet_id_seq RESTART WITH 1')
     console.log('✓ Existing data cleared')
 
     // Insert users and store their IDs

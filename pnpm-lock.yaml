@@ -87,6 +87,9 @@ importers:
       '@stylistic/eslint-plugin':
         specifier: ^5.4.0
         version: 5.5.0(eslint@9.38.0(jiti@2.6.1))
+      '@total-typescript/ts-reset':
+        specifier: ^0.6.1
+        version: 0.6.1
       '@types/pg':
         specifier: ^8.15.6
         version: 8.15.6

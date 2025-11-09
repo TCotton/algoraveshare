@@ -1,3 +1,5 @@
+import * as DbSchema from '@repo/database/schema'
+import { desc } from 'drizzle-orm'
 import { Effect } from 'effect'
 import * as Database from '../../db.js'
 
@@ -8,7 +10,7 @@ export class ProjectsService extends Effect.Service<ProjectsService>()('Projects
     const findAll = db.makeQuery((execute) =>
       execute((client) =>
         client.query.projects.findMany({
-          orderBy: (projects, { desc }) => [desc(projects.createdAt)]
+          orderBy: [desc(DbSchema.projects.createdAt)]
         })
       ).pipe(
         Effect.catchTags({

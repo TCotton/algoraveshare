@@ -1,7 +1,7 @@
 import * as Ariakit from '@ariakit/react'
 import {equals} from 'ramda'
 import {isEmptyString} from 'ramda-adjunct'
-import React, {StrictMode,useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import sanitize from 'sanitize-filename'
 
 import FormTextarea from '../forms/FormTextarea'
@@ -278,184 +278,182 @@ export default function SubmitProjectForm() {
     })
 
     return (
-        <StrictMode>
-            <Ariakit.Form
-                store={form}
-                aria-labelledby="add-new-project"
-                className="form-wrapper"
-                method="post"
-            >
-                <div className="field field-project-name">
-                    <Ariakit.FormLabel name={form.names.projectName}>Name</Ariakit.FormLabel>
-                    <Ariakit.FormInput
-                        name={form.names.projectName}
-                        placeholder="Name of project"
-                        className="input"
+        <Ariakit.Form
+            store={form}
+            aria-labelledby="add-new-project"
+            className="form-wrapper"
+            method="post"
+        >
+            <div className="field field-project-name">
+                <Ariakit.FormLabel name={form.names.projectName}>Name</Ariakit.FormLabel>
+                <Ariakit.FormInput
+                    name={form.names.projectName}
+                    placeholder="Name of project"
+                    className="input"
+                    autoCapitalize="none"
+                    autoComplete="off"
+                    size-="large"
+                    required
+                />
+                <Ariakit.FormError name={form.names.projectName} className="error"/>
+            </div>
+            <div className="field">
+                <SelectForm
+                    label="Choose the project software"
+                    name="projectSoftware"
+                    form={form}
+                    items={[
+                        {value: projectSoftwareDefault, label: 'project-software'},
+                        {value: 'Tidal Cycles', label: 'tidal-cycles'},
+                        {value: 'Strudel', label: 'strudel'}
+                    ]}
+                    selectClass="project-software"
+                    onChange={projectSoftwareFn}
+                    onMouseEnter={startAnimationMusicNoteOne}
+                    onMouseLeave={stopAnimationMusicNoteOne}
+                />
+                <Ariakit.FormError name={form.names.projectSoftware} className="error"/>
+            </div>
+            <div className="field">
+                <MusicNoteOne ref={musicNoteOneRef}/>
+            </div>
+            <div className="field">
+                <SelectForm
+                    label="Choose a project type"
+                    name="projectType"
+                    form={form}
+                    items={[
+                        {value: projectTypeDefault, label: 'project-type'},
+                        {value: 'Finished Project', label: 'finished'},
+                        {value: 'Before and After Live Coding Project', label: 'before-after'}
+                    ]}
+                    selectClass="project-type"
+                    onChange={projectTypeFn}
+                    onMouseEnter={startAnimationMusicNoteTwo}
+                    onMouseLeave={stopAnimationMusicNoteTwo}
+                />
+                <Ariakit.FormError name={form.names.projectType} className="error"/>
+            </div>
+            <div className="field">
+                <MusicNoteTwo ref={musicNoteTwoRef}/>
+            </div>
+            {(currentProjectSoftware === strudel || currentProjectSoftware === tidal) && (
+                <div className="field description-textarea">
+                    <Ariakit.FormLabel name={form.names.description}>
+                        Description
+                    </Ariakit.FormLabel>
+                    <div className="description-text">
+                        <p>When writing your description, consider addressing some of the following questions:</p>
+                        <div
+                            dangerouslySetInnerHTML={{__html: getDescriptionHtml(currentProjectSoftware)}}
+                        />
+                    </div>
+                    <FormTextarea
+                        name="description"
+                        value={descriptionValue}
+                        onChange={(event) => form.setValue('description', event.target.value)}
+                        placeholder="Describe the project..."
+                        className="form-textarea"
                         autoCapitalize="none"
-                        autoComplete="off"
-                        size-="large"
+                        autoCorrect="off"
+                        rows={4}
                         required
                     />
-                    <Ariakit.FormError name={form.names.projectName} className="error"/>
+                    <Ariakit.FormError name={form.names.description} className="error"/>
                 </div>
-                <div className="field">
-                    <SelectForm
-                        label="Choose the project software"
-                        name="projectSoftware"
-                        form={form}
-                        items={[
-                            {value: projectSoftwareDefault, label: 'project-software'},
-                            {value: 'Tidal Cycles', label: 'tidal-cycles'},
-                            {value: 'Strudel', label: 'strudel'}
-                        ]}
-                        selectClass="project-software"
-                        onChange={projectSoftwareFn}
-                        onMouseEnter={startAnimationMusicNoteOne}
-                        onMouseLeave={stopAnimationMusicNoteOne}
-                    />
-                    <Ariakit.FormError name={form.names.projectSoftware} className="error"/>
-                </div>
-                <div className="field">
-                    <MusicNoteOne ref={musicNoteOneRef}/>
-                </div>
-                <div className="field">
-                    <SelectForm
-                        label="Choose a project type"
-                        name="projectType"
-                        form={form}
-                        items={[
-                            {value: projectTypeDefault, label: 'project-type'},
-                            {value: 'Finished Project', label: 'finished'},
-                            {value: 'Before and After Live Coding Project', label: 'before-after'}
-                        ]}
-                        selectClass="project-type"
-                        onChange={projectTypeFn}
-                        onMouseEnter={startAnimationMusicNoteTwo}
-                        onMouseLeave={stopAnimationMusicNoteTwo}
-                    />
-                    <Ariakit.FormError name={form.names.projectType} className="error"/>
-                </div>
-                <div className="field">
-                    <MusicNoteTwo ref={musicNoteTwoRef}/>
-                </div>
-                {(currentProjectSoftware === strudel || currentProjectSoftware === tidal) && (
-                    <div className="field description-textarea">
-                        <Ariakit.FormLabel name={form.names.description}>
-                            Description
-                        </Ariakit.FormLabel>
-                        <div className="description-text">
-                            <p>When writing your description, consider addressing some of the following questions:</p>
-                            <div
-                                dangerouslySetInnerHTML={{__html: getDescriptionHtml(currentProjectSoftware)}}
-                            />
-                        </div>
-                        <FormTextarea
-                            name="description"
-                            value={descriptionValue}
-                            onChange={(event) => form.setValue('description', event.target.value)}
-                            placeholder="Describe the project..."
-                            className="form-textarea"
-                            autoCapitalize="none"
-                            autoCorrect="off"
-                            rows={4}
-                            required
-                        />
-                        <Ariakit.FormError name={form.names.description} className="error"/>
-                    </div>
-                )}
-                {/* Removed duplicate SelectForm for project type. If needed, add name and form props. */}
-                {currentProjectType === finishedProject && (
-                    <div className="field form-textarea-single">
-                        <Ariakit.FormLabel name={form.names.singleProject}>
-                            Code block
-                        </Ariakit.FormLabel>
-                        <FormTextarea
-                            name={String(form.names.singleProject)}
-                            value={singleProjectValue}
-                            onChange={(e) => form.setValue('singleProject', e.target.value)}
-                            placeholder="Add code here..."
-                            className="form-single-codeblock"
-                            autoCapitalize="none"
-                            autoCorrect="off"
-                            rows={4}
-                            required
-                        />
-                        <Ariakit.FormError name={form.names.singleProject} className="error"/>
-                    </div>
-                )}
-                {currentProjectType === beforeAfterLiveCodingProject && (
-                    <div className="field form-textarea-double">
-                        <Ariakit.FormLabel name={form.names.codeBlockOne}>
-                            Code block for the start of the performance
-                        </Ariakit.FormLabel>
-                        <FormTextarea
-                            name={String(form.names.codeBlockOne)}
-                            value={codeBlockOneValue}
-                            onChange={(e) => form.setValue('codeBlockOne', e.target.value)}
-                            placeholder="Add code you start with here..."
-                            className="form-textarea-codeblock-one"
-                            autoCapitalize="none"
-                            autoCorrect="off"
-                            rows={4}
-                            required
-                        />
-                        <Ariakit.FormError name={form.names.codeBlockOne} className="error"/>
-                        <div is-="separator" direction-="horizontal"></div>
-                        <Ariakit.FormLabel name={form.names.codeBlockTwo}>
-                            Finished code
-                        </Ariakit.FormLabel>
-                        <FormTextarea
-                            name={String(form.names.codeBlockTwo)}
-                            value={codeBlockTwoValue}
-                            onChange={(e) => form.setValue('codeBlockTwo', e.target.value)}
-                            placeholder="Add the code you finish with here..."
-                            className="form-textarea-codeblock-two"
-                            autoCapitalize="none"
-                            autoCorrect="off"
-                            rows={4}
-                            required
-                        />
-                        <Ariakit.FormError name={form.names.codeBlockTwo} className="error"/>
-                    </div>
-                )}
-                <div className="field field-upload-audio" is-="typography-block" box-="round" shear-="top">
-                    <div is-="badge" variant-="background0">
-                        <Ariakit.FormLabel name={form.names.audioUpload}>
-                            Audio upload:<br/> accepts WAV, MP3, FLAC, AAC and OGG
-                        </Ariakit.FormLabel>
-                    </div>
-                    <Ariakit.FormInput
-                        type="file"
-                        name={form.names.audioUpload}
-                        placeholder="Audio file"
-                        className="input-audio-file"
-                        size-="large"
-                        accept={audioFilesAllowed}
-                        onChange={audioFileValidation}
-                    />
-                    <Ariakit.FormError name={form.names.audioUpload} className="error"/>
-                </div>
-                <div className="field input-youtube-link" is-="typography-block" box-="round" shear-="top">
-                    <div is-="badge" variant-="background0">
-                        <Ariakit.FormLabel name={form.names.youtubeLink}>Add a URL of a relevant YouTube
-                            video</Ariakit.FormLabel>
-                    </div>
-                    <Ariakit.FormInput
-                        name="youtubeLink"
-                        value={youtubeLinkValue}
-                        onChange={(event) => form.setValue('youtubeLink', event.target.value)}
-                        placeholder="Link to YouTube video"
-                        className="youtube-link"
+            )}
+            {/* Removed duplicate SelectForm for project type. If needed, add name and form props. */}
+            {currentProjectType === finishedProject && (
+                <div className="field form-textarea-single">
+                    <Ariakit.FormLabel name={form.names.singleProject}>
+                        Code block
+                    </Ariakit.FormLabel>
+                    <FormTextarea
+                        name={String(form.names.singleProject)}
+                        value={singleProjectValue}
+                        onChange={(e) => form.setValue('singleProject', e.target.value)}
+                        placeholder="Add code here..."
+                        className="form-single-codeblock"
                         autoCapitalize="none"
-                        autoComplete="off"
-                        size-="large"
+                        autoCorrect="off"
+                        rows={4}
+                        required
                     />
-                    <Ariakit.FormError name={form.names.youtubeLink} className="error"/>
+                    <Ariakit.FormError name={form.names.singleProject} className="error"/>
                 </div>
-                <div className="buttons">
-                    <Ariakit.FormSubmit className="button">Submit</Ariakit.FormSubmit>
+            )}
+            {currentProjectType === beforeAfterLiveCodingProject && (
+                <div className="field form-textarea-double">
+                    <Ariakit.FormLabel name={form.names.codeBlockOne}>
+                        Code block for the start of the performance
+                    </Ariakit.FormLabel>
+                    <FormTextarea
+                        name={String(form.names.codeBlockOne)}
+                        value={codeBlockOneValue}
+                        onChange={(e) => form.setValue('codeBlockOne', e.target.value)}
+                        placeholder="Add code you start with here..."
+                        className="form-textarea-codeblock-one"
+                        autoCapitalize="none"
+                        autoCorrect="off"
+                        rows={4}
+                        required
+                    />
+                    <Ariakit.FormError name={form.names.codeBlockOne} className="error"/>
+                    <div is-="separator" direction-="horizontal"></div>
+                    <Ariakit.FormLabel name={form.names.codeBlockTwo}>
+                        Finished code
+                    </Ariakit.FormLabel>
+                    <FormTextarea
+                        name={String(form.names.codeBlockTwo)}
+                        value={codeBlockTwoValue}
+                        onChange={(e) => form.setValue('codeBlockTwo', e.target.value)}
+                        placeholder="Add the code you finish with here..."
+                        className="form-textarea-codeblock-two"
+                        autoCapitalize="none"
+                        autoCorrect="off"
+                        rows={4}
+                        required
+                    />
+                    <Ariakit.FormError name={form.names.codeBlockTwo} className="error"/>
                 </div>
-            </Ariakit.Form>
-        </StrictMode>
+            )}
+            <div className="field field-upload-audio" is-="typography-block" box-="round" shear-="top">
+                <div is-="badge" variant-="background0">
+                    <Ariakit.FormLabel name={form.names.audioUpload}>
+                        Audio upload:<br/> accepts WAV, MP3, FLAC, AAC and OGG
+                    </Ariakit.FormLabel>
+                </div>
+                <Ariakit.FormInput
+                    type="file"
+                    name={form.names.audioUpload}
+                    placeholder="Audio file"
+                    className="input-audio-file"
+                    size-="large"
+                    accept={audioFilesAllowed}
+                    onChange={audioFileValidation}
+                />
+                <Ariakit.FormError name={form.names.audioUpload} className="error"/>
+            </div>
+            <div className="field input-youtube-link" is-="typography-block" box-="round" shear-="top">
+                <div is-="badge" variant-="background0">
+                    <Ariakit.FormLabel name={form.names.youtubeLink}>Add a URL of a relevant YouTube
+                        video</Ariakit.FormLabel>
+                </div>
+                <Ariakit.FormInput
+                    name="youtubeLink"
+                    value={youtubeLinkValue}
+                    onChange={(event) => form.setValue('youtubeLink', event.target.value)}
+                    placeholder="Link to YouTube video"
+                    className="youtube-link"
+                    autoCapitalize="none"
+                    autoComplete="off"
+                    size-="large"
+                />
+                <Ariakit.FormError name={form.names.youtubeLink} className="error"/>
+            </div>
+            <div className="buttons">
+                <Ariakit.FormSubmit className="button">Submit</Ariakit.FormSubmit>
+            </div>
+        </Ariakit.Form>
     )
 }

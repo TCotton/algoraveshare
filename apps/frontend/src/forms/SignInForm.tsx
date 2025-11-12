@@ -1,5 +1,5 @@
 import * as Ariakit from '@ariakit/react'
-import React, {StrictMode} from 'react'
+import React from 'react'
 import isEmail from 'validator/lib/isEmail'
 
 import FormInput from './FormInput'
@@ -50,50 +50,48 @@ export default function SignInForm() {
     const passwordOneValue = form.useValue('passwordOne')
 
     return (
-        <StrictMode>
-            <Ariakit.Form
-                store={form}
-                aria-labelledby="sign-in-form"
-                className="form-wrapper sign-in-form"
-                method="post"
-                noValidate={true}
-            >
-                <div className="field field-signin-email">
-                    <Ariakit.FormLabel name={form.names.email}>Email:</Ariakit.FormLabel>
-                    <FormInput
-                        value={emailValue}
-                        onChange={(event) => form.setValue('email', event.target.value)}
-                        type="email"
-                        name={form.names.email}
-                        placeholder="Email address"
-                        className="input"
-                        size-="large"
-                        data-testid="email"
-                        autoComplete="username"
-                    />
-                    <Ariakit.FormError name={form.names.email} className="error"/>
-                </div>
-                <div className="field field-signin-password-one">
-                    <Ariakit.FormLabel name={form.names.passwordOne}>
-                        Password:
-                    </Ariakit.FormLabel>
-                    <FormInput
-                        value={passwordOneValue}
-                        onChange={(event) => form.setValue('passwordOne', event.target.value)}
-                        type="password"
-                        name={form.names.passwordOne}
-                        placeholder="Password"
-                        className="input"
-                        size-="large"
-                        data-testid="passwordOne"
-                        autoComplete="current-password"
-                    />
-                    <Ariakit.FormError name={form.names.passwordOne} className="error"/>
-                </div>
-                <div className="buttons">
-                    <Ariakit.FormSubmit className="button">Submit</Ariakit.FormSubmit>
-                </div>
-            </Ariakit.Form>
-        </StrictMode>
+        <Ariakit.Form
+            store={form}
+            aria-labelledby="sign-in-form"
+            className="form-wrapper sign-in-form"
+            method="post"
+            noValidate={true}
+        >
+            <div className="field field-signin-email">
+                <Ariakit.FormLabel name={form.names.email}>Email:</Ariakit.FormLabel>
+                <FormInput
+                    value={emailValue}
+                    onChange={(event) => form.setValue('email', event.target.value)}
+                    type="email"
+                    name={form.names.email}
+                    placeholder="Email address"
+                    className="input"
+                    size-="large"
+                    data-testid="email"
+                    autoComplete="username"
+                />
+                <Ariakit.FormError name={form.names.email} className="error"/>
+            </div>
+            <div className="field field-signin-password-one">
+                <Ariakit.FormLabel name={form.names.passwordOne}>
+                    Password:
+                </Ariakit.FormLabel>
+                <FormInput
+                    value={passwordOneValue}
+                    onChange={(event) => form.setValue('passwordOne', event.target.value)}
+                    type="password"
+                    name={form.names.passwordOne}
+                    placeholder="Password"
+                    className="input"
+                    size-="large"
+                    data-testid="passwordOne"
+                    autoComplete="current-password"
+                />
+                <Ariakit.FormError name={form.names.passwordOne} className="error"/>
+            </div>
+            <div className="buttons">
+                <Ariakit.FormSubmit className="button">Submit</Ariakit.FormSubmit>
+            </div>
+        </Ariakit.Form>
     )
 }

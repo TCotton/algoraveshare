@@ -141,7 +141,17 @@ export default [
       '@typescript-eslint/no-namespace': 'off',
 
       '@stylistic/quotes': ['error', 'single'],
-      '@stylistic/semi': ['error', 'never']
+      '@stylistic/semi': ['error', 'never'],
+      '@stylistic/member-delimiter-style': ['error', {
+        multiline: {
+          delimiter: 'none',
+          requireLast: false
+        },
+        singleline: {
+          delimiter: 'comma',
+          requireLast: false
+        }
+      }]
     }
   }
 ]

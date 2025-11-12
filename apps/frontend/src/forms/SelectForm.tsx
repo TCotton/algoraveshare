@@ -45,7 +45,7 @@ interface ExtendedSelectFormProps extends SelectFormProps {
 export default function SelectForm(props: ExtendedSelectFormProps) {
   const { 'data-testid': dataTestId, form, items, label, name, onChange, onMouseEnter, onMouseLeave, selectClass } =
     props
-  const formattedItems = items?.map((item: { value: string; label: string }) => ({
+  const formattedItems = items?.map((item: { value: string, label: string }) => ({
     id: item.value,
     label: item.label,
     value: item.value
@@ -82,7 +82,7 @@ export default function SelectForm(props: ExtendedSelectFormProps) {
           <Ariakit.SelectArrow className='select-arrow' />
         </Ariakit.Select>
         <Ariakit.SelectPopover store={select} className='menu-wrapper' id='menu-form' gutter={4}>
-          {formattedItems.map((item: { value: string; label: string; id: string }) => (
+          {formattedItems.map((item: { value: string, label: string, id: string }) => (
             <Ariakit.SelectItem className={`menu-item ${item.label}`} value={item.value} key={item.id}>
               <a href='#menu-form'>{item.value}</a>
             </Ariakit.SelectItem>

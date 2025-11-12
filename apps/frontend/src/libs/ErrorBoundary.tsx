@@ -1,11 +1,11 @@
 import React, { Component, type ErrorInfo, type ReactNode } from 'react'
 
 interface Props {
-    children?: ReactNode;
+    children?: ReactNode
 }
 
 interface State {
-    hasError: boolean;
+    hasError: boolean
 }
 
 class ErrorBoundary extends Component<Props, State> {
@@ -24,7 +24,7 @@ class ErrorBoundary extends Component<Props, State> {
 
     public render() {
         if (this.state.hasError) {
-            return <h1>Sorry.. there was an error</h1>
+            return <h1 aria-live="assertive">Sorry.. there was an error</h1>
         }
 
         return this.props.children

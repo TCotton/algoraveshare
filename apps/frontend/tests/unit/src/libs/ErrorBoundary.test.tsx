@@ -131,6 +131,7 @@ describe('ErrorBoundary', () => {
         </ErrorBoundary>
       )
 
+      expect(consoleErrorSpy).toHaveBeenCalled()
       const loggedError = consoleErrorSpy.mock.calls[0][1] as Error
       expect(loggedError.message).toBe('Test error')
     })
@@ -273,7 +274,8 @@ describe('ErrorBoundary', () => {
       )
 
       expect(screen.getByText('Sorry.. there was an error')).toBeInTheDocument()
-      
+
+      expect(consoleErrorSpy).toHaveBeenCalled()
       const loggedError = consoleErrorSpy.mock.calls[0][1] as Error
       expect(loggedError.message).toBe('Type error occurred')
       expect(loggedError).toBeInstanceOf(TypeError)

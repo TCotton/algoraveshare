@@ -17,14 +17,14 @@ echo "→ Running frontend checks..."
 cd "$REPO_ROOT/apps/frontend"
 npm run lint:fix
 npm run test:unit
-# npm run test:e2e:headless  # Temporarily disabled - Playwright browsers not installed
+npm run test:e2e:headless
 npm run typecheck
 
 # Run schema pre-push
 echo "→ Running schema checks..."
 cd "$REPO_ROOT/apps/schema"
 npm run lint:fix
-# npm run test:unit
-# npm run typecheck  # Temporarily disabled - missing @types/node dependency
+npm run test:unit
+npm run typecheck
 
 echo "✓ Pre-push checks passed"

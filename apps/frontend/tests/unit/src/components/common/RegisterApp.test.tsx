@@ -139,7 +139,7 @@ describe('RegisterApp', () => {
     expect(screen.getByTestId('passwordOne')).toHaveAttribute('placeholder', 'Example of passwords: +r)47S+n@B, GEa8^n%qxsg*, W7r9!FAT')
     expect(screen.getByTestId('passwordTwo')).toHaveAttribute('placeholder', 'Must match the first password')
     expect(screen.getByTestId('location')).toHaveAttribute('placeholder', 'Add your town, city or country')
-    expect(screen.getByTestId('portfolioUrl')).toHaveAttribute('placeholder', 'Add a link to you portfolio')
+    expect(screen.getByTestId('portfolioUrl')).toHaveAttribute('placeholder', 'Add a link to your portfolio')
     expect(screen.getByTestId('youtubeLink')).toHaveAttribute('placeholder', 'Add a link to your YouTube channel')
     expect(screen.getByTestId('mastodonUrl')).toHaveAttribute('placeholder', 'Add a link to your Mastodon account')
     expect(screen.getByTestId('blueskyUrl')).toHaveAttribute('placeholder', 'Add a link to your Bluesky account')
@@ -246,15 +246,6 @@ describe('RegisterApp', () => {
   it('handles component mounting and unmounting without errors', () => {
     const { unmount } = render(<RegisterApp />)
     expect(() => unmount()).not.toThrow()
-  })
-
-  it('is wrapped in React StrictMode', () => {
-    // Since we can't directly test StrictMode wrapping with current testing setup,
-    // we verify the component renders correctly which indicates StrictMode compatibility
-    render(<RegisterApp />)
-    
-    const form = screen.getByTestId('registration-form')
-    expect(form).toBeInTheDocument()
   })
 
   it('matches snapshot', () => {

@@ -5,8 +5,8 @@ import isEmail from 'validator/lib/isEmail'
 import FormInput from './FormInput'
 
 interface FormValues {
-    email: string;
-    passwordOne: string;
+    email: string
+    passwordOne: string
 }
 
 export default function SignInForm() {

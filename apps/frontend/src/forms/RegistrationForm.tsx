@@ -7,16 +7,16 @@ import isStrongPassword from 'validator/lib/isStrongPassword'
 import FormInput from './FormInput'
 
 interface FormValues {
-    name: string;
-    email: string;
-    passwordOne: string;
-    passwordTwo: string;
-    portfolioUrl: string;
-    location: string;
-    mastodonUrl: string;
-    blueskyUrl: string;
-    linkedinUrl: string;
-    youtubeLink: string;
+    name: string
+    email: string
+    passwordOne: string
+    passwordTwo: string
+    portfolioUrl: string
+    location: string
+    mastodonUrl: string
+    blueskyUrl: string
+    linkedinUrl: string
+    youtubeLink: string
 }
 
 export default function RegistrationForm() {
@@ -269,7 +269,7 @@ export default function RegistrationForm() {
                     onChange={(event) => form.setValue('portfolioUrl', event.target.value)}
                     type="url"
                     name={form.names.portfolioUrl}
-                    placeholder="Add a link to you portfolio"
+                    placeholder="Add a link to your portfolio"
                     className="input"
                     size-="large"
                     data-testid="portfolioUrl"

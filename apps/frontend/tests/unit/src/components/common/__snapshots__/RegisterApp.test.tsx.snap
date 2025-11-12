@@ -1,0 +1,280 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`RegisterApp > matches snapshot 1`] = `
+<div>
+  <form
+    aria-labelledby="add-new-project"
+    class="form-wrapper registration-form"
+    data-testid="registration-form"
+    method="post"
+    store="[object Object]"
+  >
+    <div
+      class="field field-registration-name"
+    >
+      <label
+        data-testid="form-label"
+        name="name"
+      >
+        Name:
+      </label>
+      <input
+        autocomplete="on"
+        class="input"
+        data-testid="name"
+        name="name"
+        placeholder="Your name"
+        size-="large"
+        type="text"
+        value=""
+      />
+      <div
+        class="error"
+        data-testid="form-error"
+        name="name"
+      />
+    </div>
+    <div
+      class="field field-project-email"
+    >
+      <label
+        data-testid="form-label"
+        name="email"
+      >
+        Email:
+      </label>
+      <input
+        autocomplete="on"
+        class="input"
+        data-testid="email"
+        name="email"
+        placeholder="Email address"
+        size-="large"
+        type="email"
+        value=""
+      />
+      <div
+        class="error"
+        data-testid="form-error"
+        name="email"
+      />
+    </div>
+    <div
+      class="field field-registration-password-one"
+    >
+      <label
+        data-testid="form-label"
+        name="passwordOne"
+      >
+        Password:
+        <span>
+          The password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.
+        </span>
+      </label>
+      <input
+        autocomplete="new-password"
+        class="input"
+        data-testid="passwordOne"
+        name="passwordOne"
+        placeholder="Example of passwords: +r)47S+n@B, GEa8^n%qxsg*, W7r9!FAT"
+        size-="large"
+        title="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+        type="password"
+        value=""
+      />
+      <div
+        class="error"
+        data-testid="form-error"
+        name="passwordOne"
+      />
+    </div>
+    <div
+      class="field field-registration-password-two"
+    >
+      <label
+        data-testid="form-label"
+        name="passwordTwo"
+      >
+        Please type the same password again.
+      </label>
+      <input
+        autocomplete="new-password"
+        class="input"
+        data-testid="passwordTwo"
+        name="passwordTwo"
+        placeholder="Must match the first password"
+        size-="large"
+        type="password"
+        value=""
+      />
+      <div
+        class="error"
+        data-testid="form-error"
+        name="passwordTwo"
+      />
+    </div>
+    <div
+      class="field field-registration-location"
+    >
+      <label
+        data-testid="form-label"
+        name="location"
+      >
+        Add your town, city or country
+      </label>
+      <input
+        autocapitalize="on"
+        autocomplete="on"
+        class="input"
+        data-testid="location"
+        name="location"
+        placeholder="Add your town, city or country"
+        size-="large"
+        type="text"
+        value=""
+      />
+      <div
+        class="error"
+        data-testid="form-error"
+        name="location"
+      />
+    </div>
+    <div
+      class="field field-registration-portfolioUrl"
+    >
+      <label
+        data-testid="form-label"
+        name="portfolioUrl"
+      >
+        Add a link to your portfolio
+      </label>
+      <input
+        autocapitalize="off"
+        class="input"
+        data-testid="portfolioUrl"
+        name="portfolioUrl"
+        placeholder="Add a link to your portfolio"
+        size-="large"
+        type="url"
+        value=""
+      />
+      <div
+        class="error"
+        data-testid="form-error"
+        name="portfolioUrl"
+      />
+    </div>
+    <div
+      class="field field-registration-youtubeLink"
+    >
+      <label
+        data-testid="form-label"
+        name="youtubeLink"
+      >
+        Add a link to your YouTube channel
+      </label>
+      <input
+        autocapitalize="off"
+        class="input"
+        data-testid="youtubeLink"
+        name="youtubeLink"
+        placeholder="Add a link to your YouTube channel"
+        size-="large"
+        type="url"
+        value=""
+      />
+      <div
+        class="error"
+        data-testid="form-error"
+        name="youtubeLink"
+      />
+    </div>
+    <div
+      class="field field-registration-youtubeLink"
+    >
+      <label
+        data-testid="form-label"
+        name="mastodonUrl"
+      >
+        Add a link to your Mastodon account
+      </label>
+      <input
+        autocapitalize="off"
+        class="input"
+        data-testid="mastodonUrl"
+        name="mastodonUrl"
+        placeholder="Add a link to your Mastodon account"
+        size-="large"
+        type="url"
+        value=""
+      />
+      <div
+        class="error"
+        data-testid="form-error"
+        name="mastodonUrl"
+      />
+    </div>
+    <div
+      class="field field-registration-blueskyUrl"
+    >
+      <label
+        data-testid="form-label"
+        name="blueskyUrl"
+      >
+        Add a link to your Bluesky account
+      </label>
+      <input
+        autocapitalize="off"
+        class="input"
+        data-testid="blueskyUrl"
+        name="blueskyUrl"
+        placeholder="Add a link to your Bluesky account"
+        size-="large"
+        type="url"
+        value=""
+      />
+      <div
+        class="error"
+        data-testid="form-error"
+        name="blueskyUrl"
+      />
+    </div>
+    <div
+      class="field field-registration-linkedinUrl"
+    >
+      <label
+        data-testid="form-label"
+        name="linkedinUrl"
+      >
+        Add a link to your LinkedIn account
+      </label>
+      <input
+        autocapitalize="off"
+        class="input"
+        data-testid="linkedinUrl"
+        name="linkedinUrl"
+        placeholder="Add a link to your LinkedIn account"
+        size-="large"
+        type="url"
+        value=""
+      />
+      <div
+        class="error"
+        data-testid="form-error"
+        name="linkedinUrl"
+      />
+    </div>
+    <div
+      class="buttons"
+    >
+      <button
+        class="button"
+        data-testid="form-submit"
+        type="submit"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
+`;

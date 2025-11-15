@@ -1,4 +1,4 @@
-import { sql } from 'drizzle-orm'
+import { relations, sql } from 'drizzle-orm'
 import { check, index, integer, jsonb, pgTable, primaryKey, serial, text, timestamp, uuid } from 'drizzle-orm/pg-core'
 
 // ====================================================
@@ -114,4 +114,42 @@ export const tagAssignments = pgTable('tag_assignments', {
   entityIdIdx: index('idx_tag_assignments_entity_id').on(table.entityId),
   entityTypeIdx: index('idx_tag_assignments_entity_type').on(table.entityType),
   entityTypeCheck: check('tag_assignments_entity_type_check', sql`${table.entityType} IN ('project', 'snippet')`)
+}))
+
+// ====================================================
+// Relations
+// ====================================================
+
+export const usersRelations = relations(users, ({ many }) => ({
+  projects: many(projects),
+  snippets: many(snippets)
+}))
+
+export const projectsRelations = relations(projects, ({ many, one }) => ({
+  user: one(users, {
+    fields: [projects.userId],
+    references: [users.userId]
+  }),
+  tagAssignments: many(tagAssignments)
+}))
+
+export const snippetsRelations = relations(snippets, ({ many, one }) => ({
+  user: one(users, {
+    fields: [snippets.userId],
+    references: [users.userId]
+  }),
+  tagAssignments: many(tagAssignments)
+}))
+
+export const tagsRelations = relations(tags, ({ many }) => ({
+  tagAssignments: many(tagAssignments)
+}))
+
+export const tagAssignmentsRelations = relations(tagAssignments, ({ one }) => ({
+  tag: one(tags, {
+    fields: [tagAssignments.tagId],
+    references: [tags.tagId]
+  })
+  // Note: The polymorphic relationship to projects/snippets would require
+  // application-level handling since Drizzle doesn't directly support polymorphic relations
 }))

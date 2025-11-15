@@ -2,10 +2,10 @@ import { HttpApiEndpoint, HttpApiGroup } from '@effect/platform'
 import { ProjectSchema } from '@repo/schema/projects'
 import { Schema } from 'effect'
 
-export class ProjectsApi extends HttpApiGroup.make('projects').prefix('/projects').add(
+export const ProjectsApi = HttpApiGroup.make('projects').prefix('/projects').add(
   HttpApiEndpoint.get('getAllProjects', '/')
     .addSuccess(Schema.Array(ProjectSchema))
-) {}
+)
 
 /**
  * import { HttpApiEndpoint } from "@effect/platform"

@@ -30,3 +30,5 @@ pnpm-debug.log*
 /playwright/.cache/
 /playwright/.auth/
 .vscode/
+localhost-key.pem
+localhost.pem

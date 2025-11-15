@@ -15,7 +15,7 @@ interface SubmitProjectFormData {
 test.describe.serial('Submit Project Form', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to the page and ensure it's fully loaded
-    await page.goto('http://localhost:4321/submit-project', { waitUntil: 'networkidle' })
+    await page.goto('https://localhost:4321/submit-project', { waitUntil: 'networkidle' })
     // Force a fresh reload to clear any state
     await page.reload({ waitUntil: 'networkidle' })
     // Wait for form to be visible and interactive

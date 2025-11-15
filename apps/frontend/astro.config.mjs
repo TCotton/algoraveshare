@@ -1,6 +1,16 @@
 import node from '@astrojs/node'
 import react from '@astrojs/react'
 import { defineConfig } from 'astro/config'
+import { loadEnv } from 'vite'
+ 
+const { NODE_ENV } = loadEnv(import.meta.env.NODE_ENV, process.cwd(), '')
+
+if (NODE_ENV === undefined) {
+    console.error('NODE_ENV is not defined in .env file')
+    process.exit(1)
+}
+
+console.log(`NODE_ENV: ${NODE_ENV}`)
 
 export default defineConfig({
   output: 'server',
@@ -13,6 +23,12 @@ export default defineConfig({
     }
   })],
   vite: {
+      server: NODE_ENV === 'development' ? {
+          https: {
+              key: './localhost-key.pem',
+              cert: './localhost.pem',
+          },
+      } : {},
     ssr: {
       noExternal: [
         'modern-normalize',

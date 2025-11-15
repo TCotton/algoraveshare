@@ -4,7 +4,7 @@
     "build": {
       "inputs": ["src/**"],
       "outputs": ["dist/**"],
-      "env": ["CI", "NODE_ENV"]
+      "env": ["CI", "NODE_ENV", "DEV", "MODE"]
     },
     "special-task": {}
   }

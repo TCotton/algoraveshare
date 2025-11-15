@@ -9,10 +9,14 @@ import {
   HttpServer
 } from '@effect/platform'
 import { NodeHttpServer, NodeRuntime } from '@effect/platform-node'
+import { DbSchema } from '@repo/database/schema'
+// import * as DbSchema from '@repo/database/schema'
 import { Effect, Layer, Schema } from 'effect'
 import { createServer } from 'node:http'
 import { EnvVars } from './common/env-vars.js'
 import * as Database from './db.js'
+
+console.log(DbSchema)
 // Define our API with one group named "Greetings" and one endpoint called "hello-world"
 const MyApi = HttpApi.make('MyApi').add(
   HttpApiGroup.make('Greetings').add(

@@ -9,9 +9,7 @@ export class ProjectsService extends Effect.Service<ProjectsService>()('Projects
 
     const findAll = db.makeQuery((execute) =>
       execute((client) =>
-        client.query.projects.findMany({
-          orderBy: [desc(DbSchema.projects.createdAt)]
-        })
+        client.select().from(DbSchema.DbSchema.projects).orderBy(desc(DbSchema.DbSchema.projects.createdAt))
       ).pipe(
         Effect.catchTags({
           DatabaseError: Effect.die

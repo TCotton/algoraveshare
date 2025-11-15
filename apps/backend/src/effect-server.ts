@@ -10,6 +10,7 @@ import {
 } from '@effect/platform'
 import { NodeHttpServer, NodeRuntime } from '@effect/platform-node'
 import { DbSchema } from '@repo/database/schema'
+// import * as DbSchema from '@repo/database/schema'
 import { Effect, Layer, Schema } from 'effect'
 import { createServer } from 'node:http'
 import { EnvVars } from './common/env-vars.js'

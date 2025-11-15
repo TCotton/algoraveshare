@@ -1,13 +1,12 @@
 import { useCallback, useState } from 'react'
 
-type Route = `https://${string}`
-type DateString = `${number}-${number}-${number}`
+type CheckHTTPsProtocol<TRoute extends string> = `https://${TRoute}`
 
 interface CopyWithAttributionProps {
     resetInterval?: number
-    source: Route
-    date: DateString
-    name: string
+    source?: CheckHTTPsProtocol<string>
+    date?: string
+    name?: string
     license? : string
 }
 
@@ -18,7 +17,7 @@ interface CopyWithAttributionProps {
  * @param resetInterval
  */
 
-export function useCopyToClipboard({ resetInterval = 2000 }: CopyWithAttributionProps) {
+export function useCopyToClipboard({resetInterval = 2000}: CopyWithAttributionProps) {
     const [isCopied, setIsCopied] = useState(false)
 
     const copy = useCallback(async (text: string) => {

@@ -8,6 +8,8 @@ import MusicIcon from '../assets/images/icons8-music.svg';
 import MusicNote from '../assets/images/icons8-musical-note.svg';
 import AudioLayout from "../layouts/AudioLayout.astro";
 import TagsLayout from "../layouts/TagsLayout.astro";
+import CopyComponent from '../components/CopyComponent.tsx';
+import CopyAnimated from '../assets/images/elephant.apng'
 const fullCode = false;
 const codeExample = `
 cps(130/60/4)
@@ -105,6 +107,7 @@ d6 silence
                             <div is-="badge" variant-="background0"><h1>Start</h1></div>
                             <span class="icon"><MusicIcon width="100" height="100"/></span>
                         </div>
+                        <CopyComponent client:only="react" image={CopyAnimated}/>
                         <Codeblock language="hs" code={codeExample}/>
                     </div>
                     <div class="right-column" is-="typography-block" box-="round" shear-="top">

@@ -7,6 +7,20 @@ import 'modern-normalize/modern-normalize.css';
     @import '../../node_modules/@webtui/theme-catppuccin/dist/index.css';
     /* Note: 'full.css' includes the base styles from 'base.css', so a separate import is not needed. */
 
+    .copy-component {
+        filter: invert(100%);
+    }
+
+    .copy-component  {
+        /* Pause the animation by default */
+        animation-play-state: paused;
+    }
+
+    .copy-component:hover {
+        /* Run the animation on mouseover */
+        animation-play-state: running;
+    }
+
     @keyframes opacity-fade-in {
         0% {
             /* pushes the sun down past the viewport */

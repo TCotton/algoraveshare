@@ -61,9 +61,9 @@ const server = Fastify({
   loggerInstance: logger
 })
 
-// const port = Number(server.config.PORT)
+const port = Number(server.config.PORT)
 
-await server.register(env, options).after()
+await server.register(env, options)
 
 server.get('/hello', async (request, reply) => {
   const res = await lambdaHandler(null)
@@ -75,8 +75,8 @@ server.get('/hello', async (request, reply) => {
 server.register(postsRouter, { prefix: 'api/posts' })
 
 export const start = async () => {
-  await server.listen({ port: 3000 })
-  console.log('Fastify server listening on http://localhost:3000')
+  await server.listen({ port })
+  logger.info('Fastify server listening on http://localhost:3000')
 }
 
 if (process.env.NODE_ENV !== 'test') {

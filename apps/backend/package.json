@@ -37,6 +37,7 @@
     "drizzle-orm": "^0.44.6",
     "effect": "^3.18.4",
     "fastify": "^5.6.1",
+    "fastify-plugin": "^5.1.0",
     "pg": "^8.16.3",
     "pino": "^10.1.0",
     "pino-pretty": "^13.1.2"

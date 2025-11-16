@@ -1,15 +1,13 @@
-// import * as DbSchema from '@repo/database/schema'
-/*
+import { DbSchema } from '@repo/database/schema'
 import { desc } from 'drizzle-orm'
 import { db } from '../../db/index.js'
 
-export const getPosts = async () => {
+export const getProjects = async () => {
   const result = await db
     .select()
-    .from(posts)
-    .orderBy(desc(posts.createdAt))
+    .from(DbSchema.projects)
+    .orderBy(desc(DbSchema.projects.createdAt))
     .limit(10)
 
   return result
 }
-*/

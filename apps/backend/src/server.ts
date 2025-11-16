@@ -4,10 +4,11 @@ import Fastify from 'fastify'
 import type { Level } from 'src/utils/logger.js'
 import { createLogger } from 'src/utils/logger.js'
 import { handler as lambdaHandler } from './index.js'
+import { postsRouter } from './modules/posts/router.js'
 
 dotenv.config()
 
-const level = process.env.PINO_LOG_LEVEL as Level
+const level = (process.env.PINO_LOG_LEVEL || process.env.LOG_LEVEL || 'info') as Level
 const isDev = process.env.NODE_ENV === 'development'
 const logger = createLogger({ level, isDev })
 
@@ -24,9 +25,13 @@ const schema = {
     DATABASE_URL: {
       type: 'string'
     },
+    LOG_LEVEL: {
+      type: 'string',
+      default: 'info'
+    },
     PINO_LOG_LEVEL: {
       type: 'string',
-      default: 'error'
+      default: 'info'
     },
     NODE_ENV: {
       type: 'string',
@@ -45,6 +50,7 @@ declare module 'fastify' {
     config: {
       PORT: string
       DATABASE_URL: string
+      LOG_LEVEL: string
       PINO_LOG_LEVEL: string
       NODE_ENV: string
     }
@@ -52,9 +58,10 @@ declare module 'fastify' {
 }
 
 const server = Fastify({
-  logger: true,
   loggerInstance: logger
 })
+
+// const port = Number(server.config.PORT)
 
 await server.register(env, options).after()
 
@@ -63,6 +70,9 @@ server.get('/hello', async (request, reply) => {
   const body = JSON.parse(res.body)
   reply.code(res.statusCode).send(body)
 })
+
+/* Add the posts router under the `ping` endpoint */
+server.register(postsRouter, { prefix: 'api/posts' })
 
 export const start = async () => {
   await server.listen({ port: 3000 })

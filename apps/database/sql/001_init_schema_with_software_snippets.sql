@@ -122,12 +122,14 @@ CREATE INDEX idx_tag_assignments_entity_type ON tag_assignments (entity_type);
 -- ====================================================
 CREATE TABLE audit_log
 (
-    audit_id   UUID PRIMARY KEY     DEFAULT uuidv7(),
-    user_id    UUID REFERENCES users (user_id) ON DELETE SET NULL,
-    action     TEXT        NOT NULL,
-    details    JSONB        NOT NULL,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    audit_id    UUID PRIMARY KEY     DEFAULT uuidv7(),
+    action      TEXT        NOT NULL,
+    details     TEXT        NOT NULL,
+    entity_type TEXT        NULL CHECK (entity_type IN ('project', 'snippet', 'user')),
+    entity_id   UUID        NULL,
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-
 CREATE INDEX idx_audit_log_created_at ON audit_log (created_at);
 CREATE INDEX idx_audit_log_action ON audit_log (action);
+CREATE INDEX idx_audit_log_entity_id ON audit_log (entity_id);
+CREATE INDEX idx_audit_log_entity_type ON audit_log (entity_type);

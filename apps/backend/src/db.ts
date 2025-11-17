@@ -18,6 +18,7 @@ type Client = NodePgDatabase<typeof DbSchema> & {
 type TransactionContextShape = <U>(
   fn: (client: TransactionClient) => Promise<U>
 ) => Effect.Effect<U, DatabaseError>
+
 export class TransactionContext extends Context.Tag('TransactionContext')<
   TransactionContext,
   TransactionContextShape

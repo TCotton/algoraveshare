@@ -11,12 +11,14 @@ CREATE
 EXTENSION IF NOT EXISTS citext;
 CREATE
 EXTENSION IF NOT EXISTS pgcrypto;
+CREATE
+EXTENSION IF NOT EXISTS pg_uuidv7;
 -- ====================================================
 -- Users
 -- ====================================================
 CREATE TABLE users
 (
-    user_id       UUID PRIMARY KEY     DEFAULT uuidv7(),
+    user_id       UUID PRIMARY KEY     DEFAULT uuid_generate_v7(),
     name          CITEXT      NOT NULL UNIQUE CHECK (char_length(name) BETWEEN 1 AND 200),
     email         CITEXT      NOT NULL UNIQUE,
     password_hash TEXT        NOT NULL,
@@ -35,7 +37,7 @@ CREATE TABLE users
 -- ====================================================
 CREATE TABLE projects
 (
-    project_id      UUID PRIMARY KEY     DEFAULT uuidv7(),
+    project_id      UUID PRIMARY KEY     DEFAULT uuid_generate_v7(),
     project_name    TEXT        NOT NULL CHECK (char_length(project_name) BETWEEN 1 AND 200),
     user_id         UUID        NOT NULL REFERENCES users (user_id) ON DELETE CASCADE,
     code_start      TEXT,
@@ -65,7 +67,7 @@ CREATE INDEX idx_projects_user_id ON projects (user_id);
 -- ====================================================
 CREATE TABLE snippets
 (
-    snippet_id      UUID PRIMARY KEY     DEFAULT uuidv7(),
+    snippet_id      UUID PRIMARY KEY     DEFAULT uuid_generate_v7(),
     snippet_name    TEXT        NOT NULL CHECK (char_length(snippet_name) BETWEEN 1 AND 200),
     user_id         UUID        NOT NULL REFERENCES users (user_id) ON DELETE CASCADE,
     code_sample     TEXT        NOT NULL CHECK (char_length(code_sample) <= 400),
@@ -110,7 +112,7 @@ CREATE INDEX idx_tag_assignments_entity_type ON tag_assignments (entity_type);
 -- ====================================================
 CREATE TABLE audit_log
 (
-    audit_id    UUID PRIMARY KEY     DEFAULT uuidv7(),
+    audit_id    UUID PRIMARY KEY     DEFAULT uuid_generate_v7(),
     user_id     UUID REFERENCES users (user_id) ON DELETE SET NULL,
     action      TEXT        NOT NULL,
     details     JSONB       NOT NULL,
@@ -120,5 +122,4 @@ CREATE TABLE audit_log
 );
 CREATE INDEX idx_audit_log_created_at ON audit_log (created_at);
 CREATE INDEX idx_audit_log_action ON audit_log (action);
-CREATE INDEX idx_audit_log_entity_id ON audit_log (entity_id);
-CREATE INDEX idx_audit_log_entity_type ON audit_log (entity_type);
+CREATE INDEX idx_audit_log_entity ON audit_log (entity_type, entity_id);

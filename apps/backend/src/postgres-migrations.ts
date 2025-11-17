@@ -98,7 +98,7 @@ export const runMigrations = Effect.gen(function*() {
 
   // Run migrations using the layer-based approach
   const result = yield* PgMigrator.run({
-    loader: PgMigrator.fromFileSystem('../database/sql'),
+    loader: PgMigrator.fromFileSystem('../../database/sql'),
     table: 'effect_migrations'
   })
 
@@ -302,19 +302,14 @@ export const runInMemoryMigrations = PgMigrator.run({
  *   npx tsx apps/backend/postgres-migrations.ts
  */
 if (require.main === module) {
-  Effect.runPromise(
-    runMigrationsSafeWithLayers.pipe(
-      Effect.tap(() => {
-        process.exit(0)
-        return Effect.void
-      }),
-      Effect.catchAll((error) => {
-        console.error('Migration failed:', error)
-        process.exit(1)
-        return Effect.void
-      })
-    )
-  )
+  Effect.runPromise(runMigrationsSafeWithLayers)
+    .then(() => {
+      process.exit(0)
+    })
+    .catch((error) => {
+      console.error('Migration failed:', error)
+      process.exit(1)
+    })
 }
 
 // ============================================================================

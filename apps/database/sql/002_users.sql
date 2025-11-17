@@ -12,9 +12,9 @@ CREATE TABLE users (
     password_hash TEXT        NOT NULL,
     location      TEXT        NULL CHECK (char_length(location) <= 200),
     created_at    TIMESTAMPTZ NOT NULL DEFAULT now(),
-    portfolio_url TEXT        NULL CHECK (portfolio_url ~ '^https?://'),
-    youtube_url   TEXT        NULL CHECK (youtube_url ~ '^https?://'),
-    mastodon_url  TEXT        NULL CHECK (mastodon_url ~ '^https?://'),
-    bluesky_url   TEXT        NULL CHECK (bluesky_url ~ '^https?://'),
-    linkedin_url  TEXT        NULL CHECK (linkedin_url ~ '^https?://')
+    portfolio_url TEXT        NULL CHECK (portfolio_url ~ '^https://[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}.*$'),
+    youtube_url   TEXT        NULL CHECK (youtube_url ~ '^https://[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}.*$'),
+    mastodon_url  TEXT        NULL CHECK (mastodon_url ~ '^https://[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}.*$'),
+    bluesky_url   TEXT        NULL CHECK (bluesky_url ~ '^https://[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}.*$'),
+    linkedin_url  TEXT        NULL CHECK (linkedin_url ~ '^https://[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}.*$')
 );

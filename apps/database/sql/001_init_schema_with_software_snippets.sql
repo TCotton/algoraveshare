@@ -114,12 +114,12 @@ CREATE TABLE audit_log
 (
     audit_id    UUID PRIMARY KEY     DEFAULT uuid_generate_v7(),
     user_id     UUID REFERENCES users (user_id) ON DELETE SET NULL,
-    action      TEXT        NOT NULL,
+    action      TEXT        NOT NULL CHECK (action IN ('user_created', 'user_updated', 'user_deleted', 'project_created', 'project_updated', 'project_deleted', 'snippet_created', 'snippet_updated', 'snippet_deleted')),
     details     JSONB       NOT NULL,
-    entity_type TEXT        NULL CHECK (entity_type IN ('project', 'snippet', 'user')),
-    entity_id   UUID        NULL,
+    entity_type TEXT        NOT NULL CHECK (entity_type IN ('project', 'snippet', 'user')),
     created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 CREATE INDEX idx_audit_log_created_at ON audit_log (created_at);
 CREATE INDEX idx_audit_log_action ON audit_log (action);
 CREATE INDEX idx_audit_log_entity ON audit_log (entity_type, entity_id);
+CREATE INDEX idx_audit_log_user_id ON audit_log (user_id);

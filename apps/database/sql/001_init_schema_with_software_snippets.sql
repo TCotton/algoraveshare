@@ -11,18 +11,6 @@ CREATE
 EXTENSION IF NOT EXISTS citext;
 CREATE
 EXTENSION IF NOT EXISTS pgcrypto;
-
--- UUIDv7 function (custom implementation for PostgreSQL)
-CREATE OR REPLACE FUNCTION uuidv7() RETURNS UUID AS $$
-BEGIN
-    RETURN encode(
-        decode(replace(cast(extract(epoch from now()) * 1000 as bigint)::text, '.', ''), 'hex') ||
-        gen_random_bytes(10),
-        'hex'
-    )::UUID;
-END;
-$$ LANGUAGE plpgsql;
-
 -- ====================================================
 -- Users
 -- ====================================================

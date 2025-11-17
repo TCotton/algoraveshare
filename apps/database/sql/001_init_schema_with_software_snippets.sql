@@ -124,7 +124,7 @@ CREATE TABLE audit_log
 (
     audit_id   UUID PRIMARY KEY     DEFAULT uuidv7(),
     action     TEXT        NOT NULL,
-    details    TEXT        NOT NULL,
+    details    JSONB        NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 

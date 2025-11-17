@@ -123,6 +123,7 @@ CREATE INDEX idx_tag_assignments_entity_type ON tag_assignments (entity_type);
 CREATE TABLE audit_log
 (
     audit_id   UUID PRIMARY KEY     DEFAULT uuidv7(),
+    user_id    UUID REFERENCES users (user_id) ON DELETE SET NULL,
     action     TEXT        NOT NULL,
     details    JSONB        NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()

@@ -70,21 +70,19 @@ interface UserProjectCountRow {
 // ============================================================================
 
 // Example 1: Basic PostgreSQL Client Layer
-export const PgLive: Layer<PgClient.PgClient, ConfigError | SqlError> =
-  Pg.layerConfig({
-    database: Config.succeed('testDB'),
-    host: Config.succeed('127.0.0.1'),
-    password: Config.succeed(Redacted.make('postgres')),
-    port: Config.succeed(5432),
-    username: Config.succeed('postgres')
-  })
+export const PgLive: Layer<PgClient.PgClient, ConfigError | SqlError> = Pg.layerConfig({
+  database: Config.succeed('testDB'),
+  host: Config.succeed('127.0.0.1'),
+  password: Config.succeed(Redacted.make('postgres')),
+  port: Config.succeed(5432),
+  username: Config.succeed('postgres')
+})
 
 // Example 2: Using connection string from environment
 // DATABASE_URL should be in format: postgresql://user:password@host:port/database
-export const PgLiveFromEnv: Layer<PgClient.PgClient, ConfigError | SqlError> =
-  Pg.layerConfig({
-    url: Config.redacted('DATABASE_URL')
-  })
+export const PgLiveFromEnv: Layer<PgClient.PgClient, ConfigError | SqlError> = Pg.layerConfig({
+  url: Config.redacted('DATABASE_URL')
+})
 
 // ============================================================================
 // QUERY EXAMPLES

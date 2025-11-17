@@ -117,6 +117,7 @@ CREATE TABLE audit_log
     action      TEXT        NOT NULL CHECK (action IN ('user_created', 'user_updated', 'user_deleted', 'project_created', 'project_updated', 'project_deleted', 'snippet_created', 'snippet_updated', 'snippet_deleted')),
     details     JSONB       NOT NULL,
     entity_type TEXT        NOT NULL CHECK (entity_type IN ('project', 'snippet', 'user')),
+    entity_id   UUID        NULL,
     created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 CREATE INDEX idx_audit_log_created_at ON audit_log (created_at);

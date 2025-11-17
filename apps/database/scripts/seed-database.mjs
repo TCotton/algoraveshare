@@ -466,9 +466,10 @@ async function seedDatabase() {
     console.log(`   Tags: ${tagIds.length}`)
     console.log(`   Projects: ${projectIds.length}`)
     console.log(`   Snippets: ${snippetIds.length}`)
-    
+
     // Count tag assignments
-    const totalTagAssignments = projectTagAssignments.reduce((acc, assignment) => acc + assignment.tagIndices.length, 0) +
+    const totalTagAssignments = projectTagAssignments.reduce((acc, assignment) =>
+      acc + assignment.tagIndices.length, 0) +
       snippetTagAssignments.reduce((acc, assignment) => acc + assignment.tagIndices.length, 0)
     console.log(`   Tag Assignments: ${totalTagAssignments}`)
   } catch (error) {

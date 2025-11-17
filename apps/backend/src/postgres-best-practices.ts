@@ -64,6 +64,7 @@ interface ProjectRow {
   description: string
   project_id: string
   project_name: string
+  software_type: 'strudel' | 'tidalcycles'
   user_id: string
 }
 

@@ -1,5 +1,4 @@
 import 'dotenv/config'
-import { DevTools } from '@effect/experimental'
 import { HttpApiBuilder, HttpMiddleware, HttpServer } from '@effect/platform'
 import { NodeHttpServer, NodeRuntime } from '@effect/platform-node'
 import { DbSchema } from '@repo/database/schema'
@@ -49,10 +48,8 @@ const DatabaseLive = Layer.unwrapEffect(
     )
   )
 ).pipe(Layer.provide(EnvVars.Default))
-const DevToolsLive = DevTools.layer()
 // Set up the server using NodeHttpServer on port 3000
 const ServerLive = HttpApiBuilder.serve(HttpMiddleware.logger).pipe(
-  Layer.provide(DevToolsLive),
   Layer.provide(HttpApiBuilder.middlewareCors()),
   // Layer.provide(HttpApiSwagger.layer({ path: '/docs' })),
   // Layer.provide(HttpApiBuilder.middlewareOpenApi()),

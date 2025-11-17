@@ -12,6 +12,24 @@
  *
  * npx tsx apps/backend/postgres-migrations.ts
  *
+ * First Migration Run: When you run PgMigrator.run() for the first time, it will:
+ *
+ * Check if the effect_migrations table exists
+ * If it doesn't exist, create it automatically
+ * Then run your migration files
+ * The table structure created automatically is:
+ *
+ * How it tracks migrations:
+ *
+ * Each SQL file in your directory gets a migration ID based on its filename (e.g., 001_init_schema.sql → ID: 1)
+ * After running a migration, it inserts a row with the ID and name
+ * On subsequent runs, it checks this table to skip already-applied migrations
+ * So your current SQL file at 001_init_schema_with_software_snippets.sql is perfect as-is. Just make sure:
+ *
+ * Your migration files follow the naming convention: 001_description.sql, 002_description.sql, etc.
+ * Files are numbered in the order you want them to run
+ * When you execute npx tsx apps/backend/postgres-migrations.ts, it will handle everything automatically! 🎉
+ *
  * @see https://effect-ts.github.io/effect/sql-pg/PgMigrator.ts.html
  */
 

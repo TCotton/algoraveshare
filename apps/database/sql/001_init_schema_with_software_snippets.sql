@@ -11,8 +11,18 @@ CREATE
 EXTENSION IF NOT EXISTS citext;
 CREATE
 EXTENSION IF NOT EXISTS pgcrypto;
-CREATE
-EXTENSION IF NOT EXISTS pg_uuidv7;
+
+-- UUIDv7 function (custom implementation for PostgreSQL)
+CREATE OR REPLACE FUNCTION uuidv7() RETURNS UUID AS $$
+BEGIN
+    RETURN encode(
+        decode(replace(cast(extract(epoch from now()) * 1000 as bigint)::text, '.', ''), 'hex') ||
+        gen_random_bytes(10),
+        'hex'
+    )::UUID;
+END;
+$$ LANGUAGE plpgsql;
+
 -- ====================================================
 -- Users
 -- ====================================================
@@ -107,3 +117,16 @@ CREATE TABLE tag_assignments
 CREATE INDEX idx_tag_assignments_entity_id ON tag_assignments (entity_id);
 CREATE INDEX idx_tag_assignments_entity_type ON tag_assignments (entity_type);
 
+-- ====================================================
+-- Audit Log
+-- ====================================================
+CREATE TABLE audit_log
+(
+    audit_id   UUID PRIMARY KEY     DEFAULT uuidv7(),
+    action     TEXT        NOT NULL,
+    details    TEXT        NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE INDEX idx_audit_log_created_at ON audit_log (created_at);
+CREATE INDEX idx_audit_log_action ON audit_log (action);

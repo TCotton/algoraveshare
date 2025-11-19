@@ -171,7 +171,6 @@ const AppConfigLive = Layer.merge(ConfigLive, LoggerLive)
 
 const program = Effect.gen(function*() {
   const database = yield* DatabaseService
-  yield* database.healthcheck('SELECT 1')
 
   const queryResult = yield* database.query('SELECT * FROM users')
 
@@ -187,10 +186,18 @@ const MainLive = DatabaseLive.pipe(
   Layer.provide(ConfigLive)
 )
 
-const runnable = Effect.gen(function*() {
+const runnable: Effect.Effect<
+  {
+    queryResult: ReadonlyArray<object>
+  },
+  ConfigError | SqlError | DatabaseConnectionLostError | SQLError,
+  never
+> = Effect.gen(function*() {
   const database = yield* DatabaseService
   const pgLayer = yield* database.pgLive()
-
+  yield* database.healthcheck('SELECT 1').pipe(
+    Effect.provide(pgLayer)
+  )
   return yield* Effect.provide(program, pgLayer)
 }).pipe(Effect.provide(MainLive))
 

@@ -79,8 +79,12 @@ const LoggerLive = Layer.effect(
 class DatabaseService extends Context.Tag('DatabaseService')<
   DatabaseService,
   {
-    readonly pgLive: () => Effect.Effect<Layer.Layer<Pg.PgClient | SqlClient, ConfigError | SqlError>>
-    readonly healthcheck: (sql: string) => Effect.Effect<boolean, never, Pg.PgClient>
+    readonly pgLive: () => Effect.Effect<
+      Layer.Layer<Pg.PgClient | SqlClient, ConfigError | SqlError, never>,
+      never,
+      never
+    >
+    readonly healthcheck: (sql: string) => Effect.Effect<void, DatabaseConnectionLostError, Pg.PgClient>
     readonly query: (sql: string) => Effect.Effect<ReadonlyArray<object>, SQLError, Pg.PgClient>
   }
 >() {}
@@ -88,6 +92,11 @@ class DatabaseService extends Context.Tag('DatabaseService')<
 class SQLError extends Data.TaggedError('SQLError')<{
   cause: unknown
   message?: string
+}> {}
+
+class DatabaseConnectionLostError extends Data.TaggedError('DatabaseConnectionLostError')<{
+  cause: unknown
+  message: string
 }> {}
 
 const DatabaseLive = Layer.effect(
@@ -98,7 +107,7 @@ const DatabaseLive = Layer.effect(
     return {
       pgLive: () => {
         const { database, host, password, port, username } = config.getConfig
-        return Effect.succeed(
+        return Effect.sync(() =>
           Pg.layerConfig({
             database: Config.succeed(database),
             host: Config.succeed(host),
@@ -113,12 +122,26 @@ const DatabaseLive = Layer.effect(
           yield* logger.log(`Executing healthcheck query: ${sqlquery}`)
           const sql = yield* Pg.PgClient
 
-          return yield* Effect.orElseSucceed(
-            Effect.map(
-              sql.unsafe(sqlquery),
-              () => true
+          yield* sql.unsafe(sqlquery).pipe(
+            Effect.timeoutFail({
+              duration: '10 seconds',
+              onTimeout: () =>
+                new DatabaseConnectionLostError({
+                  cause: new Error('timeout'),
+                  message: '[Database] Failed to connect: timeout'
+                })
+            }),
+            Effect.catchIf(
+              (error) => !(error instanceof DatabaseConnectionLostError),
+              (error) =>
+                Effect.fail(
+                  new DatabaseConnectionLostError({
+                    cause: error,
+                    message: '[Database] Failed to connect'
+                  })
+                )
             ),
-            () => false
+            Effect.tap(() => Effect.logInfo('[Database]: Connection to the database established.'))
           )
         }),
       query: (sqlquery: string) =>
@@ -148,20 +171,10 @@ const AppConfigLive = Layer.merge(ConfigLive, LoggerLive)
 
 const program = Effect.gen(function*() {
   const database = yield* DatabaseService
-  const pgLayer = yield* database.pgLive()
-  const healthCheckResult = yield* database.healthcheck('SELECT 1').pipe(
-    Effect.provide(pgLayer)
-  )
+  yield* database.healthcheck('SELECT 1')
 
-  if (!healthCheckResult) {
-    return new SQLError({
-      cause: new Error('Database health check failed')
-    })
-  }
+  const queryResult = yield* database.query('SELECT * FROM users')
 
-  const queryResult = yield* database.query('SELECT * FROM users').pipe(
-    Effect.provide(pgLayer)
-  )
   return {
     queryResult
   }
@@ -174,6 +187,11 @@ const MainLive = DatabaseLive.pipe(
   Layer.provide(ConfigLive)
 )
 
-const runnable = Effect.provide(program, MainLive)
+const runnable = Effect.gen(function*() {
+  const database = yield* DatabaseService
+  const pgLayer = yield* database.pgLive()
+
+  return yield* Effect.provide(program, pgLayer)
+}).pipe(Effect.provide(MainLive))
 
 Effect.runPromiseExit(runnable).then(console.log)

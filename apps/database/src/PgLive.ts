@@ -6,6 +6,7 @@ import { Context, Data, Effect, Layer } from 'effect'
 import * as Config from 'effect/Config'
 import type { ConfigError } from 'effect/ConfigError'
 import * as Redacted from 'effect/Redacted'
+import * as pg from 'pg'
 
 // Define a service to load environment variables
 // Will fail with ConfigError if any required variables are missing
@@ -79,8 +80,12 @@ const LoggerLive = Layer.effect(
 class DatabaseService extends Context.Tag('DatabaseService')<
   DatabaseService,
   {
-    readonly pgLive: () => Effect.Effect<Layer.Layer<Pg.PgClient | SqlClient, ConfigError | SqlError>>
-    readonly healthcheck: (sql: string) => Effect.Effect<boolean, never, Pg.PgClient>
+    readonly pgLive: () => Effect.Effect<
+      Layer.Layer<Pg.PgClient | SqlClient, ConfigError | SqlError, never>,
+      never,
+      never
+    >
+    readonly healthcheck: (sql: string) => Effect.Effect<boolean, unknown, unknown>
     readonly query: (sql: string) => Effect.Effect<ReadonlyArray<object>, SQLError, Pg.PgClient>
   }
 >() {}
@@ -88,6 +93,11 @@ class DatabaseService extends Context.Tag('DatabaseService')<
 class SQLError extends Data.TaggedError('SQLError')<{
   cause: unknown
   message?: string
+}> {}
+
+class DatabaseConnectionLostError extends Data.TaggedError('DatabaseConnectionLostError')<{
+  cause: unknown
+  message: string
 }> {}
 
 const DatabaseLive = Layer.effect(
@@ -98,7 +108,7 @@ const DatabaseLive = Layer.effect(
     return {
       pgLive: () => {
         const { database, host, password, port, username } = config.getConfig
-        return Effect.succeed(
+        return Effect.sync(() =>
           Pg.layerConfig({
             database: Config.succeed(database),
             host: Config.succeed(host),
@@ -112,6 +122,26 @@ const DatabaseLive = Layer.effect(
         Effect.gen(function*() {
           yield* logger.log(`Executing healthcheck query: ${sqlquery}`)
           const sql = yield* Pg.PgClient
+
+          yield* sql.unsafe(sqlquery).pipe(
+            Effect.timeoutFail({
+              duration: '10 seconds',
+              onTimeout: () =>
+                new DatabaseConnectionLostError({
+                  cause: new Error('[Database] Failed to connect: timeout'),
+                  message: '[Database] Failed to connect: timeout'
+                })
+            }),
+            Effect.catchAll((error) =>
+              Effect.fail(
+                new DatabaseConnectionLostError({
+                  cause: error,
+                  message: '[Database] Failed to connect'
+                })
+              )
+            ),
+            Effect.tap(() => Effect.logInfo('[Database client]: Connection to the database established.'))
+          )
 
           return yield* Effect.orElseSucceed(
             Effect.map(

@@ -6,7 +6,6 @@ import { Context, Data, Effect, Layer } from 'effect'
 import * as Config from 'effect/Config'
 import type { ConfigError } from 'effect/ConfigError'
 import * as Redacted from 'effect/Redacted'
-import * as pg from 'pg'
 
 // Define a service to load environment variables
 // Will fail with ConfigError if any required variables are missing
@@ -142,14 +141,7 @@ const DatabaseLive = Layer.effect(
             ),
             Effect.tap(() => Effect.logInfo('[Database client]: Connection to the database established.'))
           )
-
-          return yield* Effect.orElseSucceed(
-            Effect.map(
-              sql.unsafe(sqlquery),
-              () => true
-            ),
-            () => false
-          )
+          return true
         }),
       query: (sqlquery: string) =>
         Effect.gen(function*() {
@@ -174,28 +166,26 @@ const DatabaseLive = Layer.effect(
   })
 )
 
-const AppConfigLive = Layer.merge(ConfigLive, LoggerLive)
-
 const program = Effect.gen(function*() {
   const database = yield* DatabaseService
-  const pgLayer = yield* database.pgLive()
-  const healthCheckResult = yield* database.healthcheck('SELECT 1').pipe(
-    Effect.provide(pgLayer)
-  )
+  const healthCheckResult = yield* database.healthcheck('SELECT 1')
 
   if (!healthCheckResult) {
-    return new SQLError({
-      cause: new Error('Database health check failed')
-    })
+    return yield* Effect.fail(
+      new SQLError({
+        cause: new Error('Database health check failed')
+      })
+    )
   }
 
-  const queryResult = yield* database.query('SELECT * FROM users').pipe(
-    Effect.provide(pgLayer)
-  )
+  const queryResult = yield* database.query('SELECT * FROM users')
+
   return {
     queryResult
   }
 })
+
+const AppConfigLive = Layer.merge(ConfigLive, LoggerLive)
 
 const MainLive = DatabaseLive.pipe(
   // provides the config and logger to the database
@@ -204,6 +194,14 @@ const MainLive = DatabaseLive.pipe(
   Layer.provide(ConfigLive)
 )
 
-const runnable = Effect.provide(program, MainLive)
+const runnable = Effect.gen(function*() {
+  const database = yield* DatabaseService
+  const pgLayer = yield* database.pgLive()
+
+  // Build the complete layer stack
+  const fullLayer = MainLive.pipe(Layer.provideMerge(pgLayer))
+
+  return yield* Effect.provide(program, fullLayer)
+})
 
 Effect.runPromiseExit(runnable).then(console.log)

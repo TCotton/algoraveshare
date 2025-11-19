@@ -129,10 +129,12 @@ const DatabaseLive = Layer.effect(
           const result: ReadonlyArray<object> = yield* Effect.catchAll(
             sql.unsafe(sqlquery),
             (error: SqlError) => {
-              return new SQLError({
-                cause: new Error(`SQL error: ${error.cause}`),
-                message: error.message
-              })
+              return Effect.fail(
+                new SQLError({
+                  cause: new Error(`SQL error: ${error.cause}`),
+                  message: error.message
+                })
+              )
             }
           )
 

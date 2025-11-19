@@ -127,7 +127,7 @@ const DatabaseLive = Layer.effect(
               duration: '10 seconds',
               onTimeout: () =>
                 new DatabaseConnectionLostError({
-                  cause: new Error('[Database] Failed to connect: timeout'),
+                  cause: new Error('timeout'),
                   message: '[Database] Failed to connect: timeout'
                 })
             }),
@@ -141,7 +141,7 @@ const DatabaseLive = Layer.effect(
                   })
                 )
             ),
-            Effect.tap(() => Effect.logInfo('[Database client]: Connection to the database established.'))
+            Effect.tap(() => Effect.logInfo('[Database]: Connection to the database established.'))
           )
         }),
       query: (sqlquery: string) =>

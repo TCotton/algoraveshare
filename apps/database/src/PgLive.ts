@@ -142,7 +142,7 @@ const DatabaseLive = Layer.effect(
         })
     }
   })
-)
+).pipe
 
 const AppConfigLive = Layer.merge(ConfigLive, LoggerLive)
 

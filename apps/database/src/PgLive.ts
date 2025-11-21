@@ -38,7 +38,7 @@ class ConfigService extends Context.Tag('ConfigService')<
   }
 >() {}
 
-// Layer<ConfigService, never, EnvVars>
+// Layer<ConfigService, ConfigError, never>
 const ConfigLive = Layer.effect(
   ConfigService,
   Effect.gen(function*() {
@@ -167,8 +167,6 @@ const DatabaseLive = Layer.effect(
   })
 )
 
-const AppConfigLive = Layer.merge(ConfigLive, LoggerLive)
-
 const program = Effect.gen(function*() {
   const database = yield* DatabaseService
 
@@ -178,6 +176,8 @@ const program = Effect.gen(function*() {
     queryResult
   }
 })
+
+const AppConfigLive = Layer.merge(ConfigLive, LoggerLive)
 
 const MainLive = DatabaseLive.pipe(
   // provides the config and logger to the database

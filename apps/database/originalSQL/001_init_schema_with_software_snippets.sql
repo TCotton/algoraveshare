@@ -85,22 +85,19 @@ CREATE INDEX CONCURRENTLY idx_snippets_user_id ON snippets (user_id);
 CREATE TABLE tags
 (
     tag_id     UUID  PRIMARY KEY DEFAULT uuidv7(),
-    name   TEXT NOT NULL UNIQUE CHECK (char_length(name) BETWEEN 1 AND 50)
+    name   CITEXT NOT NULL UNIQUE CHECK (char_length(name) BETWEEN 1 AND 50)
 );
 
 -- ====================================================
 -- Tag Assignments (Polymorphic relationship)
 -- ====================================================
-CREATE TABLE tag_assignments
-(
-    assignment_id    UUID PRIMARY KEY DEFAULT uuidv7(),
-    tag_id      INT         NOT NULL REFERENCES tags (tag_id) ON DELETE CASCADE,
-    entity_type TEXT        NOT NULL CHECK (entity_type IN ('project', 'snippet')),
-    entity_id   UUID        NOT NULL,
-    PRIMARY KEY (tag_id, entity_type, entity_id),
-    -- Optional: use a CHECK constraint to ensure entity_id exists in the right table
-    -- This can't be enforced directly with FK constraints, but can be done via triggers if needed
-    created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+CREATE TABLE tag_assignments (
+                                 assignment_id    UUID PRIMARY KEY DEFAULT uuidv7(),
+                                 tag_id           UUID NOT NULL REFERENCES tags(tag_id) ON DELETE CASCADE,
+                                 entity_type      TEXT NOT NULL CHECK (entity_type IN ('project', 'snippet')),
+                                 entity_id        UUID NOT NULL,
+                                 UNIQUE (tag_id, entity_type, entity_id),
+                                 created_at       TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE INDEX CONCURRENTLY idx_tag_assignments_entity_id ON tag_assignments (entity_id);

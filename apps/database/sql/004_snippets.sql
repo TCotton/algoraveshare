@@ -18,6 +18,6 @@ CREATE TABLE snippets (
                           created_at      TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE INDEX CONCURRENTLY idx_snippets_author_id ON snippets (author_id);
+CREATE INDEX CONCURRENTLY idx_snippets_user_id ON snippets (user_id);
 CREATE INDEX CONCURRENTLY idx_snippets_language ON snippets (language);
 CREATE INDEX CONCURRENTLY idx_snippets_created_at ON snippets (created_at DESC);
